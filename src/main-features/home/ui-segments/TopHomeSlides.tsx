@@ -17,7 +17,7 @@ import { allAddressSelector } from "../../address/store/slice";
 import { entitiesTopHomeSlidesImages } from "../store/slice";
 
 const TopHomeSlides: FunctionComponent = () => {
-  console.log("TopHomeSlides ");
+  // console.log("TopHomeSlides ");
   const [listTopSlidesImage] = React.useState<ITopHomeSlidesImages[]>(
     StorageService.local.get(AllAppConfig.HOME_TOP_SLIDES_IMAGE)
   );

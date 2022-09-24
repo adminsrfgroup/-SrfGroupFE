@@ -11,7 +11,7 @@ import { entityHomeFeatures } from "../store/slice";
 import { getBaseImageUrl } from "../../../shared/utils/utils-functions";
 
 const PostHomeFeature: FunctionComponent = () => {
-  console.log("PostHomeFeature ");
+  // console.log("PostHomeFeature ");
   const [entityPostHomeFeature, setEntityPostHomeFeature] =
     React.useState<IPostHomeFeature>(
       StorageService.local.get(AllAppConfig.POST_HOME_FEATURE)

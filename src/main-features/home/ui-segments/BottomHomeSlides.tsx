@@ -35,8 +35,7 @@ SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 // }
 
 const BottomHomeSlides: FunctionComponent = () => {
-// export default function BottomHomeSlides(){
-  console.log("BottomHomeSlides ");
+  // console.log("BottomHomeSlides ");
   const [slideListBottom, setSlideListBottom] = React.useState(
     StorageService.local.get(AllAppConfig.SlideListBottom)
   );

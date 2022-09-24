@@ -9,7 +9,7 @@ export const ACTION_TYPES = {
 
 const reducer = {
   connectedUserWS: (state: any) => {
-    console.log("connectedUserWS", state);
+    console.log('');
   },
 
   fetchListConnectedUsersWS: (state: any, action: PayloadAction) => {

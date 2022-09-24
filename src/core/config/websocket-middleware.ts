@@ -85,7 +85,7 @@ export const getStompClient = (): Client => {
 };
 
 const connect = (currentUser: IUser) => {
-  console.log("sendConnectedNewUser ", currentUser);
+  // console.log("sendConnectedNewUser ", currentUser);
 
   if (connectedPromise !== null || alreadyConnectedOnce) {
     // the connection is already being established

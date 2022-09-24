@@ -107,7 +107,7 @@
     "build": "env-cmd -f ./environments/.prod.env npm run build:prod:windows",
     "build:prod:windows-with-source-map": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "build:prod:windows": "react-scripts build",
-    "build:prod": "env-cmd -f ./environments/.prod.env npm run build:prod:windows-with-source-map",
+    "build:prod": "env-cmd -f ./environments/.prod.env npm run build:prod:windows",
     "test": "react-scripts test",
     "coverage": "react-scripts test --coverage",
     "test-sonar": "react-scripts test --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter",

@@ -26,6 +26,7 @@ import {
   addSuccessNewsLetter,
   loadingNewsLetter,
 } from "./store/slice";
+import './components/footer.scss';
 
 function Copyright() {
   return (
@@ -146,8 +147,7 @@ export default function Footer() {
         <Typography variant="h6" align="center" gutterBottom sx={{ pt: 3 }}>
           <img
             src={getBaseImageUrl("/assets/images/logo-svg.svg")}
-            style={{ marginRight: "2px" }}
-            width="200"
+            className="img-footer-logo"
             alt="Logo SrfGroup"
           />
         </Typography>

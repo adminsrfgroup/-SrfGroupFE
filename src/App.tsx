@@ -252,7 +252,7 @@ export const App = () => {
     loadScriptGoogleAnalytics().then(
       (resultLoad: boolean) => {
         if (resultLoad) {
-          console.log("Success init Google Analytics");
+          // console.log("Success init Google Analytics");
           setIsGoogleAnalytics(true);
         }
       },
@@ -264,7 +264,7 @@ export const App = () => {
     // Load Facebook SDK
     loadScriptFacebook().then(
       (resultLoad: boolean) => {
-        console.log("Success init Facebook");
+        // console.log("Success init Facebook");
       },
       (errorLoad: boolean) => {
         console.log("Error to load script Facebook ", errorLoad);
