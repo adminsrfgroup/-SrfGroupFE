@@ -10,29 +10,43 @@ import FirstHorizentalListHomeClient from "./ui-segments/FirstHorizentalListHome
 import RecentlyAddedHomeClient from "./ui-segments/RecentlyAddedHomeClient";
 import PostHomeFeature from "./ui-segments/PostHomeFeature";
 import BottomHomeSlides from "./ui-segments/BottomHomeSlides";
+import './home.scss';
 
 export default function Home() {
+    const [isShowContainer, setIsShowContainer] = React.useState(false);
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            console.log('setIsShowContainer');
+            setIsShowContainer(true);
+        }, 1000);
+    }, [])
+
+    const getClassContainer = isShowContainer ? 'container-mobile-lazy show' : 'container-mobile-lazy';
+
   return (
     <Box>
       <TopHomeSlides />
 
       <ForSellHomeClient />
 
-      <FirstHorizentalListHomeClient />
+      <Box className={getClassContainer}>
+          <FirstHorizentalListHomeClient />
 
-      <ForRentHomeClient />
+          <ForRentHomeClient />
 
-      <SecondHorizentalListHomeClient />
+          <SecondHorizentalListHomeClient />
 
-      <ForFindHomeClient />
+          <ForFindHomeClient />
 
-      <ThirdHorizentalListHomeClient />
+          <ThirdHorizentalListHomeClient />
 
-      <RecentlyAddedHomeClient />
+          <RecentlyAddedHomeClient />
 
-      <PostHomeFeature />
+          <PostHomeFeature />
 
-      <BottomHomeSlides />
+          <BottomHomeSlides />
+      </Box>
     </Box>
   );
 }
