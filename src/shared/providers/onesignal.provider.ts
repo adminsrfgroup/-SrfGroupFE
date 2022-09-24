@@ -8,7 +8,7 @@ export function oneSignalProviders() {
       OneSignal.init({
         appId: AllAppConfig.APP_ID_ONESIGNAL,
       }).then((result: any) => {
-        console.log("OneSignal init succefully");
+        // console.log("OneSignal init succefully");
 
         OneSignal.isPushNotificationsEnabled((result: boolean) => {
           if (result) {
