@@ -104,21 +104,21 @@ import { languages, locales } from "./main-features/user/store/initial.state";
 import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthorized-content-modal";
 
 import { init as initApm } from '@elastic/apm-rum'
-if (process.env.NODE_ENV === "development") {
-  initApm({
-
-    // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-    serviceName: 'ServerApmSrfGroup',
-
-    // Set custom APM Server URL (default: http://localhost:8200)
-    serverUrl: 'http://localhost:8200',
-
-    // Set service version (required for sourcemap feature)
-    serviceVersion: '1.0',
-
-    logLevel: "debug"
-  })
-}
+// if (process.env.NODE_ENV === "development") {
+//   initApm({
+//
+//     // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+//     serviceName: 'ServerApmSrfGroup',
+//
+//     // Set custom APM Server URL (default: http://localhost:8200)
+//     serverUrl: 'http://localhost:8200',
+//
+//     // Set service version (required for sourcemap feature)
+//     serviceVersion: '1.0',
+//
+//     logLevel: "debug"
+//   })
+// }
 
 
 function ScrollToTopRouters() {
