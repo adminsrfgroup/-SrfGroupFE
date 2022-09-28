@@ -30,7 +30,7 @@ import { useTranslation } from "react-i18next";
 import Select from "@mui/material/Select/Select";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
 import {
-  dataUrlToFile,
+  dataUrlToFile, getBase64,
   getFullnameUser,
   getUserAvatar,
 } from "../../../../shared/utils/utils-functions";
@@ -70,6 +70,7 @@ import {
   loadingEntityCountOffersByUser,
 } from "../../../offer/store/slice";
 import StatisticOffers from "../../../../shared/components/statistic-offers/statistic-offers";
+import { Image } from "load-image-react";
 // import { AccountChatBot } from './ui-segments/account-chatbot';
 
 const initialValues = initialValuesAccount;
@@ -241,12 +242,21 @@ export default function Account() {
   }, [updateSuccessAvatarSelector]);
 
   const selectFile = (event: any) => {
+
+    getBase64(event.target.files[0]).then((result: any) => {
+      dataUrlToFile(result, event.target.files[0].name).then((value: any) => {
+        setImageAvatar(value);
+      });
+      setFileState(result);
+    })
+    /*
     getImageUrl(event.target.files[0], 500).then((result: any) => {
       dataUrlToFile(result, event.target.files[0].name).then((value: any) => {
         setImageAvatar(value);
       });
       setFileState(result);
     });
+    */
   };
 
   return (
@@ -295,9 +305,9 @@ export default function Account() {
                     marginRight: "auto",
                   }}
                 >
+
                   <Avatar
                     alt="Remy Sharp"
-                    src={fileState}
                     sx={{
                       width: 80,
                       height: 80,
@@ -308,6 +318,14 @@ export default function Account() {
                       border: "1px solid #cdc5c5",
                     }}
                   >
+                    <Image
+                        src={fileState}
+                        loadOptions={{
+                          downsamplingRatio: 0.5,
+                          maxWidth: 200,
+                          maxHeight: 200
+                        }}
+                    />
                     {getFullnameUser(currentUser)?.charAt(0)}
                   </Avatar>
                   {currentUser.sourceConnectedDevice ==
