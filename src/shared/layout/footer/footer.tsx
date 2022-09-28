@@ -9,7 +9,7 @@ import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Grid from "@mui/material/Grid/Grid";
 import Avatar from "@mui/material/Avatar/Avatar";
 import Stack from "@mui/material/Stack/Stack";
-import { getBaseImageUrl } from "../../utils/utils-functions";
+import {dataUrlToFile, getBaseImageUrl} from "../../utils/utils-functions";
 import packageJson from "../../../../package.json";
 import { useFormik } from "formik";
 import {
@@ -27,6 +27,9 @@ import {
   loadingNewsLetter,
 } from "./store/slice";
 import './components/footer.scss';
+import loadImage from "blueimp-load-image";
+import * as Reactdom from 'react-dom';
+import {MutableRefObject, ReactInstance} from "react";
 
 function Copyright() {
   return (
@@ -64,6 +67,10 @@ function Copyright() {
 const initialValues = initialValuesSubscribeNewsLetter;
 
 export default function Footer() {
+
+  const [fileState, setFileState] = React.useState(null);
+  const imageCanvas = React.useRef(null);
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -84,6 +91,16 @@ export default function Footer() {
       formik.resetForm();
     }
   }, [addSuccessNewsLetterSelector]);
+
+
+  const selectFile = (event: any) => {
+    loadImage(event.target.files[0], { maxWidth: 500 }).then(function (data: any) {
+      // document.body.appendChild(data.image)
+      console.log('data.image ', data.image);
+      document.body.appendChild(data.image);
+      // setFileState(data.image);
+    })
+  };
 
   return (
     <Box component="footer" sx={{ bgcolor: "background.paper" }}>
@@ -289,6 +306,20 @@ export default function Footer() {
             </Link>
           </Grid>
           <Grid item xs={12} sm={3}>
+            <Box>
+              <input
+                  type="file"
+                  onChange={selectFile}
+              />
+
+              {
+                imageCanvas ? <div ref={imageCanvas}></div> : null
+              }
+
+              {/*{*/}
+              {/*  fileState ? fileState : null*/}
+              {/*}*/}
+            </Box>
             <Typography variant="h6" align="center" gutterBottom>
               Apps mobile
             </Typography>
