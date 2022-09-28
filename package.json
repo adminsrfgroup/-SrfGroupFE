@@ -37,6 +37,7 @@
     "i18next": "20.0.0",
     "javascript-time-ago": "^2.3.13",
     "jest-watcher": "^28.1.0",
+    "load-image-react": "^1.0.2",
     "lodash": "^4.17.21",
     "query-string": "^7.1.1",
     "react": "^18.1.0",

@@ -9,7 +9,7 @@ import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Grid from "@mui/material/Grid/Grid";
 import Avatar from "@mui/material/Avatar/Avatar";
 import Stack from "@mui/material/Stack/Stack";
-import {dataUrlToFile, getBaseImageUrl} from "../../utils/utils-functions";
+import {dataUrlToFile, getBase64, getBaseImageUrl} from "../../utils/utils-functions";
 import packageJson from "../../../../package.json";
 import { useFormik } from "formik";
 import {
@@ -30,6 +30,7 @@ import './components/footer.scss';
 import loadImage from "blueimp-load-image";
 import * as Reactdom from 'react-dom';
 import {MutableRefObject, ReactInstance} from "react";
+import { Image } from "load-image-react";
 
 function Copyright() {
   return (
@@ -69,7 +70,6 @@ const initialValues = initialValuesSubscribeNewsLetter;
 export default function Footer() {
 
   const [fileState, setFileState] = React.useState(null);
-  const imageCanvas = React.useRef(null);
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -94,11 +94,9 @@ export default function Footer() {
 
 
   const selectFile = (event: any) => {
-    loadImage(event.target.files[0], { maxWidth: 500 }).then(function (data: any) {
-      // document.body.appendChild(data.image)
-      console.log('data.image ', data.image);
-      document.body.appendChild(data.image);
-      // setFileState(data.image);
+    console.log('event ', event.target.files[0]);
+    getBase64(event.target.files[0]).then((e: any) => {
+      setFileState(e);
     })
   };
 
@@ -313,7 +311,16 @@ export default function Footer() {
               />
 
               {
-                imageCanvas ? <div ref={imageCanvas}></div> : null
+                fileState ? <div>
+                  <Image
+                      src={fileState}
+                      loadOptions={{
+                        downsamplingRatio: 0.5,
+                        maxWidth: 200,
+                        maxHeight: 200
+                      }}
+                  />
+                </div> : null
               }
 
               {/*{*/}
