@@ -46,6 +46,7 @@
     "react-cookie-consent": "^7.4.1",
     "react-dom": "^18.1.0",
     "react-facebook-login": "^4.1.1",
+    "react-fix-image-orientation": "^0.1.4",
     "react-google-login": "^5.2.2",
     "react-google-one-tap-login": "^0.1.1",
     "react-google-recaptcha": "^2.1.0",

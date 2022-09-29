@@ -322,8 +322,8 @@ export default function Account() {
                         src={fileState}
                         loadOptions={{
                           downsamplingRatio: 0.5,
-                          maxWidth: 200,
-                          maxHeight: 200
+                          maxWidth: 80,
+                          maxHeight: 80
                         }}
                     />
                     {getFullnameUser(currentUser)?.charAt(0)}
