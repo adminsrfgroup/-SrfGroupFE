@@ -39,7 +39,8 @@
     "label_amount": "Montant",
     "label_share": "Partager",
     "label_unauthorized_action": "Action non autorisée",
-    "message_unauthorized_action": "Action non autorisée, veuillez vous connecter"
+    "message_unauthorized_action": "Action non autorisée, veuillez vous connecter",
+    "label_user_name": "Nom utilisateur"
   },
   "cookie": {
     "accept": "Accepter",

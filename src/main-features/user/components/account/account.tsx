@@ -242,21 +242,12 @@ export default function Account() {
   }, [updateSuccessAvatarSelector]);
 
   const selectFile = (event: any) => {
-
-    getBase64(event.target.files[0]).then((result: any) => {
-      dataUrlToFile(result, event.target.files[0].name).then((value: any) => {
-        setImageAvatar(value);
-      });
-      setFileState(result);
-    })
-    /*
     getImageUrl(event.target.files[0], 500).then((result: any) => {
       dataUrlToFile(result, event.target.files[0].name).then((value: any) => {
         setImageAvatar(value);
       });
       setFileState(result);
     });
-    */
   };
 
   return (
@@ -308,6 +299,7 @@ export default function Account() {
 
                   <Avatar
                     alt="Remy Sharp"
+                    src={fileState}
                     sx={{
                       width: 80,
                       height: 80,
@@ -318,14 +310,6 @@ export default function Account() {
                       border: "1px solid #cdc5c5",
                     }}
                   >
-                    <Image
-                        src={fileState}
-                        loadOptions={{
-                          downsamplingRatio: 0.5,
-                          maxWidth: 80,
-                          maxHeight: 80
-                        }}
-                    />
                     {getFullnameUser(currentUser)?.charAt(0)}
                   </Avatar>
                   {currentUser.sourceConnectedDevice ==
@@ -362,7 +346,11 @@ export default function Account() {
               <p>{currentUser.email}</p>
             </Paper>
 
-            {!loadingEntityCountOffersByUserSelector ? (
+            {!loadingEntityCountOffersByUserSelector && (
+                entityCountOffersByUserSelector?.countFindOffers ||
+                entityCountOffersByUserSelector?.countRentOffers ||
+                entityCountOffersByUserSelector?.countSellOffers
+            ) ? (
               <Box>
                 <StatisticOffers
                   countOffersByUser={entityCountOffersByUserSelector}

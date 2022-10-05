@@ -69,8 +69,6 @@ const initialValues = initialValuesSubscribeNewsLetter;
 
 export default function Footer() {
 
-  const [fileState, setFileState] = React.useState(null);
-
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -91,14 +89,6 @@ export default function Footer() {
       formik.resetForm();
     }
   }, [addSuccessNewsLetterSelector]);
-
-
-  const selectFile = (event: any) => {
-    console.log('event ', event.target.files[0]);
-    getBase64(event.target.files[0]).then((e: any) => {
-      setFileState(e);
-    })
-  };
 
   return (
     <Box component="footer" sx={{ bgcolor: "background.paper" }}>
@@ -304,29 +294,6 @@ export default function Footer() {
             </Link>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Box>
-              <input
-                  type="file"
-                  onChange={selectFile}
-              />
-
-              {
-                fileState ? <div>
-                  <Image
-                      src={fileState}
-                      loadOptions={{
-                        downsamplingRatio: 0.5,
-                        maxWidth: 200,
-                        maxHeight: 200
-                      }}
-                  />
-                </div> : null
-              }
-
-              {/*{*/}
-              {/*  fileState ? fileState : null*/}
-              {/*}*/}
-            </Box>
             <Typography variant="h6" align="center" gutterBottom>
               Apps mobile
             </Typography>

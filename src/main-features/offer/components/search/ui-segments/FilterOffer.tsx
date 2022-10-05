@@ -17,6 +17,11 @@ import {
 } from "../validation/initial-values-filter-search";
 import { IAddress } from "../../../../../shared/model/address.model";
 import isEmpty from "lodash/isEmpty";
+import FormLabel from "@mui/material/FormLabel/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel/FormControlLabel";
+import {OfferTypeContact} from "../../../../../shared/enums/offer-type-contact.enum";
+import Radio from "@mui/material/Radio/Radio";
 
 function valuetext(value: number) {
   return `${value}°C`;
@@ -87,6 +92,7 @@ export function FilterOffer({
                     {...params}
                     label={t<string>("common.label_address")}
                     variant="standard"
+                    color="secondary"
                     inputProps={{
                       ...params.inputProps,
                       form: {
@@ -120,6 +126,51 @@ export function FilterOffer({
               </Grid>
             </Box>
           </ListItem>
+
+          <ListItem>
+            <FormControl variant="standard" fullWidth >
+              <TextField
+                  id="title"
+                  name="title"
+                  color="secondary"
+                  type="search"
+                  label={t<string>("common.label_user_name")}
+                  variant="standard"
+                  value={formik.values.fullName}
+                  onChange={formik.handleChange}
+                  autoComplete="off"
+              />
+            </FormControl>
+          </ListItem>
+
+          <ListItem sx={{mt: 3}}>
+            <FormControl variant="standard" fullWidth >
+              <FormLabel id="demo-radio-buttons-group-label">
+                {t<string>("add_offer.label_type_contact_client")}
+              </FormLabel>
+              <RadioGroup
+                  aria-labelledby="typeContactClient-label"
+                  id="typeContactClient"
+                  name="typeContactClient"
+                  value={formik.values.typeContactClient}
+                  onChange={formik.handleChange}
+              >
+                <FormControlLabel
+                    value={OfferTypeContact.direct}
+                    control={<Radio color="secondary"/>}
+                    label={t("add_offer.direct_type_contact_client").toString()}
+                />
+                <FormControlLabel
+                    value={OfferTypeContact.perCommmande}
+                    control={<Radio color="secondary"/>}
+                    label={t(
+                        "add_offer.per_commande_type_contact_client"
+                    ).toString()}
+                />
+              </RadioGroup>
+            </FormControl>
+          </ListItem>
+
         </List>
       </form>
     </Box>

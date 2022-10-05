@@ -9,6 +9,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_END_POINT;
 
 const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
   const onRequestSuccess = (config: any) => {
+
     const token =
       StorageService.local.get(AllAppConfig.NAME_TOKEN_CURRENT_USER) ||
       StorageService.session.get(AllAppConfig.NAME_TOKEN_CURRENT_USER);

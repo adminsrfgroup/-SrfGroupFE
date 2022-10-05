@@ -34,6 +34,7 @@ import DialogActions from "@mui/material/DialogActions/DialogActions";
 import { IAddress } from "../../model/address.model";
 import Typography from "@mui/material/Typography/Typography";
 import { FilterOffer } from "../../../main-features/offer/components/search/ui-segments/FilterOffer";
+import SuggesSearch from "../../components/suggest-search/SuggesSearch";
 
 const listTypeOffers: string[] = [
   TypeOfferEnum.Sell,
@@ -157,7 +158,7 @@ export function SearchAppBar({
         aria-describedby="alert-dialog-slide-description"
       >
         <AppBar sx={{ position: "relative" }}>
-          <Toolbar>
+          <Toolbar className="bg-brown">
             <IconButton
               edge="start"
               color="inherit"
@@ -167,7 +168,7 @@ export function SearchAppBar({
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Reset
+              {t<string>("common.label_cancel")}
             </Typography>
             <Button
               autoFocus
@@ -182,10 +183,10 @@ export function SearchAppBar({
         <DialogContent>
           <FilterOffer listAddress={listAddress} handelChange={onChange} />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseFilterOfferModal}>Cancel</Button>
-          <Button color="success">Filter</Button>
-        </DialogActions>
+        {/*<DialogActions>*/}
+        {/*  <Button onClick={handleCloseFilterOfferModal}>Cancel</Button>*/}
+        {/*  <Button color="success">Filter</Button>*/}
+        {/*</DialogActions>*/}
       </Dialog>
     );
   };
@@ -379,6 +380,7 @@ export function SearchAppBar({
               </Box>
             </Toolbar>
           </AppBar>
+          {/*<SuggesSearch />*/}
         </Box>
       </form>
       {renderDialogFilterOffer()}
