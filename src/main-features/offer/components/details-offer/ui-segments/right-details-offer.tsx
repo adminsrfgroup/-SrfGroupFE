@@ -291,7 +291,7 @@ export default function RightDetailsOffer({
                   hasUserRole(
                       offerEntity?.user?.authorities,
                       ROLE_ADMIN
-                  ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" className="success"/>}>
+                  ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="success"/>}>
                     {getFullnameUser(offerEntity?.user)}
                   </Button> : <Button color="neutral" size="small">
                     {getFullnameUser(offerEntity?.user)}
