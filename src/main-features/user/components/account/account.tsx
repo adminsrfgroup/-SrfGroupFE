@@ -385,7 +385,7 @@ export default function Account() {
                         }
                         size="small"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">
+                        <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                           {t<string>("account.label_email")}
                         </InputLabel>
                         <OutlinedInput
@@ -411,7 +411,7 @@ export default function Account() {
                         }
                         size="small"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">
+                        <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                           {t<string>("account.label_languages")}
                         </InputLabel>
                         <Select
@@ -423,6 +423,7 @@ export default function Account() {
                             formik.setFieldValue("langKey", e.target.value);
                           }}
                           disabled={!showEditInfos}
+                          color="secondary"
                         >
                           {Object.keys(languages).length > 1
                             ? locales.map((locale) => (
@@ -449,7 +450,7 @@ export default function Account() {
                         }
                         size="small"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">
+                        <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                           {t<string>("account.label_firstname")} *
                         </InputLabel>
                         <OutlinedInput
@@ -459,6 +460,7 @@ export default function Account() {
                           value={formik.values.firstName}
                           onChange={formik.handleChange}
                           disabled={!showEditInfos}
+                          color="secondary"
                         />
                         <FormHelperText id="component-helper-text">
                           {formik.touched.firstName && formik.errors.firstName}
@@ -475,7 +477,7 @@ export default function Account() {
                         }
                         size="small"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">
+                        <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                           {t<string>("account.label_lastname")} *
                         </InputLabel>
                         <OutlinedInput
@@ -485,6 +487,7 @@ export default function Account() {
                           value={formik.values.lastName}
                           onChange={formik.handleChange}
                           disabled={!showEditInfos}
+                          color="secondary"
                         />
                         <FormHelperText id="component-helper-text">
                           {formik.touched.lastName && formik.errors.lastName}
@@ -502,7 +505,7 @@ export default function Account() {
                         }
                         size="small"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">
+                        <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                           {t<string>("account.label_phone")} *
                         </InputLabel>
                         <OutlinedInput
@@ -513,6 +516,7 @@ export default function Account() {
                           value={formik.values.phone}
                           onChange={formik.handleChange}
                           disabled={!showEditInfos}
+                          color="secondary"
                         />
                         <FormHelperText id="component-helper-text">
                           {formik.touched.phone && formik.errors.phone}
@@ -549,6 +553,7 @@ export default function Account() {
                             <TextField
                               {...params}
                               label="Address"
+                              color="secondary"
                               inputProps={{
                                 ...params.inputProps,
                                 form: {
@@ -576,7 +581,7 @@ export default function Account() {
                         }
                         size="small"
                       >
-                        <InputLabel htmlFor="outlined-adornment-title">
+                        <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                           {t<string>("account.label_link_profile_facebook")}
                         </InputLabel>
                         <OutlinedInput
@@ -589,6 +594,7 @@ export default function Account() {
                           value={formik.values.linkProfileFacebook}
                           onChange={formik.handleChange}
                           disabled={!showEditInfos}
+                          color="secondary"
                         />
                         <FormHelperText id="component-helper-text">
                           {formik.touched.linkProfileFacebook &&
@@ -665,7 +671,7 @@ export default function Account() {
                             Boolean(formikPassword.errors.currentPassword)
                           }
                         >
-                          <InputLabel htmlFor="outlined-adornment-title">
+                          <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                             {t<string>("account.label_current_password")}
                           </InputLabel>
                           <OutlinedInput
@@ -680,6 +686,7 @@ export default function Account() {
                             value={formikPassword.values.currentPassword}
                             onChange={formikPassword.handleChange}
                             disabled={!showEditPassword}
+                            color="secondary"
                             endAdornment={
                               <InputAdornment position="end">
                                 <IconButton
@@ -714,7 +721,7 @@ export default function Account() {
                             Boolean(formikPassword.errors.newPassword)
                           }
                         >
-                          <InputLabel htmlFor="outlined-adornment-title">
+                          <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                             {t<string>("account.label_new_password")}
                           </InputLabel>
                           <OutlinedInput
@@ -727,6 +734,7 @@ export default function Account() {
                             value={formikPassword.values.newPassword}
                             onChange={formikPassword.handleChange}
                             disabled={!showEditPassword}
+                            color="secondary"
                             endAdornment={
                               <InputAdornment position="end">
                                 <IconButton
@@ -759,7 +767,7 @@ export default function Account() {
                             Boolean(formikPassword.errors.confirmNewPassword)
                           }
                         >
-                          <InputLabel htmlFor="outlined-adornment-title">
+                          <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                             {t<string>("account.label_conf_new_password")}
                           </InputLabel>
                           <OutlinedInput
@@ -774,6 +782,7 @@ export default function Account() {
                             value={formikPassword.values.confirmNewPassword}
                             onChange={formikPassword.handleChange}
                             disabled={!showEditPassword}
+                            color="secondary"
                             endAdornment={
                               <InputAdornment position="end">
                                 <IconButton

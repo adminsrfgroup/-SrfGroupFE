@@ -515,6 +515,7 @@ export default function AddUpdate() {
                           <InputLabel
                             id="label-component-helper-typeOffer"
                             className="type-offer-select"
+                            color="secondary"
                           >
                             {t<string>("add_offer.label_type_offer")}
                           </InputLabel>
@@ -554,7 +555,7 @@ export default function AddUpdate() {
                             formik.touched.title && Boolean(formik.errors.title)
                           }
                         >
-                          <InputLabel htmlFor="outlined-adornment-title">
+                          <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                             {t<string>("add_offer.label_title_offer")}
                           </InputLabel>
                           <OutlinedInput
