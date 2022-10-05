@@ -28,10 +28,11 @@ export default function OptionsRentAddOffer(props: any) {
             error={formik.touched.amount && Boolean(formik.errors.amount)}
             size="small"
           >
-            <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-amount" color="secondary">Amount</InputLabel>
             <OutlinedInput
               id="amount"
               type="number"
+              color="secondary"
               value={formik.values.amount}
               onChange={formik.handleChange}
               startAdornment={
@@ -58,12 +59,14 @@ export default function OptionsRentAddOffer(props: any) {
             <InputLabel
               id="demo-simple-select-label"
               className="type-offer-select"
+              color="secondary"
             >
               {t<string>("add_offer.per_periode")}
             </InputLabel>
             <Select
               id="typePeriodRent"
               name="typePeriodRent"
+              color="secondary"
               label={t<string>("add_offer.per_periode")}
               labelId="demo-simple-select-label"
               value={formik.values.typePeriodRent}
@@ -93,7 +96,7 @@ export default function OptionsRentAddOffer(props: any) {
             value={formik.values.startDate}
             onChange={(newValue) => formik.setFieldValue("startDate", newValue)}
             renderInput={(params) => (
-              <TextField {...params} size="small" fullWidth error={false} />
+              <TextField {...params} size="small" fullWidth error={false} color="secondary"/>
             )}
           />
         </Grid>
@@ -104,7 +107,7 @@ export default function OptionsRentAddOffer(props: any) {
             value={formik.values.endDate}
             onChange={(newValue) => formik.setFieldValue("endDate", newValue)}
             renderInput={(params) => (
-              <TextField {...params} size="small" fullWidth error={false} />
+              <TextField {...params} size="small" fullWidth error={false} color="secondary" />
             )}
           />
         </Grid>

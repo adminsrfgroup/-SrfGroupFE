@@ -37,7 +37,7 @@ import {
   convertDateTimeToServer,
   getBaseImageUrl,
   getFullnameUser,
-  getUserAvatar,
+  getUserAvatar, hasUserRole,
 } from "../../../../../shared/utils/utils-functions";
 import { ALL_APP_ROUTES } from "../../../../../core/config/all-app-routes";
 import { TransitionModal } from "../../../../../shared/pages/transition-modal";
@@ -48,6 +48,8 @@ import Snackbar from "@mui/material/Snackbar";
 import ProblemeDeclaration from "../../../../probleme-declaration/components/probleme-declaration";
 import { showUnauthorizedModal } from "../../../../../core/config/store/common/slice";
 import { useDispatch } from "react-redux";
+import VerifiedIcon from '@mui/icons-material/Verified';
+import {ROLE_SUPER_ADMIN} from "../../../../../shared/constants/constants";
 
 const initialValues = initialValuesAddMessageDetailsOffer;
 
@@ -280,9 +282,20 @@ export default function RightDetailsOffer({
               </IconButton>
             }
             title={
-              <React.Fragment>
+              hasUserRole(
+                  offerEntity?.user?.authorities,
+                  ROLE_SUPER_ADMIN
+              ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="error"/>}>
                 {getFullnameUser(offerEntity?.user)}
-              </React.Fragment>
+              </Button> :
+                  hasUserRole(
+                      offerEntity?.user?.authorities,
+                      ROLE_SUPER_ADMIN
+                  ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" className="success"/>}>
+                    {getFullnameUser(offerEntity?.user)}
+                  </Button> : <Button color="neutral" size="small">
+                    {getFullnameUser(offerEntity?.user)}
+                  </Button>
             }
             subheader={offerEntity?.user?.email}
             onClick={() => redirectToPorfile(offerEntity?.user?.id)}

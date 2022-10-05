@@ -25,12 +25,13 @@ export default function OptionsSellAddOffer(props: any) {
             fullWidth
             error={formik.touched.amount && Boolean(formik.errors.amount)}
           >
-            <InputLabel htmlFor="outlined-adornment-amount">
+            <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
               {t<string>("common.label_amount")}
             </InputLabel>
             <OutlinedInput
               id="amount"
               type="number"
+              color="secondary"
               value={formik.values.amount}
               onChange={formik.handleChange}
               startAdornment={
@@ -51,7 +52,7 @@ export default function OptionsSellAddOffer(props: any) {
       <Grid container spacing={2} sx={{ my: 2 }}>
         <Grid item xs={12}>
           <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">
+            <FormLabel id="demo-radio-buttons-group-label" color="secondary">
               {t<string>("add_offer.label_type_contact_client")}
             </FormLabel>
             <RadioGroup
@@ -63,12 +64,12 @@ export default function OptionsSellAddOffer(props: any) {
             >
               <FormControlLabel
                 value={OfferTypeContact.direct}
-                control={<Radio />}
+                control={<Radio color="secondary"/>}
                 label={t("add_offer.direct_type_contact_client").toString()}
               />
               <FormControlLabel
                 value={OfferTypeContact.perCommmande}
-                control={<Radio />}
+                control={<Radio color="secondary"/>}
                 label={t(
                   "add_offer.per_commande_type_contact_client"
                 ).toString()}

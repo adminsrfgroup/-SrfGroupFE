@@ -58,6 +58,7 @@ export default function OptionsCommonAddOffer(props: any) {
                 <TextField
                   {...params}
                   label={t<string>("common.label_category")}
+                  color="secondary"
                   inputProps={{
                     ...params.inputProps,
                     form: {
@@ -98,6 +99,7 @@ export default function OptionsCommonAddOffer(props: any) {
                 <TextField
                   {...params}
                   label={t<string>("common.label_address")}
+                  color="secondary"
                   inputProps={{
                     ...params.inputProps,
                     form: {
