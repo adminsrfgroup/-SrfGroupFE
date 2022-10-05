@@ -176,7 +176,9 @@
     "title_max_length": "Max 200 char",
     "carpooling": "Carpooling",
     "carrier": "Carrier",
-    "travels": "Travels"
+    "travels": "Travels",
+    "confirm_delete_image": "Delete image",
+    "message_confirm_delete_image": "Are you sur to delete this image !"
   },
   "news_letter": {
     "added_success": "Thanks for your subscription"

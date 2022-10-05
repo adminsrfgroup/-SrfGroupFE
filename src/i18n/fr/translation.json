@@ -177,7 +177,9 @@
     "title_max_length": "Max 200 caractères",
     "carpooling": "Covoiturage",
     "carrier": "Transporteur",
-    "travels": "Voyages"
+    "travels": "Voyages",
+    "confirm_delete_image": "Supprimer l image",
+    "message_confirm_delete_image": "Ete vous sur de supprimer cette image !"
   },
   "news_letter": {
     "added_success": "Merci pour votre abonnement"

@@ -433,18 +433,18 @@ export default function AddUpdate() {
         onClose={handleClickCancelDeleteImageOfferModal}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Confirm delete operation</DialogTitle>
+        <DialogTitle>{t<string>("add_offer.confirm_delete_image")}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Are you sure you want to delete this CommentOffer?
+            {t<string>("add_offer.message_confirm_delete_image")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClickCancelDeleteImageOfferModal}>
-            Cancel
+            {t<string>("common.label_cancel")}
           </Button>
           <Button onClick={handleClickDeleteImageOffer} color="error">
-            Delete
+            {t<string>("common.label_delete")}
           </Button>
         </DialogActions>
       </Dialog>
