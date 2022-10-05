@@ -1,14 +1,6 @@
-import React, { useRef, useState } from "react";
-// Import Swiper React components
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-//
-// // Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-//
-// import "./styles.css";
 
-// import required modules
 import { Navigation } from "swiper";
 import {Box} from "@mui/material";
 
@@ -20,6 +12,10 @@ const HorizontalItems = () => {
                 spaceBetween={30}
                 navigation={true}
                 modules={[Navigation]}
+                autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: false,
+                }}
                 className="mySwiper"
             >
                 <SwiperSlide>Slide 1</SwiperSlide>
