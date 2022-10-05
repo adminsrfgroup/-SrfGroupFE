@@ -49,7 +49,7 @@ import ProblemeDeclaration from "../../../../probleme-declaration/components/pro
 import { showUnauthorizedModal } from "../../../../../core/config/store/common/slice";
 import { useDispatch } from "react-redux";
 import VerifiedIcon from '@mui/icons-material/Verified';
-import {ROLE_SUPER_ADMIN} from "../../../../../shared/constants/constants";
+import {ROLE_ADMIN, ROLE_SUPER_ADMIN} from "../../../../../shared/constants/constants";
 
 const initialValues = initialValuesAddMessageDetailsOffer;
 
@@ -290,7 +290,7 @@ export default function RightDetailsOffer({
               </Button> :
                   hasUserRole(
                       offerEntity?.user?.authorities,
-                      ROLE_SUPER_ADMIN
+                      ROLE_ADMIN
                   ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" className="success"/>}>
                     {getFullnameUser(offerEntity?.user)}
                   </Button> : <Button color="neutral" size="small">
