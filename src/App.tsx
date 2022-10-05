@@ -658,19 +658,11 @@ export const App = () => {
     </Menu>
   );
 
-  // React.useEffect(() => {
-  //   if (loginWithGoogleOneTapSuccessLoginSelector) {
-  //     dispatch(sessionUser({}));
-  //     dispatch(getNumberOfNotificationsNotSee({}));
-  //     dispatch(getNumberOfMessagesNotSee({}));
-  //   }
-  // }, [loginWithGoogleOneTapSuccessLoginSelector]);
-
   const responseGoogle = (response: any) => {
     if (!response.error) {
       const requestData: IGooglePlusOneTap = {
         ...response,
-        sourceProvider: SourceProvider.GOOGLE_PLUS,
+        sourceProvider: SourceProvider.GOOGLE_ONE_TAP_LOGIN,
         idOneSignal: oneSignalId,
         langKey: currentLocale,
       };
