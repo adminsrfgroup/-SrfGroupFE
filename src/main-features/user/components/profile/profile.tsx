@@ -81,11 +81,10 @@ import {
   AllModulesEventGA,
 } from "../../../../shared/providers/google-anaylitics";
 import useUnauthorizedModal from "../../../../shared/hooks/unauthorize-modal/unauthorize-modal";
-import UnauthorizeContentModal from "../../../../shared/hooks/unauthorize-modal/unauthorized-content-modal";
 import { ROLE_SUPER_ADMIN } from "../../../../shared/constants/constants";
 import "./profile.scss";
 import StatisticOffers from "../../../../shared/components/statistic-offers/statistic-offers";
-import { showModal } from "../../../../core/config/store/common/slice";
+import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
 
 const initialValues = initialValuesAddMessage;
 
@@ -95,7 +94,6 @@ export default function Profile() {
   const [openFavoriteModal, setOpenFavoriteModal] = React.useState(false);
   const [openReportUserModal, setOpenReportUserModal] = React.useState(false);
   const [isFavoriteUser, setIsFavoriteUser] = React.useState(false);
-  const { isShowing, open, close } = useUnauthorizedModal();
 
   const { id } = useParams<{ id: string }>();
 
@@ -191,7 +189,7 @@ export default function Profile() {
       setOpenAddMessageModal(true);
     } else {
       // open();
-      dispatch(showModal({}));
+      dispatch(showUnauthorizedModal({}));
     }
   };
 

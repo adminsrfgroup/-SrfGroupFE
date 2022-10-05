@@ -15,10 +15,7 @@ import {
 } from "../store/slice";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import { useTranslation } from "react-i18next";
-import useUnauthorizedModal from "../../../shared/hooks/unauthorize-modal/unauthorize-modal";
-import UnauthorizeContentModal from "../../../shared/hooks/unauthorize-modal/unauthorized-content-modal";
-import { Button } from "@mui/material";
-import { showModal } from "../../../core/config/store/common/slice";
+import { showUnauthorizedModal } from "../../../core/config/store/common/slice";
 
 const initialValuesAddMessage = {
   content: "",
@@ -53,7 +50,7 @@ export default function ProblemeDeclaration() {
         dispatch(addProblemeDecalration({ ...values }));
       } else {
         // open();
-        dispatch(showModal({}));
+        dispatch(showUnauthorizedModal({}));
       }
     },
   });

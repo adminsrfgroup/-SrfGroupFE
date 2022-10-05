@@ -102,7 +102,9 @@ import {
   addSuccessFavoriteUser,
 } from "../../../favorite/store/slice";
 import ListRelatedDetailsOffer from "./ui-segments/list-related-details-offer";
-import { showModal } from "../../../../core/config/store/common/slice";
+import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
+import {toast} from "react-toastify";
+import i18n from "i18next";
 
 export default function DetailsOfffer() {
   const [startAnimation, setStartAnimation] = React.useState(false);
@@ -343,14 +345,23 @@ export default function DetailsOfffer() {
 
   const addNewCart = (cart: ICart) => {
     if (isAuthenticated) {
-      const entity: ICart = {
-        quantity: cart.quantity,
-        sellOffer: {
-          id: entityPublicOfferSelector?.offer?.id,
-        },
-      };
-      console.log("entity ", entity);
-      dispatch(addCart({ ...entity }));
+
+      if( entityPublicOfferSelector?.offer?.amount ){
+        const entity: ICart = {
+          quantity: cart.quantity,
+          sellOffer: {
+            id: entityPublicOfferSelector?.offer?.id,
+          },
+        };
+        console.log("entity ", entity);
+        dispatch(addCart({ ...entity }));
+      }
+      else{
+        toast.error(i18n.t<string>('details_offer.missing_amount'));
+      }
+    }
+    else{
+      dispatch(showUnauthorizedModal({}));
     }
   };
 
@@ -381,7 +392,7 @@ export default function DetailsOfffer() {
       dispatch(addConversation({ ...conversation }));
     } else {
       // open();
-      dispatch(showModal({}));
+      dispatch(showUnauthorizedModal({}));
     }
   };
 

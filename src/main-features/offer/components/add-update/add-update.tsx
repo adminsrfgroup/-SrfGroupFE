@@ -101,9 +101,7 @@ import OptionsCommonAddOffer from "./ui-segments/ooptions-common-add-offer";
 import OptionsSellAddOffer from "./ui-segments/options-sell-add-offer";
 import OptionsRentAddOffer from "./ui-segments/options-rent-add-offer";
 import OptionsFindAddOffer from "./ui-segments/options-find-add-offer";
-import useUnauthorizedModal from "../../../../shared/hooks/unauthorize-modal/unauthorize-modal";
-import UnauthorizeContentModal from "../../../../shared/hooks/unauthorize-modal/unauthorized-content-modal";
-import { showModal } from "../../../../core/config/store/common/slice";
+import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
 
 interface initStateFiles {
   selectedFiles: string[];
@@ -133,7 +131,6 @@ export default function AddUpdate() {
     React.useState(false);
   const [indexDeleteImageOffer, setIndexDeleteImageOffer] = React.useState(-1);
   const [defaultLanguage, setDefaultLanguage] = React.useState("fr");
-  // const { isShowing, open, close } = useUnauthorizedModal();
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -141,9 +138,7 @@ export default function AddUpdate() {
 
   const {
     isAuthenticated,
-    currentUser,
-    nbeMessagesNotRead,
-    nbeNotificationsNotRead,
+    currentUser
   } = useSelector(allSessionSelector);
   const entitiesCategorySelector = useSelector(entitiesCategory) ?? [];
   const entitiesAddressSelector = useSelector(entitiesAddress) ?? [];
@@ -186,7 +181,7 @@ export default function AddUpdate() {
         saveEntity(values);
       } else {
         // open();
-        dispatch(showModal({}));
+        dispatch(showUnauthorizedModal({}));
       }
     },
   });
@@ -792,12 +787,6 @@ export default function AddUpdate() {
         </Grid>
 
         <div>{renderDialogDeleteImageOffer()}</div>
-
-        {/*<UnauthorizeContentModal*/}
-        {/*    isShowing={isShowing}*/}
-        {/*    onOpen={open}*/}
-        {/*    onClose={close}*/}
-        {/*/>*/}
       </Container>
     </Slide>
   );

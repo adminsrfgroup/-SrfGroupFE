@@ -254,9 +254,7 @@ export function* registerHandler(data: any): Generator<any, any, any> {
       {
         email: data.payload.email,
         password: data.payload.password,
-        sourceRegister: data.payload.sourceRegister,
-        idOneSignal: data.payload.oneSignalId,
-        langKey: data.payload.langKey,
+        idOneSignal: data.payload.oneSignalId
       }
     );
     yield put(registerUserSuccess(result));

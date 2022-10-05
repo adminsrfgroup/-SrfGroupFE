@@ -1,8 +1,8 @@
 const reducer = {
-  showModal: (state: any) => {
+  showUnauthorizedModal: (state: any) => {
     state.unauthorized.showUnauthorized = true;
   },
-  hideModal: (state: any) => {
+  hideUnauthorizedModal: (state: any) => {
     state.unauthorized.showUnauthorized = false;
   },
 };

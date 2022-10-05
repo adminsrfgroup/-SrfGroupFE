@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  hideModal,
+  hideUnauthorizedModal,
   showUnauthorized,
 } from "../../../core/config/store/common/slice";
 
@@ -24,11 +24,11 @@ const UnauthorizeContentModal = () => {
   const showUnauthorizedSelector = useSelector(showUnauthorized) ?? false;
 
   const onDimiss = () => {
-    dispatch(hideModal({}));
+    dispatch(hideUnauthorizedModal({}));
   };
 
   const onConfirm = () => {
-    dispatch(hideModal({}));
+    dispatch(hideUnauthorizedModal({}));
     navigate(ALL_APP_ROUTES.LOGIN);
   };
   return (

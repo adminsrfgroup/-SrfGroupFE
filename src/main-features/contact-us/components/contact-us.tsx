@@ -91,7 +91,7 @@ export default function ContactUs() {
                       error={formik.touched.name && Boolean(formik.errors.name)}
                       size="small"
                     >
-                      <InputLabel htmlFor="outlined-adornment-title">
+                      <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                         {t<string>("contact_us.label_name")}
                       </InputLabel>
                       <OutlinedInput
@@ -100,6 +100,7 @@ export default function ContactUs() {
                         label={t<string>("contact_us.label_name")}
                         value={formik.values.name}
                         onChange={formik.handleChange}
+                        color="secondary"
                       />
                       {formik.touched.name && formik.errors.name ? (
                         <FormHelperText id="component-helper-text">
@@ -117,7 +118,7 @@ export default function ContactUs() {
                       }
                       size="small"
                     >
-                      <InputLabel htmlFor="outlined-adornment-title">
+                      <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                         {t<string>("contact_us.label_email")}
                       </InputLabel>
                       <OutlinedInput
@@ -127,6 +128,7 @@ export default function ContactUs() {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         type="email"
+                        color="secondary"
                       />
                       {formik.touched.email && formik.errors.email ? (
                         <FormHelperText id="component-helper-text">
@@ -144,7 +146,7 @@ export default function ContactUs() {
                       }
                       size="small"
                     >
-                      <InputLabel htmlFor="outlined-adornment-title">
+                      <InputLabel htmlFor="outlined-adornment-title" color="secondary">
                         {t<string>("contact_us.label_subject")}
                       </InputLabel>
                       <OutlinedInput
@@ -153,6 +155,7 @@ export default function ContactUs() {
                         label={t<string>("contact_us.label_subject")}
                         value={formik.values.subject}
                         onChange={formik.handleChange}
+                        color="secondary"
                       />
                       {formik.touched.subject && formik.errors.subject ? (
                         <FormHelperText id="component-helper-text">
@@ -171,7 +174,7 @@ export default function ContactUs() {
                       }
                       size="small"
                     >
-                      <InputLabel htmlFor="outlined-adornment-amount">
+                      <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
                         {t<string>("contact_us.label_message")}
                       </InputLabel>
                       <OutlinedInput
@@ -183,6 +186,7 @@ export default function ContactUs() {
                         multiline
                         maxRows={4}
                         rows={4}
+                        color="secondary"
                       />
                       {formik.touched.message && formik.errors.message ? (
                         <FormHelperText id="component-helper-text">
@@ -212,7 +216,7 @@ export default function ContactUs() {
                       fullWidth
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
-                      color="neutral"
+                      color="secondary"
                       type="submit"
                     >
                       {t<string>("contact_us.label_send_message")}

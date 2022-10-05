@@ -14,7 +14,7 @@ export const commonSlice: Slice = createSlice({
 });
 
 //? ********************| LOGIN ACTIONS |*******************/
-export const { showModal, hideModal } = commonSlice.actions;
+export const { showUnauthorizedModal, hideUnauthorizedModal } = commonSlice.actions;
 
 //? ********************| SHOW MODAL SELECTORS |*******************/
 export const showUnauthorized = (state: any) =>

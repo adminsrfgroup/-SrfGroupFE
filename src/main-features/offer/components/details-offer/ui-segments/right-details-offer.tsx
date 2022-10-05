@@ -46,9 +46,7 @@ import { StyledBadge } from "../../../../../shared/pages/styled-badge";
 import CustomShare from "../../../../../shared/components/custom-share/CustomShare";
 import Snackbar from "@mui/material/Snackbar";
 import ProblemeDeclaration from "../../../../probleme-declaration/components/probleme-declaration";
-import useUnauthorizedModal from "../../../../../shared/hooks/unauthorize-modal/unauthorize-modal";
-import UnauthorizeContentModal from "../../../../../shared/hooks/unauthorize-modal/unauthorized-content-modal";
-import { showModal } from "../../../../../core/config/store/common/slice";
+import { showUnauthorizedModal } from "../../../../../core/config/store/common/slice";
 import { useDispatch } from "react-redux";
 
 const initialValues = initialValuesAddMessageDetailsOffer;
@@ -128,8 +126,7 @@ export default function RightDetailsOffer({
       if (isAuthenticated) {
         setOpenFavoriteModal(true);
       } else {
-        // open();
-        dispatch(showModal({}));
+        dispatch(showUnauthorizedModal({}));
       }
     }
   };

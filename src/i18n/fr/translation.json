@@ -219,7 +219,8 @@
     "title_dialog_report_comment": "Signaler un commentaire",
     "description_dialog_report_comment": "Voulez-vous signaler ce commentaire !",
     "offer_contact_direct": "Veuillez contacter le vendeur directement",
-    "similair_offers": "Offres similaires"
+    "similair_offers": "Offres similaires",
+    "missing_amount": "Le montant n'est pas declaré par le vendeur, vous pouvez pas passer la commande"
   },
   "forgot_password_init": {
     "message_send_mail_success": "Veuillez vérifier vos nouveaux emails et suivre les instructions pour réinitialiser votre mot de passe.",
