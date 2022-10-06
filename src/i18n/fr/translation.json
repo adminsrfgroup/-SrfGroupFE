@@ -65,7 +65,8 @@
     "label_account": "Mon compte",
     "label_my_offers": "Mes offres",
     "lable_favorties_users": "Mes favoris",
-    "label_cart": "Panier"
+    "label_cart": "Panier",
+    "label_order": "Commandes"
   },
   "home":{
     "steps": {
@@ -284,6 +285,12 @@
     "label_confirm_order": "Confirmer la commande",
     "label_pass_order": "Passer la commande",
     "label_code": "Code",
-    "label_back_order": "Retour"
+    "label_back_order": "Retour",
+    "select_your_mode_payment": "Merci de séléctionner le mode de paiment"
+  },
+  "order": {
+    "title_order": "Commandes",
+    "label_success": "Commandes reussies",
+    "label_failure": "Commandes échouées"
   }
 }

@@ -15,3 +15,13 @@ export const validationSchemaFormCart = Yup.object({
   phone: Yup.string().nullable().required("Phone is required"),
   address: Yup.object().nullable().required("Address is required"),
 });
+
+export const initialValuesFormPassCart = {
+  code: '',
+  paymentMode: ''
+};
+
+export const validationSchemaFormPassCart = Yup.object({
+  code: Yup.string().nullable().notRequired(),
+  paymentMode: Yup.string().required("Payment mode is required"),
+});

@@ -55,6 +55,9 @@ const LazyFavoriteUser = React.lazy(
 const LazyCart = React.lazy(
   () => import("../../main-features/cart/components/cart")
 );
+const LazyOrder = React.lazy(
+    () => import("../../main-features/cart/components/list_orders")
+);
 const LazyProfile = React.lazy(
   () => import("../../main-features/user/components/profile/profile")
 );
@@ -77,66 +80,6 @@ const LazyActivationAccount = React.lazy(
     )
 );
 
-//
-// const LazySignUp = React.lazy(() =>
-//     import('../../main-features/register/SignUp')
-//         .then(({ SignUp }) => ({ default: SignUp })),
-// );
-
-// const LazySignUp = React.lazy(
-//     () => import('../../main-features/register/SignUp')
-// )
-// const LazySignIn = React.lazy(
-//     () => import('../../main-features/login/SignIn')
-// )
-// const LazyActivationAccount = React.lazy(
-//     () => import('../../main-features/activation-account/ActivationAccount')
-// )
-// const LazySearch = React.lazy(
-//     () => import('../../main-features/search/Search')
-// )
-// const LazyAddUpdateOffer = React.lazy(
-//     () => import('../../main-features/offer/add-update/AddUpdateOffer')
-// )
-// const LazyDetailsOffer = React.lazy(
-//     () => import('../../main-features/offer/details/DetailsOffer')
-// )
-// const LazyProfile = React.lazy(
-//     () => import('../../main-features/profile/Profile')
-// )
-// const LazyAccount = React.lazy(
-//     () => import('../../main-features/account/Account')
-// )
-// const LazyContactUs = React.lazy(
-//     () => import('../../main-features/contact-us/ContactUs')
-// )
-// const LazyAboutUs = React.lazy(
-//     () => import('../../main-features/about-us/AboutUs')
-// )
-// const LazyFaq = React.lazy(
-//     () => import('../../main-features/faq/Faq')
-// )
-// const LazyCart = React.lazy(
-//     () => import('../../main-features/cart/Cart')
-// )
-// const LazyMyOffers = React.lazy(
-//     () => import('../../main-features/offer/my-offers/MyOffers')
-// )
-// const LazyFavoriteUser = React.lazy(
-//     () => import('../../main-features/favorite/user/FavoriteUser')
-// )
-// const LazyChat = React.lazy(
-//     () => import('../../main-features/chat/Chat')
-// )
-// const LazyNotification = React.lazy(
-//     () => import('../../main-features/notification/Notification')
-// )
-// const LazyForgotPassword = React.lazy(
-//     () => import('../../main-features/login/ForgotPassword')
-// )
-// const LazyForgotPasswordFinish = React.lazy(
-//     () => import('../../main-features/login/ForgotPasswordFinish')
-// )
 
 export default function AllRoutes() {
   const { isAuthenticated } = useSelector(allSessionSelector);
@@ -364,6 +307,20 @@ export default function AllRoutes() {
             </PrivateRoute>
           }
         />
+
+          <Route
+              path={ALL_APP_ROUTES.ORDER.LIST}
+              element={
+                  <PrivateRoute
+                      isAuthenticated={isAuthenticated}
+                      path={''}
+                  >
+                      <React.Suspense fallback={<>...</>}>
+                          <LazyOrder />
+                      </React.Suspense>
+                  </PrivateRoute>
+              }
+          />
 
         <Route
           path={ALL_APP_ROUTES.PROFILE + "/:id"}

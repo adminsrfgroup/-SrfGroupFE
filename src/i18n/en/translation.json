@@ -66,7 +66,8 @@
     "label_account": "My account",
     "label_my_offers": "My offers",
     "lable_favorties_users": "My favorite users",
-    "label_cart": "Cart"
+    "label_cart": "Cart",
+    "label_order": "Orders"
   },
   "home": {
     "steps": {
@@ -282,6 +283,7 @@
     "label_confirm_order": "Confirme the order",
     "label_pass_order": "Passer the order",
     "label_code": "Code",
-    "label_back_order": "Retour"
+    "label_back_order": "Retour",
+    "select_your_mode_payment": "Choose your way of payment please"
   }
 }

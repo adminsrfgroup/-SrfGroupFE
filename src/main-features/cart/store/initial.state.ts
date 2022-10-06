@@ -11,4 +11,16 @@ export const initialState = {
     totalItems: -1,
     totalPages: 0,
   },
+  order: {
+    loading: false,
+    entity: {},
+    loadingEntities: false,
+    entities: [],
+    addSuccess: false,
+    updateSuccess: false,
+    deleteSuccess: false,
+    errorMessage: null,
+    totalItems: -1,
+    totalPages: 0,
+  }
 };

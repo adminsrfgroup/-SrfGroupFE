@@ -38,6 +38,7 @@ import { ListItemText } from "@mui/material";
 import { changeLocale } from "../../../main-features/user/store/slice";
 import { useDispatch } from "react-redux";
 import QuizIcon from "@mui/icons-material/Quiz";
+import FilterFramesIcon from '@mui/icons-material/FilterFrames';
 import {
   languages,
   locales,
@@ -96,13 +97,6 @@ export default function Header(props: any) {
     setAnchorEl(null);
     props.parentCallbackLogout();
   };
-
-  // const handlePartAdmin = () => {
-  //     handleMenuClose();
-  //     setTimeout(() => {
-  //         // window.open(ALL_APP_ROUTES.ADMIN.HOME, '_blank');
-  //     });
-  // };
 
   const handleMenuMobile = (event: any) => {
     props.parentCallbackMenuMobile(event);
@@ -197,6 +191,20 @@ export default function Header(props: any) {
         </ListItemIcon>
         <ListItemText>{t<string>("header.label_cart")}</ListItemText>
       </MenuItem>
+
+      <MenuItem
+          component={Link}
+          to={ALL_APP_ROUTES.ORDER.LIST}
+          onClick={() => {
+            handleMenuClose();
+          }}
+      >
+        <ListItemIcon>
+          <FilterFramesIcon />
+        </ListItemIcon>
+        <ListItemText>{t<string>("header.label_order")}</ListItemText>
+      </MenuItem>
+
 
       <MenuItem
         component={Link}

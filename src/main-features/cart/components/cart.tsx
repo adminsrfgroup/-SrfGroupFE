@@ -63,6 +63,10 @@ export default function Cart() {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  const addOrder = (values: any) => {
+    console.log('add order ', values);
+  }
+
   return (
     <Container maxWidth="xl">
       <Grid
@@ -117,7 +121,7 @@ export default function Cart() {
               ) : activeStep === 1 ? (
                 <FormCart submitHandler={actionDetailsCart} />
               ) : (
-                <PassOrder />
+                <PassOrder callbackAddOrder={addOrder}/>
               )}
               <React.Fragment>
                 <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

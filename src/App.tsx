@@ -104,6 +104,7 @@ import { languages, locales } from "./main-features/user/store/initial.state";
 import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthorized-content-modal";
 
 import { init as initApm } from '@elastic/apm-rum'
+import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
 //
@@ -550,6 +551,18 @@ export const App = () => {
             </Badge>
           </ListItemIcon>
           <ListItemText primary={t<string>("header.label_cart")} />
+        </ListItem>
+
+        <ListItem
+            button
+            component={Link}
+            to={ALL_APP_ROUTES.ORDER.LIST}
+            onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <FilterFramesIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>("header.label_order")} />
         </ListItem>
 
         <ListItem

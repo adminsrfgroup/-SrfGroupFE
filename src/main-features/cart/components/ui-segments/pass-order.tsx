@@ -25,10 +25,11 @@ import Typography from "@mui/material/Typography/Typography";
 import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
+import {initialValuesFormPassCart, validationSchemaFormPassCart} from "../../validation/cart-form-validation";
 
-const initialValues = initialValuesSignUp;
+const initialValues = initialValuesFormPassCart;
 
-export function PassOrder() {
+export function PassOrder({callbackAddOrder}: {callbackAddOrder: any}) {
   const { t } = useTranslation();
 
   const [value, setValue] = React.useState("");
@@ -37,15 +38,10 @@ export function PassOrder() {
 
   const formik = useFormik({
     initialValues,
-    validationSchema: validationSchemaSignUp,
+    validationSchema: validationSchemaFormPassCart,
     onSubmit: (values: any) => {
-      // dispatch(
-      //     registerUser({
-      //         email: values.email,
-      //         password: values.firstPassword,
-      //         oneSignalId: oneSignalId,
-      //     })
-      // );
+      console.log('values ', values);
+      callbackAddOrder(values);
     },
   });
 
@@ -53,6 +49,7 @@ export function PassOrder() {
     setValue((event.target as HTMLInputElement).value);
     setHelperText(" ");
     setError(false);
+    formik.setFieldValue('paymentMode', 'true');
   };
 
   return (
@@ -69,23 +66,22 @@ export function PassOrder() {
           <Grid item xs={12} md={6}>
             <FormControl
               fullWidth
-              error={formik.touched.email && Boolean(formik.errors.email)}
+              error={formik.touched.code && Boolean(formik.errors.code)}
             >
               <InputLabel htmlFor="outlined-adornment-title">
                 {t<string>("cart.label_code")}
               </InputLabel>
               <OutlinedInput
-                id="email"
-                name="email"
+                id="code"
+                name="code"
                 color="secondary"
-                type="email"
                 size="small"
                 label={t<string>("cart.label_code")}
-                value={formik.values.email}
+                value={formik.values.code}
                 onChange={formik.handleChange}
               />
               <FormHelperText id="component-helper-text">
-                {formik.touched.email && formik.errors.email}
+                {formik.touched.code && formik.errors.code}
               </FormHelperText>
             </FormControl>
           </Grid>
@@ -95,7 +91,7 @@ export function PassOrder() {
               fullWidth
               variant="contained"
               color="secondary"
-              type="submit"
+              type="button"
               data-testid="submit"
               sx={{ mt: 0.5 }}
             >
@@ -114,16 +110,16 @@ export function PassOrder() {
           >
             <FormControlLabel
               value="best"
-              control={<Radio />}
+              control={<Radio disabled={true} color="secondary"/>}
               label="Paiement par carte Bancaire"
             />
             <FormControlLabel
               value="worst"
-              control={<Radio />}
+              control={<Radio color="secondary"/>}
               label="Espèces à la livraison"
             />
           </RadioGroup>
-          <FormHelperText>{helperText}</FormHelperText>
+          <FormHelperText>{t<string>("cart.select_your_mode_payment")}</FormHelperText>
         </FormControl>
 
         <FormGroup>
@@ -133,7 +129,7 @@ export function PassOrder() {
           />
         </FormGroup>
 
-        <Button variant="contained" color="secondary" fullWidth>
+        <Button variant="contained" color="secondary" fullWidth type="submit">
           {t<string>("cart.label_pass_order")}
         </Button>
       </form>

@@ -33,4 +33,7 @@ export const ALL_APP_ROUTES = {
   CART: {
     LIST: "/carts",
   },
+  ORDER: {
+    LIST: '/orders'
+  }
 };

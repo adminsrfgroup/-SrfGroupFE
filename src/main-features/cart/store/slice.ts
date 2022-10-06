@@ -1,6 +1,7 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 import { initialState } from "./initial.state";
 import cartReducer from "./reducers/cart.reducer";
+import orderReducer from "./reducers/order.reducer";
 
 export const CART_KEY_IN_STORE = "cart";
 
@@ -9,6 +10,7 @@ export const cartSlice: Slice = createSlice({
   initialState: initialState,
   reducers: {
     ...cartReducer,
+    ...orderReducer
   },
 });
 
@@ -38,10 +40,15 @@ export const {
   deleteCartSuccess,
   deleteCartFailure,
 
+  //? ********************| ADD ORDER ACTIONS |*******************/
+  addOrder,
+  addOrderSuccess,
+  addOrderFailure,
+
   resetCart,
 } = cartSlice.actions;
 
-//? ********************| COMMENTS OFFER SELECTORS |*******************/
+//? ********************| CART SELECTORS |*******************/
 export const loadingCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.loading;
 export const entityCart = (state: any) => state[CART_KEY_IN_STORE].cart.entity;
@@ -57,3 +64,21 @@ export const deleteSuccessCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.deleteSuccess;
 export const addSuccessCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.addSuccess;
+
+
+//? ********************| ORDER SELECTORS |*******************/
+export const loadingOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.loading;
+export const entityOrder = (state: any) => state[CART_KEY_IN_STORE].order.entity;
+export const loadingEntitiesOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.loadingEntities;
+export const entitiesOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.entities;
+export const totalItemsOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.totalItems;
+export const totalPagesOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.totalPages;
+export const deleteSuccessOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.deleteSuccess;
+export const addSuccessOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.addSuccess;
