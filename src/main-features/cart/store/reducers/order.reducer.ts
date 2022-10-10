@@ -20,7 +20,10 @@ const reducer = {
     },
     fetchOrderSuccess: (state: any, action: any) => {
         state.order.loadingEntities = false;
-        state.order.entities = action.payload?.content;
+        state.order.entities = [
+            ...state.order.entities,
+            ...action.payload.content
+        ];
         state.order.totalItems = action.payload?.totalElements;
         state.order.totalPages = action.payload?.totalPages;
     },

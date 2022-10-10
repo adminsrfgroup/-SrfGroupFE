@@ -11,12 +11,13 @@ import {useDispatch, useSelector} from "react-redux";
 import Alert from "@mui/material/Alert/Alert";
 import {
     entitiesOrder,
-    fetchOrder,
-    loadingEntitiesOrder
+    fetchOrder, resetOrder,
+    loadingEntitiesOrder,
+    totalPagesOrder
 } from "../store/slice";
 import Card from "@mui/material/Card/Card";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
-import {getBaseImageUrl, getImageForOffer} from "../../../shared/utils/utils-functions";
+import {getBaseImageUrl, getFullUrlWithParams, getImageForOffer} from "../../../shared/utils/utils-functions";
 import {AllAppConfig} from "../../../core/config/all-config";
 import CardContent from "@mui/material/CardContent/CardContent";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
@@ -26,6 +27,9 @@ import Accordion from "@mui/material/Accordion";
 import {AccordionSummary} from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {StatusOrder} from "../../../shared/enums/order.enum";
+import InfiniteScroll from "react-infinite-scroller";
+import {fetchMyOffers, resetMyOffers, totalPagesMyOffers} from "../../offer/store/slice";
+import queryString from "query-string";
 
 
 function LoadingOrders() {
@@ -152,6 +156,7 @@ function ItemOrder({item}: {item: any}) {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
+                    className="bg-brown"
                 >
                     <Typography>List des produits</Typography>
                 </AccordionSummary>
@@ -171,19 +176,37 @@ export default function ListOrders() {
 
     const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
     const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
+    const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
+    const [activePage, setActivePage] = React.useState(-1);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
+
+    const resetAll = () => {
+        dispatch(resetOrder({}));
+        setActivePage(0);
+    };
+
     React.useEffect(() => {
-        dispatch(
-            fetchOrder({
-                page: 0,
-                size: 20,
-                queryParams: "",
-            })
-        );
+        resetAll();
     }, []);
+
+    React.useEffect(() => {
+        if (activePage >= 0) {
+            dispatch(
+                fetchOrder({
+                    page: activePage,
+                    size: AllAppConfig.ORDERS_PER_PAGE,
+                    queryParams: '',
+                })
+            );
+        }
+    }, [activePage]);
+
+    const loadMore = () => {
+        setActivePage(activePage + 1);
+    };
 
     return (
         <Container maxWidth="xl">
@@ -207,20 +230,31 @@ export default function ListOrders() {
 
             <Box  sx={{ mt: 5 }}>
 
+                <InfiniteScroll
+                    pageStart={activePage}
+                    loadMore={loadMore}
+                    hasMore={totalPagesOrderSelector - 1 > activePage}
+                    loader={<div className="loader" key={0}></div>}
+                    threshold={0}
+                    initialLoad={false}
+                >
+                    {
+                        entitiesOrderSelector?.map((item: any, index: number) =>(
+                            <Box key={index} sx={{mb: 2}}><ItemOrder item={item}/></Box>
+                        ))
+                    }
+
+                    {
+                        loadingEntitiesOrderSelector ? <LoadingOrders /> : null
+                    }
+                </InfiniteScroll>
+
                 {
-                    loadingEntitiesOrderSelector ? <LoadingOrders /> :
-                        entitiesOrderSelector?.length==0 ?
+                    !loadingEntitiesOrderSelector && entitiesOrderSelector?.length==0 ?
                             <Grid item xs={12} md={6}>
                                 <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
-                            </Grid> : <Box>
-                                {
-                                    entitiesOrderSelector?.map((item: any, index: number) =>(
-                                        <Box key={index} sx={{mb: 2}}><ItemOrder item={item}/></Box>
-                                    ))
-                                }
-                            </Box>
+                            </Grid> : null
                 }
-
             </Box>
         </Container>
     );

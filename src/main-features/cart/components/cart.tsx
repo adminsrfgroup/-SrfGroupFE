@@ -22,8 +22,8 @@ import {
   entitiesCart,
   fetchCart,
   loadingEntitiesCart,
-  loadingOrder,
-  resetOrder
+  loadingOrder, resetCart,
+  resetOrder, totalPagesCart
 } from "../store/slice";
 import Alert from "@mui/material/Alert/Alert";
 import DetailsCart from "./ui-segments/details-order";
@@ -34,6 +34,7 @@ import DialogContent from "@mui/material/DialogContent/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
 import {getNumberOfCarts} from "../../user/store/slice";
+import {AllAppConfig} from "../../../core/config/all-config";
 
 const steps = [
   "Valider la commande",
@@ -41,11 +42,15 @@ const steps = [
   "Passer la commande",
 ];
 export default function Cart() {
+
+  const [activePageCart, setActivePageCart] = React.useState(-1);
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [openModalSuccessSaveOrder, setOpenModalSuccessSaveOrder] = React.useState(false);
 
   const loadingEntitiesCartSelector = useSelector(loadingEntitiesCart) ?? false;
   const entitiesCartSelector = useSelector(entitiesCart) ?? [];
+  const totalPagesCartSelector = useSelector(totalPagesCart) ?? 0;
 
   const loadingOrderSelector = useSelector(loadingOrder) ?? false;
   const addSuccessOrderSelector = useSelector(addSuccessOrder) ?? false;
@@ -54,17 +59,43 @@ export default function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    dispatch(
-      fetchCart({
-        page: 0,
-        size: 20,
-        queryParams: "",
-      })
-    );
 
+  const resetAll = () => {
+    dispatch(resetCart({}));
+    setActivePageCart(0);
+  };
+
+  React.useEffect(() => {
+    resetAll();
     dispatch(detailsCart({}));
   }, []);
+
+  React.useEffect(() => {
+    if (activePageCart >= 0) {
+      dispatch(
+          fetchCart({
+            page: activePageCart,
+            size: AllAppConfig.ORDERS_PER_PAGE,
+            queryParams: '',
+          })
+      );
+    }
+  }, [activePageCart]);
+
+  const loadMoreCart = () => {
+    setActivePageCart(activePageCart + 1);
+  };
+
+  // React.useEffect(() => {
+  //   dispatch(
+  //     fetchCart({
+  //       page: 0,
+  //       size: 20,
+  //       queryParams: "",
+  //     })
+  //   );
+  //   dispatch(detailsCart({}));
+  // }, []);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -170,6 +201,9 @@ export default function Cart() {
                   nextStepHandler={handleNext}
                   entitiesCart={entitiesCartSelector}
                   loadingEntitiesCart={loadingEntitiesCartSelector}
+                  totalPagesCart={totalPagesCartSelector}
+                  loadMoreCartCallback={loadMoreCart}
+                  activePageCart={activePageCart}
                 />
               ) : activeStep === 1 ? (
                 <FormCart submitHandler={actionDetailsCart} />

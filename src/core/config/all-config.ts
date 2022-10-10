@@ -27,6 +27,7 @@ export const AllAppConfig = {
     "813171336497-3khmsta8lgbbqre29jeoro0cp7kq78uk.apps.googleusercontent.com",
   APP_ID_ONESIGNAL: "52e18c28-761d-409f-a363-f58a9bd41cfe",
   OFFERS_PER_PAGE: 10,
+  ORDERS_PER_PAGE: 10,
   COMMENTS_PER_PAGE: 2,
   NOTIFICATIONS_PER_PAGE: 10,
   MESSAGES_PER_PAGE: 2,

@@ -41,11 +41,11 @@ import {
   detailsCart,
   entitiesCart,
   entityCart,
-  fetchCart,
-  loadingEntitiesCart,
+  fetchCart, fetchOrder, resetCart,
+  loadingEntitiesCart, resetOrder,
   totalItemsCart,
   totalPagesCart,
-  updateByQuantityCart,
+  updateByQuantityCart, totalPagesOrder,
 } from "../../store/slice";
 import { getNumberOfCarts } from "../../../user/store/slice";
 import { IDetailsCart } from "../../../../shared/model/details-cart.model";
@@ -54,6 +54,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {ConvertReactTimeAgo} from "../../../../shared/pages/react-time-ago";
 import CardHeader from "@mui/material/CardHeader/CardHeader";
+import InfiniteScroll from "react-infinite-scroller";
 
 function LoadingCarts() {
   return (
@@ -285,19 +286,22 @@ export function OrderCart({
   entitiesCart,
   loadingEntitiesCart,
   nextStepHandler,
+  totalPagesCart,
+  loadMoreCartCallback,
+  activePageCart
 }: {
   entitiesCart: any;
   loadingEntitiesCart: boolean;
   nextStepHandler: any;
+  totalPagesCart: number;
+  loadMoreCartCallback: any;
+  activePageCart: number;
 }) {
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const deleteSuccessCartSelector = useSelector(deleteSuccessCart) ?? false;
-
-  const deleteDetailsCart = (cartId: number | undefined) => {
-    dispatch(deleteCart({ id: cartId }));
-  };
 
   React.useEffect(() => {
     if (deleteSuccessCartSelector) {
@@ -313,6 +317,10 @@ export function OrderCart({
     }
   }, [deleteSuccessCartSelector]);
 
+  const deleteDetailsCart = (cartId: number | undefined) => {
+    dispatch(deleteCart({ id: cartId }));
+  };
+
   const updateByQuantity = (value: ICart) => {
     dispatch(updateByQuantityCart({ ...value }));
   };
@@ -326,18 +334,39 @@ export function OrderCart({
         Liste des produits
       </Typography>
       <Box>
-        {loadingEntitiesCart ? <LoadingCarts /> : null}
 
-        {entitiesCart.map((item: ICart, index: number) => (
-          <Box key={`index-${index}`} sx={{ my: 2 }}>
-            <ItemCart
-              cart={item}
-              t={t}
-              parentCallbackDeleteCart={deleteDetailsCart}
-              parentCallbackUpdateQuantity={updateByQuantity}
-            />
-          </Box>
-        ))}
+        totalPagesCart {totalPagesCart}
+        activePage = {activePageCart}
+        <InfiniteScroll
+            pageStart={activePageCart}
+            loadMore={loadMoreCartCallback}
+            hasMore={totalPagesCart - 1 > activePageCart}
+            loader={<div className="loader" key={0}></div>}
+            threshold={0}
+            initialLoad={false}
+        >
+          {entitiesCart.map((item: ICart, index: number) => (
+              <Box key={`index-${index}`} sx={{ my: 2 }}>
+                <ItemCart
+                    cart={item}
+                    t={t}
+                    parentCallbackDeleteCart={deleteDetailsCart}
+                    parentCallbackUpdateQuantity={updateByQuantity}
+                />
+              </Box>
+          ))}
+
+          {
+            loadingEntitiesCart ? <LoadingCarts /> : null
+          }
+        </InfiniteScroll>
+
+        {
+          !loadingEntitiesCart && entitiesCart?.length==0 ?
+              <Grid item xs={12} md={6}>
+                <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
+              </Grid> : null
+        }
 
         <Button
           variant="contained"
