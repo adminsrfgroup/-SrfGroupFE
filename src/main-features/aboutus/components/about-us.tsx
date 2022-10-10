@@ -12,6 +12,10 @@ import { ALL_APP_ROUTES } from "../../../core/config/all-app-routes";
 import { useDispatch, useSelector } from "react-redux";
 import { allAboutUsSelector, fetchAboutUs } from "../store/slice";
 import isEmpty from "lodash/isEmpty";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 export default function AboutUs() {
   const [defaultLanguage, setDefaultLanguage] = React.useState("fr");
@@ -43,6 +47,12 @@ export default function AboutUs() {
       return entity.contentFr || "";
     }
     return entity.contentAr || "";
+  };
+
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value);
   };
 
   return (
@@ -84,6 +94,25 @@ export default function AboutUs() {
             <Alert severity="warning">No About Us found</Alert>
           )}
         </Grid>
+
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-select-small">Age</InputLabel>
+          <Select
+              labelId="demo-select-small"
+              id="demo-select-small"
+              value={age}
+              label="Age"
+              onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+
       </Grid>
     </Container>
   );
