@@ -102,6 +102,7 @@ import OptionsSellAddOffer from "./ui-segments/options-sell-add-offer";
 import OptionsRentAddOffer from "./ui-segments/options-rent-add-offer";
 import OptionsFindAddOffer from "./ui-segments/options-find-add-offer";
 import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
+import {SelectChangeEvent} from "@mui/material/Select";
 
 interface initStateFiles {
   selectedFiles: string[];
@@ -467,6 +468,11 @@ export default function AddUpdate() {
     return entityDescriptionNewOfferSelector?.descriptionAr || "";
   };
 
+  const [age, setAge] = React.useState('');
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value);
+  };
+
   return (
       <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
         <Container maxWidth="xl" className="page-add-offer">
@@ -504,15 +510,15 @@ export default function AddUpdate() {
                         <Grid container spacing={1}>
                           <Grid item xs={12} md={6}>
 
-                            <FormControl size="small">
+                            <FormControl size="small" fullWidth>
                               <InputLabel id="typeOffer">Age</InputLabel>
                               <Select
                                   labelId="typeOffer"
                                   id="typeOffer"
                                   name="typeOffer"
                                   label="Age"
-                                  value={formik.values.typeOffer}
-                                  onChange={formik.handleChange}>
+                                  value={age}
+                                  onChange={handleChange}>
                                 <MenuItem value={TypeOfferEnum.Sell}>
                                   {t<string>("common.for_sell")}
                                 </MenuItem>
