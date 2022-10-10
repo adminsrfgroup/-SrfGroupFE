@@ -287,7 +287,8 @@
     "label_pass_order": "Passer la commande",
     "label_code": "Code",
     "label_back_order": "Retour",
-    "select_your_mode_payment": "Merci de séléctionner le mode de paiment"
+    "select_your_mode_payment": "Merci de séléctionner le mode de paiment",
+    "label_add_cart": "Ajouter au panier"
   },
   "order": {
     "title_order": "Commandes",

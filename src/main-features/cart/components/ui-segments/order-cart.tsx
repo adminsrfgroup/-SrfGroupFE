@@ -335,8 +335,6 @@ export function OrderCart({
       </Typography>
       <Box>
 
-        totalPagesCart {totalPagesCart}
-        activePage = {activePageCart}
         <InfiniteScroll
             pageStart={activePageCart}
             loadMore={loadMoreCartCallback}
