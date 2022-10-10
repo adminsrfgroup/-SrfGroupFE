@@ -102,7 +102,6 @@ import OptionsSellAddOffer from "./ui-segments/options-sell-add-offer";
 import OptionsRentAddOffer from "./ui-segments/options-rent-add-offer";
 import OptionsFindAddOffer from "./ui-segments/options-find-add-offer";
 import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
-import {SelectChangeEvent} from "@mui/material/Select";
 
 interface initStateFiles {
   selectedFiles: string[];
@@ -468,11 +467,6 @@ export default function AddUpdate() {
     return entityDescriptionNewOfferSelector?.descriptionAr || "";
   };
 
-  const [age, setAge] = React.useState('');
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
-
   return (
       <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
         <Container maxWidth="xl" className="page-add-offer">
@@ -509,16 +503,31 @@ export default function AddUpdate() {
                       <form onSubmit={formik.handleSubmit}>
                         <Grid container spacing={1}>
                           <Grid item xs={12} md={6}>
-
-                            <FormControl size="small" fullWidth>
-                              <InputLabel id="typeOffer">Age</InputLabel>
+                            <FormControl
+                                fullWidth
+                                size="small"
+                                error={
+                                  formik.touched.typeOffer &&
+                                  Boolean(formik.errors.typeOffer)
+                                }
+                                className="form-control-type-offer"
+                            >
+                              <InputLabel
+                                  id="label-component-helper-typeOffer"
+                                  className="type-offer-select"
+                                  color="secondary"
+                              >
+                                {t<string>("add_offer.label_type_offer")}
+                              </InputLabel>
                               <Select
-                                  labelId="typeOffer"
                                   id="typeOffer"
                                   name="typeOffer"
-                                  label="Age"
-                                  value={age}
-                                  onChange={handleChange}>
+                                  color="secondary"
+                                  label={t<string>("add_offer.label_type_offer")}
+                                  labelId="add_offer.label_type_offer"
+                                  value={formik.values.typeOffer}
+                                  onChange={formik.handleChange}
+                              >
                                 <MenuItem value={TypeOfferEnum.Sell}>
                                   {t<string>("common.for_sell")}
                                 </MenuItem>
@@ -529,50 +538,13 @@ export default function AddUpdate() {
                                   {t<string>("common.for_find")}
                                 </MenuItem>
                               </Select>
+                              {formik.touched.typeOffer &&
+                              formik.errors.typeOffer ? (
+                                  <FormHelperText id="component-helper-text-typeOffer">
+                                    {t<string>(formik.errors.typeOffer)}
+                                  </FormHelperText>
+                              ) : null}
                             </FormControl>
-
-                            {/*<FormControl*/}
-                            {/*    fullWidth*/}
-                            {/*    size="small"*/}
-                            {/*    error={*/}
-                            {/*      formik.touched.typeOffer &&*/}
-                            {/*      Boolean(formik.errors.typeOffer)*/}
-                            {/*    }*/}
-                            {/*    className="form-control-type-offer"*/}
-                            {/*>*/}
-                            {/*  <InputLabel*/}
-                            {/*      id="label-component-helper-typeOffer"*/}
-                            {/*      className="type-offer-select"*/}
-                            {/*      color="secondary"*/}
-                            {/*  >*/}
-                            {/*    {t<string>("add_offer.label_type_offer")}*/}
-                            {/*  </InputLabel>*/}
-                            {/*  <Select*/}
-                            {/*      id="typeOffer"*/}
-                            {/*      name="typeOffer"*/}
-                            {/*      color="secondary"*/}
-                            {/*      label={t<string>("add_offer.label_type_offer")}*/}
-                            {/*      labelId="add_offer.label_type_offer"*/}
-                            {/*      value={formik.values.typeOffer}*/}
-                            {/*      onChange={formik.handleChange}*/}
-                            {/*  >*/}
-                            {/*    <MenuItem value={TypeOfferEnum.Sell}>*/}
-                            {/*      {t<string>("common.for_sell")}*/}
-                            {/*    </MenuItem>*/}
-                            {/*    <MenuItem value={TypeOfferEnum.Rent}>*/}
-                            {/*      {t<string>("common.for_rent")}*/}
-                            {/*    </MenuItem>*/}
-                            {/*    <MenuItem value={TypeOfferEnum.Find}>*/}
-                            {/*      {t<string>("common.for_find")}*/}
-                            {/*    </MenuItem>*/}
-                            {/*  </Select>*/}
-                            {/*  {formik.touched.typeOffer &&*/}
-                            {/*  formik.errors.typeOffer ? (*/}
-                            {/*      <FormHelperText id="component-helper-text-typeOffer">*/}
-                            {/*        {t<string>(formik.errors.typeOffer)}*/}
-                            {/*      </FormHelperText>*/}
-                            {/*  ) : null}*/}
-                            {/*</FormControl>*/}
                           </Grid>
 
                           <Grid item xs={12} md={6}>
