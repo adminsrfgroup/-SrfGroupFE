@@ -242,12 +242,14 @@ export default function Account() {
   }, [updateSuccessAvatarSelector]);
 
   const selectFile = (event: any) => {
-    getImageUrl(event.target.files[0], 500).then((result: any) => {
-      dataUrlToFile(result, event.target.files[0].name).then((value: any) => {
-        setImageAvatar(value);
+    // getImageUrl(event.target.files[0], 500)
+    getBase64(event.target.files[0])
+        .then((result: any) => {
+        dataUrlToFile(result, event.target.files[0].name).then((value: any) => {
+          setImageAvatar(value);
+        });
+        setFileState(result);
       });
-      setFileState(result);
-    });
   };
 
   return (

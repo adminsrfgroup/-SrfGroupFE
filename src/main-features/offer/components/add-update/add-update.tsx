@@ -52,7 +52,7 @@ import {
 } from "../../../address/store/slice";
 import {
   convertDateTimeToServer,
-  dataUrlToFile,
+  dataUrlToFile, getBase64,
   getBaseImageUrl,
   getImageForOffer,
 } from "../../../../shared/utils/utils-functions";
@@ -368,8 +368,8 @@ export default function AddUpdate() {
       const newOrigSelectedFiles: File[] = [];
 
       Array.from(event.target.files).forEach((file: any) => {
-        getImageUrl(file, 5000)
-            // getBase64(file)
+        // getImageUrl(file, 5000)
+        getBase64(file)
             .then((resultBase64: any) => {
               dataUrlToFile(resultBase64, file.name).then((valueFile: any) => {
                 newOrigSelectedFiles.push(valueFile);
@@ -383,7 +383,7 @@ export default function AddUpdate() {
 
               // Set all files
               setOriginalListFiles(newOrigSelectedFiles);
-            });
+           });
       });
     } else {
       alert("Ouups, max number is 5");
@@ -616,6 +616,8 @@ export default function AddUpdate() {
                                           style={{
                                             marginRight: 4,
                                             borderRadius: 4,
+                                            height: 80,
+                                            width: 80
                                           }}
                                       >
                                         <img
@@ -626,6 +628,8 @@ export default function AddUpdate() {
                                             style={{
                                               borderRadius: 4,
                                               border: "1px solid #b7b1b1",
+                                              maxHeight: '100%',
+                                              objectFit: 'unset'
                                             }}
                                         />
                                         <IconButton
@@ -661,6 +665,8 @@ export default function AddUpdate() {
                                     style={{
                                       borderRadius: 4,
                                       border: "1px solid #b7b1b1",
+                                      height: 80,
+                                      width: 80
                                     }}
                                 />
                                 <input
