@@ -1,24 +1,35 @@
 import { initialState } from "../initial.state";
+import {PayloadAction} from "@reduxjs/toolkit";
 
 const reducer = {
-    addCart: (state: any) => {
+    addOrder: (state: any) => {
         state.order.loading = true;
         state.order.addSuccess = false;
     },
-    addCartSuccess: (state: any, action: any) => {
+    addOrderSuccess: (state: any, action: any) => {
         state.order.loading = false;
         state.order.addSuccess = true;
         state.order.entity = action.payload;
     },
-    addCartFailure: (state: any) => {
+    addOrderFailure: (state: any) => {
         state.order.loading = false;
     },
 
-    resetCart: (state: any) => {
-        return {
-            ...state,
-            ...initialState.order,
-        };
+    fetchOrder: (state: any) => {
+        state.order.loadingEntities = true;
+    },
+    fetchOrderSuccess: (state: any, action: any) => {
+        state.order.loadingEntities = false;
+        state.order.entities = action.payload?.content;
+        state.order.totalItems = action.payload?.totalElements;
+        state.order.totalPages = action.payload?.totalPages;
+    },
+    fetchOrderFailure: (state: any, action: PayloadAction) => {
+        state.order.loadingEntities = false;
+    },
+
+    resetOrder: (state: any) => {
+        state.order = initialState.order;
     },
 };
 

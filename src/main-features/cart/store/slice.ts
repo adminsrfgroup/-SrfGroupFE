@@ -40,12 +40,20 @@ export const {
   deleteCartSuccess,
   deleteCartFailure,
 
+  resetCart,
+
   //? ********************| ADD ORDER ACTIONS |*******************/
   addOrder,
   addOrderSuccess,
   addOrderFailure,
 
-  resetCart,
+  //? ********************| FETCH ORDERS ACTIONS |*******************/
+  fetchOrder,
+  fetchOrderSuccess,
+  fetchOrderFailure,
+
+  resetOrder
+
 } = cartSlice.actions;
 
 //? ********************| CART SELECTORS |*******************/

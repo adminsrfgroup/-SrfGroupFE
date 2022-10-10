@@ -16,13 +16,24 @@ import { FormCart } from "./ui-segments/form-cart";
 import { PassOrder } from "./ui-segments/pass-order";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addOrder,
+  addSuccessOrder,
   detailsCart,
   entitiesCart,
   fetchCart,
   loadingEntitiesCart,
+  loadingOrder,
+  resetOrder
 } from "../store/slice";
 import Alert from "@mui/material/Alert/Alert";
 import DetailsCart from "./ui-segments/details-order";
+import Dialog from "@mui/material/Dialog/Dialog";
+import {TransitionModal} from "../../../shared/pages/transition-modal";
+import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
+import DialogContent from "@mui/material/DialogContent/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
+import DialogActions from "@mui/material/DialogActions/DialogActions";
+import {getNumberOfCarts} from "../../user/store/slice";
 
 const steps = [
   "Valider la commande",
@@ -31,12 +42,17 @@ const steps = [
 ];
 export default function Cart() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [openModalSuccessSaveOrder, setOpenModalSuccessSaveOrder] = React.useState(false);
 
   const loadingEntitiesCartSelector = useSelector(loadingEntitiesCart) ?? false;
   const entitiesCartSelector = useSelector(entitiesCart) ?? [];
 
+  const loadingOrderSelector = useSelector(loadingOrder) ?? false;
+  const addSuccessOrderSelector = useSelector(addSuccessOrder) ?? false;
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     dispatch(
@@ -59,13 +75,50 @@ export default function Cart() {
   };
 
   const actionDetailsCart = (values: any) => {
-    console.log("values ", values);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const addOrder = (values: any) => {
-    console.log('add order ', values);
+  const addNewOrder = (values: any) => {
+    dispatch(addOrder({...values}))
   }
+
+  React.useEffect(() => {
+    if( addSuccessOrderSelector ){
+      dispatch(getNumberOfCarts({}));
+      setOpenModalSuccessSaveOrder(true);
+    }
+  }, [addSuccessOrderSelector])
+
+  const handleModalSuccessSaveOrder = () => {
+    dispatch(resetOrder({}));
+    setOpenModalSuccessSaveOrder(false);
+    navigate(ALL_APP_ROUTES.ORDER.LIST);
+  }
+
+  const renderDialogSuccessSaveOrder = () => {
+    return (
+        <Dialog
+            open={openModalSuccessSaveOrder}
+            TransitionComponent={TransitionModal}
+            keepMounted
+            aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>
+            {t<string>("order.title_dialog_add_order")}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              {t<string>("order.description_dialog_add_order")}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button color="success" onClick={handleModalSuccessSaveOrder}>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+    );
+  };
 
   return (
     <Container maxWidth="xl">
@@ -121,7 +174,7 @@ export default function Cart() {
               ) : activeStep === 1 ? (
                 <FormCart submitHandler={actionDetailsCart} />
               ) : (
-                <PassOrder callbackAddOrder={addOrder}/>
+                <PassOrder callbackAddOrder={addNewOrder}/>
               )}
               <React.Fragment>
                 <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -149,6 +202,7 @@ export default function Cart() {
           </Grid>
         </Grid>
       )}
+      {renderDialogSuccessSaveOrder()}
     </Container>
   );
 }

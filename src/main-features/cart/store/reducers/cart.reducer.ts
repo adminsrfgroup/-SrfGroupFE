@@ -65,10 +65,7 @@ const reducer = {
   },
 
   resetCart: (state: any) => {
-    return {
-      ...state,
-      ...initialState.cart,
-    };
+    state.cart = initialState.cart;
   },
 };
 

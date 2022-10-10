@@ -285,5 +285,13 @@
     "label_code": "Code",
     "label_back_order": "Retour",
     "select_your_mode_payment": "Choose your way of payment please"
+  },
+  "order": {
+    "title_order": "Commandes",
+    "label_success": "Commandes reussies",
+    "label_failure": "Commandes échouées",
+    "title_dialog_add_order": "Passer la commande",
+    "description_dialog_add_order": "Votre commande a été bien passée",
+    "no_commandes_founds": "No found commande"
   }
 }

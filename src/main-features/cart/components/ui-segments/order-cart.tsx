@@ -26,8 +26,8 @@ import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
-  getBaseImageUrl,
-  getImageForOffer,
+  getBaseImageUrl, getFullnameUser,
+  getImageForOffer, getUserAvatar,
 } from "../../../../shared/utils/utils-functions";
 import { AllAppConfig } from "../../../../core/config/all-config";
 import { ICart } from "../../../../shared/model/cart.model";
@@ -49,6 +49,11 @@ import {
 } from "../../store/slice";
 import { getNumberOfCarts } from "../../../user/store/slice";
 import { IDetailsCart } from "../../../../shared/model/details-cart.model";
+import Avatar from "@mui/material/Avatar/Avatar";
+import IconButton from "@mui/material/IconButton/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {ConvertReactTimeAgo} from "../../../../shared/pages/react-time-ago";
+import CardHeader from "@mui/material/CardHeader/CardHeader";
 
 function LoadingCarts() {
   return (
@@ -213,42 +218,26 @@ function ItemCart({
         <CardContent sx={{ flex: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={8}>
-              <Typography
-                component="h5"
-                variant="h5"
-                sx={{ fontSize: "1.2rem" }}
-              >
-                {cart?.sellOffer?.title}
-              </Typography>
+              <CardHeader
+                  sx={{pl: 0, pt: 0}}
+                  avatar={
+                    <Avatar
+                        role="img"
+                        aria-label="Image avatar"
+                        src={getUserAvatar(
+                            cart.user?.id,
+                            cart.user?.imageUrl,
+                            cart.user?.sourceConnectedDevice
+                        )}
+                        alt="image not found"
+                    >
+                      {getFullnameUser(cart.user)?.charAt(0)}
+                    </Avatar>
+                  }
+                  title={getFullnameUser(cart?.user)}
+                  subheader={cart?.sellOffer?.title}
+              />
 
-              {cart?.sellOffer?.address ? (
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                  display="flex"
-                  sx={{ mt: 1 }}
-                >
-                  <AddLocationAltIcon fontSize="small" sx={{ mr: 0.9 }} />
-                  {cart?.sellOffer?.address?.city +
-                    ", " +
-                    cart?.sellOffer?.address?.country}
-                </Typography>
-              ) : null}
-
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                display="flex"
-              >
-                <CheckIcon fontSize="small" sx={{ mr: 0.9 }} />
-                {cart?.sellOffer?.typeOffer === TypeOfferEnum.Sell
-                  ? t("common.for_sell")
-                  : cart?.sellOffer?.typeOffer === TypeOfferEnum.Rent
-                  ? t("common.for_rent")
-                  : cart?.sellOffer?.typeOffer === TypeOfferEnum.Find
-                  ? t("common.for_find")
-                  : null}
-              </Typography>
             </Grid>
 
             {cart?.sellOffer?.amount ? (
@@ -304,24 +293,7 @@ export function OrderCart({
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  // const loadingEntitiesCartSelector = useSelector(entityCart) ?? {};
-  // const loadingentitiesCart = useSelector(loadingEntitiesCart) ?? false;
-  // const entitiesCartSelector = useSelector(entitiesCart) ?? [];
-  const totalItemsCartSelector = useSelector(totalItemsCart) ?? -1;
-  const totalPagesCartSelector = useSelector(totalPagesCart) ?? 0;
   const deleteSuccessCartSelector = useSelector(deleteSuccessCart) ?? false;
-
-  // React.useEffect(() => {
-  //     dispatch(
-  //         fetchCart({
-  //             page: 0,
-  //             size: 20,
-  //             queryParams: "",
-  //         })
-  //     );
-  //
-  //     dispatch(detailsCart({}));
-  // }, []);
 
   const deleteDetailsCart = (cartId: number | undefined) => {
     dispatch(deleteCart({ id: cartId }));

@@ -5,6 +5,8 @@ import {
   updateByQuantityCart,
   detailsCart,
   deleteCart,
+  addOrder,
+  fetchOrder
 } from "./slice";
 import {
   addCartHandler,
@@ -13,6 +15,7 @@ import {
   fetchCartHandler,
   updateByQuantityCartHandler,
 } from "./saga-handler/cart.generator";
+import {addOrderHandler, fetchOrderHandler} from "./saga-handler/order.generator";
 
 export function* cartSaga() {
   yield all([
@@ -21,6 +24,8 @@ export function* cartSaga() {
     takeEvery(updateByQuantityCart, updateByQuantityCartHandler),
     takeEvery(detailsCart, detailsCartHandler),
     takeEvery(deleteCart, deleteCartHandler),
+    takeEvery(addOrder, addOrderHandler),
+    takeEvery(fetchOrder, fetchOrderHandler),
   ]);
 }
 

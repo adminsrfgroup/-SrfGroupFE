@@ -93,7 +93,7 @@ export default function ListRelatedDetailsOffer({
                       src={getUserAvatar(
                         offer.user?.id,
                         offer.user?.imageUrl,
-                        offer.user?.sourceRegister
+                        offer.user?.sourceConnectedDevice
                       )}
                       alt="image not found"
                     >

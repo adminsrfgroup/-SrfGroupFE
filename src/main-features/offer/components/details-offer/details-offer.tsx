@@ -105,6 +105,7 @@ import ListRelatedDetailsOffer from "./ui-segments/list-related-details-offer";
 import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
 import {toast} from "react-toastify";
 import i18n from "i18next";
+import AddRentDetailsOffer from "./ui-segments/add_rent_details_offer";
 
 export default function DetailsOfffer() {
   const [startAnimation, setStartAnimation] = React.useState(false);
@@ -120,7 +121,6 @@ export default function DetailsOfffer() {
 
   const { id } = useParams<{ id: string }>();
 
-  const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   // const { isShowing, open, close } = useUnauthorizedModal();
@@ -719,15 +719,18 @@ export default function DetailsOfffer() {
                 </Box>
               ) : null}
 
-              {entityPublicOfferSelector?.offer?.typeContactClient !==
-                OfferTypeContact.direct &&
-              entityPublicOfferSelector.offer?.typeOffer ===
-                TypeOfferEnum.Sell ? (
-                <CartSellDetailsOffer
-                  parentCallbackAddCart={addNewCart}
-                  loadingAddCart={false}
-                />
-              ) : null}
+              {
+                entityPublicOfferSelector?.offer?.typeContactClient !== OfferTypeContact.direct &&
+                entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Sell ? (
+                  <CartSellDetailsOffer
+                    parentCallbackAddCart={addNewCart}
+                    loadingAddCart={false}
+                  />
+                ) : entityPublicOfferSelector?.offer?.typeContactClient !== OfferTypeContact.direct &&
+                  entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Rent ? (
+                    <AddRentDetailsOffer />
+                ) : null
+              }
 
               {entityPublicOfferSelector?.offer?.typeContactClient ===
                 OfferTypeContact.direct &&
@@ -794,11 +797,6 @@ export default function DetailsOfffer() {
         </Box>
       </Container>
       {renderDialogReportOffer()}
-      {/*<UnauthorizeContentModal*/}
-      {/*    isShowing={isShowing}*/}
-      {/*    onOpen={open}*/}
-      {/*    onClose={close}*/}
-      {/*/>*/}
     </Box>
   );
 }

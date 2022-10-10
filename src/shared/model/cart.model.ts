@@ -5,6 +5,7 @@ export interface ICart {
   id?: number;
   quantity?: number | null;
   total?: number | null;
+  status?: string | null;
   sellOffer?: ISellOffer | null;
   user?: IUser | null;
 }

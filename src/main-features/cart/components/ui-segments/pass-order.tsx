@@ -49,7 +49,7 @@ export function PassOrder({callbackAddOrder}: {callbackAddOrder: any}) {
     setValue((event.target as HTMLInputElement).value);
     setHelperText(" ");
     setError(false);
-    formik.setFieldValue('paymentMode', 'true');
+    formik.setFieldValue('paymentMode', 'cash');
   };
 
   return (
@@ -100,7 +100,9 @@ export function PassOrder({callbackAddOrder}: {callbackAddOrder: any}) {
           </Grid>
         </Grid>
 
-        <FormControl sx={{ m: 3 }} error={error} variant="standard">
+        <FormControl sx={{ m: 3 }}
+                     error={formik.touched.paymentMode && Boolean(formik.errors.paymentMode)}
+                     variant="standard">
           <FormLabel id="demo-error-radios">MODE DE PAIEMENT</FormLabel>
           <RadioGroup
             aria-labelledby="demo-error-radios"
@@ -114,12 +116,16 @@ export function PassOrder({callbackAddOrder}: {callbackAddOrder: any}) {
               label="Paiement par carte Bancaire"
             />
             <FormControlLabel
-              value="worst"
+              value="cash"
               control={<Radio color="secondary"/>}
               label="Espèces à la livraison"
             />
           </RadioGroup>
-          <FormHelperText>{t<string>("cart.select_your_mode_payment")}</FormHelperText>
+          <FormHelperText color="error">
+            {
+              formik.touched.paymentMode && formik.errors.paymentMode ? t<string>("cart.select_your_mode_payment") : ''
+            }
+          </FormHelperText>
         </FormControl>
 
         <FormGroup>

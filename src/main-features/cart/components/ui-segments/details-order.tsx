@@ -31,7 +31,7 @@ export default function DetailsCart({
         <ListItem>
           <ListItemText
             id="switch-list-label-wifi"
-            primary={`${entityCartSelector.numberCarts} articles`}
+            primary={`${entityCartSelector.numberCarts} produits`}
           />
           <Typography variant="subtitle2" color="text.secondary">
             {entityCartSelector.totalCarts?.toLocaleString("tn-TN")} TND
@@ -56,13 +56,6 @@ export default function DetailsCart({
           </Typography>
         </ListItem>
 
-        {/*{*/}
-        {/*    activeStep===2 ? <ListItem>*/}
-        {/*        <Button variant="contained" color="secondary" fullWidth onClick={submitHandler}>*/}
-        {/*            {t<string>('cart.label_pass_order') }*/}
-        {/*        </Button>*/}
-        {/*    </ListItem> : null*/}
-        {/*}*/}
       </List>
 
       <Paper elevation={0} sx={{ mt: 2 }}>
