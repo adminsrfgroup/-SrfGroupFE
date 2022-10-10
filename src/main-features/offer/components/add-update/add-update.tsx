@@ -504,7 +504,7 @@ export default function AddUpdate() {
                         <Grid container spacing={1}>
                           <Grid item xs={12} md={6}>
 
-                            <FormControl fullWidth size="small">
+                            <FormControl size="small">
                               <InputLabel id="typeOffer">Age</InputLabel>
                               <Select
                                   labelId="typeOffer"
