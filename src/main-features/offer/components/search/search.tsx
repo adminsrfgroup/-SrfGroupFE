@@ -57,7 +57,6 @@ export default function Search() {
   const loadingEntitiesPublicOfferSelector =
     useSelector(loadingEntitiesPublicOffer) ?? false;
 
-  // const {publicEntities, loadingPublicEntities, totalItems, totalPages} = useSelector(allPublicOffersSelector);
   const entitiesCategories = useSelector(allCategorySelector).entities ?? [];
   const entitiesAddress = useSelector(allAddressSelector).entities ?? [];
   const listConnectedUsersWebsocketSelector =
@@ -69,8 +68,12 @@ export default function Search() {
   };
 
   React.useEffect(() => {
-    setActivePage(-1);
-    resetAll();
+
+    if(entitiesPublicOfferSelector.length == 0){
+      setActivePage(-1);
+      resetAll();
+    }
+
   }, []);
 
   React.useEffect(() => {

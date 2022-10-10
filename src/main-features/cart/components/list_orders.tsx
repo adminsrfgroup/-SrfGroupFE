@@ -17,19 +17,28 @@ import {
 } from "../store/slice";
 import Card from "@mui/material/Card/Card";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
-import {getBaseImageUrl, getFullUrlWithParams, getImageForOffer} from "../../../shared/utils/utils-functions";
+import {
+    getBaseImageUrl, getFullnameUser,
+    getFullUrlWithParams,
+    getImageForOffer,
+    getUserAvatar
+} from "../../../shared/utils/utils-functions";
 import {AllAppConfig} from "../../../core/config/all-config";
 import CardContent from "@mui/material/CardContent/CardContent";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ConvertReactTimeAgo} from "../../../shared/pages/react-time-ago";
 import Accordion from "@mui/material/Accordion";
-import {AccordionSummary} from "@mui/material";
+import Divider from "@mui/material/Divider";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {StatusOrder} from "../../../shared/enums/order.enum";
 import InfiniteScroll from "react-infinite-scroller";
-import {fetchMyOffers, resetMyOffers, totalPagesMyOffers} from "../../offer/store/slice";
-import queryString from "query-string";
+import CardHeader from "@mui/material/CardHeader";
+import Avatar from "@mui/material/Avatar";
+import red from "@mui/material/colors/red";
+import IconButton from "@mui/material/IconButton";
+import {ICart} from "../../../shared/model/cart.model";
 
 
 function LoadingOrders() {
@@ -161,10 +170,45 @@ function ItemOrder({item}: {item: any}) {
                     <Typography>List des produits</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
+
+                    {
+                        item.carts.map((cart: ICart, index: number) => (
+                            <Box key={index}>
+                                <Box>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar
+                                                role="img"
+                                                aria-label="Image avatar"
+                                                src={getUserAvatar(
+                                                    cart.user?.id,
+                                                    cart.user?.imageUrl,
+                                                    cart.user?.sourceConnectedDevice
+                                                )}
+                                                alt="image not found"
+                                            >
+                                                {getFullnameUser(cart.user)?.charAt(0)}
+                                            </Avatar>
+                                        }
+                                        action={
+                                            <IconButton aria-label="settings">
+                                                <ExpandMoreIcon />
+                                            </IconButton>
+                                        }
+                                        title={getFullnameUser(cart?.user)}
+                                        subheader={cart?.sellOffer?.title}
+                                    />
+                                    <CardContent>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
+                                        </Typography>
+                                    </CardContent>
+                                </Box>
+                                <Divider />
+                            </Box>
+                        ))
+                    }
+
                 </AccordionDetails>
             </Accordion>
         </Box>
@@ -172,7 +216,6 @@ function ItemOrder({item}: {item: any}) {
 }
 
 export default function ListOrders() {
-
 
     const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
     const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];

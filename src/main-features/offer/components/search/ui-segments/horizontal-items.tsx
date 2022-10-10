@@ -1,7 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Navigation } from "swiper";
+import { Pagination, Navigation } from "swiper";
 import {Box} from "@mui/material";
 
 const HorizontalItems = () => {
@@ -10,8 +10,9 @@ const HorizontalItems = () => {
             <Swiper
                 slidesPerView={3}
                 spaceBetween={30}
+                loop={true}
                 navigation={true}
-                modules={[Navigation]}
+                modules={[Pagination, Navigation]}
                 autoplay={{
                     delay: 4000,
                     disableOnInteraction: false,
