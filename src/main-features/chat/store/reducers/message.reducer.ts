@@ -21,6 +21,8 @@ const reducer = {
   fetchMessagesSuccess: (state: any, action: any) => {
     state.message.loadingEntities = false;
     state.message.entities = action.payload.content;
+    state.message.totalItems = action.payload?.totalElements;
+    state.message.totalPages = action.payload?.totalPages;
   },
   fetchMessagesFailure: (state: any, action: PayloadAction) => {
     state.message.loadingEntities = false;
