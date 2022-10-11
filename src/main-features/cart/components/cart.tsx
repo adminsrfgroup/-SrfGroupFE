@@ -17,7 +17,7 @@ import { PassOrder } from "./ui-segments/pass-order";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOrder,
-  addSuccessOrder,
+  addSuccessOrder, deleteCart, deleteSuccessCart,
   detailsCart,
   entitiesCart,
   fetchCart,
@@ -51,6 +51,7 @@ export default function Cart() {
   const loadingEntitiesCartSelector = useSelector(loadingEntitiesCart) ?? false;
   const entitiesCartSelector = useSelector(entitiesCart) ?? [];
   const totalPagesCartSelector = useSelector(totalPagesCart) ?? 0;
+  const deleteSuccessCartSelector = useSelector(deleteSuccessCart) ?? false;
 
   const loadingOrderSelector = useSelector(loadingOrder) ?? false;
   const addSuccessOrderSelector = useSelector(addSuccessOrder) ?? false;
@@ -82,20 +83,25 @@ export default function Cart() {
     }
   }, [activePageCart]);
 
+  React.useEffect(() => {
+    if (deleteSuccessCartSelector) {
+
+      resetAll();
+      dispatch(
+          fetchCart({
+            page: 0,
+            size: AllAppConfig.ORDERS_PER_PAGE,
+            queryParams: '',
+          })
+      );
+
+      dispatch(getNumberOfCarts({}));
+    }
+  }, [deleteSuccessCartSelector]);
+
   const loadMoreCart = () => {
     setActivePageCart(activePageCart + 1);
   };
-
-  // React.useEffect(() => {
-  //   dispatch(
-  //     fetchCart({
-  //       page: 0,
-  //       size: 20,
-  //       queryParams: "",
-  //     })
-  //   );
-  //   dispatch(detailsCart({}));
-  // }, []);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -124,6 +130,10 @@ export default function Cart() {
     dispatch(resetOrder({}));
     setOpenModalSuccessSaveOrder(false);
     navigate(ALL_APP_ROUTES.ORDER.LIST);
+  }
+
+  const deleteCartAction = (cartId: number) => {
+    dispatch(deleteCart({ id: cartId }));
   }
 
   const renderDialogSuccessSaveOrder = () => {
@@ -204,6 +214,7 @@ export default function Cart() {
                   totalPagesCart={totalPagesCartSelector}
                   loadMoreCartCallback={loadMoreCart}
                   activePageCart={activePageCart}
+                  deleteDetailsCartCallback={deleteCartAction}
                 />
               ) : activeStep === 1 ? (
                 <FormCart submitHandler={actionDetailsCart} />

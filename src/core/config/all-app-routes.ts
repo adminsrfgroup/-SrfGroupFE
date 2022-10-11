@@ -35,5 +35,8 @@ export const ALL_APP_ROUTES = {
   },
   ORDER: {
     LIST: '/orders'
+  },
+  LOCATION: {
+    LIST: '/location'
   }
 };

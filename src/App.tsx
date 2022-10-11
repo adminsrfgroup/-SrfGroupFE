@@ -105,6 +105,7 @@ import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthoriz
 
 import { init as initApm } from '@elastic/apm-rum'
 import FilterFramesIcon from "@mui/icons-material/FilterFrames";
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
 //
@@ -580,6 +581,19 @@ export const App = () => {
             </Badge>
           </ListItemIcon>
           <ListItemText primary={t<string>("header.chat")} />
+        </ListItem>
+
+
+        <ListItem
+            button
+            component={Link}
+            to={ALL_APP_ROUTES.LOCATION.LIST}
+            onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <AddBusinessIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>("header.label_location")} />
         </ListItem>
 
         <ListItem

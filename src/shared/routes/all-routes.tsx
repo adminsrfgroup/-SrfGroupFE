@@ -58,6 +58,11 @@ const LazyCart = React.lazy(
 const LazyOrder = React.lazy(
     () => import("../../main-features/cart/components/list_orders")
 );
+
+const LazyLocation = React.lazy(
+    () => import("../../main-features/location/components/list_location")
+);
+
 const LazyProfile = React.lazy(
   () => import("../../main-features/user/components/profile/profile")
 );
@@ -308,19 +313,33 @@ export default function AllRoutes() {
           }
         />
 
-          <Route
-              path={ALL_APP_ROUTES.ORDER.LIST}
-              element={
-                  <PrivateRoute
-                      isAuthenticated={isAuthenticated}
-                      path={''}
-                  >
-                      <React.Suspense fallback={<>...</>}>
-                          <LazyOrder />
-                      </React.Suspense>
-                  </PrivateRoute>
-              }
-          />
+        <Route
+          path={ALL_APP_ROUTES.ORDER.LIST}
+          element={
+              <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  path={''}
+              >
+                  <React.Suspense fallback={<>...</>}>
+                      <LazyOrder />
+                  </React.Suspense>
+              </PrivateRoute>
+          }
+        />
+
+        <Route
+          path={ALL_APP_ROUTES.LOCATION.LIST}
+          element={
+              <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  path={''}
+              >
+                  <React.Suspense fallback={<>...</>}>
+                      <LazyLocation />
+                  </React.Suspense>
+              </PrivateRoute>
+          }
+        />
 
         <Route
           path={ALL_APP_ROUTES.PROFILE + "/:id"}

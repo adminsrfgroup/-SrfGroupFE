@@ -288,7 +288,8 @@ export function OrderCart({
   nextStepHandler,
   totalPagesCart,
   loadMoreCartCallback,
-  activePageCart
+  activePageCart,
+  deleteDetailsCartCallback
 }: {
   entitiesCart: any;
   loadingEntitiesCart: boolean;
@@ -296,29 +297,17 @@ export function OrderCart({
   totalPagesCart: number;
   loadMoreCartCallback: any;
   activePageCart: number;
+  deleteDetailsCartCallback: any;
 }) {
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const deleteSuccessCartSelector = useSelector(deleteSuccessCart) ?? false;
-
-  React.useEffect(() => {
-    if (deleteSuccessCartSelector) {
-      dispatch(
-        fetchCart({
-          page: 0,
-          size: 20,
-          queryParams: "",
-        })
-      );
-
-      dispatch(getNumberOfCarts({}));
-    }
-  }, [deleteSuccessCartSelector]);
 
   const deleteDetailsCart = (cartId: number | undefined) => {
-    dispatch(deleteCart({ id: cartId }));
+    deleteDetailsCartCallback(cartId)
+
+    // dispatch(deleteCart({ id: cartId }));
   };
 
   const updateByQuantity = (value: ICart) => {
@@ -328,6 +317,7 @@ export function OrderCart({
   const submitHandler = () => {
     nextStepHandler();
   };
+
   return (
     <Box sx={{ pt: 3 }}>
       <Typography variant="h4" color="text.secondary">
