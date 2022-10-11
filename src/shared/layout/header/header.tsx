@@ -39,6 +39,7 @@ import { changeLocale } from "../../../main-features/user/store/slice";
 import { useDispatch } from "react-redux";
 import QuizIcon from "@mui/icons-material/Quiz";
 import FilterFramesIcon from '@mui/icons-material/FilterFrames';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import {
   languages,
   locales,
@@ -205,6 +206,19 @@ export default function Header(props: any) {
         <ListItemText>{t<string>("header.label_order")}</ListItemText>
       </MenuItem>
 
+
+      <MenuItem
+          component={Link}
+          to={ALL_APP_ROUTES.LOCATION.LIST}
+          onClick={() => {
+            handleMenuClose();
+          }}
+      >
+        <ListItemIcon>
+          <AddBusinessIcon />
+        </ListItemIcon>
+        <ListItemText>{t<string>("header.label_location")}</ListItemText>
+      </MenuItem>
 
       <MenuItem
         component={Link}
