@@ -4,7 +4,7 @@ import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {IOffer} from "../../../../../shared/model/offer.model";
-import {addRentRequests, addSuccessRentRequest, resetRentRequests} from "../../../../rent-request/store/slice";
+import {addRentRequests, addSuccessRentRequest, resetRentRequestsSent} from "../../../../rent-request/store/slice";
 import {allSessionSelector, currentUserSession, getNumberOfCarts} from "../../../../user/store/slice";
 import {showUnauthorizedModal} from "../../../../../core/config/store/common/slice";
 import {addSuccessOrder} from "../../../../cart/store/slice";
@@ -55,7 +55,7 @@ export default function AddRentDetailsOffer({offer}: {offer: IOffer}){
 
     const handleModalSuccessRentRequest = () => {
         setOpenModalSuccessAddRentRequest(false);
-        dispatch(resetRentRequests({}));
+        dispatch(resetRentRequestsSent({}));
         navigate(ALL_APP_ROUTES.RENT_REQUEST.LIST);
     }
 

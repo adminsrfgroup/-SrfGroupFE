@@ -15,9 +15,16 @@ import {
     entitiesReceivedRentRequest,
     entitiesSentRentRequest,
     fetchRentRequestsReceived,
-    fetchRentRequestsSent, loadingEntitiesReceivedRentRequest,
+    fetchRentRequestsSent,
+    loadingEntitiesReceivedRentRequest,
     loadingEntitiesSentRentRequest,
-    resetRentRequests, totalItemsReceivedRentRequest, totalItemsSentRentRequest
+    resetRentRequestsSent,
+    resetRentRequestsReceived,
+    totalItemsReceivedRentRequest,
+    totalItemsSentRentRequest,
+    activePageSentRentRequest,
+    setActivePageSentRentRequest,
+    totalPagesSentRentRequest
 } from "../store/slice";
 import {AllAppConfig} from "../../../core/config/all-config";
 import { IRentRequest } from "../../../shared/model/rent_request.model";
@@ -125,7 +132,7 @@ export default function ListLocation() {
 
 function ListRentRequestSent() {
 
-    const [activePageSent, setActivePageSent] = React.useState(-1);
+    const [isFirstTime, setIsFirstTime] = React.useState(true);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -133,27 +140,32 @@ function ListRentRequestSent() {
     const loadingEntitiesSentRentRequestSelector = useSelector(loadingEntitiesSentRentRequest) ?? false;
     const entitiesSentRentRequestSelector = useSelector(entitiesSentRentRequest) ?? [];
     const totalItemsSentRentRequestSelector = useSelector(totalItemsSentRentRequest) ?? 0;
+    const activePageSentRentRequestSelector = useSelector(activePageSentRentRequest) ?? -1;
+    const totalPagesSentRentRequestSelector = useSelector(totalPagesSentRentRequest) ?? -1;
 
     const resetAll = () => {
-        dispatch(resetRentRequests({}));
-        setActivePageSent(0);
+        dispatch(resetRentRequestsSent({}));
+        dispatch(setActivePageSentRentRequest(0));
     };
 
     React.useEffect(() => {
-        resetAll();
-    }, []);
+        if( isFirstTime && entitiesSentRentRequestSelector.length === 0 ){
+            setIsFirstTime(false);
+            resetAll();
+        }
+    }, [isFirstTime]);
 
     React.useEffect(() => {
-        if (activePageSent >= 0) {
+        if (activePageSentRentRequestSelector >= 0 && !isFirstTime) {
             dispatch(
                 fetchRentRequestsSent({
-                    page: activePageSent,
-                    size: AllAppConfig.ORDERS_PER_PAGE,
+                    page: activePageSentRentRequestSelector,
+                    size: AllAppConfig.RENT_REQUEST_PER_PAGE,
                     queryParams: '',
                 })
             );
         }
-    }, [activePageSent]);
+    }, [activePageSentRentRequestSelector, isFirstTime]);
 
     const rediretTo = () => {
         setTimeout(() => {
@@ -162,16 +174,16 @@ function ListRentRequestSent() {
     };
 
     const loadMore = () => {
-        setActivePageSent(activePageSent + 1);
+        setIsFirstTime(false);
+        dispatch(setActivePageSentRentRequest(activePageSentRentRequestSelector + 1));
     };
 
     return (
         <Box>
-
             <InfiniteScroll
-                pageStart={activePageSent}
+                pageStart={activePageSentRentRequestSelector}
                 loadMore={loadMore}
-                hasMore={totalItemsSentRentRequestSelector - 1 > activePageSent}
+                hasMore={totalPagesSentRentRequestSelector - 1 > activePageSentRentRequestSelector}
                 loader={<div className="loader" key={0}></div>}
                 threshold={0}
                 initialLoad={false}
@@ -214,12 +226,14 @@ function ListRentRequestReceiver() {
     const totalItemsReceivedRentRequestSelector = useSelector(totalItemsReceivedRentRequest) ?? 0;
 
     const resetAll = () => {
-        dispatch(resetRentRequests({}));
+        dispatch(resetRentRequestsReceived({}));
         setActivePageSentReceived(0);
     };
 
     React.useEffect(() => {
-        resetAll();
+        if( entitiesReceivedRentRequestSelector.length === 0 ){
+            resetAll();
+        }
     }, []);
 
 
@@ -228,7 +242,7 @@ function ListRentRequestReceiver() {
             dispatch(
                 fetchRentRequestsReceived({
                     page: activePageReceived,
-                    size: AllAppConfig.ORDERS_PER_PAGE,
+                    size: AllAppConfig.RENT_REQUEST_PER_PAGE,
                     queryParams: '',
                 })
             );

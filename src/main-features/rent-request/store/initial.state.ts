@@ -6,6 +6,7 @@ export const initialState = {
         entitiesSent: [],
         totalItemsSent: -1,
         totalPagesSent: 0,
+        activePageSent: -1,
         loadingEntitiesReceived: false,
         entitiesReceived: [],
         totalItemsReceived: -1,

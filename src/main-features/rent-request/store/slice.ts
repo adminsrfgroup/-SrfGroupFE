@@ -25,14 +25,15 @@ export const {
     fetchRentRequestsSent,
     fetchRentRequestsSuccessSent,
     fetchRentRequestsFailureSent,
-
+    setActivePageSentRentRequest,
 
     //? ********************| FETCH RENTREQUEST RECEIVED USERS ACTIONS |*******************/
     fetchRentRequestsReceived,
     fetchRentRequestsSuccessReceived,
     fetchRentRequestsFailureReceived,
 
-    resetRentRequests
+    resetRentRequestsSent,
+    resetRentRequestsReceived
 
 } = rentRequestSlice.actions;
 
@@ -49,6 +50,8 @@ export const totalItemsSentRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalItemsSent;
 export const totalPagesSentRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalPagesSent;
+export const activePageSentRentRequest = (state: any) =>
+    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.activePageSent;
 export const loadingEntitiesReceivedRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loadingEntitiesReceived;
 export const entitiesReceivedRentRequest = (state: any) =>

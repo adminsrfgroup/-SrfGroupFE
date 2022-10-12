@@ -66,8 +66,10 @@ export default function Cart() {
   };
 
   React.useEffect(() => {
-    resetAll();
-    dispatch(detailsCart({}));
+    if( entitiesCartSelector.length === 0 ) {
+      resetAll();
+      dispatch(detailsCart({}));
+    }
   }, []);
 
   React.useEffect(() => {
