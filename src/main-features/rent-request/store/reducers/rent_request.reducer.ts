@@ -31,7 +31,7 @@ const reducer = {
 
 
     fetchRentRequestsReceived: (state: any) => {
-        state.rentRequest.loadingEntitiesSent = true;
+        state.rentRequest.loadingEntitiesReceived = true;
     },
     fetchRentRequestsSuccessReceived: (state: any, action: any) => {
         state.rentRequest.loadingEntitiesReceived = false;
@@ -40,7 +40,7 @@ const reducer = {
         state.rentRequest.totalPagesReceived = action.payload?.totalPages;
     },
     fetchRentRequestsFailureReceived: (state: any, action: PayloadAction) => {
-        state.rentRequest.loadingEntitiesSent = false;
+        state.rentRequest.loadingEntitiesReceived = false;
     },
 
     resetRentRequests: (state: any) => {
