@@ -67,6 +67,10 @@ const reducer = {
     state.cart.loading = false;
   },
 
+  setActivePage: (state: any, action: PayloadAction) => {
+    state.cart.activePage = action.payload;
+  },
+
   resetCart: (state: any) => {
     state.cart = initialState.cart;
   },

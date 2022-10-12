@@ -11,6 +11,7 @@ export const initialState = {
         entitiesReceived: [],
         totalItemsReceived: -1,
         totalPagesReceived: 0,
+        activePageReceived: -1,
         addSuccess: false,
         updateSuccess: false,
         deleteSuccess: false,

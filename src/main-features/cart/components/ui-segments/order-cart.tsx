@@ -289,9 +289,7 @@ export function OrderCart({
 
 
   const deleteDetailsCart = (cartId: number | undefined) => {
-    deleteDetailsCartCallback(cartId)
-
-    // dispatch(deleteCart({ id: cartId }));
+    deleteDetailsCartCallback(cartId);
   };
 
   const updateByQuantity = (value: ICart) => {

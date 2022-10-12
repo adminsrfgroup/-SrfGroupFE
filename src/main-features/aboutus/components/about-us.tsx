@@ -78,11 +78,7 @@ export default function AboutUs() {
         ) : null}
 
         <Grid item xs={12}>
-          {entity && entity.contentEn ? (
-            <Box dangerouslySetInnerHTML={{ __html: getContentByLang() }}></Box>
-          ) : (
-            <Alert severity="warning">No About Us found</Alert>
-          )}
+          <Box dangerouslySetInnerHTML={{ __html: getContentByLang() }}></Box>
         </Grid>
 
       </Grid>

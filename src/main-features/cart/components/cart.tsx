@@ -16,6 +16,7 @@ import { FormCart } from "./ui-segments/form-cart";
 import { PassOrder } from "./ui-segments/pass-order";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  activePageCart,
   addOrder,
   addSuccessOrder, deleteCart, deleteSuccessCart,
   detailsCart,
@@ -23,7 +24,7 @@ import {
   fetchCart,
   loadingEntitiesCart,
   loadingOrder, resetCart,
-  resetOrder, totalPagesCart
+  resetOrder, setActivePage, totalPagesCart
 } from "../store/slice";
 import Alert from "@mui/material/Alert/Alert";
 import DetailsCart from "./ui-segments/details-order";
@@ -43,7 +44,7 @@ const steps = [
 ];
 export default function Cart() {
 
-  const [activePageCart, setActivePageCart] = React.useState(-1);
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [openModalSuccessSaveOrder, setOpenModalSuccessSaveOrder] = React.useState(false);
@@ -52,6 +53,7 @@ export default function Cart() {
   const entitiesCartSelector = useSelector(entitiesCart) ?? [];
   const totalPagesCartSelector = useSelector(totalPagesCart) ?? 0;
   const deleteSuccessCartSelector = useSelector(deleteSuccessCart) ?? false;
+  const activePageCartSelector = useSelector(activePageCart) ?? -1;
 
   const loadingOrderSelector = useSelector(loadingOrder) ?? false;
   const addSuccessOrderSelector = useSelector(addSuccessOrder) ?? false;
@@ -62,31 +64,32 @@ export default function Cart() {
 
   const resetAll = () => {
     dispatch(resetCart({}));
-    setActivePageCart(0);
+    dispatch(setActivePage(0));
   };
 
   React.useEffect(() => {
-    if( entitiesCartSelector.length === 0 ) {
+    if( isFirstTime && entitiesCartSelector.length === 0 ) {
+      setIsFirstTime(false);
       resetAll();
       dispatch(detailsCart({}));
     }
-  }, []);
+  }, [isFirstTime]);
 
   React.useEffect(() => {
-    if (activePageCart >= 0) {
+    if (activePageCartSelector >= 0 && !isFirstTime) {
       dispatch(
           fetchCart({
-            page: activePageCart,
+            page: activePageCartSelector,
             size: AllAppConfig.ORDERS_PER_PAGE,
             queryParams: '',
           })
       );
     }
-  }, [activePageCart]);
+  }, [activePageCartSelector, isFirstTime]);
 
   React.useEffect(() => {
     if (deleteSuccessCartSelector) {
-
+      dispatch(setActivePage(0));
       resetAll();
       dispatch(
           fetchCart({
@@ -101,7 +104,8 @@ export default function Cart() {
   }, [deleteSuccessCartSelector]);
 
   const loadMoreCart = () => {
-    setActivePageCart(activePageCart + 1);
+    setIsFirstTime(false);
+    dispatch(setActivePage(activePageCartSelector + 1));
   };
 
   const handleNext = () => {
@@ -214,7 +218,7 @@ export default function Cart() {
                   loadingEntitiesCart={loadingEntitiesCartSelector}
                   totalPagesCart={totalPagesCartSelector}
                   loadMoreCartCallback={loadMoreCart}
-                  activePageCart={activePageCart}
+                  activePageCart={activePageCartSelector}
                   deleteDetailsCartCallback={deleteCartAction}
                 />
               ) : activeStep === 1 ? (

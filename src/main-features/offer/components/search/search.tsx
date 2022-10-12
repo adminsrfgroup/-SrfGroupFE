@@ -7,7 +7,7 @@ import {
   loadingEntitiesPublicOffer,
   resetPublicOffers,
   totalItemsPublicOffer,
-  totalPagesPublicOffer,
+  totalPagesPublicOffer, activePagePublicOffer, setActivePageOffers,
 } from "../../store/slice";
 import { TypeDisplaySearchOffers } from "../../../../shared/enums/type-offer.enum";
 import { AllAppConfig } from "../../../../core/config/all-config";
@@ -39,9 +39,10 @@ import './search.scss';
 import HorizontalItems from "./ui-segments/horizontal-items";
 
 export default function Search() {
+
   const [typeDisplayOffers, setTypeDisplayOffers] =
     React.useState<TypeDisplaySearchOffers>(TypeDisplaySearchOffers.Grid);
-  const [activePage, setActivePage] = React.useState(-1);
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
   const [isSearchCalback, setIsSearchCalback] = React.useState<boolean>(false);
   const { search } = useLocation();
   const navigate = useNavigate();
@@ -54,6 +55,8 @@ export default function Search() {
   const totalItemsPublicOfferSelector =
     useSelector(totalItemsPublicOffer) ?? -1;
   const totalPagesPublicOfferSelector = useSelector(totalPagesPublicOffer) ?? 0;
+  const activePagePublicOfferSelector =
+      useSelector(activePagePublicOffer) ?? -1;
   const loadingEntitiesPublicOfferSelector =
     useSelector(loadingEntitiesPublicOffer) ?? false;
 
@@ -64,31 +67,33 @@ export default function Search() {
 
   const resetAll = () => {
     dispatch(resetPublicOffers({}));
-    setActivePage(0);
+    dispatch(setActivePageOffers(0));
   };
 
   React.useEffect(() => {
 
-    if(entitiesPublicOfferSelector.length == 0){
-      setActivePage(-1);
+    if(isFirstTime && entitiesPublicOfferSelector.length === 0){
+      setIsFirstTime(false);
+      dispatch(setActivePageOffers(-1));
       resetAll();
     }
 
-  }, []);
+  }, [isFirstTime]);
 
   React.useEffect(() => {
-    if (activePage >= 0) {
+    if (activePagePublicOfferSelector >= 0 && !isFirstTime) {
       const values = queryString.parse(search);
       const queryParams = getFullUrlWithParams(values);
       dispatch(
         fetchPublicOffers({
-          page: activePage,
+          page: activePagePublicOfferSelector,
           size: AllAppConfig.OFFERS_PER_PAGE,
           queryParams: queryParams,
         })
       );
+      setIsSearchCalback(false);
     }
-  }, [activePage]);
+  }, [activePagePublicOfferSelector, isFirstTime]);
 
   React.useEffect(() => {
     if (isSearchCalback) {
@@ -96,7 +101,7 @@ export default function Search() {
       const queryParams = getFullUrlWithParams(values);
       dispatch(
         fetchPublicOffers({
-          page: activePage,
+          page: activePagePublicOfferSelector,
           size: AllAppConfig.OFFERS_PER_PAGE,
           queryParams: queryParams,
         })
@@ -106,7 +111,8 @@ export default function Search() {
   }, [isSearchCalback]);
 
   const loadMore = () => {
-    setActivePage(activePage + 1);
+    setIsFirstTime(false);
+    dispatch(setActivePageOffers(activePagePublicOfferSelector + 1));
   };
 
   const searchCalback = (values: any) => {
@@ -191,9 +197,9 @@ export default function Search() {
           <HorizontalItems />
 
           <InfiniteScroll
-            pageStart={activePage}
+            pageStart={activePagePublicOfferSelector}
             loadMore={loadMore}
-            hasMore={totalPagesPublicOfferSelector - 1 > activePage}
+            hasMore={totalPagesPublicOfferSelector - 1 > activePagePublicOfferSelector}
             loader={<div className="loader" key={0}></div>}
             threshold={0}
             initialLoad={false}

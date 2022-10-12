@@ -42,6 +42,10 @@ const reducer = {
     state.myOffers.loading = false;
   },
 
+  setActivePageMyOffer: (state: any, action: PayloadAction) => {
+    state.myOffers.activePage = action.payload;
+  },
+
   resetMyOffers: (state: any) => {
     state.myOffers = initialState.myOffers;
   },

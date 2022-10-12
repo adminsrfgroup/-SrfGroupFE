@@ -40,6 +40,7 @@ export const {
   deleteCartSuccess,
   deleteCartFailure,
 
+  setActivePage,
   resetCart,
 
   //? ********************| ADD ORDER ACTIONS |*******************/
@@ -68,6 +69,8 @@ export const totalItemsCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.totalItems;
 export const totalPagesCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.totalPages;
+export const activePageCart = (state: any) =>
+    state[CART_KEY_IN_STORE].cart.activePage;
 export const deleteSuccessCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.deleteSuccess;
 export const addSuccessCart = (state: any) =>

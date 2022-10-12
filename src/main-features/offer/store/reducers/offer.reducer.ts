@@ -18,6 +18,10 @@ const reducer = {
     state.publicOffer.loadingEntities = false;
   },
 
+  setActivePageOffers: (state: any, action: PayloadAction) => {
+    state.publicOffer.activePage = action.payload;
+  },
+
   fetchSellDetailsOffers: (state: any) => {
     state.sellDetailsOffers.loadingEntities = true;
     state.sellDetailsOffers.isLoaded = false;
@@ -141,6 +145,7 @@ const reducer = {
   fetchCountAllOffersByUserFailure: (state: any, action: any) => {
     state.countOffersByUser.loading = false;
   },
+
 };
 
 export default reducer;

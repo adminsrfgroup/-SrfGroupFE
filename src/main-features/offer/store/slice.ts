@@ -29,6 +29,7 @@ export const {
   fetchPublicOffers,
   fetchPublicOffersSuccess,
   fetchPublicOffersFailure,
+  setActivePageOffers,
   resetPublicOffers,
 
   //? ********************| DETAILS PUBLIC OFFER ACTIONS |*******************/
@@ -112,6 +113,7 @@ export const {
   fetchMyOffers,
   fetchMyOffersSuccess,
   fetchMyOffersFailure,
+  setActivePageMyOffer,
   resetMyOffers,
 
   //? ********************| DELETE OFFER ACTIONS |*******************/
@@ -182,6 +184,8 @@ export const totalItemsPublicOffer = (state: any) =>
   state[OFFER_KEY_IN_STORE].publicOffer.totalItems;
 export const totalPagesPublicOffer = (state: any) =>
   state[OFFER_KEY_IN_STORE].publicOffer.totalPages;
+export const activePagePublicOffer = (state: any) =>
+    state[OFFER_KEY_IN_STORE].publicOffer.activePage;
 
 //? ********************| SELLER OFFER SELECTORS |*******************/
 export const allSellerOffersSelector = (state: any) =>
@@ -240,6 +244,8 @@ export const totalItemsMyOffers = (state: any) =>
   state[OFFER_KEY_IN_STORE].myOffers.totalItems;
 export const totalPagesMyOffers = (state: any) =>
   state[OFFER_KEY_IN_STORE].myOffers.totalPages;
+export const activePageMyOffers = (state: any) =>
+    state[OFFER_KEY_IN_STORE].myOffers.activePage;
 export const deleteSuccessMyOffers = (state: any) =>
   state[OFFER_KEY_IN_STORE].myOffers.deleteSuccess;
 

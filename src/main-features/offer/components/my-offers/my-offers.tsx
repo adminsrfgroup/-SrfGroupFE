@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { TypeDisplaySearchOffers } from "../../../../shared/enums/type-offer.enum";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  activePageMyOffers,
   deleteMyOffer,
   deleteSuccessMyOffers,
   entitiesMyOffers,
@@ -12,6 +13,7 @@ import {
   fetchPublicOffers,
   loadingEntitiesMyOffers,
   resetMyOffers,
+  setActivePageMyOffer,
   totalItemsMyOffers,
   totalPagesMyOffers,
 } from "../../store/slice";
@@ -42,7 +44,7 @@ import { AllAppConfig } from "../../../../core/config/all-config";
 export default function MyOffers() {
   const [openDeleteOfferModal, setOpenDeleteOfferModal] = React.useState(false);
   const [deleteOfferId, setDeleteOfferId] = React.useState(-1);
-  const [activePage, setActivePage] = React.useState(-1);
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
   const [isSearchCalback, setIsSearchCalback] = React.useState<boolean>(false);
   const [typeDisplayOffers, setTypeDisplayOffers] =
     React.useState<TypeDisplaySearchOffers>(TypeDisplaySearchOffers.Grid);
@@ -58,6 +60,7 @@ export default function MyOffers() {
   const entitiesMyOffersSelector = useSelector(entitiesMyOffers) ?? [];
   const totalItemsMyOffersSelector = useSelector(totalItemsMyOffers) ?? -1;
   const totalPagesMyOffersSelector = useSelector(totalPagesMyOffers) ?? 0;
+  const activePageMyOffersSelector = useSelector(activePageMyOffers) ?? 0;
   const deleteSuccessMyOffersSelector =
     useSelector(deleteSuccessMyOffers) ?? false;
 
@@ -66,28 +69,31 @@ export default function MyOffers() {
 
   const resetAll = () => {
     dispatch(resetMyOffers({}));
-    setActivePage(0);
+    dispatch(setActivePageMyOffer(0));
   };
 
   React.useEffect(() => {
-    setActivePage(-1);
-    resetAll();
-  }, []);
+    if( isFirstTime && entitiesMyOffersSelector.length === 0 ){
+      setIsFirstTime(false);
+      dispatch(setActivePageMyOffer(-1));
+      resetAll();
+    }
+  }, [isFirstTime]);
 
   React.useEffect(() => {
-    if (activePage >= 0) {
+    if (activePageMyOffersSelector >= 0 && !isFirstTime) {
       const values = queryString.parse(search);
       const queryParams = getFullUrlWithParams(values);
       dispatch(
         fetchMyOffers({
-          page: activePage,
+          page: activePageMyOffersSelector,
           size: AllAppConfig.OFFERS_PER_PAGE,
           queryParams: queryParams,
         })
       );
       setIsSearchCalback(false);
     }
-  }, [activePage]);
+  }, [activePageMyOffersSelector, isFirstTime]);
 
   React.useEffect(() => {
     if (isSearchCalback) {
@@ -95,7 +101,7 @@ export default function MyOffers() {
       const queryParams = getFullUrlWithParams(values);
       dispatch(
         fetchMyOffers({
-          page: activePage,
+          page: activePageMyOffersSelector,
           size: AllAppConfig.OFFERS_PER_PAGE,
           queryParams: queryParams,
         })
@@ -106,7 +112,7 @@ export default function MyOffers() {
 
   React.useEffect(() => {
     if (deleteSuccessMyOffersSelector) {
-      setActivePage(-1);
+      dispatch(setActivePageMyOffer(-1));
       resetAll();
     }
   }, [deleteSuccessMyOffersSelector]);
@@ -170,7 +176,8 @@ export default function MyOffers() {
   };
 
   const loadMore = () => {
-    setActivePage(activePage + 1);
+    setIsFirstTime(false);
+    dispatch(setActivePageMyOffer(activePageMyOffersSelector + 1));
   };
 
   const typeDisplay = (value: TypeDisplaySearchOffers) => {
@@ -227,9 +234,9 @@ export default function MyOffers() {
               ) : null}
 
               <InfiniteScroll
-                pageStart={activePage}
+                pageStart={activePageMyOffersSelector}
                 loadMore={loadMore}
-                hasMore={totalPagesMyOffersSelector - 1 > activePage}
+                hasMore={totalPagesMyOffersSelector - 1 > activePageMyOffersSelector}
                 loader={<div className="loader" key={0}></div>}
                 threshold={0}
                 initialLoad={false}

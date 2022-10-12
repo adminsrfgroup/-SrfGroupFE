@@ -106,6 +106,8 @@ import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthoriz
 import { init as initApm } from '@elastic/apm-rum'
 import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import { resetRentRequests } from "./main-features/rent-request/store/slice";
+import { resetCart } from "./main-features/cart/store/slice";
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
 //
@@ -330,7 +332,6 @@ export const App = () => {
     );
 
     if (isAuthenticated) {
-      // props.dispatchSuccessSession(); // For WebSocket
       dispatch(getNumberOfNotificationsNotSee({}));
       dispatch(getNumberOfMessagesNotSee({}));
       dispatch(getNumberOfCarts({}));
@@ -344,10 +345,11 @@ export const App = () => {
     }
   }, [currentUser]);
 
-  //
-  // // Callback From header and menu mobile
+  // Callback From header and menu mobile
   const handleLogout = () => {
     handleDrawerToggleRight(false);
+    dispatch(resetRentRequests({}));
+    dispatch(resetCart({}));
     dispatch(logout({}));
     navigate(ALL_APP_ROUTES.HOME);
   };

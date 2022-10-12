@@ -24,7 +24,7 @@ import {
     totalItemsSentRentRequest,
     activePageSentRentRequest,
     setActivePageSentRentRequest,
-    totalPagesSentRentRequest
+    totalPagesSentRentRequest, activePageReceivedRentRequest, totalPagesReceivedRentRequest, setActivePageReceivedRentRequest
 } from "../store/slice";
 import {AllAppConfig} from "../../../core/config/all-config";
 import { IRentRequest } from "../../../shared/model/rent_request.model";
@@ -216,7 +216,7 @@ function ListRentRequestSent() {
 
 function ListRentRequestReceiver() {
 
-    const [activePageReceived, setActivePageSentReceived] = React.useState(-1);
+    const [isFirstTime, setIsFirstTime] = React.useState(true);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -224,41 +224,45 @@ function ListRentRequestReceiver() {
     const loadingEntitiesReceivedRentRequestSelector = useSelector(loadingEntitiesReceivedRentRequest) ?? false;
     const entitiesReceivedRentRequestSelector = useSelector(entitiesReceivedRentRequest) ?? [];
     const totalItemsReceivedRentRequestSelector = useSelector(totalItemsReceivedRentRequest) ?? 0;
+    const activePageReceivedRentRequestSelector = useSelector(activePageReceivedRentRequest) ?? -1;
+    const totalPagesReceivedRentRequestSelector = useSelector(totalPagesReceivedRentRequest) ?? -1;
 
     const resetAll = () => {
         dispatch(resetRentRequestsReceived({}));
-        setActivePageSentReceived(0);
+        dispatch(setActivePageReceivedRentRequest(0));
     };
 
     React.useEffect(() => {
-        if( entitiesReceivedRentRequestSelector.length === 0 ){
+        if( isFirstTime && entitiesReceivedRentRequestSelector.length === 0 ){
+            setIsFirstTime(false);
             resetAll();
         }
     }, []);
 
 
     React.useEffect(() => {
-        if (activePageReceived >= 0) {
+        if (activePageReceivedRentRequestSelector >= 0 && !isFirstTime) {
             dispatch(
                 fetchRentRequestsReceived({
-                    page: activePageReceived,
+                    page: activePageReceivedRentRequestSelector,
                     size: AllAppConfig.RENT_REQUEST_PER_PAGE,
                     queryParams: '',
                 })
             );
         }
-    }, [activePageReceived]);
+    }, [activePageReceivedRentRequestSelector, isFirstTime]);
 
     const loadMore = () => {
-        setActivePageSentReceived(activePageReceived + 1);
+        setIsFirstTime(false);
+        dispatch(setActivePageReceivedRentRequest(activePageReceivedRentRequestSelector + 1));
     };
 
     return (
         <Box>
             <InfiniteScroll
-                pageStart={activePageReceived}
+                pageStart={activePageReceivedRentRequestSelector}
                 loadMore={loadMore}
-                hasMore={totalItemsReceivedRentRequestSelector - 1 > activePageReceived}
+                hasMore={totalPagesReceivedRentRequestSelector - 1 > activePageReceivedRentRequestSelector}
                 loader={<div className="loader" key={0}></div>}
                 threshold={0}
                 initialLoad={false}

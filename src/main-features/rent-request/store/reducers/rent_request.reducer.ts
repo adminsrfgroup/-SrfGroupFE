@@ -50,8 +50,11 @@ const reducer = {
     },
 
     setActivePageSentRentRequest: (state: any, action: PayloadAction) => {
-        console.log('action ==== ', action);
         state.rentRequest.activePageSent = action.payload;
+    },
+
+    setActivePageReceivedRentRequest: (state: any, action: PayloadAction) => {
+        state.rentRequest.activePageReceived = action.payload;
     },
 
     resetRentRequestsSent: (state: any) => {
@@ -67,6 +70,10 @@ const reducer = {
         state.rentRequest.totalItemsReceived = initialState.rentRequest.totalItemsReceived;
         state.rentRequest.totalPagesReceived = initialState.rentRequest.totalPagesReceived;
     },
+
+    resetRentRequests: (state: any) => {
+        state.rentRequest = initialState.rentRequest
+    }
 }
 
 
