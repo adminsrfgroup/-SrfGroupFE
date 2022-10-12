@@ -209,7 +209,7 @@ export default function Header(props: any) {
 
       <MenuItem
           component={Link}
-          to={ALL_APP_ROUTES.LOCATION.LIST}
+          to={ALL_APP_ROUTES.RENT_REQUEST.LIST}
           onClick={() => {
             handleMenuClose();
           }}

@@ -67,7 +67,8 @@
     "lable_favorties_users": "Mes favoris",
     "label_cart": "Panier",
     "label_order": "Commandes",
-    "label_location": "Location"
+    "label_location": "Location",
+    "label_rent_request": "Demande de location"
   },
   "home":{
     "steps": {
@@ -298,5 +299,12 @@
     "title_dialog_add_order": "Passer la commande",
     "description_dialog_add_order": "Votre commande a été bien passée",
     "no_commandes_founds": "Aucune commande trouvée"
+  },
+  "rentrequest": {
+    "label_rent_request": "Demande de location",
+    "message_success_send_rent_request": "Votre demande a été bien passé",
+    "label_btn_accept": "Accepter",
+    "label_btn_refused": "Annuler",
+    "no_rentrequest_founds": "Aucune demande trouvée"
   }
 }

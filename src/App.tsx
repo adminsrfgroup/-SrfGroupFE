@@ -587,7 +587,7 @@ export const App = () => {
         <ListItem
             button
             component={Link}
-            to={ALL_APP_ROUTES.LOCATION.LIST}
+            to={ALL_APP_ROUTES.RENT_REQUEST.LIST}
             onClick={() => handleDrawerToggleRight(false)}
         >
           <ListItemIcon>

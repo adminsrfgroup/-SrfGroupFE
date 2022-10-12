@@ -14,6 +14,7 @@ import favoriteSaga from "../../../main-features/favorite/store/saga";
 import cartSaga from "../../../main-features/cart/store/saga";
 import problemeDeclarationSaga from "../../../main-features/probleme-declaration/store/saga";
 import newsLetterSaga from "../../../shared/layout/footer/store/saga";
+import rentRequestSaga from "../../../main-features/rent-request/store/saga";
 export default function* rootSaga() {
   yield all([
     fork(userSaga),
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     fork(cartSaga),
     fork(problemeDeclarationSaga),
     fork(newsLetterSaga),
+    fork(rentRequestSaga)
   ]);
 }

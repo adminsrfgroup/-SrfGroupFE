@@ -60,7 +60,6 @@ export default function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const resetAll = () => {
     dispatch(resetCart({}));
     setActivePageCart(0);

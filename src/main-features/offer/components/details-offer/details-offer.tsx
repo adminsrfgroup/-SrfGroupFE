@@ -728,7 +728,7 @@ export default function DetailsOfffer() {
                   />
                 ) : entityPublicOfferSelector?.offer?.typeContactClient !== OfferTypeContact.direct &&
                   entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Rent ? (
-                    <AddRentDetailsOffer />
+                    <AddRentDetailsOffer offer={entityPublicOfferSelector.offer} />
                 ) : null
               }
 

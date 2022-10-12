@@ -12,6 +12,7 @@ import { chatSlice } from "../../../main-features/chat/store/slice";
 import { favoriteSlice } from "../../../main-features/favorite/store/slice";
 import { cartSlice } from "../../../main-features/cart/store/slice";
 import { problemeDeclarationSlice } from "../../../main-features/probleme-declaration/store/slice";
+import {rentRequestSlice} from '../../../main-features/rent-request/store/slice';
 import { newsLetterSlice } from "../../../shared/layout/footer/store/slice";
 import { commonSlice } from "./common/slice";
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   problemeDeclaration: problemeDeclarationSlice.reducer,
   newsLetter: newsLetterSlice.reducer,
   common: commonSlice.reducer,
+  rentRequest: rentRequestSlice.reducer
 });
 
 export default rootReducer;

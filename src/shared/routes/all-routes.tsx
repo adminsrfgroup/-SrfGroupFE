@@ -59,8 +59,8 @@ const LazyOrder = React.lazy(
     () => import("../../main-features/cart/components/list_orders")
 );
 
-const LazyLocation = React.lazy(
-    () => import("../../main-features/location/components/list_location")
+const LazyRentRequest = React.lazy(
+    () => import("../../main-features/rent-request/components/rent_request")
 );
 
 const LazyProfile = React.lazy(
@@ -328,14 +328,14 @@ export default function AllRoutes() {
         />
 
         <Route
-          path={ALL_APP_ROUTES.LOCATION.LIST}
+          path={ALL_APP_ROUTES.RENT_REQUEST.LIST}
           element={
               <PrivateRoute
                   isAuthenticated={isAuthenticated}
                   path={''}
               >
                   <React.Suspense fallback={<>...</>}>
-                      <LazyLocation />
+                      <LazyRentRequest />
                   </React.Suspense>
               </PrivateRoute>
           }

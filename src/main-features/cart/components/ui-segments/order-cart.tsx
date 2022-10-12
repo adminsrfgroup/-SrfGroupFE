@@ -33,26 +33,11 @@ import { AllAppConfig } from "../../../../core/config/all-config";
 import { ICart } from "../../../../shared/model/cart.model";
 import { ALL_APP_ROUTES } from "../../../../core/config/all-app-routes";
 import { TransitionModal } from "../../../../shared/pages/transition-modal";
-import { TypeOfferEnum } from "../../../../shared/enums/type-offer.enum";
 import { InputQuantity } from "../../../../shared/components/input-quantity/InputQuantity";
 import {
-  deleteCart,
-  deleteSuccessCart,
-  detailsCart,
-  entitiesCart,
-  entityCart,
-  fetchCart, fetchOrder, resetCart,
-  loadingEntitiesCart, resetOrder,
-  totalItemsCart,
-  totalPagesCart,
-  updateByQuantityCart, totalPagesOrder,
+  updateByQuantityCart
 } from "../../store/slice";
-import { getNumberOfCarts } from "../../../user/store/slice";
-import { IDetailsCart } from "../../../../shared/model/details-cart.model";
 import Avatar from "@mui/material/Avatar/Avatar";
-import IconButton from "@mui/material/IconButton/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import {ConvertReactTimeAgo} from "../../../../shared/pages/react-time-ago";
 import CardHeader from "@mui/material/CardHeader/CardHeader";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -182,8 +167,7 @@ function ItemCart({
             height: { xs: "100%", sm: 200 },
           }}
         >
-          {cart?.sellOffer?.offerImages &&
-          cart?.sellOffer?.offerImages.length ? (
+          { cart?.sellOffer?.offerImages?.length ? (
             <LazyLoadImage
               alt="Image offer"
               src={getImageForOffer(
