@@ -138,7 +138,7 @@ export default function FavoriteUsers() {
                         )
                     }
 
-                    {loadingEntitiesFavoriteUserSelector ? (
+                    {!loadingEntitiesFavoriteUserSelector && entitiesFavoriteUserSelector?.length == 0 ? (
                         <Grid item xs={12}>
                             <Alert severity="warning">
                                 {t<string>("favorite.user.message_no_favorite_found")}

@@ -43,7 +43,7 @@ import {ICart} from "../../../shared/model/cart.model";
 
 function LoadingOrders() {
     return (
-        <Box>
+        <Grid item xs={12} md={6}>
             {[0, 1, 2].map((key) => (
                 <Card sx={{display: {xs: "block", sm: "flex"}, my: 2}} key={key}>
                     <CardMedia
@@ -78,7 +78,7 @@ function LoadingOrders() {
                     </CardContent>
                 </Card>
             ))}
-        </Box>
+        </Grid>
     );
 }
 
@@ -288,6 +288,8 @@ export default function ListOrders() {
                 initialLoad={false}
             >
                 <Grid container spacing={4} sx={{mt: 3}}>
+
+                    <LoadingOrders/>
                     {
                         entitiesOrderSelector?.map((item: any, index: number) => (
                             <ItemOrder item={item} key={index}/>
