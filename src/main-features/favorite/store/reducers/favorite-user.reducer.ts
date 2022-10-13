@@ -40,6 +40,10 @@ const reducer = {
     state.favoriteUser.loading = false;
   },
 
+  setActivePageFavoriteUsers: (state: any, action: PayloadAction) => {
+    state.favoriteUser.activePage = action.payload;
+  },
+
   resetFavoriteUsers: (state: any) => {
     return {
       ...state,

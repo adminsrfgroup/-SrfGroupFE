@@ -31,6 +31,10 @@ const reducer = {
         state.order.loadingEntities = false;
     },
 
+    setActivePageOrder: (state: any, action: PayloadAction) => {
+        state.order.activePage = action.payload;
+    },
+
     resetOrder: (state: any) => {
         state.order = initialState.order;
     },

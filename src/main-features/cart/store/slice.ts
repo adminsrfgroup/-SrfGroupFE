@@ -53,6 +53,7 @@ export const {
   fetchOrderSuccess,
   fetchOrderFailure,
 
+  setActivePageOrder,
   resetOrder
 
 } = cartSlice.actions;
@@ -89,6 +90,8 @@ export const totalItemsOrder = (state: any) =>
     state[CART_KEY_IN_STORE].order.totalItems;
 export const totalPagesOrder = (state: any) =>
     state[CART_KEY_IN_STORE].order.totalPages;
+export const activePageOrder = (state: any) =>
+    state[CART_KEY_IN_STORE].order.activePage;
 export const deleteSuccessOrder = (state: any) =>
     state[CART_KEY_IN_STORE].order.deleteSuccess;
 export const addSuccessOrder = (state: any) =>

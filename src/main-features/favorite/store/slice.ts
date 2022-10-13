@@ -28,6 +28,7 @@ export const {
   deleteFavoriteUsersSuccess,
   deleteFavoriteUsersFailure,
 
+  setActivePageFavoriteUsers,
   resetFavoriteUsers,
 } = favoriteSlice.actions;
 
@@ -44,6 +45,8 @@ export const totalItemsFavoriteUser = (state: any) =>
   state[FAVORITE_KEY_IN_STORE].favoriteUser.totalItems;
 export const totalPagesFavoriteUser = (state: any) =>
   state[FAVORITE_KEY_IN_STORE].favoriteUser.totalPages;
+export const activePageFavoriteUser = (state: any) =>
+    state[FAVORITE_KEY_IN_STORE].favoriteUser.activePage;
 export const addSuccessFavoriteUser = (state: any) =>
   state[FAVORITE_KEY_IN_STORE].favoriteUser.addSuccess;
 export const deleteSuccessFavoriteUser = (state: any) =>

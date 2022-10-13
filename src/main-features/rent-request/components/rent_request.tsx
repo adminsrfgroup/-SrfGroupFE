@@ -43,6 +43,13 @@ import {ButtonGroup} from "@mui/material";
 import InfiniteScroll from "react-infinite-scroller";
 import Alert from "@mui/material/Alert/Alert";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
+import { StatusRentRequest } from "../../../shared/enums/rent_request.enum";
+import Dialog from "@mui/material/Dialog/Dialog";
+import {TransitionModal} from "../../../shared/pages/transition-modal";
+import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
+import DialogContent from "@mui/material/DialogContent/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
+import DialogActions from "@mui/material/DialogActions/DialogActions";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -133,6 +140,8 @@ export default function ListLocation() {
 function ListRentRequestSent() {
 
     const [isFirstTime, setIsFirstTime] = React.useState(true);
+    const [openDeleteRentRequestModal, setOpenDeleteRentRequestModal] = React.useState(false);
+    const [rentRequestTmp, setRentRequestTmp] = React.useState<IRentRequest>({});
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -178,6 +187,45 @@ function ListRentRequestSent() {
         dispatch(setActivePageSentRentRequest(activePageSentRentRequestSelector + 1));
     };
 
+    const removeRentRequest = (rentRequest: IRentRequest) => {
+        setRentRequestTmp(rentRequest);
+        setOpenDeleteRentRequestModal(true);
+    }
+
+    const handleClickCancelDeleteRentRequestModal =() => {
+        setOpenDeleteRentRequestModal(false);
+    }
+
+    const handleClickDeleteDeleteRentRequestModal = () => {
+        console.log('delete');
+    }
+    const renderDialogDeleteRentRequest = () => {
+        return (
+            <Dialog
+                open={openDeleteRentRequestModal}
+                TransitionComponent={TransitionModal}
+                keepMounted
+                onClose={handleClickCancelDeleteRentRequestModal}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{t<string>("rentrequest.title_dialog_delete_rentrequest")}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        {t<string>("rentrequest.description_dialog_delete_rentrequest")}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClickCancelDeleteRentRequestModal} color="neutral">
+                        {t<string>("common.label_cancel")}
+                    </Button>
+                    <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
+                        {t<string>("common.label_delete")}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    };
+
     return (
         <Box>
             <InfiniteScroll
@@ -188,17 +236,18 @@ function ListRentRequestSent() {
                 threshold={0}
                 initialLoad={false}
             >
-                {
-                    entitiesSentRentRequestSelector.map((item: IRentRequest, index: number) => (
-                        <Box key={index} sx={{mb: 2}}>
-                            <DisplayItemSent item={item}/>
-                        </Box>
-                    ))
-                }
 
-                {
-                    loadingEntitiesSentRentRequestSelector ? <LoadingRentRequest /> : null
-                }
+                <Grid container spacing={4} sx={{mt: 3}}>
+                    {
+                        entitiesSentRentRequestSelector.map((item: IRentRequest, index: number) => (
+                            <DisplayItemSent item={item} key={index} removeRentRequest={removeRentRequest}/>
+                        ))
+                    }
+
+                    {
+                        loadingEntitiesSentRentRequestSelector ? <LoadingRentRequest /> : null
+                    }
+                </Grid>
             </InfiniteScroll>
 
             {
@@ -208,7 +257,7 @@ function ListRentRequestSent() {
                     </Grid> : null
             }
 
-
+            {renderDialogDeleteRentRequest()}
         </Box>
     )
 }
@@ -267,17 +316,17 @@ function ListRentRequestReceiver() {
                 threshold={0}
                 initialLoad={false}
             >
-                {
-                    entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
-                        <Box key={index} sx={{mb: 2}}>
-                            <DisplayItemReceived item={item}/>
-                        </Box>
-                    ))
-                }
+                <Grid container spacing={4} sx={{mt: 3}}>
+                    {
+                        entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
+                            <DisplayItemReceived item={item} key={index}/>
+                        ))
+                    }
 
-                {
-                    loadingEntitiesReceivedRentRequestSelector ? <LoadingRentRequest /> : null
-                }
+                    {
+                        loadingEntitiesReceivedRentRequestSelector ? <LoadingRentRequest /> : null
+                    }
+                </Grid>
             </InfiniteScroll>
 
             {
@@ -291,7 +340,7 @@ function ListRentRequestReceiver() {
 }
 
 
-function DisplayItemSent({item}: {item: IRentRequest}) {
+function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeRentRequest: any}) {
 
     const { t } = useTranslation();
 
@@ -302,7 +351,7 @@ function DisplayItemSent({item}: {item: IRentRequest}) {
     };
 
     return (
-        <Box>
+        <Grid item xs={12} md={6}>
             <Card
                 sx={{ display: { xs: "block", sm: "flex" } }}
                 onClick={() => rediretTo()}
@@ -369,15 +418,12 @@ function DisplayItemSent({item}: {item: IRentRequest}) {
                                 subheader={item?.rentOffer?.title}
                             />
 
-
-                            {/*<ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">*/}
-                            {/*    <Button variant="outlined" color="neutral">*/}
-                            {/*        {t<string>("rentrequest.label_btn_refused")}*/}
-                            {/*    </Button>*/}
-                            {/*    <Button variant="outlined" color="success">*/}
-                            {/*        {t<string>("rentrequest.label_btn_accept")}*/}
-                            {/*    </Button>*/}
-                            {/*</ButtonGroup>*/}
+                            {
+                                item.status === StatusRentRequest.STANDBY ?
+                                    <Button variant="outlined" color="error" onClick={() => removeRentRequest(item)}>
+                                        {t<string>("rentrequest.label_btn_refused")}
+                                    </Button> : null
+                            }
 
                         </Grid>
 
@@ -408,7 +454,7 @@ function DisplayItemSent({item}: {item: IRentRequest}) {
 
                 </CardContent>
             </Card>
-        </Box>
+        </Grid>
     )
 }
 
@@ -429,7 +475,7 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
     }
 
     return (
-        <Box>
+        <Grid item xs={12} md={6}>
             <Card
                 sx={{ display: { xs: "block", sm: "flex" } }}
                 onClick={() => rediretTo()}
@@ -535,7 +581,7 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
 
                 </CardContent>
             </Card>
-        </Box>
+        </Grid>
     )
 }
 

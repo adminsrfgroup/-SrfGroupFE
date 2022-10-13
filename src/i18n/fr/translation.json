@@ -305,6 +305,8 @@
     "message_success_send_rent_request": "Votre demande a été bien passé",
     "label_btn_accept": "Accepter",
     "label_btn_refused": "Annuler",
-    "no_rentrequest_founds": "Aucune demande trouvée"
+    "no_rentrequest_founds": "Aucune demande trouvée",
+    "title_dialog_delete_rentrequest": "Suppression de la demande",
+    "description_dialog_delete_rentrequest": "Ete vous sur d annuler la demande"
   }
 }
