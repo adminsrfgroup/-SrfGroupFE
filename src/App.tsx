@@ -98,6 +98,8 @@ import {
   fetchRecentlyOffer,
   fetchRentOffer,
   fetchSellerOffer,
+  resetMyOffers,
+  resetPublicOffers,
 } from "./main-features/offer/store/slice";
 import isEmpty from "lodash/isEmpty";
 import { languages, locales } from "./main-features/user/store/initial.state";
@@ -108,6 +110,8 @@ import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { resetRentRequests } from "./main-features/rent-request/store/slice";
 import { resetCart } from "./main-features/cart/store/slice";
+import { resetMyNotifications } from "./main-features/notification/store/slice";
+
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
 //
@@ -350,6 +354,9 @@ export const App = () => {
     handleDrawerToggleRight(false);
     dispatch(resetRentRequests({}));
     dispatch(resetCart({}));
+    dispatch(resetMyOffers({}));
+    dispatch(resetPublicOffers({}));
+    dispatch(resetMyNotifications({}));
     dispatch(logout({}));
     navigate(ALL_APP_ROUTES.HOME);
   };

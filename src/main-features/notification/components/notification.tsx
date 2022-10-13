@@ -21,19 +21,23 @@ import { INotification } from "../../../shared/model/notification.model";
 import { ConvertReactTimeAgo } from "../../../shared/pages/react-time-ago";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  activePageMyNotifications,
   addIsReadSuccessMyNotifications,
   addReadNotifications,
   entitiesMyNotifications,
   fetchMyNotifications,
   loadingEntitiesMyNotifications,
   resetMyNotifications,
+  setActivePageNotifications,
   totalPagesMyNotifications,
 } from "../store/slice";
 import { ALL_APP_ROUTES } from "../../../core/config/all-app-routes";
 import { resetNumberOfNotificationsNotSee } from "../../user/store/slice";
 
 export default function Notification() {
-  const [activePage, setActivePage] = React.useState(-1);
+  // const [activePage, setActivePage] = React.useState(-1);
+
+  const [isFirstTime, setIsFirstTime] = React.useState(true);
 
   const tmpListNotSee: INotification[] = [];
   const { t } = useTranslation();
@@ -44,37 +48,40 @@ export default function Notification() {
     useSelector(loadingEntitiesMyNotifications) ?? false;
   const entitiesMyNotificationsSelector =
     useSelector(entitiesMyNotifications) ?? [];
-  // const totalItemsMyNotificationsSelector = useSelector(totalItemsMyNotifications) ?? -1;
   const totalPagesMyNotificationsSelector =
     useSelector(totalPagesMyNotifications) ?? 0;
+  const activePageMyNotificationsSelector =
+      useSelector(activePageMyNotifications) ?? 0;
   const addIsReadSuccessMyNotificationsSelector =
     useSelector(addIsReadSuccessMyNotifications) ?? false;
 
   const resetAll = () => {
     dispatch(resetMyNotifications({}));
-    setActivePage(0);
+    dispatch(setActivePageNotifications(0));
   };
 
   React.useEffect(() => {
-    resetAll();
-  }, []);
+    if( isFirstTime && entitiesMyNotificationsSelector.length === 0 ){
+      setIsFirstTime(false);
+      resetAll();
+    }
+  }, [isFirstTime]);
 
   React.useEffect(() => {
-    if (activePage >= 0) {
+    if (activePageMyNotificationsSelector >= 0 && !isFirstTime) {
       dispatch(
         fetchMyNotifications({
-          page: activePage,
+          page: activePageMyNotificationsSelector,
           size: AllAppConfig.OFFERS_PER_PAGE,
           queryParams: "",
         })
       );
     }
-  }, [activePage]);
+  }, [activePageMyNotificationsSelector, isFirstTime]);
 
   React.useEffect(() => {
     if (
-      entitiesMyNotificationsSelector &&
-      entitiesMyNotificationsSelector.length > 0
+      entitiesMyNotificationsSelector?.length > 0
     ) {
       for (let i = 0; i < entitiesMyNotificationsSelector.length; i++) {
         if (!entitiesMyNotificationsSelector[i].isRead) {
@@ -85,7 +92,6 @@ export default function Notification() {
       }
       if (tmpListNotSee.length > 0) {
         dispatch(addReadNotifications(tmpListNotSee));
-        // props.setIsReadNotifications(tmpListNotSee);
       }
     }
   }, [entitiesMyNotificationsSelector]);
@@ -93,12 +99,12 @@ export default function Notification() {
   React.useEffect(() => {
     if (addIsReadSuccessMyNotificationsSelector) {
       dispatch(resetNumberOfNotificationsNotSee({}));
-      // props.resetNbeNotificationsNotRead();
     }
   }, [addIsReadSuccessMyNotificationsSelector]);
 
   const loadMore = () => {
-    setActivePage(activePage + 1);
+    setIsFirstTime(false);
+    dispatch(setActivePageNotifications(activePageMyNotificationsSelector + 1));
   };
 
   const redirect = (notification: INotification) => {
@@ -140,10 +146,10 @@ export default function Notification() {
 
         <Grid item xs={12} sm={6} md={6} className="my-container">
           <InfiniteScroll
-            pageStart={activePage}
+            pageStart={activePageMyNotificationsSelector}
             loadMore={loadMore}
             hasMore={
-              totalPagesMyNotificationsSelector - 1 > activePage &&
+              totalPagesMyNotificationsSelector - 1 > activePageMyNotificationsSelector &&
               !loadingEntitiesMyNotificationsSelector
             }
             loader={<div className="loader" key={0}></div>}

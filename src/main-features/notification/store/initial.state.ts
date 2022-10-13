@@ -9,5 +9,6 @@ export const initialState = {
     errorMessage: null,
     totalItems: -1,
     totalPages: 0,
+    activePage: -1,
   },
 };

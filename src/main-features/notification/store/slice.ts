@@ -23,6 +23,7 @@ export const {
   addReadNotificationsSuccess,
   addReadNotificationsFailure,
 
+  setActivePageNotifications,
   resetMyNotifications,
 } = notificationSlice.actions;
 
@@ -37,6 +38,8 @@ export const entitiesMyNotifications = (state: any) =>
   state[NOTIFICATION_KEY_IN_STORE].mynotifications.entities;
 export const totalItemsMyNotifications = (state: any) =>
   state[NOTIFICATION_KEY_IN_STORE].mynotifications.totalItems;
+export const activePageMyNotifications = (state: any) =>
+    state[NOTIFICATION_KEY_IN_STORE].mynotifications.activePage;
 export const totalPagesMyNotifications = (state: any) =>
   state[NOTIFICATION_KEY_IN_STORE].mynotifications.totalPages;
 export const deleteSuccessMyNotifications = (state: any) =>

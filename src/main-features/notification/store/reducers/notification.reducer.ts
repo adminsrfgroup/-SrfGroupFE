@@ -30,6 +30,9 @@ const reducer = {
     state.mynotifications.loading = false;
   },
 
+  setActivePageNotifications: (state: any, action: PayloadAction) => {
+    state.mynotifications.activePage = action.payload;
+  },
   resetMyNotifications: (state: any) => {
     state.mynotifications = initialState.mynotifications;
   },

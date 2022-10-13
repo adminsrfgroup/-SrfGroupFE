@@ -13,24 +13,24 @@ import BottomHomeSlides from "./ui-segments/BottomHomeSlides";
 import './home.scss';
 
 export default function Home() {
-    const [isShowContainer, setIsShowContainer] = React.useState(false);
+    // const [isShowContainer, setIsShowContainer] = React.useState(false);
+    //
+    // React.useEffect(() => {
+    //     setTimeout(() => {
+    //         setIsShowContainer(true);
+    //     }, 1000);
+    // }, [])
+    //
+    // const getClassContainer = isShowContainer ? 'container-mobile-lazy show' : 'container-mobile-lazy';
 
-    React.useEffect(() => {
-        setTimeout(() => {
-            console.log('setIsShowContainer');
-            setIsShowContainer(true);
-        }, 1000);
-    }, [])
-
-    const getClassContainer = isShowContainer ? 'container-mobile-lazy show' : 'container-mobile-lazy';
-
+    console.log('home');
   return (
     <Box>
       <TopHomeSlides />
 
       <ForSellHomeClient />
 
-      <Box className={getClassContainer}>
+      <Box>
           <FirstHorizentalListHomeClient />
 
           <ForRentHomeClient />

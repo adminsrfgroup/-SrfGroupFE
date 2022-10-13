@@ -94,10 +94,6 @@ export default function Faq() {
     }
   }, []);
 
-  console.log('Faq');
-
-
-
   return (
     <Container maxWidth="xl">
       <Grid

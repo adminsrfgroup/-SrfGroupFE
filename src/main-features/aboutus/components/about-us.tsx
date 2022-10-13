@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography/Typography";
 import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Box from "@mui/material/Box/Box";
-import Alert from "@mui/material/Alert/Alert";
 import i18n from "i18next";
 import { ALL_APP_ROUTES } from "../../../core/config/all-app-routes";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,8 +25,6 @@ export default function AboutUs() {
     if (isEmpty(entity)) {
       dispatch(fetchAboutUs({}));
     }
-
-    // getEntitiyAboutUs();
   }, []);
 
   React.useEffect(() => {

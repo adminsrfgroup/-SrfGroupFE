@@ -95,7 +95,7 @@ import {
   addConversation,
   loadingConversation,
 } from "../../../chat/store/slice";
-import { addCart, addSuccessCart } from "../../../cart/store/slice";
+import {addCart, addSuccessCart, resetCart} from "../../../cart/store/slice";
 import CustomShare from "../../../../shared/components/custom-share/CustomShare";
 import {
   addFavoriteUsers,
@@ -353,8 +353,8 @@ export default function DetailsOfffer() {
             id: entityPublicOfferSelector?.offer?.id,
           },
         };
-        console.log("entity ", entity);
         dispatch(addCart({ ...entity }));
+        dispatch(resetCart({}));
       }
       else{
         toast.error(i18n.t<string>('details_offer.missing_amount'));

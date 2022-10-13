@@ -77,7 +77,7 @@ registerRoute(
 const RUNTIME_CACHE = "api-cache";
 self.addEventListener("fetch", async (event: any) => {
   if (
-    event.request.url.startsWith("https://srf-group-be.herokuapp.com/api/") &&
+    event.request.url.startsWith(`${process.env.REACT_APP_API_END_POINT}api/`) &&
     event.request.method === "GET"
   ) {
     event.respondWith(
