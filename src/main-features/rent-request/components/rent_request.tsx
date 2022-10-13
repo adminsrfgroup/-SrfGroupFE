@@ -238,6 +238,7 @@ function ListRentRequestSent() {
             >
 
                 <Grid container spacing={4} sx={{mt: 3}}>
+
                     {
                         entitiesSentRentRequestSelector.map((item: IRentRequest, index: number) => (
                             <DisplayItemSent item={item} key={index} removeRentRequest={removeRentRequest}/>
@@ -587,7 +588,7 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
 
 function LoadingRentRequest() {
     return (
-        <Box>
+        <Grid item xs={12} md={6}>
             {[0, 1, 2].map((key) => (
                 <Card sx={{ display: { xs: "block", sm: "flex" }, my: 2 }} key={key}>
                     <CardMedia
@@ -622,6 +623,6 @@ function LoadingRentRequest() {
                     </CardContent>
                 </Card>
             ))}
-        </Box>
+        </Grid>
     );
 }
