@@ -289,7 +289,6 @@ export default function ListOrders() {
             >
                 <Grid container spacing={4} sx={{mt: 3}}>
 
-                    <LoadingOrders/>
                     {
                         entitiesOrderSelector?.map((item: any, index: number) => (
                             <ItemOrder item={item} key={index}/>
