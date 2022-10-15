@@ -340,6 +340,7 @@ export default function Account() {
                         right: 0,
                         opacity: 0,
                       }}
+                      accept=".jpg, .jpeg, .png"
                     />
                   </Box>
                 ) : null}

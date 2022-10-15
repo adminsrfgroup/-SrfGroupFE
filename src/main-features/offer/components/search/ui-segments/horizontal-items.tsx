@@ -1,33 +1,51 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Pagination, Navigation } from "swiper";
+import { FreeMode, Pagination, Navigation, Scrollbar } from "swiper";
 import {Box} from "@mui/material";
+import { ICategory } from "../../../../../shared/model/category.model";
+import Typography from "@mui/material/Typography/Typography";
+import "swiper/css/scrollbar";
+import "swiper/css/free-mode";
 
-const HorizontalItems = () => {
+const HorizontalItems = ({listCategories}: {listCategories: ICategory[]}) => {
+
+    React.useEffect(() => {
+        console.log('listCategories ', listCategories);
+    }, [])
+
+    console.log('HorizontalItems');
     return (
         <Box className="horizontal-items">
             <Swiper
-                slidesPerView={3}
+                slidesPerView={5}
                 spaceBetween={30}
+                freeMode={true}
                 loop={true}
-                navigation={true}
-                modules={[Pagination, Navigation]}
+                modules={[FreeMode, Pagination, Navigation, Scrollbar]}
                 autoplay={{
-                    delay: 4000,
+                    delay: 2000,
                     disableOnInteraction: false,
+                }}
+                scrollbar={{
+                    hide: true,
                 }}
                 className="mySwiper"
             >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                <SwiperSlide>Slide 5</SwiperSlide>
-                <SwiperSlide>Slide 6</SwiperSlide>
-                <SwiperSlide>Slide 7</SwiperSlide>
-                <SwiperSlide>Slide 8</SwiperSlide>
-                <SwiperSlide>Slide 9</SwiperSlide>
+                {
+                    listCategories?.map((item: ICategory, index: number) => (
+                        <SwiperSlide key={`category-${index}`}>
+                            <Box>
+                                <img alt="image category" src={item.imageContent || ''}/>
+                                <Typography
+                                    variant="subtitle2"
+                                    color="text.secondary">
+                                    {item.titleFr}
+                                </Typography>
+                            </Box>
+                        </SwiperSlide>
+                    ))
+                }
             </Swiper>
         </Box>
     );

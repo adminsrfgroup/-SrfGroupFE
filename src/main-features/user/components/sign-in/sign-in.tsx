@@ -80,14 +80,15 @@ export default function SignIn() {
     initialValues,
     validationSchema: validationSchemaSignIn,
     onSubmit: (values) => {
-      dispatch(
-        loginUser({
-          email: values.email.toString(),
-          password: values.password.toString(),
-          oneSignalId: oneSignalId,
-          rememberMe: true,
-        })
-      );
+      console.log('values ', values);
+      // dispatch(
+      //   loginUser({
+      //     email: values.email.toString(),
+      //     password: values.password.toString(),
+      //     oneSignalId: oneSignalId,
+      //     rememberMe: true,
+      //   })
+      // );
     },
   });
 
@@ -242,8 +243,10 @@ export default function SignIn() {
                   </Grid>
 
                   <FormControlLabel
-                    control={<Checkbox value="remember" color="secondary" />}
+                    control={<Checkbox color="secondary"
+                                       value={formik.values.rememberMe}/>}
                     label={t("signin.label_remember_me").toString()}
+                    onChange={formik.handleChange}
                   />
 
                   <LoadingButton

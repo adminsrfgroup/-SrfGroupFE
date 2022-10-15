@@ -194,7 +194,9 @@ export default function Search() {
             />
           </div>
 
-          <HorizontalItems />
+          {
+            entitiesCategories?.length ? <HorizontalItems listCategories={entitiesCategories}/> : null
+          }
 
           <InfiniteScroll
             pageStart={activePagePublicOfferSelector}

@@ -3,6 +3,7 @@ import * as Yup from "yup";
 export const initialValuesSignIn = {
   email: "",
   password: "",
+  rememberMe: true
 };
 
 export const validationSchemaSignIn = Yup.object({
@@ -11,6 +12,7 @@ export const validationSchemaSignIn = Yup.object({
     .required("Password is required")
     .min(5, "Min 5 digits")
     .max(200, "Max 200 digits"),
+  rememberMe: Yup.boolean().nullable().notRequired()
 });
 
 export const initialValuesForgotPassword = {
