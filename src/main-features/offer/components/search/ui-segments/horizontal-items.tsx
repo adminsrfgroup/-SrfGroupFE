@@ -35,7 +35,7 @@ const HorizontalItems = ({listCategories}: {listCategories: ICategory[]}) => {
                 {
                     listCategories?.map((item: ICategory, index: number) => (
                         <SwiperSlide key={`category-${index}`}>
-                            <Box>
+                            <Box className="container-img">
                                 <img alt="image category" src={item.imageContent || ''}/>
                                 <Typography
                                     variant="subtitle2"

@@ -22,8 +22,11 @@
         -ms-flex-align: center;
         -webkit-align-items: center;
         align-items: center;
-        img{
+        .container-img{
           max-width: 100%;
+          img{
+            max-width: 100%;
+          }
         }
       }
       .swiper-button-next,.swiper-button-prev{

@@ -80,11 +80,11 @@ import {
   addEventGA,
   AllModulesEventGA,
 } from "../../../../shared/providers/google-anaylitics";
-import useUnauthorizedModal from "../../../../shared/hooks/unauthorize-modal/unauthorize-modal";
-import { ROLE_SUPER_ADMIN } from "../../../../shared/constants/constants";
+import {ROLE_ADMIN, ROLE_SUPER_ADMIN} from "../../../../shared/constants/constants";
 import "./profile.scss";
 import StatisticOffers from "../../../../shared/components/statistic-offers/statistic-offers";
 import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
 const initialValues = initialValuesAddMessage;
 
@@ -442,6 +442,22 @@ export default function Profile() {
                       </React.Fragment>
                     )}
                   </h4>
+
+                  {
+                    hasUserRole(
+                        entityProfileSelector?.user?.authorities,
+                        ROLE_SUPER_ADMIN
+                    ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="error"/>}>
+                          Super Admin
+                        </Button> :
+                        hasUserRole(
+                            entityProfileSelector?.user?.authorities,
+                            ROLE_ADMIN
+                        ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="success"/>}>
+                          Admin
+                        </Button> : null
+                  }
+
                   <Toolbar sx={{ justifyContent: "center" }}>
                     <Button
                       variant="contained"

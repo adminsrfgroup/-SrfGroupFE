@@ -20,6 +20,10 @@ const listTypeFind = [
     name: "travels",
     value: "travels",
   },
+  {
+    name: "fastfood",
+    value: "FastFood",
+  },
 ];
 
 export default function OptionsFindAddOffer(props: any) {

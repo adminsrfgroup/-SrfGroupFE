@@ -21,30 +21,35 @@ export default function OptionsSellAddOffer(props: any) {
     <Box>
       <Grid container spacing={2} sx={{ my: 2 }}>
         <Grid item xs={12} md={6}>
+
           <FormControl
-            fullWidth
-            error={formik.touched.amount && Boolean(formik.errors.amount)}
+              fullWidth
+              size="small"
+              error={
+                formik.touched.amount && Boolean(formik.errors.amount)
+              }
           >
             <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
               {t<string>("common.label_amount")}
             </InputLabel>
             <OutlinedInput
-              id="amount"
-              type="number"
-              color="secondary"
-              value={formik.values.amount}
-              onChange={formik.handleChange}
-              startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
-              }
-              label={t<string>("common.label_amount")}
-              size="small"
-              inputProps={{ min: 1, max: 999999999999 }}
+                id="amount"
+                name="amount"
+                color="secondary"
+                type="number"
+                label={t<string>("common.label_amount")}
+                value={formik.values.amount}
+                onChange={formik.handleChange}
+                autoComplete="off"
+                inputProps={{ min: 1, max: 999999999999 }}
             />
-            <FormHelperText id="component-helper-text">
-              {formik.touched.amount && formik.errors.amount}
-            </FormHelperText>
+            {formik.touched.amount && formik.errors.amount ? (
+                <FormHelperText id="component-helper-text">
+                  {t<string>(formik.errors.amount)}
+                </FormHelperText>
+            ) : null}
           </FormControl>
+
         </Grid>
         <Grid item xs={12} md={6}></Grid>
       </Grid>
