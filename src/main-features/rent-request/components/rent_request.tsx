@@ -647,6 +647,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
             <Card
                 sx={{ display: { xs: "block", sm: "flex" } }}
                 onClick={() => rediretTo(item?.rentOffer)}>
+                tt
                 <CardMedia
                     sx={{
                         width: { xs: "100%", sm: 250 },
