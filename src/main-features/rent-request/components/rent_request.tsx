@@ -103,6 +103,8 @@ function a11yProps(index: number) {
 export default function ListLocation() {
     const [value, setValue] = React.useState(0);
 
+    const padRef = React.useRef<SignatureCanvas>(null);
+
     const { t } = useTranslation();
 
 
@@ -131,21 +133,23 @@ export default function ListLocation() {
             </Grid>
 
             <Box sx={{ mt: 5 }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={value} onChange={handleChange}
-                          aria-label="basic tabs example"
-                          textColor="secondary"
-                          indicatorColor="secondary">
-                        <Tab label="Demande reçu" {...a11yProps(0)} />
-                        <Tab label="Demande envoyée" {...a11yProps(1)} />
-                    </Tabs>
-                </Box>
-                <TabPanel value={value} index={0}>
-                    <ListRentRequestReceiver />
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <ListRentRequestSent />
-                </TabPanel>
+
+                <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                {/*<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>*/}
+                {/*    <Tabs value={value} onChange={handleChange}*/}
+                {/*          aria-label="basic tabs example"*/}
+                {/*          textColor="secondary"*/}
+                {/*          indicatorColor="secondary">*/}
+                {/*        <Tab label="Demande reçu" {...a11yProps(0)} />*/}
+                {/*        <Tab label="Demande envoyée" {...a11yProps(1)} />*/}
+                {/*    </Tabs>*/}
+                {/*</Box>*/}
+                {/*<TabPanel value={value} index={0}>*/}
+                {/*    <ListRentRequestReceiver />*/}
+                {/*</TabPanel>*/}
+                {/*<TabPanel value={value} index={1}>*/}
+                {/*    <ListRentRequestSent />*/}
+                {/*</TabPanel>*/}
             </Box>
 
         </Container>
