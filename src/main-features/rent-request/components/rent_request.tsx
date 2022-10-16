@@ -527,6 +527,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
         validationSchema: validationSchemaRentRequestReceived,
         onSubmit: (values) => {
             console.log('values ', values);
+            trim();
             // if (isAuthenticated) {
             //     saveEntity(values);
             // } else {
@@ -536,6 +537,9 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
         },
     });
 
+    React.useEffect(() => {
+        console.log('dataURL ', dataURL);
+    }, [dataURL])
     const clear = () => {
         padRef.current?.clear();
     };
@@ -547,7 +551,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
 
     const rediretTo = (rentOffer: IRentOffer | undefined) => {
         setTimeout(() => {
-            navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
+            // navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
         }, 300);
     };
 
@@ -624,7 +628,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
             >
                 <DialogTitle>{t<string>("rentrequest.title_dialog_cancel_rentrequest")}</DialogTitle>
                 <DialogContent>
-                    <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                    {/*<SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />*/}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenAddSignatureRentRequestModal(false)} color="neutral">
@@ -876,7 +880,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                 </CardContent>
             </Card>
             {renderDialogCancelRentRequest()}
-            {renderDialogAddSignatureRentRequest()}
+            {/*{renderDialogAddSignatureRentRequest()}*/}
         </Grid>
     )
 }
