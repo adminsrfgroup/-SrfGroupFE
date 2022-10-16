@@ -40,7 +40,8 @@
     "label_share": "Partager",
     "label_unauthorized_action": "Action non autorisée",
     "message_unauthorized_action": "Action non autorisée, veuillez vous connecter",
-    "label_user_name": "Nom utilisateur"
+    "label_user_name": "Nom utilisateur",
+    "label_back": "Retour"
   },
   "cookie": {
     "accept": "Accepter",
@@ -306,7 +307,8 @@
     "label_btn_accept": "Accepter",
     "label_btn_refused": "Annuler",
     "no_rentrequest_founds": "Aucune demande trouvée",
-    "title_dialog_delete_rentrequest": "Suppression de la demande",
-    "description_dialog_delete_rentrequest": "Ete vous sur d annuler la demande"
+    "title_dialog_delete_rentrequest": "Annulation de la demande",
+    "description_dialog_delete_rentrequest": "Ete vous sur d'annuler la demande",
+    "rentrequest_delete_succefully": "Demande supprimée avec succès"
   }
 }

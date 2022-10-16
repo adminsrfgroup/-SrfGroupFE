@@ -1,6 +1,8 @@
 import {invokeWS, MethodHttp} from "../../../../core/config/api-service";
 import {put} from "redux-saga/effects";
-import {addRentRequestsFailure, addRentRequestsSuccess, fetchRentRequestsFailureReceived, fetchRentRequestsFailureSent,
+import {addRentRequestsFailure, addRentRequestsSuccess,
+    deleteRentRequestsSentFailure,
+    deleteRentRequestsSentSuccess, fetchRentRequestsFailureReceived, fetchRentRequestsFailureSent,
     fetchRentRequestsSuccessReceived, fetchRentRequestsSuccessSent } from "../slice";
 
 
@@ -54,5 +56,23 @@ export function* fetchRentRequestsReceivedHandler(
     } catch (e) {
         console.error(e);
         yield put(fetchRentRequestsFailureReceived(e));
+    }
+}
+
+
+
+export function* deleteRentRequestsSentHandler(
+    data: any
+): Generator<any, any, any> {
+    try {
+        const requestUrl = `${apiUrl}/${data.payload?.id}`;
+        const result = yield invokeWS({
+            url: `${requestUrl}`,
+            method: MethodHttp.delete,
+        });
+        yield put(deleteRentRequestsSentSuccess(result?.data));
+    } catch (e) {
+        console.error(e);
+        yield put(deleteRentRequestsSentFailure(e));
     }
 }

@@ -10,11 +10,6 @@ import "swiper/css/free-mode";
 
 const HorizontalItems = ({listCategories}: {listCategories: ICategory[]}) => {
 
-    React.useEffect(() => {
-        console.log('listCategories ', listCategories);
-    }, [])
-
-    console.log('HorizontalItems');
     return (
         <Box className="horizontal-items">
             <Swiper
@@ -39,7 +34,8 @@ const HorizontalItems = ({listCategories}: {listCategories: ICategory[]}) => {
                                 <img alt="image category" src={item.imageContent || ''}/>
                                 <Typography
                                     variant="subtitle2"
-                                    color="text.secondary">
+                                    color="text.secondary"
+                                    className="truncate-text">
                                     {item.titleFr}
                                 </Typography>
                             </Box>

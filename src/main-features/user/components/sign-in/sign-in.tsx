@@ -56,6 +56,8 @@ export default function SignIn() {
   const [showPassword, setShowPassword] = React.useState({
     showPassword: false,
   });
+  const [checkedRememberMe, setCheckedRememberMe] = React.useState<boolean>(false);
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading } = useSelector(allLoginSelector);
@@ -80,15 +82,14 @@ export default function SignIn() {
     initialValues,
     validationSchema: validationSchemaSignIn,
     onSubmit: (values) => {
-      console.log('values ', values);
-      // dispatch(
-      //   loginUser({
-      //     email: values.email.toString(),
-      //     password: values.password.toString(),
-      //     oneSignalId: oneSignalId,
-      //     rememberMe: true,
-      //   })
-      // );
+      dispatch(
+        loginUser({
+          email: values.email.toString(),
+          password: values.password.toString(),
+          oneSignalId: oneSignalId,
+          rememberMe: checkedRememberMe,
+        })
+      );
     },
   });
 
@@ -115,6 +116,10 @@ export default function SignIn() {
       dispatch(loginWithGoogle({ ...requestData }));
     }
   };
+
+  const handleChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedRememberMe(event.target.checked);
+  }
 
   return (
     <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
@@ -244,7 +249,8 @@ export default function SignIn() {
 
                   <FormControlLabel
                     control={<Checkbox color="secondary"
-                                       value={formik.values.rememberMe}/>}
+                                       checked={checkedRememberMe}
+                                       onChange={handleChangeChecked}/>}
                     label={t("signin.label_remember_me").toString()}
                     onChange={formik.handleChange}
                   />

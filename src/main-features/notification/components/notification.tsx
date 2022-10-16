@@ -113,6 +113,11 @@ export default function Notification() {
         navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + notification?.offer?.id);
       }, 300);
     }
+    else if(notification.module === ModuleNotification.RENT_REQUEST_NOTIFICATION){
+      setTimeout(() => {
+        navigate(ALL_APP_ROUTES.RENT_REQUEST.LIST);
+      }, 300);
+    }
   };
 
   return (

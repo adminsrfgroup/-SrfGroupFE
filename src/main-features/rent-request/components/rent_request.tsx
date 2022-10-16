@@ -10,7 +10,14 @@ import {ALL_APP_ROUTES} from "../../../core/config/all-app-routes";
 import Container from "@mui/material/Container/Container";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
-import {entitiesCart, fetchCart, loadingEntitiesCart, resetOrder, totalPagesOrder} from "../../cart/store/slice";
+import {
+    entitiesCart,
+    fetchCart,
+    loadingEntitiesCart,
+    resetOrder,
+    setActivePage,
+    totalPagesOrder
+} from "../../cart/store/slice";
 import {
     entitiesReceivedRentRequest,
     entitiesSentRentRequest,
@@ -24,7 +31,7 @@ import {
     totalItemsSentRentRequest,
     activePageSentRentRequest,
     setActivePageSentRentRequest,
-    totalPagesSentRentRequest, activePageReceivedRentRequest, totalPagesReceivedRentRequest, setActivePageReceivedRentRequest
+    totalPagesSentRentRequest, activePageReceivedRentRequest, totalPagesReceivedRentRequest, setActivePageReceivedRentRequest, deleteSuccessSentRequest, deleteRentRequestsSent
 } from "../store/slice";
 import {AllAppConfig} from "../../../core/config/all-config";
 import { IRentRequest } from "../../../shared/model/rent_request.model";
@@ -34,9 +41,7 @@ import {getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar} from 
 import CardContent from "@mui/material/CardContent/CardContent";
 import CardHeader from "@mui/material/CardHeader/CardHeader";
 import Avatar from "@mui/material/Avatar/Avatar";
-import {InputQuantity} from "../../../shared/components/input-quantity/InputQuantity";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "@mui/material/Card/Card";
 import {ConvertReactTimeAgo} from "../../../shared/pages/react-time-ago";
 import {ButtonGroup} from "@mui/material";
@@ -50,6 +55,8 @@ import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogContent from "@mui/material/DialogContent/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
+import CardActionArea from "@mui/material/CardActionArea/CardActionArea";
+import { IRentOffer } from "../../../shared/model/rent-offer.model";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -148,9 +155,10 @@ function ListRentRequestSent() {
 
     const loadingEntitiesSentRentRequestSelector = useSelector(loadingEntitiesSentRentRequest) ?? false;
     const entitiesSentRentRequestSelector = useSelector(entitiesSentRentRequest) ?? [];
-    const totalItemsSentRentRequestSelector = useSelector(totalItemsSentRentRequest) ?? 0;
+    // const totalItemsSentRentRequestSelector = useSelector(totalItemsSentRentRequest) ?? 0;
     const activePageSentRentRequestSelector = useSelector(activePageSentRentRequest) ?? -1;
     const totalPagesSentRentRequestSelector = useSelector(totalPagesSentRentRequest) ?? -1;
+    const deleteSuccessSentRequestSelector = useSelector(deleteSuccessSentRequest) ?? false;
 
     const resetAll = () => {
         dispatch(resetRentRequestsSent({}));
@@ -176,18 +184,13 @@ function ListRentRequestSent() {
         }
     }, [activePageSentRentRequestSelector, isFirstTime]);
 
-    const rediretTo = () => {
-        setTimeout(() => {
-            // navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + cart?.sellOffer?.id);
-        }, 300);
-    };
-
     const loadMore = () => {
         setIsFirstTime(false);
         dispatch(setActivePageSentRentRequest(activePageSentRentRequestSelector + 1));
     };
 
-    const removeRentRequest = (rentRequest: IRentRequest) => {
+    const removeRentRequest = (event: any, rentRequest: IRentRequest) => {
+        event.stopPropagation();
         setRentRequestTmp(rentRequest);
         setOpenDeleteRentRequestModal(true);
     }
@@ -197,8 +200,24 @@ function ListRentRequestSent() {
     }
 
     const handleClickDeleteDeleteRentRequestModal = () => {
-        console.log('delete');
+        dispatch(deleteRentRequestsSent({id: rentRequestTmp.id}));
+        setOpenDeleteRentRequestModal(false);
     }
+
+    React.useEffect(() => {
+        if( deleteSuccessSentRequestSelector ){
+            resetAll();
+            dispatch(setActivePageSentRentRequest(0));
+            dispatch(
+                fetchRentRequestsSent({
+                    page: 0,
+                    size: AllAppConfig.RENT_REQUEST_PER_PAGE,
+                    queryParams: '',
+                })
+            );
+        }
+    }, [deleteSuccessSentRequestSelector]);
+
     const renderDialogDeleteRentRequest = () => {
         return (
             <Dialog
@@ -216,10 +235,10 @@ function ListRentRequestSent() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClickCancelDeleteRentRequestModal} color="neutral">
-                        {t<string>("common.label_cancel")}
+                        {t<string>("common.label_back")}
                     </Button>
                     <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
-                        {t<string>("common.label_delete")}
+                        {t<string>("common.label_cancel")}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -344,117 +363,119 @@ function ListRentRequestReceiver() {
 function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeRentRequest: any}) {
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
-    const rediretTo = () => {
+    const rediretTo = (rentOffer: IRentOffer | undefined) => {
         setTimeout(() => {
-            // navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + cart?.sellOffer?.id);
+            navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
         }, 300);
     };
 
     return (
         <Grid item xs={12} md={6}>
-            <Card
-                sx={{ display: { xs: "block", sm: "flex" } }}
-                onClick={() => rediretTo()}
-            >
-                <CardMedia
-                    sx={{
-                        width: { xs: "100%", sm: 250 },
-                        height: { xs: "100%", sm: 200 },
-                    }}
+            <CardActionArea component="a" >
+                <Card
+                    sx={{ display: { xs: "block", sm: "flex" } }}
+                    onClick={() => rediretTo(item?.rentOffer)}
                 >
-                    { item?.rentOffer?.offerImages?.length ? (
-                        <LazyLoadImage
-                            alt="Image offer"
-                            src={getImageForOffer(
-                                item?.rentOffer?.id,
-                                item?.rentOffer?.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
-                            onError={(e: any) => {
-                                e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
-                            }}
-                            className="img-lazy-loading"
-                        />
-                    ) : (
-                        <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
-                            <img
-                                src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
-                        </Box>
-                    )}
-                </CardMedia>
-                <CardContent sx={{ flex: 1 }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={8}>
-                            <CardHeader
-                                sx={{pl: 0, pt: 0}}
-                                avatar={
-                                    <Avatar
-                                        role="img"
-                                        aria-label="Image avatar"
-                                        src={getUserAvatar(
-                                            item?.receiverUser?.id,
-                                            item.receiverUser?.imageUrl,
-                                            item.receiverUser?.sourceConnectedDevice
-                                        )}
-                                        alt="image not found"
-                                    >
-                                        {getFullnameUser(item?.receiverUser)?.charAt(0)}
-                                    </Avatar>
+                    <CardMedia
+                        sx={{
+                            width: { xs: "100%", sm: 250 },
+                            height: { xs: "100%", sm: 200 },
+                        }}
+                    >
+                        { item?.rentOffer?.offerImages?.length ? (
+                            <LazyLoadImage
+                                alt="Image offer"
+                                src={getImageForOffer(
+                                    item?.rentOffer?.id,
+                                    item?.rentOffer?.offerImages[0].path
+                                )}
+                                placeholder={
+                                    <img
+                                        src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
+                                        className="img-lazy-loading"
+                                        alt="image srfgroup"
+                                    />
                                 }
-                                title={getFullnameUser(item?.receiverUser)}
-                                subheader={item?.rentOffer?.title}
+                                placeholderSrc={getBaseImageUrl(
+                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
+                                )}
+                                onError={(e: any) => {
+                                    e.target.onerror = null;
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
+                                }}
+                                className="img-lazy-loading"
                             />
-
-                            {
-                                item.status === StatusRentRequest.STANDBY ?
-                                    <Button variant="outlined" color="error" onClick={() => removeRentRequest(item)}>
-                                        {t<string>("rentrequest.label_btn_refused")}
-                                    </Button> : null
-                            }
-
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: "end" }}
-                            >
-                                {item.status}
-                            </Typography>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: "end" }}
-                            >
-                                <ConvertReactTimeAgo
-                                    convertDate={
-                                        item?.rentOffer?.dateCreated
-                                    }
+                        ) : (
+                            <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
+                                <img
+                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
+                                    className="img-lazy-loading"
+                                    alt="image not found"
                                 />
-                            </Typography>
+                            </Box>
+                        )}
+                    </CardMedia>
+                    <CardContent sx={{ flex: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={8}>
+                                <CardHeader
+                                    sx={{pl: 0, pt: 0}}
+                                    avatar={
+                                        <Avatar
+                                            role="img"
+                                            aria-label="Image avatar"
+                                            src={getUserAvatar(
+                                                item?.receiverUser?.id,
+                                                item.receiverUser?.imageUrl,
+                                                item.receiverUser?.sourceConnectedDevice
+                                            )}
+                                            alt="image not found"
+                                        >
+                                            {getFullnameUser(item?.receiverUser)?.charAt(0)}
+                                        </Avatar>
+                                    }
+                                    title={getFullnameUser(item?.receiverUser)}
+                                    subheader={item?.rentOffer?.title}
+                                />
+
+                                {
+                                    item.status === StatusRentRequest.STANDBY ?
+                                        <Button variant="outlined" color="error" onClick={(event) => removeRentRequest(event, item)}>
+                                            {t<string>("rentrequest.label_btn_refused")}
+                                        </Button> : null
+                                }
+
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <Typography
+                                    variant="subtitle1"
+                                    color="secondary"
+                                    display="flex"
+                                    sx={{ justifyContent: "end" }}
+                                >
+                                    {item.status}
+                                </Typography>
+                                <Typography
+                                    variant="subtitle1"
+                                    color="secondary"
+                                    display="flex"
+                                    sx={{ justifyContent: "end" }} >
+                                    <ConvertReactTimeAgo
+                                        convertDate={
+                                            item?.sendDate
+                                        }
+                                    />
+                                </Typography>
+                            </Grid>
+
                         </Grid>
 
-                    </Grid>
-
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </CardActionArea>
         </Grid>
     )
 }
@@ -464,10 +485,11 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
 function DisplayItemReceived({item}: {item: IRentRequest}) {
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
-    const rediretTo = () => {
+    const rediretTo = (rentOffer: IRentOffer | undefined) => {
         setTimeout(() => {
-            // navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + cart?.sellOffer?.id);
+            navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
         }, 300);
     };
 
@@ -477,111 +499,113 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
 
     return (
         <Grid item xs={12} md={6}>
-            <Card
-                sx={{ display: { xs: "block", sm: "flex" } }}
-                onClick={() => rediretTo()}
-            >
-                <CardMedia
-                    sx={{
-                        width: { xs: "100%", sm: 250 },
-                        height: { xs: "100%", sm: 200 },
-                    }}
+            <CardActionArea component="a" >
+                <Card
+                    sx={{ display: { xs: "block", sm: "flex" } }}
+                    onClick={() => rediretTo(item?.rentOffer)}
                 >
-                    { item?.rentOffer?.offerImages?.length ? (
-                        <LazyLoadImage
-                            alt="Image offer"
-                            src={getImageForOffer(
-                                item?.rentOffer?.id,
-                                item?.rentOffer?.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
-                            onError={(e: any) => {
-                                e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
-                            }}
-                            className="img-lazy-loading"
-                        />
-                    ) : (
-                        <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
-                            <img
-                                src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
-                        </Box>
-                    )}
-                </CardMedia>
-                <CardContent sx={{ flex: 1 }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={8}>
-                            <CardHeader
-                                sx={{pl: 0, pt: 0}}
-                                avatar={
-                                    <Avatar
-                                        role="img"
-                                        aria-label="Image avatar"
-                                        src={getUserAvatar(
-                                            item?.receiverUser?.id,
-                                            item.receiverUser?.imageUrl,
-                                            item.receiverUser?.sourceConnectedDevice
-                                        )}
-                                        alt="image not found"
-                                    >
-                                        {getFullnameUser(item?.receiverUser)?.charAt(0)}
-                                    </Avatar>
+                    <CardMedia
+                        sx={{
+                            width: { xs: "100%", sm: 250 },
+                            height: { xs: "100%", sm: 200 },
+                        }}
+                    >
+                        { item?.rentOffer?.offerImages?.length ? (
+                            <LazyLoadImage
+                                alt="Image offer"
+                                src={getImageForOffer(
+                                    item?.rentOffer?.id,
+                                    item?.rentOffer?.offerImages[0].path
+                                )}
+                                placeholder={
+                                    <img
+                                        src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
+                                        className="img-lazy-loading"
+                                        alt="image srfgroup"
+                                    />
                                 }
-                                title={getFullnameUser(item?.receiverUser)}
-                                subheader={item?.rentOffer?.title}
+                                placeholderSrc={getBaseImageUrl(
+                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
+                                )}
+                                onError={(e: any) => {
+                                    e.target.onerror = null;
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
+                                }}
+                                className="img-lazy-loading"
                             />
-
-
-                            <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
-                                <Button variant="outlined" color="neutral" onClick={cancelAction}>
-                                    {t<string>("rentrequest.label_btn_refused")}
-                                </Button>
-                                <Button variant="outlined" color="success">
-                                    {t<string>("rentrequest.label_btn_accept")}
-                                </Button>
-                            </ButtonGroup>
-
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: "end" }}
-                            >
-                                {item.status}
-                            </Typography>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: "end" }}
-                            >
-                                <ConvertReactTimeAgo
-                                    convertDate={
-                                        item?.rentOffer?.dateCreated
-                                    }
+                        ) : (
+                            <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
+                                <img
+                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
+                                    className="img-lazy-loading"
+                                    alt="image not found"
                                 />
-                            </Typography>
+                            </Box>
+                        )}
+                    </CardMedia>
+                    <CardContent sx={{ flex: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={8}>
+                                <CardHeader
+                                    sx={{pl: 0, pt: 0}}
+                                    avatar={
+                                        <Avatar
+                                            role="img"
+                                            aria-label="Image avatar"
+                                            src={getUserAvatar(
+                                                item?.senderUser?.id,
+                                                item.senderUser?.imageUrl,
+                                                item.senderUser?.sourceConnectedDevice
+                                            )}
+                                            alt="image not found"
+                                        >
+                                            {getFullnameUser(item?.senderUser)?.charAt(0)}
+                                        </Avatar>
+                                    }
+                                    title={getFullnameUser(item?.senderUser)}
+                                    subheader={item?.rentOffer?.title}
+                                />
+
+
+                                <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
+                                    <Button variant="outlined" color="neutral" onClick={cancelAction}>
+                                        {t<string>("rentrequest.label_btn_refused")}
+                                    </Button>
+                                    <Button variant="outlined" color="success">
+                                        {t<string>("rentrequest.label_btn_accept")}
+                                    </Button>
+                                </ButtonGroup>
+
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <Typography
+                                    variant="subtitle1"
+                                    color="secondary"
+                                    display="flex"
+                                    sx={{ justifyContent: "end" }}
+                                >
+                                    {item.status}
+                                </Typography>
+                                <Typography
+                                    variant="subtitle1"
+                                    color="secondary"
+                                    display="flex"
+                                    sx={{ justifyContent: "end" }}
+                                >
+                                    <ConvertReactTimeAgo
+                                        convertDate={
+                                            item?.sendDate
+                                        }
+                                    />
+                                </Typography>
+                            </Grid>
+
                         </Grid>
 
-                    </Grid>
-
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </CardActionArea>
         </Grid>
     )
 }

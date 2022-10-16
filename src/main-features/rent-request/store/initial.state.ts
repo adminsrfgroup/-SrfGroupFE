@@ -14,7 +14,7 @@ export const initialState = {
         activePageReceived: -1,
         addSuccess: false,
         updateSuccess: false,
-        deleteSuccess: false,
+        deleteSuccessSent: false,
         errorMessage: null,
     },
 };

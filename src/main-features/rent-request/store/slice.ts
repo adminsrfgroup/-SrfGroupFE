@@ -33,9 +33,15 @@ export const {
     fetchRentRequestsFailureReceived,
     setActivePageReceivedRentRequest,
 
+    //? ********************| RESET RENTREQUEST USERS ACTIONS |*******************/
     resetRentRequestsSent,
     resetRentRequestsReceived,
-    resetRentRequests
+    resetRentRequests,
+
+    //? ********************| DELETE RENTREQUEST USERS ACTIONS |*******************/
+    deleteRentRequestsSent,
+    deleteRentRequestsSentSuccess,
+    deleteRentRequestsSentFailure
 
 } = rentRequestSlice.actions;
 
@@ -68,3 +74,5 @@ export const addSuccessRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.addSuccess;
 export const deleteSuccessRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.deleteSuccess;
+export const deleteSuccessSentRequest = (state: any) =>
+    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.deleteSuccessSent;

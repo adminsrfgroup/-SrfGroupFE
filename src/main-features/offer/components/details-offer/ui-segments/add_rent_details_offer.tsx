@@ -32,7 +32,6 @@ export default function AddRentDetailsOffer({offer}: {offer: IOffer}){
     const addSuccessRentRequestSelector = useSelector(addSuccessRentRequest) ?? false;
 
     const addRentRequest = () => {
-        console.log('addRentRequest ', offer);
         if( isAuthenticated ){
             const requestData = {
                 rentOffer: {

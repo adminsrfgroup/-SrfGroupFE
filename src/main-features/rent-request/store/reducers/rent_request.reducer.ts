@@ -63,12 +63,26 @@ const reducer = {
         state.rentRequest.totalItemsSent = initialState.rentRequest.totalItemsSent;
         state.rentRequest.totalPagesSent = initialState.rentRequest.totalPagesSent;
         state.rentRequest.activePageSent = initialState.rentRequest.activePageSent;
+        state.rentRequest.addSuccess = initialState.rentRequest.addSuccess;
+        state.rentRequest.deleteSuccessSent = initialState.rentRequest.deleteSuccessSent;
     },
     resetRentRequestsReceived: (state: any) => {
         state.rentRequest.loadingEntitiesReceived = initialState.rentRequest.loadingEntitiesReceived;
         state.rentRequest.entitiesReceived = initialState.rentRequest.entitiesReceived;
         state.rentRequest.totalItemsReceived = initialState.rentRequest.totalItemsReceived;
         state.rentRequest.totalPagesReceived = initialState.rentRequest.totalPagesReceived;
+    },
+
+    deleteRentRequestsSent: (state: any) => {
+        state.rentRequest.loading = true;
+        state.rentRequest.deleteSuccessSent = false;
+    },
+    deleteRentRequestsSentSuccess: (state: any, action: any) => {
+        state.rentRequest.loading = false;
+        state.rentRequest.deleteSuccessSent = true;
+    },
+    deleteRentRequestsSentFailure: (state: any, action: PayloadAction) => {
+        state.rentRequest.loading = false;
     },
 
     resetRentRequests: (state: any) => {
