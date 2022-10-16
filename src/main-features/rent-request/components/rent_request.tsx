@@ -11,14 +11,6 @@ import Container from "@mui/material/Container/Container";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    entitiesCart,
-    fetchCart,
-    loadingEntitiesCart,
-    resetOrder,
-    setActivePage,
-    totalPagesOrder
-} from "../../cart/store/slice";
-import {
     entitiesReceivedRentRequest,
     entitiesSentRentRequest,
     fetchRentRequestsReceived,
@@ -27,11 +19,9 @@ import {
     loadingEntitiesSentRentRequest,
     resetRentRequestsSent,
     resetRentRequestsReceived,
-    totalItemsReceivedRentRequest,
-    totalItemsSentRentRequest,
     activePageSentRentRequest,
     setActivePageSentRentRequest,
-    totalPagesSentRentRequest, activePageReceivedRentRequest, totalPagesReceivedRentRequest, setActivePageReceivedRentRequest, deleteSuccessSentRequest, deleteRentRequestsSent
+    totalPagesSentRentRequest, activePageReceivedRentRequest, totalPagesReceivedRentRequest, setActivePageReceivedRentRequest, deleteSuccessSentRequest, deleteRentRequestsSent, refusedSuccessReceivedRentRequest, refusedRentRequestsReceived
 } from "../store/slice";
 import {AllAppConfig} from "../../../core/config/all-config";
 import { IRentRequest } from "../../../shared/model/rent_request.model";
@@ -57,6 +47,25 @@ import DialogContentText from "@mui/material/DialogContentText/DialogContentText
 import DialogActions from "@mui/material/DialogActions/DialogActions";
 import CardActionArea from "@mui/material/CardActionArea/CardActionArea";
 import { IRentOffer } from "../../../shared/model/rent-offer.model";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import FormControl from "@mui/material/FormControl/FormControl";
+import InputLabel from "@mui/material/InputLabel/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
+import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
+import Select from "@mui/material/Select/Select";
+import MenuItem from "@mui/material/MenuItem/MenuItem";
+import {PeriodeRent} from "../../../shared/enums/type-offer.enum";
+import DatePicker from "@mui/lab/DatePicker/DatePicker";
+import ClearIcon from '@mui/icons-material/Clear';
+import TextField from "@mui/material/TextField/TextField";
+import LocalizationProvider from "@mui/lab/LocalizationProvider/LocalizationProvider";
+import {useFormik} from "formik";
+import { initialValuesRentRequestReceived, validationSchemaRentRequestReceived } from "../validation/init-value-rent-request";
+import SignatureCanvas from 'react-signature-canvas'
+import SignaturePad from "react-signature-canvas";
+
+import './rent_request.scss';
+import IconButton from "@mui/material/IconButton";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -127,15 +136,15 @@ export default function ListLocation() {
                           aria-label="basic tabs example"
                           textColor="secondary"
                           indicatorColor="secondary">
-                        <Tab label="Demande envoyée" {...a11yProps(0)} />
-                        <Tab label="Demande reçu" {...a11yProps(1)} />
+                        <Tab label="Demande reçu" {...a11yProps(0)} />
+                        <Tab label="Demande envoyée" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <ListRentRequestSent />
+                    <ListRentRequestReceiver />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <ListRentRequestReceiver />
+                    <ListRentRequestSent />
                 </TabPanel>
             </Box>
 
@@ -292,9 +301,10 @@ function ListRentRequestReceiver() {
 
     const loadingEntitiesReceivedRentRequestSelector = useSelector(loadingEntitiesReceivedRentRequest) ?? false;
     const entitiesReceivedRentRequestSelector = useSelector(entitiesReceivedRentRequest) ?? [];
-    const totalItemsReceivedRentRequestSelector = useSelector(totalItemsReceivedRentRequest) ?? 0;
+    // const totalItemsReceivedRentRequestSelector = useSelector(totalItemsReceivedRentRequest) ?? 0;
     const activePageReceivedRentRequestSelector = useSelector(activePageReceivedRentRequest) ?? -1;
     const totalPagesReceivedRentRequestSelector = useSelector(totalPagesReceivedRentRequest) ?? -1;
+    const refusedSuccessReceivedRentRequestSelector = useSelector(refusedSuccessReceivedRentRequest) ?? false;
 
     const resetAll = () => {
         dispatch(resetRentRequestsReceived({}));
@@ -326,6 +336,24 @@ function ListRentRequestReceiver() {
         dispatch(setActivePageReceivedRentRequest(activePageReceivedRentRequestSelector + 1));
     };
 
+    const refusedRentRequest = (item: IRentRequest) => {
+        dispatch(refusedRentRequestsReceived({id: item.id}));
+    }
+
+    React.useEffect(() => {
+        if( refusedSuccessReceivedRentRequestSelector ){
+            resetAll();
+            dispatch(setActivePageReceivedRentRequest(0));
+            dispatch(
+                fetchRentRequestsReceived({
+                    page: 0,
+                    size: AllAppConfig.RENT_REQUEST_PER_PAGE,
+                    queryParams: '',
+                })
+            );
+        }
+    }, [refusedSuccessReceivedRentRequestSelector])
+
     return (
         <Box>
             <InfiniteScroll
@@ -339,7 +367,7 @@ function ListRentRequestReceiver() {
                 <Grid container spacing={4} sx={{mt: 3}}>
                     {
                         entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
-                            <DisplayItemReceived item={item} key={index}/>
+                            <DisplayItemReceived item={item} key={index} callbackRefusedRentRequest={refusedRentRequest}/>
                         ))
                     }
 
@@ -449,18 +477,17 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
 
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs={4} sx={{ textAlign: "right" }}>
                                 <Typography
-                                    variant="subtitle1"
+                                    variant="caption"
                                     color="secondary"
                                     display="flex"
                                     sx={{ justifyContent: "end" }}
                                 >
-                                    {item.status}
+                                    {t<string>("rentrequest."+item.status)}
                                 </Typography>
                                 <Typography
-                                    variant="subtitle1"
-                                    color="secondary"
+                                    variant="caption"
                                     display="flex"
                                     sx={{ justifyContent: "end" }} >
                                     <ConvertReactTimeAgo
@@ -481,11 +508,42 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
 }
 
 
+const initialValues = initialValuesRentRequestReceived;
+function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentRequest, callbackRefusedRentRequest: any}) {
 
-function DisplayItemReceived({item}: {item: IRentRequest}) {
+    const [openCancelRentRequestModal, setOpenCancelRentRequestModal] = React.useState<boolean>(false);
+    const [openAddSignatureRentRequestModal, setOpenAddSignatureRentRequestModal] = React.useState<boolean>(false);
+    const [indexSelected, setIndexSelected] = React.useState<number>(-1);
+
+    const [dataURL, setDataURL] = React.useState<string | null>(null);
+
+    const padRef = React.useRef<SignatureCanvas>(null);
 
     const { t } = useTranslation();
     const navigate = useNavigate();
+
+    const formik = useFormik({
+        initialValues,
+        validationSchema: validationSchemaRentRequestReceived,
+        onSubmit: (values) => {
+            console.log('values ', values);
+            // if (isAuthenticated) {
+            //     saveEntity(values);
+            // } else {
+            //     // open();
+            //     dispatch(showUnauthorizedModal({}));
+            // }
+        },
+    });
+
+    const clear = () => {
+        padRef.current?.clear();
+    };
+
+    const trim = () => {
+        const url = padRef.current?.getTrimmedCanvas().toDataURL("image/png");
+        if (url) setDataURL(url);
+    };
 
     const rediretTo = (rentOffer: IRentOffer | undefined) => {
         setTimeout(() => {
@@ -493,9 +551,92 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
         }, 300);
     };
 
-    const cancelAction = () => {
-        console.log('cancel');
+    const cancelIndexAction = (event: any) => {
+        event.stopPropagation();
+        setIndexSelected(-1);
     }
+
+    const acceptAction = (event: any, rentRequest: IRentRequest) => {
+        event.stopPropagation();
+        setIndexSelected(rentRequest.id || -1);
+
+        formik.setFieldValue('amount', item?.rentOffer?.amount || '');
+        formik.setFieldValue('startDate', item?.rentOffer?.startDate || '');
+        formik.setFieldValue('endDate', item?.rentOffer?.endDate || '');
+        formik.setFieldValue('typePeriodRent', item?.rentOffer?.typePeriodRent || '');
+    }
+
+    const cancelAction = (event: any, rentRequest: IRentRequest) => {
+        event.stopPropagation();
+        setOpenCancelRentRequestModal(true);
+    }
+
+    const handleClickCancelCancelRentRequestModal = () => {
+        setOpenCancelRentRequestModal(false);
+    }
+
+    const handleClickDeleteDeleteRentRequestModal = () => {
+        setOpenCancelRentRequestModal(false);
+        callbackRefusedRentRequest(item);
+    }
+
+    const openModalSignature = () => {
+        setOpenAddSignatureRentRequestModal(true);
+    }
+
+    const renderDialogCancelRentRequest = () => {
+        return (
+            <Dialog
+                open={openCancelRentRequestModal}
+                TransitionComponent={TransitionModal}
+                keepMounted
+                onClose={handleClickCancelCancelRentRequestModal}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{t<string>("rentrequest.title_dialog_cancel_rentrequest")}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        {t<string>("rentrequest.description_dialog_cancel_rentrequest")}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClickCancelCancelRentRequestModal} color="neutral">
+                        {t<string>("common.label_cancel")}
+                    </Button>
+                    <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
+                        {t<string>("rentrequest.label_btn_refused")}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    };
+
+
+    const renderDialogAddSignatureRentRequest = () => {
+        return (
+            <Dialog
+                open={openAddSignatureRentRequestModal}
+                TransitionComponent={TransitionModal}
+                keepMounted
+                fullScreen
+                onClose={handleClickCancelCancelRentRequestModal}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{t<string>("rentrequest.title_dialog_cancel_rentrequest")}</DialogTitle>
+                <DialogContent>
+                    <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenAddSignatureRentRequestModal(false)} color="neutral">
+                        {t<string>("common.label_cancel")}
+                    </Button>
+                    <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
+                        {t<string>("rentrequest.label_btn_refused")}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
+    };
 
     return (
         <Grid item xs={12} md={6}>
@@ -544,6 +685,7 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
                         )}
                     </CardMedia>
                     <CardContent sx={{ flex: 1 }}>
+
                         <Grid container spacing={2}>
                             <Grid item xs={8}>
                                 <CardHeader
@@ -566,30 +708,31 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
                                     subheader={item?.rentOffer?.title}
                                 />
 
-
-                                <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
-                                    <Button variant="outlined" color="neutral" onClick={cancelAction}>
-                                        {t<string>("rentrequest.label_btn_refused")}
-                                    </Button>
-                                    <Button variant="outlined" color="success">
-                                        {t<string>("rentrequest.label_btn_accept")}
-                                    </Button>
-                                </ButtonGroup>
+                                {
+                                    item.status === StatusRentRequest.STANDBY  && indexSelected !== item.id ?
+                                        <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
+                                            <Button variant="outlined" color="neutral" onClick={(event) => cancelAction(event, item)}>
+                                                {t<string>("rentrequest.label_btn_refused")}
+                                            </Button>
+                                            <Button variant="outlined" color="success" onClick={(event) => acceptAction(event, item)}>
+                                                {t<string>("rentrequest.label_btn_accept")}
+                                            </Button>
+                                        </ButtonGroup> : null
+                                }
 
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs={4} sx={{ textAlign: "right" }}>
                                 <Typography
-                                    variant="subtitle1"
+                                    variant="caption"
                                     color="secondary"
                                     display="flex"
                                     sx={{ justifyContent: "end" }}
                                 >
-                                    {item.status}
+                                    {t<string>("rentrequest."+item.status)}
                                 </Typography>
                                 <Typography
-                                    variant="subtitle1"
-                                    color="secondary"
+                                    variant="caption"
                                     display="flex"
                                     sx={{ justifyContent: "end" }}
                                 >
@@ -603,9 +746,140 @@ function DisplayItemReceived({item}: {item: IRentRequest}) {
 
                         </Grid>
 
+                        <form onClick={(event) => event.stopPropagation()} onSubmit={formik.handleSubmit} >
+                            {
+                                indexSelected === item.id ?
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                        <Grid container spacing={2} sx={{ my: 2 }}>
+                                            <Grid item xs={12} md={6}>
+                                                <FormControl
+                                                    fullWidth
+                                                    error={formik.touched.amount && Boolean(formik.errors.amount)}
+                                                    size="small"
+                                                >
+                                                    <InputLabel htmlFor="outlined-adornment-amount" color="secondary">Amount</InputLabel>
+                                                    <OutlinedInput
+                                                        id="amount"
+                                                        type="number"
+                                                        color="secondary"
+                                                        value={formik.values.amount}
+                                                        onChange={formik.handleChange}
+                                                        label="Amount"
+                                                    />
+                                                    <FormHelperText id="component-helper-text">
+                                                        {formik.touched.amount && formik.errors.amount}
+                                                    </FormHelperText>
+                                                </FormControl>
+                                            </Grid>
+
+                                            <Grid item xs={12} md={6}>
+                                                <FormControl
+                                                    fullWidth
+                                                    error={
+                                                        formik.touched.typePeriodRent &&
+                                                        Boolean(formik.errors.typePeriodRent)
+                                                    }
+                                                    className="form-control-type-offer"
+                                                    size="small"
+                                                >
+                                                    <InputLabel
+                                                        id="demo-simple-select-label"
+                                                        className="type-offer-select"
+                                                        color="secondary"
+                                                    >
+                                                        {t<string>("add_offer.per_periode")}
+                                                    </InputLabel>
+                                                    <Select
+                                                        id="typePeriodRent"
+                                                        name="typePeriodRent"
+                                                        color="secondary"
+                                                        label={t<string>("add_offer.per_periode")}
+                                                        labelId="demo-simple-select-label"
+                                                        value={formik.values.typePeriodRent}
+                                                        onChange={formik.handleChange}
+                                                    >
+                                                        <MenuItem value={PeriodeRent.PerMonth}>
+                                                            {t<string>("add_offer.per_month")}
+                                                        </MenuItem>
+                                                        <MenuItem value={PeriodeRent.PerDay}>
+                                                            {t<string>("add_offer.per_day")}
+                                                        </MenuItem>
+                                                        <MenuItem value={PeriodeRent.PerYear}>
+                                                            {t<string>("add_offer.per_year")}
+                                                        </MenuItem>
+                                                    </Select>
+                                                    <FormHelperText id="component-helper-text">
+                                                        {formik.touched.typePeriodRent && formik.errors.typePeriodRent}
+                                                    </FormHelperText>
+                                                </FormControl>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12} md={6}>
+                                                <DatePicker
+                                                    label={t<string>("common.label_start_date")}
+                                                    value={formik.values.startDate}
+                                                    onChange={(newValue) => formik.setFieldValue("startDate", newValue)}
+                                                    renderInput={(params) => (
+                                                        <TextField {...params} size="small" fullWidth error={false} color="secondary"/>
+                                                    )}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={12} md={6}>
+                                                <DatePicker
+                                                    label={t<string>("common.label_end_date")}
+                                                    value={formik.values.endDate}
+                                                    onChange={(newValue) => formik.setFieldValue("endDate", newValue)}
+                                                    renderInput={(params) => (
+                                                        <TextField {...params} size="small" fullWidth error={false} color="secondary" />
+                                                    )}
+                                                />
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container spacing={2} sx={{mt: 1}}>
+                                            <Grid item xs={12} md={12}>
+                                                <Button variant="outlined"
+                                                        color="neutral"
+                                                        onClick={openModalSignature}
+                                                        fullWidth>{t<string>("rentrequest.label_add_signature")}</Button>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container spacing={2} sx={{mt: 1}}>
+                                            <Grid item xs={12}>
+                                                <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                                            </Grid>
+                                        </Grid>
+
+                                    </LocalizationProvider> : null
+                            }
+
+                            {
+                                item.status === StatusRentRequest.STANDBY  && indexSelected === item.id ?
+                                    <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
+                                        <IconButton aria-label="delete" onClick={clear} color="error">
+                                            <ClearIcon />
+                                        </IconButton>
+                                        <Button variant="outlined" color="neutral" onClick={(event) => cancelIndexAction(event)}>
+                                            {t<string>("common.label_cancel")}
+                                        </Button>
+                                        <Button variant="outlined"
+                                                color="success"
+                                                type="submit">
+                                            {t<string>("common.label_confirm")}
+                                        </Button>
+                                    </ButtonGroup> : null
+                            }
+                        </form>
+
                     </CardContent>
                 </Card>
             </CardActionArea>
+            {renderDialogCancelRentRequest()}
+            {renderDialogAddSignatureRentRequest()}
         </Grid>
     )
 }

@@ -3,7 +3,8 @@ import {put} from "redux-saga/effects";
 import {addRentRequestsFailure, addRentRequestsSuccess,
     deleteRentRequestsSentFailure,
     deleteRentRequestsSentSuccess, fetchRentRequestsFailureReceived, fetchRentRequestsFailureSent,
-    fetchRentRequestsSuccessReceived, fetchRentRequestsSuccessSent } from "../slice";
+    fetchRentRequestsSuccessReceived, fetchRentRequestsSuccessSent,
+    refusedRentRequestsReceivedFailure, refusedRentRequestsReceivedSuccess } from "../slice";
 
 
 const apiUrl = "api/rentrequest";
@@ -74,5 +75,22 @@ export function* deleteRentRequestsSentHandler(
     } catch (e) {
         console.error(e);
         yield put(deleteRentRequestsSentFailure(e));
+    }
+}
+
+
+export function* refusedRentRequestsReceivedHandler(
+    data: any
+): Generator<any, any, any> {
+    try {
+        const requestUrl = `${apiUrl}/refused-received/${data.payload?.id}`;
+        const result = yield invokeWS({
+            url: `${requestUrl}`,
+            method: MethodHttp.put,
+        });
+        yield put(refusedRentRequestsReceivedSuccess(result?.data));
+    } catch (e) {
+        console.error(e);
+        yield put(refusedRentRequestsReceivedFailure(e));
     }
 }

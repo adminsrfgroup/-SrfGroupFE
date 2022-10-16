@@ -35,9 +35,6 @@ export default function OptionsRentAddOffer(props: any) {
               color="secondary"
               value={formik.values.amount}
               onChange={formik.handleChange}
-              startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
-              }
               label="Amount"
             />
             <FormHelperText id="component-helper-text">
@@ -83,7 +80,7 @@ export default function OptionsRentAddOffer(props: any) {
               </MenuItem>
             </Select>
             <FormHelperText id="component-helper-text">
-              {formik.touched.typeOffer && formik.errors.typeOffer}
+              {formik.touched.typePeriodRent && formik.errors.typePeriodRent}
             </FormHelperText>
           </FormControl>
         </Grid>

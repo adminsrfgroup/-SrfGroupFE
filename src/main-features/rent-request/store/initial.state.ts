@@ -15,6 +15,7 @@ export const initialState = {
         addSuccess: false,
         updateSuccess: false,
         deleteSuccessSent: false,
+        refusedSuccessReceived: false,
         errorMessage: null,
     },
 };

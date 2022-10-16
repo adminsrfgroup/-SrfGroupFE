@@ -41,7 +41,8 @@
     "label_unauthorized_action": "Action non autorisée",
     "message_unauthorized_action": "Action non autorisée, veuillez vous connecter",
     "label_user_name": "Nom utilisateur",
-    "label_back": "Retour"
+    "label_back": "Retour",
+    "label_confirm": "Confirmer"
   },
   "cookie": {
     "accept": "Accepter",
@@ -305,10 +306,15 @@
     "label_rent_request": "Demande de location",
     "message_success_send_rent_request": "Votre demande a été bien passé",
     "label_btn_accept": "Accepter",
-    "label_btn_refused": "Annuler",
+    "label_btn_refused": "Refuser",
     "no_rentrequest_founds": "Aucune demande trouvée",
     "title_dialog_delete_rentrequest": "Annulation de la demande",
-    "description_dialog_delete_rentrequest": "Ete vous sur d'annuler la demande",
-    "rentrequest_delete_succefully": "Demande supprimée avec succès"
+    "description_dialog_delete_rentrequest": "Ete vous sur d'annuler la demande !",
+    "rentrequest_delete_succefully": "Demande supprimée avec succès",
+    "StandBy": "En cours de traitement",
+    "Refused": "Demande refusée",
+    "title_dialog_cancel_rentrequest": "Demande refusée",
+    "description_dialog_cancel_rentrequest": "Ete vous sur de refuser la demande !",
+    "label_add_signature": "Ajouter une signature"
   }
 }

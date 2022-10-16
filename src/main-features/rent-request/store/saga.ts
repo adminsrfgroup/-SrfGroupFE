@@ -1,9 +1,10 @@
 import {all, takeEvery} from "redux-saga/effects";
-import { addRentRequests, fetchRentRequestsSent, fetchRentRequestsReceived, deleteRentRequestsSent } from "./slice";
+import { addRentRequests, fetchRentRequestsSent, fetchRentRequestsReceived, deleteRentRequestsSent,
+    refusedRentRequestsReceived} from "./slice";
 import {
     addRentRequestsHandler, deleteRentRequestsSentHandler,
     fetchRentRequestsReceivedHandler,
-    fetchRentRequestsSentHandler
+    fetchRentRequestsSentHandler, refusedRentRequestsReceivedHandler
 } from "./saga-handler/rent_request.generator";
 
 
@@ -13,6 +14,7 @@ export function* rentRequestSaga() {
         takeEvery(fetchRentRequestsSent, fetchRentRequestsSentHandler),
         takeEvery(fetchRentRequestsReceived, fetchRentRequestsReceivedHandler),
         takeEvery(deleteRentRequestsSent, deleteRentRequestsSentHandler),
+        takeEvery(refusedRentRequestsReceived, refusedRentRequestsReceivedHandler),
     ]);
 }
 
