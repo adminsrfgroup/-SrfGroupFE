@@ -640,244 +640,241 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
 
     return (
         <Grid item xs={12} md={6}>
-            <CardActionArea component="a" >
-                <Card
-                    sx={{ display: { xs: "block", sm: "flex" } }}
-                    onClick={() => rediretTo(item?.rentOffer)}
+            <Card
+                sx={{ display: { xs: "block", sm: "flex" } }}
+                onClick={() => rediretTo(item?.rentOffer)}>
+                <CardMedia
+                    sx={{
+                        width: { xs: "100%", sm: 250 },
+                        height: { xs: "100%", sm: 200 },
+                    }}
                 >
-                    <CardMedia
-                        sx={{
-                            width: { xs: "100%", sm: 250 },
-                            height: { xs: "100%", sm: 200 },
-                        }}
-                    >
-                        { item?.rentOffer?.offerImages?.length ? (
-                            <LazyLoadImage
-                                alt="Image offer"
-                                src={getImageForOffer(
-                                    item?.rentOffer?.id,
-                                    item?.rentOffer?.offerImages[0].path
-                                )}
-                                placeholder={
-                                    <img
-                                        src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
-                                        className="img-lazy-loading"
-                                        alt="image srfgroup"
-                                    />
-                                }
-                                placeholderSrc={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                )}
-                                onError={(e: any) => {
-                                    e.target.onerror = null;
-                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
-                                }}
-                                className="img-lazy-loading"
-                            />
-                        ) : (
-                            <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
+                    { item?.rentOffer?.offerImages?.length ? (
+                        <LazyLoadImage
+                            alt="Image offer"
+                            src={getImageForOffer(
+                                item?.rentOffer?.id,
+                                item?.rentOffer?.offerImages[0].path
+                            )}
+                            placeholder={
                                 <img
-                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
+                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                     className="img-lazy-loading"
-                                    alt="image not found"
+                                    alt="image srfgroup"
                                 />
-                            </Box>
-                        )}
-                    </CardMedia>
-                    <CardContent sx={{ flex: 1 }}>
-
-                        <Grid container spacing={2}>
-                            <Grid item xs={8}>
-                                <CardHeader
-                                    sx={{pl: 0, pt: 0}}
-                                    avatar={
-                                        <Avatar
-                                            role="img"
-                                            aria-label="Image avatar"
-                                            src={getUserAvatar(
-                                                item?.senderUser?.id,
-                                                item.senderUser?.imageUrl,
-                                                item.senderUser?.sourceConnectedDevice
-                                            )}
-                                            alt="image not found"
-                                        >
-                                            {getFullnameUser(item?.senderUser)?.charAt(0)}
-                                        </Avatar>
-                                    }
-                                    title={getFullnameUser(item?.senderUser)}
-                                    subheader={item?.rentOffer?.title}
-                                />
-
-                                {
-                                    item.status === StatusRentRequest.STANDBY  && indexSelected !== item.id ?
-                                        <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
-                                            <Button variant="outlined" color="neutral" onClick={(event) => cancelAction(event, item)}>
-                                                {t<string>("rentrequest.label_btn_refused")}
-                                            </Button>
-                                            <Button variant="outlined" color="success" onClick={(event) => acceptAction(event, item)}>
-                                                {t<string>("rentrequest.label_btn_accept")}
-                                            </Button>
-                                        </ButtonGroup> : null
-                                }
-
-                            </Grid>
-
-                            <Grid item xs={4} sx={{ textAlign: "right" }}>
-                                <Typography
-                                    variant="caption"
-                                    color="secondary"
-                                    display="flex"
-                                    sx={{ justifyContent: "end" }}
-                                >
-                                    {t<string>("rentrequest."+item.status)}
-                                </Typography>
-                                <Typography
-                                    variant="caption"
-                                    display="flex"
-                                    sx={{ justifyContent: "end" }}
-                                >
-                                    <ConvertReactTimeAgo
-                                        convertDate={
-                                            item?.sendDate
-                                        }
-                                    />
-                                </Typography>
-                            </Grid>
-
-                        </Grid>
-
-                        <form onClick={(event) => event.stopPropagation()} onSubmit={formik.handleSubmit} >
-                            {
-                                indexSelected === item.id ?
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                        <Grid container spacing={2} sx={{ my: 2 }}>
-                                            <Grid item xs={12} md={6}>
-                                                <FormControl
-                                                    fullWidth
-                                                    error={formik.touched.amount && Boolean(formik.errors.amount)}
-                                                    size="small"
-                                                >
-                                                    <InputLabel htmlFor="outlined-adornment-amount" color="secondary">Amount</InputLabel>
-                                                    <OutlinedInput
-                                                        id="amount"
-                                                        type="number"
-                                                        color="secondary"
-                                                        value={formik.values.amount}
-                                                        onChange={formik.handleChange}
-                                                        label="Amount"
-                                                    />
-                                                    <FormHelperText id="component-helper-text">
-                                                        {formik.touched.amount && formik.errors.amount}
-                                                    </FormHelperText>
-                                                </FormControl>
-                                            </Grid>
-
-                                            <Grid item xs={12} md={6}>
-                                                <FormControl
-                                                    fullWidth
-                                                    error={
-                                                        formik.touched.typePeriodRent &&
-                                                        Boolean(formik.errors.typePeriodRent)
-                                                    }
-                                                    className="form-control-type-offer"
-                                                    size="small"
-                                                >
-                                                    <InputLabel
-                                                        id="demo-simple-select-label"
-                                                        className="type-offer-select"
-                                                        color="secondary"
-                                                    >
-                                                        {t<string>("add_offer.per_periode")}
-                                                    </InputLabel>
-                                                    <Select
-                                                        id="typePeriodRent"
-                                                        name="typePeriodRent"
-                                                        color="secondary"
-                                                        label={t<string>("add_offer.per_periode")}
-                                                        labelId="demo-simple-select-label"
-                                                        value={formik.values.typePeriodRent}
-                                                        onChange={formik.handleChange}
-                                                    >
-                                                        <MenuItem value={PeriodeRent.PerMonth}>
-                                                            {t<string>("add_offer.per_month")}
-                                                        </MenuItem>
-                                                        <MenuItem value={PeriodeRent.PerDay}>
-                                                            {t<string>("add_offer.per_day")}
-                                                        </MenuItem>
-                                                        <MenuItem value={PeriodeRent.PerYear}>
-                                                            {t<string>("add_offer.per_year")}
-                                                        </MenuItem>
-                                                    </Select>
-                                                    <FormHelperText id="component-helper-text">
-                                                        {formik.touched.typePeriodRent && formik.errors.typePeriodRent}
-                                                    </FormHelperText>
-                                                </FormControl>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={6}>
-                                                <DatePicker
-                                                    label={t<string>("common.label_start_date")}
-                                                    value={formik.values.startDate}
-                                                    onChange={(newValue) => formik.setFieldValue("startDate", newValue)}
-                                                    renderInput={(params) => (
-                                                        <TextField {...params} size="small" fullWidth error={false} color="secondary"/>
-                                                    )}
-                                                />
-                                            </Grid>
-
-                                            <Grid item xs={12} md={6}>
-                                                <DatePicker
-                                                    label={t<string>("common.label_end_date")}
-                                                    value={formik.values.endDate}
-                                                    onChange={(newValue) => formik.setFieldValue("endDate", newValue)}
-                                                    renderInput={(params) => (
-                                                        <TextField {...params} size="small" fullWidth error={false} color="secondary" />
-                                                    )}
-                                                />
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid container spacing={2} sx={{mt: 1}}>
-                                            <Grid item xs={12} md={12}>
-                                                <Button variant="outlined"
-                                                        color="neutral"
-                                                        onClick={openModalSignature}
-                                                        fullWidth>{t<string>("rentrequest.label_add_signature")}</Button>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid container spacing={2} sx={{mt: 1}}>
-                                            <Grid item xs={12}>
-                                                <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
-                                            </Grid>
-                                        </Grid>
-
-                                    </LocalizationProvider> : null
                             }
+                            placeholderSrc={getBaseImageUrl(
+                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
+                            )}
+                            onError={(e: any) => {
+                                e.target.onerror = null;
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
+                            }}
+                            className="img-lazy-loading"
+                        />
+                    ) : (
+                        <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
+                            <img
+                                src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
+                                className="img-lazy-loading"
+                                alt="image not found"
+                            />
+                        </Box>
+                    )}
+                </CardMedia>
+                <CardContent sx={{ flex: 1 }}>
+
+                    <Grid container spacing={2}>
+                        <Grid item xs={8}>
+                            <CardHeader
+                                sx={{pl: 0, pt: 0}}
+                                avatar={
+                                    <Avatar
+                                        role="img"
+                                        aria-label="Image avatar"
+                                        src={getUserAvatar(
+                                            item?.senderUser?.id,
+                                            item.senderUser?.imageUrl,
+                                            item.senderUser?.sourceConnectedDevice
+                                        )}
+                                        alt="image not found"
+                                    >
+                                        {getFullnameUser(item?.senderUser)?.charAt(0)}
+                                    </Avatar>
+                                }
+                                title={getFullnameUser(item?.senderUser)}
+                                subheader={item?.rentOffer?.title}
+                            />
 
                             {
-                                item.status === StatusRentRequest.STANDBY  && indexSelected === item.id ?
+                                item.status === StatusRentRequest.STANDBY  && indexSelected !== item.id ?
                                     <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
-                                        <IconButton aria-label="delete" onClick={clear} color="error">
-                                            <ClearIcon />
-                                        </IconButton>
-                                        <Button variant="outlined" color="neutral" onClick={(event) => cancelIndexAction(event)}>
-                                            {t<string>("common.label_cancel")}
+                                        <Button variant="outlined" color="neutral" onClick={(event) => cancelAction(event, item)}>
+                                            {t<string>("rentrequest.label_btn_refused")}
                                         </Button>
-                                        <Button variant="outlined"
-                                                color="success"
-                                                type="submit">
-                                            {t<string>("common.label_confirm")}
+                                        <Button variant="outlined" color="success" onClick={(event) => acceptAction(event, item)}>
+                                            {t<string>("rentrequest.label_btn_accept")}
                                         </Button>
                                     </ButtonGroup> : null
                             }
-                        </form>
 
-                    </CardContent>
-                </Card>
-            </CardActionArea>
+                        </Grid>
+
+                        <Grid item xs={4} sx={{ textAlign: "right" }}>
+                            <Typography
+                                variant="caption"
+                                color="secondary"
+                                display="flex"
+                                sx={{ justifyContent: "end" }}
+                            >
+                                {t<string>("rentrequest."+item.status)}
+                            </Typography>
+                            <Typography
+                                variant="caption"
+                                display="flex"
+                                sx={{ justifyContent: "end" }}
+                            >
+                                <ConvertReactTimeAgo
+                                    convertDate={
+                                        item?.sendDate
+                                    }
+                                />
+                            </Typography>
+                        </Grid>
+
+                    </Grid>
+
+                    <form onClick={(event) => event.stopPropagation()} onSubmit={formik.handleSubmit} >
+                        {
+                            indexSelected === item.id ?
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <Grid container spacing={2} sx={{ my: 2 }}>
+                                        <Grid item xs={12} md={6}>
+                                            <FormControl
+                                                fullWidth
+                                                error={formik.touched.amount && Boolean(formik.errors.amount)}
+                                                size="small"
+                                            >
+                                                <InputLabel htmlFor="outlined-adornment-amount" color="secondary">Amount</InputLabel>
+                                                <OutlinedInput
+                                                    id="amount"
+                                                    type="number"
+                                                    color="secondary"
+                                                    value={formik.values.amount}
+                                                    onChange={formik.handleChange}
+                                                    label="Amount"
+                                                />
+                                                <FormHelperText id="component-helper-text">
+                                                    {formik.touched.amount && formik.errors.amount}
+                                                </FormHelperText>
+                                            </FormControl>
+                                        </Grid>
+
+                                        <Grid item xs={12} md={6}>
+                                            <FormControl
+                                                fullWidth
+                                                error={
+                                                    formik.touched.typePeriodRent &&
+                                                    Boolean(formik.errors.typePeriodRent)
+                                                }
+                                                className="form-control-type-offer"
+                                                size="small"
+                                            >
+                                                <InputLabel
+                                                    id="demo-simple-select-label"
+                                                    className="type-offer-select"
+                                                    color="secondary"
+                                                >
+                                                    {t<string>("add_offer.per_periode")}
+                                                </InputLabel>
+                                                <Select
+                                                    id="typePeriodRent"
+                                                    name="typePeriodRent"
+                                                    color="secondary"
+                                                    label={t<string>("add_offer.per_periode")}
+                                                    labelId="demo-simple-select-label"
+                                                    value={formik.values.typePeriodRent}
+                                                    onChange={formik.handleChange}
+                                                >
+                                                    <MenuItem value={PeriodeRent.PerMonth}>
+                                                        {t<string>("add_offer.per_month")}
+                                                    </MenuItem>
+                                                    <MenuItem value={PeriodeRent.PerDay}>
+                                                        {t<string>("add_offer.per_day")}
+                                                    </MenuItem>
+                                                    <MenuItem value={PeriodeRent.PerYear}>
+                                                        {t<string>("add_offer.per_year")}
+                                                    </MenuItem>
+                                                </Select>
+                                                <FormHelperText id="component-helper-text">
+                                                    {formik.touched.typePeriodRent && formik.errors.typePeriodRent}
+                                                </FormHelperText>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} md={6}>
+                                            <DatePicker
+                                                label={t<string>("common.label_start_date")}
+                                                value={formik.values.startDate}
+                                                onChange={(newValue) => formik.setFieldValue("startDate", newValue)}
+                                                renderInput={(params) => (
+                                                    <TextField {...params} size="small" fullWidth error={false} color="secondary"/>
+                                                )}
+                                            />
+                                        </Grid>
+
+                                        <Grid item xs={12} md={6}>
+                                            <DatePicker
+                                                label={t<string>("common.label_end_date")}
+                                                value={formik.values.endDate}
+                                                onChange={(newValue) => formik.setFieldValue("endDate", newValue)}
+                                                renderInput={(params) => (
+                                                    <TextField {...params} size="small" fullWidth error={false} color="secondary" />
+                                                )}
+                                            />
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} sx={{mt: 1}}>
+                                        <Grid item xs={12} md={12}>
+                                            <Button variant="outlined"
+                                                    color="neutral"
+                                                    onClick={openModalSignature}
+                                                    fullWidth>{t<string>("rentrequest.label_add_signature")}</Button>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container spacing={2} sx={{mt: 1}}>
+                                        <Grid item xs={12}>
+                                            <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                                        </Grid>
+                                    </Grid>
+
+                                </LocalizationProvider> : null
+                        }
+
+                        {
+                            item.status === StatusRentRequest.STANDBY  && indexSelected === item.id ?
+                                <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
+                                    <IconButton aria-label="delete" onClick={clear} color="error">
+                                        <ClearIcon />
+                                    </IconButton>
+                                    <Button variant="outlined" color="neutral" onClick={(event) => cancelIndexAction(event)}>
+                                        {t<string>("common.label_cancel")}
+                                    </Button>
+                                    <Button variant="outlined"
+                                            color="success"
+                                            type="submit">
+                                        {t<string>("common.label_confirm")}
+                                    </Button>
+                                </ButtonGroup> : null
+                        }
+                    </form>
+
+                </CardContent>
+            </Card>
             {renderDialogCancelRentRequest()}
             {renderDialogAddSignatureRentRequest()}
         </Grid>
