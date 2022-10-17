@@ -66,6 +66,7 @@ import SignaturePad from "react-signature-canvas";
 
 import './rent_request.scss';
 import IconButton from "@mui/material/IconButton";
+import SignatureRentRequest from "./ui-segments/signature-rent-request";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -103,7 +104,7 @@ function a11yProps(index: number) {
 export default function ListLocation() {
     const [value, setValue] = React.useState(0);
 
-    const padRef = React.useRef<SignatureCanvas>(null);
+    const sigCanvas = React.useRef<SignatureCanvas>(null);
 
     const { t } = useTranslation();
 
@@ -133,8 +134,7 @@ export default function ListLocation() {
             </Grid>
 
             <Box sx={{ mt: 5 }}>
-
-                <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                <SignatureRentRequest />
                 {/*<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>*/}
                 {/*    <Tabs value={value} onChange={handleChange}*/}
                 {/*          aria-label="basic tabs example"*/}
@@ -651,7 +651,6 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
             <Card
                 sx={{ display: { xs: "block", sm: "flex" } }}
                 onClick={() => rediretTo(item?.rentOffer)}>
-                tt
                 <CardMedia
                     sx={{
                         width: { xs: "100%", sm: 250 },
