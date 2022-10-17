@@ -10,6 +10,7 @@ import {ALL_APP_ROUTES} from "../../../core/config/all-app-routes";
 import Container from "@mui/material/Container/Container";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
     entitiesReceivedRentRequest,
     entitiesSentRentRequest,
@@ -21,13 +22,29 @@ import {
     resetRentRequestsReceived,
     activePageSentRentRequest,
     setActivePageSentRentRequest,
-    totalPagesSentRentRequest, activePageReceivedRentRequest, totalPagesReceivedRentRequest, setActivePageReceivedRentRequest, deleteSuccessSentRequest, deleteRentRequestsSent, refusedSuccessReceivedRentRequest, refusedRentRequestsReceived
+    totalPagesSentRentRequest,
+    activePageReceivedRentRequest,
+    totalPagesReceivedRentRequest,
+    setActivePageReceivedRentRequest,
+    deleteSuccessSentRequest,
+    deleteRentRequestsSent,
+    refusedSuccessReceivedRentRequest,
+    refusedRentRequestsReceived,
+    acceptRentRequestsReceived,
+    acceptedSuccessReceivedRentRequest
 } from "../store/slice";
 import {AllAppConfig} from "../../../core/config/all-config";
 import { IRentRequest } from "../../../shared/model/rent_request.model";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
 import {LazyLoadImage} from "react-lazy-load-image-component";
-import {getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar} from "../../../shared/utils/utils-functions";
+import {
+    convertDateTimeFromServer,
+    convertDateTimeToServer,
+    getBaseImageUrl,
+    getFullnameUser,
+    getImageForOffer,
+    getUserAvatar
+} from "../../../shared/utils/utils-functions";
 import CardContent from "@mui/material/CardContent/CardContent";
 import CardHeader from "@mui/material/CardHeader/CardHeader";
 import Avatar from "@mui/material/Avatar/Avatar";
@@ -56,17 +73,18 @@ import Select from "@mui/material/Select/Select";
 import MenuItem from "@mui/material/MenuItem/MenuItem";
 import {PeriodeRent} from "../../../shared/enums/type-offer.enum";
 import DatePicker from "@mui/lab/DatePicker/DatePicker";
-import ClearIcon from '@mui/icons-material/Clear';
 import TextField from "@mui/material/TextField/TextField";
 import LocalizationProvider from "@mui/lab/LocalizationProvider/LocalizationProvider";
 import {useFormik} from "formik";
 import { initialValuesRentRequestReceived, validationSchemaRentRequestReceived } from "../validation/init-value-rent-request";
-import SignatureCanvas from 'react-signature-canvas'
-import SignaturePad from "react-signature-canvas";
 
 import './rent_request.scss';
 import IconButton from "@mui/material/IconButton";
 import SignatureRentRequest from "./ui-segments/signature-rent-request";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -103,8 +121,6 @@ function a11yProps(index: number) {
 
 export default function ListLocation() {
     const [value, setValue] = React.useState(0);
-
-    const sigCanvas = React.useRef<SignatureCanvas>(null);
 
     const { t } = useTranslation();
 
@@ -308,6 +324,7 @@ function ListRentRequestReceiver() {
     const activePageReceivedRentRequestSelector = useSelector(activePageReceivedRentRequest) ?? -1;
     const totalPagesReceivedRentRequestSelector = useSelector(totalPagesReceivedRentRequest) ?? -1;
     const refusedSuccessReceivedRentRequestSelector = useSelector(refusedSuccessReceivedRentRequest) ?? false;
+    const acceptedSuccessReceivedRentRequestSelector = useSelector(acceptedSuccessReceivedRentRequest) ?? false;
 
     const resetAll = () => {
         dispatch(resetRentRequestsReceived({}));
@@ -343,8 +360,20 @@ function ListRentRequestReceiver() {
         dispatch(refusedRentRequestsReceived({id: item.id}));
     }
 
+    const acceptRentRequest = (item: IRentRequest, selectedItem: IRentRequest) => {
+        const rentRequest: IRentRequest = {
+            ...item,
+            rentOffer: {
+                ...item.rentOffer,
+                ...selectedItem.rentOffer
+            },
+            imageSignatureReceived: selectedItem.imageSignatureReceived
+        }
+        dispatch(acceptRentRequestsReceived(rentRequest))
+    }
+
     React.useEffect(() => {
-        if( refusedSuccessReceivedRentRequestSelector ){
+        if( refusedSuccessReceivedRentRequestSelector || acceptedSuccessReceivedRentRequestSelector ){
             resetAll();
             dispatch(setActivePageReceivedRentRequest(0));
             dispatch(
@@ -355,7 +384,7 @@ function ListRentRequestReceiver() {
                 })
             );
         }
-    }, [refusedSuccessReceivedRentRequestSelector])
+    }, [refusedSuccessReceivedRentRequestSelector, acceptedSuccessReceivedRentRequestSelector])
 
     return (
         <Box>
@@ -370,7 +399,9 @@ function ListRentRequestReceiver() {
                 <Grid container spacing={4} sx={{mt: 3}}>
                     {
                         entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
-                            <DisplayItemReceived item={item} key={index} callbackRefusedRentRequest={refusedRentRequest}/>
+                            <DisplayItemReceived item={item} key={index}
+                                                 callbackRefusedRentRequest={refusedRentRequest}
+                                                 callbackAcceptRentRequest={(currentItem: IRentOffer) => acceptRentRequest(item, currentItem)}/>
                         ))
                     }
 
@@ -399,6 +430,12 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
     const rediretTo = (rentOffer: IRentOffer | undefined) => {
         setTimeout(() => {
             navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
+        }, 300);
+    };
+    const redirectToPorfile = (event: any, userId: number) => {
+        event.stopPropagation();
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
         }, 300);
     };
 
@@ -455,7 +492,6 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
                                     sx={{pl: 0, pt: 0}}
                                     avatar={
                                         <Avatar
-                                            role="img"
                                             aria-label="Image avatar"
                                             src={getUserAvatar(
                                                 item?.receiverUser?.id,
@@ -463,6 +499,8 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
                                                 item.receiverUser?.sourceConnectedDevice
                                             )}
                                             alt="image not found"
+                                            onClick={(event: any) => redirectToPorfile(event, item?.receiverUser?.id)}
+                                            role="button"
                                         >
                                             {getFullnameUser(item?.receiverUser)?.charAt(0)}
                                         </Avatar>
@@ -474,7 +512,7 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
                                 {
                                     item.status === StatusRentRequest.STANDBY ?
                                         <Button variant="outlined" color="error" onClick={(event) => removeRentRequest(event, item)}>
-                                            {t<string>("rentrequest.label_btn_refused")}
+                                            {t<string>("common.label_cancel")}
                                         </Button> : null
                                 }
 
@@ -512,15 +550,14 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
 
 
 const initialValues = initialValuesRentRequestReceived;
-function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentRequest, callbackRefusedRentRequest: any}) {
+function DisplayItemReceived({item, callbackRefusedRentRequest, callbackAcceptRentRequest}:
+                                 {item: IRentRequest, callbackRefusedRentRequest: any, callbackAcceptRentRequest: any}) {
 
     const [openCancelRentRequestModal, setOpenCancelRentRequestModal] = React.useState<boolean>(false);
     const [openAddSignatureRentRequestModal, setOpenAddSignatureRentRequestModal] = React.useState<boolean>(false);
     const [indexSelected, setIndexSelected] = React.useState<number>(-1);
-
-    const [dataURL, setDataURL] = React.useState<string | null>(null);
-
-    const padRef = React.useRef<SignatureCanvas>(null);
+    const [indexShowMoreDetails, setIndexShowMoreDetails] = React.useState<number>(-1);
+    const [imageSignature, setImageSignature] = React.useState('');
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -528,35 +565,45 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
     const formik = useFormik({
         initialValues,
         validationSchema: validationSchemaRentRequestReceived,
-        onSubmit: (values) => {
-            console.log('values ', values);
-            trim();
-            // if (isAuthenticated) {
-            //     saveEntity(values);
-            // } else {
-            //     // open();
-            //     dispatch(showUnauthorizedModal({}));
-            // }
+        onSubmit: (values: any) => {
+            const requestData: IRentRequest = {
+                rentOffer: {
+                    amount: values.amount,
+                    startDate: convertDateTimeToServer(values.startDate),
+                    endDate: convertDateTimeToServer(values.endDate),
+                    typePeriodRent: values.typePeriodRent
+                },
+                imageSignatureReceived: imageSignature
+            }
+            callbackAcceptRentRequest(requestData);
         },
     });
 
-    React.useEffect(() => {
-        console.log('dataURL ', dataURL);
-    }, [dataURL])
-    const clear = () => {
-        padRef.current?.clear();
-    };
-
-    const trim = () => {
-        const url = padRef.current?.getTrimmedCanvas().toDataURL("image/png");
-        if (url) setDataURL(url);
-    };
-
     const rediretTo = (rentOffer: IRentOffer | undefined) => {
         setTimeout(() => {
-            // navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
+            navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + rentOffer?.id);
         }, 300);
     };
+
+    const redirectToPorfile = (event: any, userId: number) => {
+        event.stopPropagation();
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
+        }, 300);
+    };
+
+    const toggleShowDetails = (event: any, rentRequest: IRentRequest) => {
+        event.stopPropagation();
+        console.log('toggleShowDetails ', indexShowMoreDetails)
+        console.log('rentRequest.id ', rentRequest.id)
+        if( indexShowMoreDetails === rentRequest.id ){
+            setIndexShowMoreDetails(-1);
+        }
+        else {
+            setIndexShowMoreDetails(rentRequest.id || -1);
+        }
+
+    }
 
     const cancelIndexAction = (event: any) => {
         event.stopPropagation();
@@ -589,6 +636,19 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
 
     const openModalSignature = () => {
         setOpenAddSignatureRentRequestModal(true);
+        setImageSignature('');
+    }
+
+    const handleClickCancelAddSignatureRentRequestModal = () => {
+        setOpenAddSignatureRentRequestModal(false);
+    }
+
+    const handleClickSaveAddSignatureRentRequestModal = () => {
+        setOpenAddSignatureRentRequestModal(false);
+    }
+
+    const setDataSignature = (data: string) => {
+        setImageSignature(data);
     }
 
     const renderDialogCancelRentRequest = () => {
@@ -626,24 +686,34 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                 TransitionComponent={TransitionModal}
                 keepMounted
                 fullScreen
-                onClose={handleClickCancelCancelRentRequestModal}
+                onClose={handleClickCancelAddSignatureRentRequestModal}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    style: {
+                        backgroundColor: 'rgb(238, 235, 235)',
+                        color:'black'
+                    },
+                }}
             >
-                <DialogTitle>{t<string>("rentrequest.title_dialog_cancel_rentrequest")}</DialogTitle>
+                <DialogTitle>{t<string>("rentrequest.title_dialog_add_signature")}</DialogTitle>
                 <DialogContent>
-                    <SignatureRentRequest />
+                    <SignatureRentRequest callbackImageURL={setDataSignature}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenAddSignatureRentRequestModal(false)} color="neutral">
                         {t<string>("common.label_cancel")}
                     </Button>
-                    <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
-                        {t<string>("rentrequest.label_btn_refused")}
+                    <Button variant="contained"
+                            onClick={handleClickSaveAddSignatureRentRequestModal}
+                            color="success"
+                            disabled={!imageSignature.length}>
+                        {t<string>("common.label_add")}
                     </Button>
                 </DialogActions>
             </Dialog>
         );
     };
+
 
     return (
         <Grid item xs={12} md={6}>
@@ -697,7 +767,6 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                                 sx={{pl: 0, pt: 0}}
                                 avatar={
                                     <Avatar
-                                        role="img"
                                         aria-label="Image avatar"
                                         src={getUserAvatar(
                                             item?.senderUser?.id,
@@ -705,6 +774,8 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                                             item.senderUser?.sourceConnectedDevice
                                         )}
                                         alt="image not found"
+                                        onClick={(event: any) => redirectToPorfile(event, item?.receiverUser?.id)}
+                                        role="button"
                                     >
                                         {getFullnameUser(item?.senderUser)?.charAt(0)}
                                     </Avatar>
@@ -853,21 +924,31 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                                         </Grid>
                                     </Grid>
 
-                                    <Grid container spacing={2} sx={{mt: 1}}>
-                                        <Grid item xs={12}>
-                                            {/*<SignatureRentRequest />*/}
-                                        </Grid>
-                                    </Grid>
+                                    {
+                                        imageSignature ?
+                                            <Grid container spacing={2} sx={{mt: 1}}>
+                                                <Grid item xs={12}>
+                                                    <Box sx={{textAlign: 'right'}}>
+                                                        <Button variant="outlined" color={"error"} onClick={() => setImageSignature('')}>
+                                                            <DeleteIcon />
+                                                        </Button>
+                                                    </Box>
+                                                    <img
+                                                        src={imageSignature}
+                                                        alt='signature'
+                                                        className='full-img-responsive'
+                                                    />
+                                                </Grid>
+                                            </Grid> : null
+                                    }
+
 
                                 </LocalizationProvider> : null
                         }
 
                         {
                             item.status === StatusRentRequest.STANDBY  && indexSelected === item.id ?
-                                <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
-                                    <IconButton aria-label="delete" onClick={clear} color="error">
-                                        <ClearIcon />
-                                    </IconButton>
+                                <ButtonGroup sx={{ my: 2 }} variant="contained" aria-label="outlined primary button group">
                                     <Button variant="outlined" color="neutral" onClick={(event) => cancelIndexAction(event)}>
                                         {t<string>("common.label_cancel")}
                                     </Button>
@@ -878,6 +959,113 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                                     </Button>
                                 </ButtonGroup> : null
                         }
+
+
+
+                        {/*Show more details after accept Request*/}
+                        {
+                            indexShowMoreDetails === item.id ?
+                                <Box>
+                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+
+                                        <ListItem alignItems="flex-start">
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        item?.rentOffer?.description ||
+                                                        "",
+                                                }}
+                                            ></div>
+                                        </ListItem>
+
+                                        {
+                                            item?.rentOffer?.amount ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary={t<string>("common.label_amount")}
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    {item?.rentOffer?.amount} TND
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+
+                                        }
+
+                                        {
+                                            item?.rentOffer?.startDate ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary={t<string>("common.label_start_date")}
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    {convertDateTimeFromServer(new Date(item?.rentOffer?.startDate))}
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+                                        }
+
+                                        {
+                                            item?.rentOffer?.endDate ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary={t<string>("common.label_end_date")}
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    {convertDateTimeFromServer(new Date(item?.rentOffer?.endDate))}
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+                                        }
+
+                                        {
+                                            item.imageSignatureReceived ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary="Signature"
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    <img
+                                                                        src={item.imageSignatureReceived}
+                                                                        alt='signature'
+                                                                        className='full-img-responsive'
+                                                                    />
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+                                        }
+
+                                    </List>
+                                </Box> : null
+                        }
+                        {
+                            item.status === StatusRentRequest.ACCEPTED ?
+                                <Button variant="outlined"
+                                        color="success"
+                                        type="button"
+                                        onClick={(event) => toggleShowDetails(event, item)}>
+                                    {
+                                        indexShowMoreDetails === item.id ? t<string>("common.hide_details") : t<string>("common.show_details")
+                                    }
+                                </Button> : null
+                        }
+
                     </form>
 
                 </CardContent>

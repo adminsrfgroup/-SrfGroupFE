@@ -97,6 +97,19 @@ const reducer = {
         state.rentRequest.loading = false;
     },
 
+
+    acceptRentRequestsReceived: (state: any) => {
+        state.rentRequest.loading = true;
+        state.rentRequest.acceptedSuccessReceived = false;
+    },
+    acceptRentRequestsReceivedSuccess: (state: any, action: any) => {
+        state.rentRequest.loading = false;
+        state.rentRequest.acceptedSuccessReceived = true;
+    },
+    acceptRentRequestsReceivedFailure: (state: any) => {
+        state.rentRequest.loading = false;
+    },
+
     resetRentRequests: (state: any) => {
         state.rentRequest = initialState.rentRequest
     }

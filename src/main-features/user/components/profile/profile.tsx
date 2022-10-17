@@ -627,18 +627,16 @@ export default function Profile() {
                           <ListItem
                             alignItems="flex-start"
                             secondaryAction={
-                              <IconButton edge="end" aria-label="phone">
-                                <PhoneIcon
+                              <PhoneIcon
                                   onClick={() =>
-                                    getUserAvatar(
-                                      entityProfileSelector?.user?.id,
-                                      entityProfileSelector?.user?.imageUrl,
-                                      entityProfileSelector?.user
-                                        ?.sourceConnectedDevice
-                                    )
+                                      getUserAvatar(
+                                          entityProfileSelector?.user?.id,
+                                          entityProfileSelector?.user?.imageUrl,
+                                          entityProfileSelector?.user
+                                              ?.sourceConnectedDevice
+                                      )
                                   }
-                                />
-                              </IconButton>
+                              />
                             }
                           >
                             <ListItemText

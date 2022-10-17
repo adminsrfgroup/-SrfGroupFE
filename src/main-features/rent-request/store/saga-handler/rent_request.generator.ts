@@ -1,6 +1,6 @@
 import {invokeWS, MethodHttp} from "../../../../core/config/api-service";
 import {put} from "redux-saga/effects";
-import {addRentRequestsFailure, addRentRequestsSuccess,
+import {acceptRentRequestsReceivedFailure, acceptRentRequestsReceivedSuccess, addRentRequestsFailure, addRentRequestsSuccess,
     deleteRentRequestsSentFailure,
     deleteRentRequestsSentSuccess, fetchRentRequestsFailureReceived, fetchRentRequestsFailureSent,
     fetchRentRequestsSuccessReceived, fetchRentRequestsSuccessSent,
@@ -88,6 +88,24 @@ export function* refusedRentRequestsReceivedHandler(
             url: `${requestUrl}`,
             method: MethodHttp.put,
         });
+        yield put(acceptRentRequestsReceivedSuccess(result?.data));
+    } catch (e) {
+        console.error(e);
+        yield put(acceptRentRequestsReceivedFailure(e));
+    }
+}
+
+
+export function* acceptRentRequestsReceivedHandler(
+    data: any
+): Generator<any, any, any> {
+    console.log('data.payload ', data.payload);
+    try {
+        const requestUrl = `${apiUrl}/accept-received/${data.payload?.id}`;
+        const result = yield invokeWS({
+            url: `${requestUrl}`,
+            method: MethodHttp.put,
+        }, {...data.payload});
         yield put(refusedRentRequestsReceivedSuccess(result?.data));
     } catch (e) {
         console.error(e);

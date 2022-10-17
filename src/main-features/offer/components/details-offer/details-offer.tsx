@@ -123,7 +123,6 @@ export default function DetailsOfffer() {
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  // const { isShowing, open, close } = useUnauthorizedModal();
 
   const { isAuthenticated, currentUser } = useSelector(allSessionSelector);
 

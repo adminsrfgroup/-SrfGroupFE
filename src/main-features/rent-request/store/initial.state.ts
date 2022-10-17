@@ -16,6 +16,7 @@ export const initialState = {
         updateSuccess: false,
         deleteSuccessSent: false,
         refusedSuccessReceived: false,
+        acceptedSuccessReceived: false,
         errorMessage: null,
     },
 };

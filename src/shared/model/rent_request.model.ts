@@ -5,6 +5,7 @@ export interface IRentRequest{
     id?: number;
     sendDate?: string;
     status?: string;
+    imageSignatureReceived?: string;
     rentOffer?: IRentOffer;
     senderUser?: IUser;
     receiverUser?: IUser;

@@ -47,7 +47,14 @@ export const {
     //? ********************| REFUSED RENTREQUEST USERS ACTIONS |*******************/
     refusedRentRequestsReceived,
     refusedRentRequestsReceivedSuccess,
-    refusedRentRequestsReceivedFailure
+    refusedRentRequestsReceivedFailure,
+
+
+    //? ********************| ACCEPT RENTREQUEST USERS ACTIONS |*******************/
+    acceptRentRequestsReceived,
+    acceptRentRequestsReceivedSuccess,
+    acceptRentRequestsReceivedFailure
+
 
 } = rentRequestSlice.actions;
 
@@ -78,6 +85,8 @@ export const totalPagesReceivedRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalPagesReceived;
 export const refusedSuccessReceivedRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.refusedSuccessReceived;
+export const acceptedSuccessReceivedRentRequest = (state: any) =>
+    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.acceptedSuccessReceived;
 export const addSuccessRentRequest = (state: any) =>
     state[RENT_REQUEST_KEY_IN_STORE].rentRequest.addSuccess;
 export const deleteSuccessRentRequest = (state: any) =>

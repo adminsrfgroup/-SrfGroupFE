@@ -28,14 +28,14 @@ export default function OptionsRentAddOffer(props: any) {
             error={formik.touched.amount && Boolean(formik.errors.amount)}
             size="small"
           >
-            <InputLabel htmlFor="outlined-adornment-amount" color="secondary">Amount</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-amount" color="secondary">{t<string>("common.label_amount")}</InputLabel>
             <OutlinedInput
               id="amount"
               type="number"
               color="secondary"
               value={formik.values.amount}
               onChange={formik.handleChange}
-              label="Amount"
+              label={t<string>("common.label_amount")}
             />
             <FormHelperText id="component-helper-text">
               {formik.touched.amount && formik.errors.amount}

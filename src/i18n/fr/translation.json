@@ -42,7 +42,9 @@
     "message_unauthorized_action": "Action non autorisée, veuillez vous connecter",
     "label_user_name": "Nom utilisateur",
     "label_back": "Retour",
-    "label_confirm": "Confirmer"
+    "label_confirm": "Confirmer",
+    "show_details": "Voir details",
+    "hide_details": "Masquer details"
   },
   "cookie": {
     "accept": "Accepter",
@@ -313,8 +315,10 @@
     "rentrequest_delete_succefully": "Demande supprimée avec succès",
     "StandBy": "En cours de traitement",
     "Refused": "Demande refusée",
+    "Accepted": "Demande acceptée",
     "title_dialog_cancel_rentrequest": "Demande refusée",
     "description_dialog_cancel_rentrequest": "Ete vous sur de refuser la demande !",
-    "label_add_signature": "Ajouter une signature"
+    "label_add_signature": "Ajouter une signature",
+    "title_dialog_add_signature": "Ajout signature"
   }
 }
