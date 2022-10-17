@@ -112,7 +112,6 @@ import { resetRentRequests } from "./main-features/rent-request/store/slice";
 import { resetCart } from "./main-features/cart/store/slice";
 import { resetMyNotifications } from "./main-features/notification/store/slice";
 import {resetFavoriteUsers} from "./main-features/favorite/store/slice";
-import GoogleAdsense from "./shared/components/google-adsense/google-adsense";
 
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
