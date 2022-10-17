@@ -134,22 +134,21 @@ export default function ListLocation() {
             </Grid>
 
             <Box sx={{ mt: 5 }}>
-                <SignatureRentRequest />
-                {/*<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>*/}
-                {/*    <Tabs value={value} onChange={handleChange}*/}
-                {/*          aria-label="basic tabs example"*/}
-                {/*          textColor="secondary"*/}
-                {/*          indicatorColor="secondary">*/}
-                {/*        <Tab label="Demande reçu" {...a11yProps(0)} />*/}
-                {/*        <Tab label="Demande envoyée" {...a11yProps(1)} />*/}
-                {/*    </Tabs>*/}
-                {/*</Box>*/}
-                {/*<TabPanel value={value} index={0}>*/}
-                {/*    <ListRentRequestReceiver />*/}
-                {/*</TabPanel>*/}
-                {/*<TabPanel value={value} index={1}>*/}
-                {/*    <ListRentRequestSent />*/}
-                {/*</TabPanel>*/}
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange}
+                          aria-label="basic tabs example"
+                          textColor="secondary"
+                          indicatorColor="secondary">
+                        <Tab label="Demande reçu" {...a11yProps(0)} />
+                        <Tab label="Demande envoyée" {...a11yProps(1)} />
+                    </Tabs>
+                </Box>
+                <TabPanel value={value} index={0}>
+                    <ListRentRequestReceiver />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <ListRentRequestSent />
+                </TabPanel>
             </Box>
 
         </Container>
@@ -632,7 +631,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
             >
                 <DialogTitle>{t<string>("rentrequest.title_dialog_cancel_rentrequest")}</DialogTitle>
                 <DialogContent>
-                    {/*<SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />*/}
+                    <SignatureRentRequest />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenAddSignatureRentRequestModal(false)} color="neutral">
@@ -856,7 +855,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
 
                                     <Grid container spacing={2} sx={{mt: 1}}>
                                         <Grid item xs={12}>
-                                            <SignaturePad ref={padRef} canvasProps={{ className: "sigCanvas" }} />
+                                            {/*<SignatureRentRequest />*/}
                                         </Grid>
                                     </Grid>
 
@@ -884,7 +883,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest}: {item: IRentReq
                 </CardContent>
             </Card>
             {renderDialogCancelRentRequest()}
-            {/*{renderDialogAddSignatureRentRequest()}*/}
+            {renderDialogAddSignatureRentRequest()}
         </Grid>
     )
 }

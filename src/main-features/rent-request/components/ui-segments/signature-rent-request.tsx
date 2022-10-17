@@ -25,8 +25,35 @@ function SignatureRentRequest() {
 
     return (
         <div className='app-signature'>
-            <button onClick={() => setOpenModal(true)}>Create Signature</button>
-            <br />
+
+            <div className='sigPad__penColors'>
+                <p>Pen Color:</p>
+                {colors.map((color) => (
+                    <span
+                        key={color}
+                        style={{
+                            backgroundColor: color,
+                            border: `${color===penColor ? `2px solid ${color}` : '' }`}}
+                        onClick={() => setPenColor(color)}>
+                            </span>
+                ))}
+            </div>
+            <div className='sigPadContainer'>
+                <SignatureCanvas penColor={penColor}
+                                 canvasProps={{className: 'sigCanvas'}}
+                                 ref={sigCanvas} />
+                <hr/>
+                <button onClick={() => sigCanvas.current.clear()}>Clear</button>
+            </div>
+            <div className='modal__bottom'>
+                <button onClick={() => setOpenModal(false)}>Cancel</button>
+                <button
+                    className='create'
+                    onClick={create}>
+                    Create
+                </button>
+            </div>
+
             {imageURL &&
             <>
                 <img
@@ -41,40 +68,63 @@ function SignatureRentRequest() {
                 >Download</button>
             </>
             }
-            {openModel &&
-            <div className='modalContainer'>
-                <div className='modal'>
-                    <div className='sigPad__penColors'>
-                        <p>Pen Color:</p>
-                        {colors.map((color) => (
-                            <span
-                                key={color}
-                                style={{
-                                    backgroundColor: color,
-                                    border: `${color===penColor ? `2px solid ${color}` : '' }`}}
-                                onClick={() => setPenColor(color)}>
-                </span>
-                        ))}
-                    </div>
-                    <div className='sigPadContainer'>
-                        <SignatureCanvas penColor={penColor}
-                                         canvasProps={{className: 'sigCanvas'}}
-                                         ref={sigCanvas} />
-                        <hr/>
-                        <button onClick={() => sigCanvas.current.clear()}>Clear</button>
-                    </div>
 
-                    <div className='modal__bottom'>
-                        <button onClick={() => setOpenModal(false)}>Cancel</button>
-                        <button
-                            className='create'
-                            onClick={create}>
-                            Create
-                        </button>
-                    </div>
-                </div>
-            </div>
-            }
+
+
+
+
+
+
+            {/*<button onClick={() => setOpenModal(true)}>Create Signature</button>*/}
+            {/*<br />*/}
+            {/*{imageURL &&*/}
+            {/*<>*/}
+            {/*    <img*/}
+            {/*        src={imageURL}*/}
+            {/*        alt='signature'*/}
+            {/*        className='signature'*/}
+            {/*    />*/}
+            {/*    <br />*/}
+            {/*    <button*/}
+            {/*        onClick={download}*/}
+            {/*        style={{padding: '5px', marginTop: '5px'}}*/}
+            {/*    >Download</button>*/}
+            {/*</>*/}
+            {/*}*/}
+            {/*{openModel &&*/}
+            {/*<div className='modalContainer'>*/}
+            {/*    <div className='modal'>*/}
+            {/*        <div className='sigPad__penColors'>*/}
+            {/*            <p>Pen Color:</p>*/}
+            {/*            {colors.map((color) => (*/}
+            {/*                <span*/}
+            {/*                    key={color}*/}
+            {/*                    style={{*/}
+            {/*                        backgroundColor: color,*/}
+            {/*                        border: `${color===penColor ? `2px solid ${color}` : '' }`}}*/}
+            {/*                    onClick={() => setPenColor(color)}>*/}
+            {/*    </span>*/}
+            {/*            ))}*/}
+            {/*        </div>*/}
+            {/*        <div className='sigPadContainer'>*/}
+            {/*            <SignatureCanvas penColor={penColor}*/}
+            {/*                             canvasProps={{className: 'sigCanvas'}}*/}
+            {/*                             ref={sigCanvas} />*/}
+            {/*            <hr/>*/}
+            {/*            <button onClick={() => sigCanvas.current.clear()}>Clear</button>*/}
+            {/*        </div>*/}
+
+            {/*        <div className='modal__bottom'>*/}
+            {/*            <button onClick={() => setOpenModal(false)}>Cancel</button>*/}
+            {/*            <button*/}
+            {/*                className='create'*/}
+            {/*                onClick={create}>*/}
+            {/*                Create*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            {/*}*/}
         </div>
     )
 }
