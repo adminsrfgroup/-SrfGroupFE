@@ -177,7 +177,7 @@ export default function SignUp() {
       const requestData: IGooglePlus = {
         ...response,
         sourceProvider: SourceProvider.GOOGLE_PLUS,
-        idOneSignal: "oneSignalId",
+        idOneSignal: oneSignalId,
         langKey: currentLocale,
       };
       dispatch(loginWithGoogle({ ...requestData }));

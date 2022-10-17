@@ -24,6 +24,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar/ListItemAvatar";
 import Typography from "@mui/material/Typography/Typography";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton/Skeleton";
 
 export default function ListFavoriteUsers({
   favorite,

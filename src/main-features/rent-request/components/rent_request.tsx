@@ -699,7 +699,7 @@ function DisplayItemReceived({item, callbackRefusedRentRequest, callbackAcceptRe
                 <DialogContent>
                     <SignatureRentRequest callbackImageURL={setDataSignature}/>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions style={{ justifyContent: "start" }}>
                     <Button onClick={() => setOpenAddSignatureRentRequestModal(false)} color="neutral">
                         {t<string>("common.label_cancel")}
                     </Button>
