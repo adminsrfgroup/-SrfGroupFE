@@ -35,7 +35,7 @@ import {
   validationSchemaAddMessage,
 } from "../../validation/init-value-add-message";
 import {
-  convertDateTimeToServer,
+  convertDateTimeToServer, getBaseImageUrl,
   getFullnameUser,
   getUserAvatar,
   hasUserRole,
@@ -65,7 +65,7 @@ import {
 } from "../../../chat/store/slice";
 import {
   addFavoriteUsers,
-  addSuccessFavoriteUser,
+  addSuccessFavoriteUser, resetFavoriteUsers,
 } from "../../../favorite/store/slice";
 import ProblemeDeclaration from "../../../probleme-declaration/components/probleme-declaration";
 import CardContent from "@mui/material/CardContent/CardContent";
@@ -263,6 +263,7 @@ export default function Profile() {
 
   React.useEffect(() => {
     if (addSuccessFavoriteUserSelector) {
+      dispatch(resetFavoriteUsers({}));
       setIsFavoriteUser(true);
     }
   }, [addSuccessFavoriteUserSelector]);
@@ -545,6 +546,17 @@ export default function Profile() {
                 ) : null}
 
                 <Box sx={{ my: 3 }}>{<ProblemeDeclaration />}</Box>
+
+                <Box sx={{display: { xs: "none", md: "block" }}}>
+                  <img
+                      className="full-img-responsive"
+                      src={getBaseImageUrl(
+                          "/assets/images/offer/details-offer/online_shoping_digital.jpg"
+                      )}
+                      alt="desktop-time-of-travel-address"
+                      style={{borderRadius: 4}}
+                  />
+                </Box>
               </Box>
             ) : null}
           </Grid>

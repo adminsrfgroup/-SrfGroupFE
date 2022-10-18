@@ -22,6 +22,7 @@ import AccordionSummary from "@mui/material/AccordionSummary/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 import { useFormik } from "formik";
 import Dialog from "@mui/material/Dialog/Dialog";
 import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
@@ -603,90 +604,74 @@ export default function AddUpdate() {
                           </Grid>
 
                           <Grid item xs={12} md={12} sx={{ mb: 3 }}>
-                            <ImageList
-                                sx={{ width: "100%", height: "auto", mt: 3, mb: 0 }}
-                                cols={5}
-                            >
-                              {fileState &&
-                              fileState.selectedFiles &&
-                              fileState.selectedFiles.length > 0
-                                  ? fileState.selectedFiles.map((file, index) => (
-                                      <ImageListItem
-                                          key={index}
-                                          style={{
-                                            marginRight: 4,
-                                            borderRadius: 4,
-                                            height: 80,
-                                            width: 80
-                                          }}
-                                      >
-                                        <img
-                                            src={file}
-                                            srcSet={file}
-                                            alt={"desc_" + index}
-                                            loading="lazy"
-                                            style={{
-                                              borderRadius: 4,
-                                              border: "1px solid #b7b1b1",
-                                              maxHeight: '100%',
-                                              objectFit: 'unset'
-                                            }}
-                                        />
-                                        <IconButton
-                                            size="small"
-                                            aria-label="delete"
-                                            color="error"
-                                            sx={{
-                                              position: "absolute",
-                                              top: 0,
-                                              right: 0,
-                                              backgroundColor: "#fff",
-                                            }}
-                                            onClick={() =>
-                                                handleClickOpenDeleteOffertModal(index)
-                                            }
-                                        >
-                                          <ClearIcon />
-                                        </IconButton>
-                                      </ImageListItem>
-                                  ))
-                                  : null}
 
-                              <ImageListItem>
-                                <img
-                                    src={`${getBaseImageUrl(
-                                        "/assets/images/offer/add-offer/img_add_offer.png"
-                                    )}`}
-                                    srcSet={`${getBaseImageUrl(
-                                        "/assets/images/offer/add-offer/img_add_offer.png"
-                                    )}`}
-                                    alt={"img_add_offer"}
-                                    loading="lazy"
-                                    style={{
-                                      borderRadius: 4,
-                                      border: "1px solid #b7b1b1",
-                                      height: 80,
-                                      width: 80
-                                    }}
-                                />
-                                <input
-                                    id="offer-addFiles"
-                                    data-cy="files"
-                                    type="file"
-                                    name="files"
-                                    style={{
-                                      position: "absolute",
-                                      maxWidth: "100%",
-                                      top: 0,
-                                      bottom: 0,
-                                      opacity: 0,
-                                    }}
-                                    multiple
-                                    accept="image/png, image/gif, image/jpeg, image/jpg"
-                                    onChange={selectFile}
-                                />
-                              </ImageListItem>
+                            <ImageList
+                                sx={{ width: "100%", height: "auto", mb: 0 }}
+                                cols={5} >
+                                {fileState?.selectedFiles.map((file, index) => (
+                                    <ImageListItem
+                                        key={index}
+                                        style={{
+                                          marginRight: 4,
+                                          borderRadius: 4,
+                                          height: 80,
+                                          width: 80
+                                        }}
+                                    >
+                                      <img
+                                          src={file}
+                                          srcSet={file}
+                                          alt={"desc_" + index}
+                                          loading="lazy"
+                                          style={{
+                                            borderRadius: 4,
+                                            border: "1px solid #b7b1b1",
+                                            maxHeight: '100%',
+                                            objectFit: 'unset'
+                                          }}
+                                      />
+                                      <IconButton
+                                          size="small"
+                                          aria-label="delete"
+                                          color="error"
+                                          sx={{
+                                            position: "absolute",
+                                            top: 0,
+                                            right: 0,
+                                            backgroundColor: "#fff",
+                                          }}
+                                          onClick={() =>
+                                              handleClickOpenDeleteOffertModal(index)
+                                          }
+                                      >
+                                        <ClearIcon />
+                                      </IconButton>
+                                    </ImageListItem>
+                                ))}
                             </ImageList>
+
+                          </Grid>
+                          <Grid item xs={12} md={12} sx={{ mb: 3 }}>
+                            <Button variant="outlined" color={"neutral"} fullWidth startIcon={<CameraEnhanceIcon />}>
+                              <input
+                                  id="offer-addFiles"
+                                  data-cy="files"
+                                  type="file"
+                                  name="files"
+                                  style={{
+                                    position: "absolute",
+                                    maxWidth: "100%",
+                                    top: 0,
+                                    bottom: 0,
+                                    opacity: 0,
+                                  }}
+                                  multiple
+                                  accept="image/png, image/gif, image/jpeg, image/jpg"
+                                  onChange={selectFile}
+                              />
+                              Image
+                            </Button>
+
                           </Grid>
 
                           <Grid item xs={12} md={12}>

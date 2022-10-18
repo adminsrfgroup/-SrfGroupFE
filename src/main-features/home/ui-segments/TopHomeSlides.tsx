@@ -84,7 +84,7 @@ const TopHomeSlides: FunctionComponent = () => {
           className="mySwiper"
           loop={true}
           autoplay={{
-            delay: 2500,
+            delay: 7000,
             disableOnInteraction: false,
           }}
         >

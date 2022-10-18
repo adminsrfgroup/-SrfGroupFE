@@ -33,7 +33,7 @@ import {
 } from "../../user/store/slice";
 import { Conversation } from "./ui-segments/Conversation";
 import { MessageConversation } from "./ui-segments/MessageConversation";
-import { isOnLine } from "../../../shared/utils/utils-functions";
+import {getBaseImageUrl, isOnLine} from "../../../shared/utils/utils-functions";
 
 export default function Chat() {
   const [currentConversation, setCurrentConversation] =
@@ -216,6 +216,17 @@ export default function Chat() {
             isOnLine={isUserOnline}
             deleteConversation={actionDeleteConversation}
           />
+
+          <Box sx={{mt: 3, display: { xs: "none", md: "block" }}}>
+            <img
+                className="full-img-responsive"
+                src={getBaseImageUrl(
+                    "/assets/images/offer/details-offer/online_shoping_digital.jpg"
+                )}
+                alt="desktop-time-of-travel-address"
+                style={{borderRadius: 4}}
+            />
+          </Box>
         </Grid>
 
         <Grid

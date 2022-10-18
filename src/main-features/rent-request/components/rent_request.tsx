@@ -399,7 +399,8 @@ function ListRentRequestReceiver() {
                 <Grid container spacing={4} sx={{mt: 3}}>
                     {
                         entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
-                            <DisplayItemReceived item={item} key={index}
+                            <DisplayItemReceived item={item}
+                                                 key={index}
                                                  callbackRefusedRentRequest={refusedRentRequest}
                                                  callbackAcceptRentRequest={(currentItem: IRentOffer) => acceptRentRequest(item, currentItem)}/>
                         ))

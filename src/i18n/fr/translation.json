@@ -313,6 +313,7 @@
     "title_dialog_delete_rentrequest": "Annulation de la demande",
     "description_dialog_delete_rentrequest": "Ete vous sur d'annuler la demande !",
     "rentrequest_delete_succefully": "Demande supprimée avec succès",
+    "rentrequest_refused_succefully": "Demande refusée avec suucès",
     "StandBy": "En cours de traitement",
     "Refused": "Demande refusée",
     "Accepted": "Demande acceptée",

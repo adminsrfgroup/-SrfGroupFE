@@ -19,7 +19,7 @@ const HorizontalItems = ({listCategories}: {listCategories: ICategory[]}) => {
                 loop={true}
                 modules={[FreeMode, Pagination, Navigation, Scrollbar]}
                 autoplay={{
-                    delay: 2000,
+                    delay: 8000,
                     disableOnInteraction: false,
                 }}
                 scrollbar={{

@@ -525,6 +525,18 @@ export default function RightDetailsOffer({
         <Grid item xs={12} sm={6}>
           <ProblemeDeclaration />
         </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <img
+              className="full-img-responsive"
+              src={getBaseImageUrl(
+                  "/assets/images/offer/details-offer/online_shoping_delivery.jpg"
+              )}
+              alt="desktop-time-of-travel-address"
+              style={{borderRadius: 4}}
+          />
+        </Grid>
+
       </Grid>
 
       <div>{renderDialogFavoriteUser()}</div>
