@@ -425,6 +425,8 @@ function ListRentRequestReceiver() {
 
 function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeRentRequest: any}) {
 
+    const [indexShowMoreDetails, setIndexShowMoreDetails] = React.useState<number>(-1);
+
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -439,6 +441,16 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
             navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
         }, 300);
     };
+
+    const toggleShowDetails = (event: any, rentRequest: IRentRequest) => {
+        event.stopPropagation();
+        if( indexShowMoreDetails === rentRequest.id ){
+            setIndexShowMoreDetails(-1);
+        }
+        else {
+            setIndexShowMoreDetails(rentRequest.id || -1);
+        }
+    }
 
     return (
         <Grid item xs={12} md={6}>
@@ -542,6 +554,110 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
 
                         </Grid>
 
+                        {/*Show more details after accept Request*/}
+                        {
+                            indexShowMoreDetails === item.id ?
+                                <Box>
+                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+
+                                        <ListItem alignItems="flex-start">
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        item?.rentOffer?.description ||
+                                                        "",
+                                                }}
+                                            ></div>
+                                        </ListItem>
+
+                                        {
+                                            item?.rentOffer?.amount ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary={t<string>("common.label_amount")}
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    {item?.rentOffer?.amount} TND
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+
+                                        }
+
+                                        {
+                                            item?.rentOffer?.startDate ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary={t<string>("common.label_start_date")}
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    {convertDateTimeFromServer(new Date(item?.rentOffer?.startDate))}
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+                                        }
+
+                                        {
+                                            item?.rentOffer?.endDate ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary={t<string>("common.label_end_date")}
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    {convertDateTimeFromServer(new Date(item?.rentOffer?.endDate))}
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+                                        }
+
+                                        {
+                                            item.imageSignatureReceived ?
+                                                <>
+                                                    <Divider variant="inset" component="li" />
+                                                    <ListItem alignItems="flex-start">
+                                                        <ListItemText
+                                                            primary="Signature"
+                                                            secondary={
+                                                                <React.Fragment>
+                                                                    <img
+                                                                        src={item.imageSignatureReceived}
+                                                                        alt='signature'
+                                                                        className='full-img-responsive'
+                                                                    />
+                                                                </React.Fragment>
+                                                            }
+                                                        />
+                                                    </ListItem>
+                                                </> : null
+                                        }
+
+                                    </List>
+                                </Box> : null
+                        }
+                        {
+                            item.status === StatusRentRequest.ACCEPTED ?
+                                <Button variant="outlined"
+                                        color="success"
+                                        type="button"
+                                        onClick={(event) => toggleShowDetails(event, item)}>
+                                    {
+                                        indexShowMoreDetails === item.id ? t<string>("common.hide_details") : t<string>("common.show_details")
+                                    }
+                                </Button> : null
+                        }
+
                     </CardContent>
                 </Card>
             </CardActionArea>
@@ -595,15 +711,12 @@ function DisplayItemReceived({item, callbackRefusedRentRequest, callbackAcceptRe
 
     const toggleShowDetails = (event: any, rentRequest: IRentRequest) => {
         event.stopPropagation();
-        console.log('toggleShowDetails ', indexShowMoreDetails)
-        console.log('rentRequest.id ', rentRequest.id)
         if( indexShowMoreDetails === rentRequest.id ){
             setIndexShowMoreDetails(-1);
         }
         else {
             setIndexShowMoreDetails(rentRequest.id || -1);
         }
-
     }
 
     const cancelIndexAction = (event: any) => {
@@ -960,114 +1073,111 @@ function DisplayItemReceived({item, callbackRefusedRentRequest, callbackAcceptRe
                                     </Button>
                                 </ButtonGroup> : null
                         }
-
-
-
-                        {/*Show more details after accept Request*/}
-                        {
-                            indexShowMoreDetails === item.id ?
-                                <Box>
-                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-
-                                        <ListItem alignItems="flex-start">
-                                            <div
-                                                dangerouslySetInnerHTML={{
-                                                    __html:
-                                                        item?.rentOffer?.description ||
-                                                        "",
-                                                }}
-                                            ></div>
-                                        </ListItem>
-
-                                        {
-                                            item?.rentOffer?.amount ?
-                                                <>
-                                                    <Divider variant="inset" component="li" />
-                                                    <ListItem alignItems="flex-start">
-                                                        <ListItemText
-                                                            primary={t<string>("common.label_amount")}
-                                                            secondary={
-                                                                <React.Fragment>
-                                                                    {item?.rentOffer?.amount} TND
-                                                                </React.Fragment>
-                                                            }
-                                                        />
-                                                    </ListItem>
-                                                </> : null
-
-                                        }
-
-                                        {
-                                            item?.rentOffer?.startDate ?
-                                                <>
-                                                    <Divider variant="inset" component="li" />
-                                                    <ListItem alignItems="flex-start">
-                                                        <ListItemText
-                                                            primary={t<string>("common.label_start_date")}
-                                                            secondary={
-                                                                <React.Fragment>
-                                                                    {convertDateTimeFromServer(new Date(item?.rentOffer?.startDate))}
-                                                                </React.Fragment>
-                                                            }
-                                                        />
-                                                    </ListItem>
-                                                </> : null
-                                        }
-
-                                        {
-                                            item?.rentOffer?.endDate ?
-                                                <>
-                                                    <Divider variant="inset" component="li" />
-                                                    <ListItem alignItems="flex-start">
-                                                        <ListItemText
-                                                            primary={t<string>("common.label_end_date")}
-                                                            secondary={
-                                                                <React.Fragment>
-                                                                    {convertDateTimeFromServer(new Date(item?.rentOffer?.endDate))}
-                                                                </React.Fragment>
-                                                            }
-                                                        />
-                                                    </ListItem>
-                                                </> : null
-                                        }
-
-                                        {
-                                            item.imageSignatureReceived ?
-                                                <>
-                                                    <Divider variant="inset" component="li" />
-                                                    <ListItem alignItems="flex-start">
-                                                        <ListItemText
-                                                            primary="Signature"
-                                                            secondary={
-                                                                <React.Fragment>
-                                                                    <img
-                                                                        src={item.imageSignatureReceived}
-                                                                        alt='signature'
-                                                                        className='full-img-responsive'
-                                                                    />
-                                                                </React.Fragment>
-                                                            }
-                                                        />
-                                                    </ListItem>
-                                                </> : null
-                                        }
-
-                                    </List>
-                                </Box> : null
-                        }
-                        {
-                            item.status === StatusRentRequest.ACCEPTED ?
-                                <Button variant="outlined"
-                                        color="success"
-                                        type="button"
-                                        onClick={(event) => toggleShowDetails(event, item)}>
-                                    {
-                                        indexShowMoreDetails === item.id ? t<string>("common.hide_details") : t<string>("common.show_details")
-                                    }
-                                </Button> : null
-                        }
-
                     </form>
+
+                    {/*Show more details after accept Request*/}
+                    {
+                        indexShowMoreDetails === item.id ?
+                            <Box>
+                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+
+                                    <ListItem alignItems="flex-start">
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html:
+                                                    item?.rentOffer?.description ||
+                                                    "",
+                                            }}
+                                        ></div>
+                                    </ListItem>
+
+                                    {
+                                        item?.rentOffer?.amount ?
+                                            <>
+                                                <Divider variant="inset" component="li" />
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemText
+                                                        primary={t<string>("common.label_amount")}
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                {item?.rentOffer?.amount} TND
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                </ListItem>
+                                            </> : null
+
+                                    }
+
+                                    {
+                                        item?.rentOffer?.startDate ?
+                                            <>
+                                                <Divider variant="inset" component="li" />
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemText
+                                                        primary={t<string>("common.label_start_date")}
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                {convertDateTimeFromServer(new Date(item?.rentOffer?.startDate))}
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                </ListItem>
+                                            </> : null
+                                    }
+
+                                    {
+                                        item?.rentOffer?.endDate ?
+                                            <>
+                                                <Divider variant="inset" component="li" />
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemText
+                                                        primary={t<string>("common.label_end_date")}
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                {convertDateTimeFromServer(new Date(item?.rentOffer?.endDate))}
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                </ListItem>
+                                            </> : null
+                                    }
+
+                                    {
+                                        item.imageSignatureReceived ?
+                                            <>
+                                                <Divider variant="inset" component="li" />
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemText
+                                                        primary="Signature"
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                <img
+                                                                    src={item.imageSignatureReceived}
+                                                                    alt='signature'
+                                                                    className='full-img-responsive'
+                                                                />
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                </ListItem>
+                                            </> : null
+                                    }
+
+                                </List>
+                            </Box> : null
+                    }
+                    {
+                        item.status === StatusRentRequest.ACCEPTED ?
+                            <Button variant="outlined"
+                                    color="success"
+                                    type="button"
+                                    onClick={(event) => toggleShowDetails(event, item)}>
+                                {
+                                    indexShowMoreDetails === item.id ? t<string>("common.hide_details") : t<string>("common.show_details")
+                                }
+                            </Button> : null
+                    }
 
                 </CardContent>
             </Card>
