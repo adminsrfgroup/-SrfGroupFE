@@ -6,7 +6,8 @@ import { AllAppConfig } from "../../../core/config/all-config";
 import { ALL_APP_ROUTES } from "../../../core/config/all-app-routes";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Parallax, Pagination, Navigation } from "swiper";
+import { Lazy, Parallax, Pagination, Navigation } from "swiper";
+import "swiper/css/lazy";
 import "./TopHomeSlides.scss";
 import { StorageService } from "../../../shared/services/storage.service";
 import { ITopHomeSlidesImages } from "../../../shared/model/top-home-slides-images.model";
@@ -53,12 +54,8 @@ const TopHomeSlides: FunctionComponent = () => {
     }
   }, [entitiesTopHomeSlidesImagesSelector]);
 
-  const getBackgroundImage = () => {
-    for (let i = 0; i < listTopSlidesImage.length; i++) {
-      if (listTopSlidesImage[i]?.image) {
-        return listTopSlidesImage[i]?.image;
-      }
-    }
+  const getBackgroundImage = (item: any) => {
+      return item?.image;
   };
 
   const getDescription = (item: ITopHomeSlidesImages): string => {
@@ -79,8 +76,9 @@ const TopHomeSlides: FunctionComponent = () => {
           pagination={{
             clickable: true,
           }}
+          lazy={true}
           navigation={false}
-          modules={[Parallax, Pagination, Navigation]}
+          modules={[Lazy, Parallax, Pagination, Navigation]}
           className="mySwiper"
           loop={true}
           autoplay={{
@@ -88,21 +86,23 @@ const TopHomeSlides: FunctionComponent = () => {
             disableOnInteraction: false,
           }}
         >
-          <div
-            slot="container-start"
-            className="parallax-bg"
-            style={{ backgroundImage: `url(${getBackgroundImage()})` }}
-            data-swiper-parallax="-23%"
-          ></div>
           {listTopSlidesImage.map(
             (item: ITopHomeSlidesImages, index: number) => (
-              <SwiperSlide key={`index-${index}`}>
-                <div className="text" data-swiper-parallax="-300">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: getDescription(item) }}
-                  ></div>
-                </div>
-              </SwiperSlide>
+                <>
+                    <SwiperSlide key={`index-${index}`}>
+                        <div
+                            slot="container-start"
+                            className="parallax-bg"
+                            style={{ backgroundImage: `url(${getBackgroundImage(item)})` }}
+                            data-swiper-parallax="-23%"
+                        ></div>
+                        <div className="text" data-swiper-parallax="-300">
+                            <div
+                                dangerouslySetInnerHTML={{ __html: getDescription(item) }}
+                            ></div>
+                        </div>
+                    </SwiperSlide>
+                </>
             )
           )}
         </Swiper>

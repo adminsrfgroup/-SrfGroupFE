@@ -397,6 +397,7 @@ function ListRentRequestReceiver() {
                 initialLoad={false}
             >
                 <Grid container spacing={4} sx={{mt: 3}}>
+
                     {
                         entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
                             <DisplayItemReceived item={item}
@@ -1189,41 +1190,44 @@ function DisplayItemReceived({item, callbackRefusedRentRequest, callbackAcceptRe
 
 function LoadingRentRequest() {
     return (
-        <Grid item xs={12} md={6}>
-            {[0, 1, 2].map((key) => (
-                <Card sx={{ display: { xs: "block", sm: "flex" }, my: 2 }} key={key}>
-                    <CardMedia
-                        sx={{
-                            width: { xs: "100%", sm: 250 },
-                            height: { xs: "100%", sm: 200 },
-                        }}
-                    >
-                        <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
-                            <img
-                                src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
-                        </Box>
-                    </CardMedia>
-                    <CardContent sx={{ flex: 1 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <Skeleton animation="wave" height={24} />
+        <>
+            {[0, 1, 2, 3].map((key) => (
+                <Grid item xs={12} md={6}>
 
-                                <Skeleton animation="wave" height={24} />
-
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={"100%"}
-                                    height={100}
-                                    sx={{ my: 3 }}
+                    <Card sx={{ display: { xs: "block", sm: "flex" }, my: 2 }} key={key}>
+                        <CardMedia
+                            sx={{
+                                width: { xs: "100%", sm: 250 },
+                                height: { xs: "100%", sm: 200 },
+                            }}
+                        >
+                            <Box sx={{ display: { xs: "none", md: "block" }, height: "100%" }}>
+                                <img
+                                    src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
+                                    className="img-lazy-loading"
+                                    alt="image not found"
                                 />
+                            </Box>
+                        </CardMedia>
+                        <CardContent sx={{ flex: 1 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Skeleton animation="wave" height={24} />
+
+                                    <Skeleton animation="wave" height={24} />
+
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={"100%"}
+                                        height={100}
+                                        sx={{ my: 3 }}
+                                    />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
+                </Grid>
             ))}
-        </Grid>
+        </>
     );
 }
