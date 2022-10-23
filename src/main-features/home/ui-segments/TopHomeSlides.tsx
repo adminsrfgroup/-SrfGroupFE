@@ -12,10 +12,11 @@ import "./TopHomeSlides.scss";
 import { StorageService } from "../../../shared/services/storage.service";
 import { ITopHomeSlidesImages } from "../../../shared/model/top-home-slides-images.model";
 import i18n from "i18next";
-import { getFullUrlWithParams } from "../../../shared/utils/utils-functions";
+import {checkMobileDesktopBrowser, getFullUrlWithParams } from "../../../shared/utils/utils-functions";
 import { allCategorySelector } from "../../category/store/slice";
 import { allAddressSelector } from "../../address/store/slice";
 import { entitiesTopHomeSlidesImages } from "../store/slice";
+import { SourceProvider } from "../../../shared/enums/source-provider";
 
 const TopHomeSlides: FunctionComponent = () => {
   // console.log("TopHomeSlides ");
@@ -55,7 +56,7 @@ const TopHomeSlides: FunctionComponent = () => {
   }, [entitiesTopHomeSlidesImagesSelector]);
 
   const getBackgroundImage = (item: any) => {
-      return item?.image;
+      return checkMobileDesktopBrowser() === SourceProvider.WEB_BROWSER ? item?.imageDesktop : item?.imageMobile;
   };
 
   const getDescription = (item: ITopHomeSlidesImages): string => {
@@ -88,21 +89,19 @@ const TopHomeSlides: FunctionComponent = () => {
         >
           {listTopSlidesImage.map(
             (item: ITopHomeSlidesImages, index: number) => (
-                <>
-                    <SwiperSlide key={`index-${index}`}>
+                <SwiperSlide key={`index-${index}`}>
+                    <div
+                        slot="container-start"
+                        className="parallax-bg"
+                        style={{ backgroundImage: `url(${getBackgroundImage(item)})` }}
+                        data-swiper-parallax="-23%"
+                    ></div>
+                    <div className="text" data-swiper-parallax="-300">
                         <div
-                            slot="container-start"
-                            className="parallax-bg"
-                            style={{ backgroundImage: `url(${getBackgroundImage(item)})` }}
-                            data-swiper-parallax="-23%"
+                            dangerouslySetInnerHTML={{ __html: getDescription(item) }}
                         ></div>
-                        <div className="text" data-swiper-parallax="-300">
-                            <div
-                                dangerouslySetInnerHTML={{ __html: getDescription(item) }}
-                            ></div>
-                        </div>
-                    </SwiperSlide>
-                </>
+                    </div>
+                </SwiperSlide>
             )
           )}
         </Swiper>

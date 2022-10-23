@@ -436,7 +436,7 @@ export const App = () => {
             <InboxIcon />
           </ListItemIcon>
           <ListItemText
-            primary={t<string>("header.link_support.link_label_support")}
+            primary={t<string>("common.label_category")}
           />
           {openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
@@ -485,6 +485,62 @@ export const App = () => {
             </ListItemButton>
           </List>
         </Collapse>
+
+        <ListItemButton onClick={handleClickSupport}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText
+              primary={t<string>("header.link_support.link_label_support")}
+          />
+          {openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openSubMenuSupport} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+                sx={{ pl: 4 }}
+                component={Link}
+                to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}
+                onClick={() => handleDrawerToggle(false)}
+            >
+              <ListItemIcon>
+                <StarBorder />
+              </ListItemIcon>
+              <ListItemText
+                  primary={t<string>("header.link_support.link_contact_us")}
+              />
+            </ListItemButton>
+
+            <ListItemButton
+                sx={{ pl: 4 }}
+                component={Link}
+                to={ALL_APP_ROUTES.SUPPORT.ABOUT_US}
+                onClick={() => handleDrawerToggle(false)}
+            >
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText
+                  primary={t<string>("header.link_support.link_about")}
+              />
+            </ListItemButton>
+
+            <ListItemButton
+                sx={{ pl: 4 }}
+                component={Link}
+                to={ALL_APP_ROUTES.SUPPORT.FAQ}
+                onClick={() => handleDrawerToggle(false)}
+            >
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText
+                  primary={t<string>("header.link_support.link_faq")}
+              />
+            </ListItemButton>
+          </List>
+        </Collapse>
+
       </List>
       <Divider />
       <List>
