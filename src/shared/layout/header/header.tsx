@@ -371,6 +371,7 @@ export default function Header(props: any) {
             noWrap
             component="h2"
             sx={{ flex: { sm: 1 }, display: "block" }}
+            onClick={() => navigate(ALL_APP_ROUTES.HOME)}
           >
             SrfGroup
           </Typography>
@@ -534,7 +535,7 @@ export default function Header(props: any) {
                   src={getUserAvatar(
                     currentUser.id,
                     currentUser.imageUrl,
-                    currentUser.sourceRegister
+                    currentUser.sourceConnectedDevice
                   )}
                   sx={{
                     width: 30,

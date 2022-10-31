@@ -300,17 +300,17 @@ export default function AddUpdate() {
     originalListFiles.forEach((item: any) => {
       tempOfferImages.push({
         path: item?.name,
-        dateCreated: convertDateTimeToServer(new Date()),
+        // dateCreated: convertDateTimeToServer(new Date()),
       });
     });
 
     const entity = {
       ...entityMyOffersSelector,
-      dateCreated: convertDateTimeToServer(new Date()),
+      // dateCreated: convertDateTimeToServer(new Date()),
       ...values,
-      user: {
-        id: currentUser.id,
-      },
+      // user: {
+      //   id: currentUser.id,
+      // },
       offerImages: tempOfferImages.slice(),
     };
 

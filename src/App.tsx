@@ -580,7 +580,7 @@ export const App = () => {
               src={getUserAvatar(
                 currentUser?.id,
                 currentUser?.imageUrl,
-                currentUser?.sourceProvider
+                currentUser?.sourceConnectedDevice
               )}
             >
               {getFullnameUser(currentUser)?.charAt(0)}

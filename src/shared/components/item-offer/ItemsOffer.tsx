@@ -134,7 +134,7 @@ function CardList({
             height: { xs: "100%", sm: 200 },
           }}
         >
-          {offer.offerImages && offer.offerImages.length ? (
+          {offer?.offerImages?.length ? (
             <LazyLoadImage
               alt="Image offer"
               src={getImageForOffer(offer.id, offer.offerImages[0].path)}
