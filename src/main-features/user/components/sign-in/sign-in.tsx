@@ -56,7 +56,7 @@ export default function SignIn() {
   const [showPassword, setShowPassword] = React.useState({
     showPassword: false,
   });
-  const [checkedRememberMe, setCheckedRememberMe] = React.useState<boolean>(false);
+  const [checkedRememberMe, setCheckedRememberMe] = React.useState<boolean>(true);
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
