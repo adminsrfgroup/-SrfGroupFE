@@ -84,7 +84,15 @@ function LoadingOrders() {
 
 function ItemOrder({item}: { item: any }) {
 
-    const {t} = useTranslation();
+    const navigate = useNavigate();
+
+    const redirectToPorfile = (event: any, userId: number) => {
+        event.stopPropagation();
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
+        }, 300);
+    };
+
     return (
         <Grid item xs={12} md={6}>
             <Card
@@ -181,13 +189,14 @@ function ItemOrder({item}: { item: any }) {
                                                 role="img"
                                                 aria-label="Image avatar"
                                                 src={getUserAvatar(
-                                                    cart.user?.id,
-                                                    cart.user?.imageUrl,
-                                                    cart.user?.sourceConnectedDevice
+                                                    cart?.sellOffer?.user?.id,
+                                                    cart?.sellOffer?.user?.imageUrl,
+                                                    cart?.sellOffer?.user?.sourceConnectedDevice
                                                 )}
                                                 alt="image not found"
+                                                onClick={(event: any) => redirectToPorfile(event, cart?.sellOffer?.user?.id)}
                                             >
-                                                {getFullnameUser(cart.user)?.charAt(0)}
+                                                {getFullnameUser(cart?.sellOffer?.user)?.charAt(0)}
                                             </Avatar>
                                         }
                                         action={
@@ -195,7 +204,7 @@ function ItemOrder({item}: { item: any }) {
                                                 <ExpandMoreIcon/>
                                             </IconButton>
                                         }
-                                        title={getFullnameUser(cart?.user)}
+                                        title={getFullnameUser(cart?.sellOffer?.user)}
                                         subheader={cart?.sellOffer?.title}
                                     />
                                     <CardContent>

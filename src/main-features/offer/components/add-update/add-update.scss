@@ -2,6 +2,10 @@
   animation: zoom-in-zoom-out 1s ease infinite;
 }
 
+.submit-add-form{
+  border-color: rgba(0, 0, 0, 0.23) !important;
+}
+
 @keyframes zoom-in-zoom-out {
   0% {
     transform: scale(1, 1);

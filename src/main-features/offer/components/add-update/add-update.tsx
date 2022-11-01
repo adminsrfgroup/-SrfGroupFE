@@ -652,7 +652,7 @@ export default function AddUpdate() {
 
                           </Grid>
                           <Grid item xs={12} md={12} sx={{ mb: 3 }}>
-                            <Button variant="outlined" color={"neutral"} fullWidth startIcon={<CameraEnhanceIcon />}>
+                            <Button variant="outlined" color={"neutral"} fullWidth startIcon={<CameraEnhanceIcon />} className="submit-add-form">
                               <input
                                   id="offer-addFiles"
                                   data-cy="files"

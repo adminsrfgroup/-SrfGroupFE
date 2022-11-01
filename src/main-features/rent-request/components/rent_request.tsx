@@ -514,7 +514,7 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
                                             )}
                                             alt="image not found"
                                             onClick={(event: any) => redirectToPorfile(event, item?.receiverUser?.id)}
-                                            role="button"
+                                            role="img"
                                         >
                                             {getFullnameUser(item?.receiverUser)?.charAt(0)}
                                         </Avatar>
@@ -1192,7 +1192,7 @@ function LoadingRentRequest() {
     return (
         <>
             {[0, 1, 2, 3].map((key) => (
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} key={key}>
 
                     <Card sx={{ display: { xs: "block", sm: "flex" }, my: 2 }} key={key}>
                         <CardMedia

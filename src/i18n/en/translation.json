@@ -123,7 +123,6 @@
     "label_register_account": "Register a new account",
     "title_page_forgot_password": "Forgot password",
     "label_remember_me": "Remember me",
-    "message_welcome": "Welcome",
     "blocked_by_admin": "You are blocked, please contact the administration",
     "account_not_activated": "Account was not activated",
     "bad_credentials": "Email/Password invalid"

@@ -159,13 +159,15 @@ const showNotification = (success: boolean, result: any) => {
       }
     });
     if (alert) {
-      toast.success(i18n.t<string>(alert));
+      // toast.success(i18n.t<string>(alert));
+      toast.success(alert);
     }
   } else if (!success) {
     const response = result?.response;
     const data = response?.data;
     if (data?.message) {
-      toast.error(i18n.t<string>(data?.message));
+      // toast.error(i18n.t<string>(data?.message));
+      toast.error(data?.message);
     } else if (data.status === 401) {
       if (!blockErrorMessage) {
         blockErrorMessage = true;
