@@ -129,9 +129,7 @@
     "title_page_forgot_password": "Mot de passe oublié",
     "label_remember_me": "Rester connecté",
     "blocked_by_admin": "Vous êtes bloqué par admin, merci de contacter l'administration",
-    "blocked_by_report": "Vous êtes bloqué par le signal, merci de contacter l'administration",
-    "account_not_activated": "Le compte n'est pas encore activé",
-    "bad_credentials": "Email/Mot de passe incorrect"
+    "blocked_by_report": "Vous êtes bloqué par le signal, merci de contacter l'administration"
   },
   "comment_offer": {
     "comment_offer_added_succefully": "Commentaire ajouté avec succès",
