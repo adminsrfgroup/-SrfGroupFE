@@ -95,7 +95,7 @@ import {
   addConversation,
   loadingConversation,
 } from "../../../chat/store/slice";
-import {addCart, addSuccessCart, resetCart} from "../../../cart/store/slice";
+import {addCart, addSuccessCart, loadingCart, resetCart} from "../../../cart/store/slice";
 import CustomShare from "../../../../shared/components/custom-share/CustomShare";
 import {
   addFavoriteUsers,
@@ -167,6 +167,7 @@ export default function DetailsOfffer() {
     useSelector(listConnectedUsersWebsocket) ?? [];
 
   const addSuccessCartSelector = useSelector(addSuccessCart) ?? false;
+  const loadingCartSelector = useSelector(loadingCart) ?? false;
 
   React.useEffect(() => {
     if (entitiesCommentsOfferSelector.length) {
@@ -338,6 +339,7 @@ export default function DetailsOfffer() {
 
   React.useEffect(() => {
     if (addSuccessCartSelector) {
+      dispatch(resetCart({}));
       dispatch(getNumberOfCarts({}));
     }
   }, [addSuccessCartSelector]);
@@ -353,7 +355,6 @@ export default function DetailsOfffer() {
           },
         };
         dispatch(addCart({ ...entity }));
-        dispatch(resetCart({}));
       }
       else{
         toast.error(i18n.t<string>('details_offer.missing_amount'));
@@ -723,7 +724,7 @@ export default function DetailsOfffer() {
                 entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Sell ? (
                   <CartSellDetailsOffer
                     parentCallbackAddCart={addNewCart}
-                    loadingAddCart={false}
+                    loadingAddCart={loadingCartSelector}
                   />
                 ) : entityPublicOfferSelector?.offer?.typeContactClient !== OfferTypeContact.direct &&
                   entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Rent ? (

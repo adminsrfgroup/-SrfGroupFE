@@ -10,6 +10,7 @@ import "swiper/css/free-mode";
 
 const HorizontalItems = ({listCategories}: {listCategories: ICategory[]}) => {
 
+    console.log("listCategories ", listCategories);
     return (
         <Box className="horizontal-items">
             <Swiper

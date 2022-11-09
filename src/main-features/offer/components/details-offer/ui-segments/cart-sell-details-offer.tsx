@@ -25,14 +25,10 @@ export default function CartSellDetailsOffer({
   parentCallbackAddCart: (quantity: any) => void;
   loadingAddCart: boolean;
 }) {
-  const [value, setValue] = React.useState<string>("1");
+
   const [valueQuantity, setValueQuantity] = React.useState<number>(1);
 
   const { t } = useTranslation();
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
 
   const changeQuantity = (data: any) => {
     console.log("data ", data);
