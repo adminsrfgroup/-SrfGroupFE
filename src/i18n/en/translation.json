@@ -219,10 +219,7 @@
     "missing_amount": "The amount is not declared by the seller, you can not place the order"
   },
   "forgot_password_init": {
-    "message_send_mail_success": "Check your emails for details on how to reset your password.",
-    "reset_finish_messages_success": "Your password reset successfully",
-    "user_not_found_by_email": "User not found with this email",
-    "message_invalid_key": "Invalid key"
+    "message_send_mail_success": "Check your emails for details on how to reset your password."
   },
   "forgot_password_finish": {
     "title_forgot_password_finish": "Update password."

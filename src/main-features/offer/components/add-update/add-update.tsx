@@ -96,6 +96,7 @@ import {
   fetchDescriptionNewOffer,
   fetchOffer,
   entityMyOffers,
+  resetMyOffers,
 } from "../../store/slice";
 import { CustomSunEditor } from "../../../../shared/components/sun-editor/CustomSunEditor";
 import OptionsCommonAddOffer from "./ui-segments/ooptions-common-add-offer";
@@ -273,17 +274,20 @@ export default function AddUpdate() {
     if (addSuccessSellerOfferSelector || updateSuccessSellerOfferSelector) {
       const offerId: number = entitySellerOfferSelector?.id || -1;
       upladAllFiles(offerId);
-      dispatch(resetSellerOffer({}));
+      // dispatch(resetSellerOffer({}));
+      dispatch(resetMyOffers({}));
       navigate(ALL_APP_ROUTES.OFFER.MY_OFFERS);
     } else if (addSuccessRentOfferSelector || updateSuccessRentOfferSelector) {
       const offerId: number = entityRentOfferSelector?.id || -1;
       upladAllFiles(offerId);
-      dispatch(resetRentOffer({}));
+      // dispatch(resetRentOffer({}));
+      dispatch(resetMyOffers({}));
       navigate(ALL_APP_ROUTES.OFFER.MY_OFFERS);
     } else if (aaddSuccessFindOfferSelector || updateSuccessFindOfferSelector) {
       const offerId: number = entityFindOfferSelector?.id || -1;
       upladAllFiles(offerId);
-      dispatch(resetFindOffer({}));
+      // dispatch(resetFindOffer({}));
+      dispatch(resetMyOffers({}));
       navigate(ALL_APP_ROUTES.OFFER.MY_OFFERS);
     }
   }, [

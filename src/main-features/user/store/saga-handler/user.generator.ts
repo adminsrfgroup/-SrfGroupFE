@@ -303,8 +303,9 @@ export function* resetPasswordInitHandler(data: any): Generator<any, any, any> {
         url: `${requestUrl}`,
         method: MethodHttp.post,
       },
-      data.payload,
-      { textPlain: true }
+        {
+          email: data.payload
+        }
     );
     yield put(resetPasswordInitSuccess(result?.data));
   } catch (e) {
