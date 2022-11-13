@@ -24,6 +24,7 @@ export function oneSignalProviders() {
       });
     } catch (e) {
       console.error("Exception ", e);
+      reject(e);
     }
   });
 }
