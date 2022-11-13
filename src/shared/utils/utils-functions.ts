@@ -198,3 +198,11 @@ export const isOnLine = (
 export const hasUserRole = (authorities: any[] | undefined, role: string) => {
   return authorities && authorities.find((item: any) => item.name === role);
 };
+
+export const stringToEncode = (input: string) => {
+  return btoa(input)+'SrfGroup';
+}
+
+export const decodeToString = (input: string) => {
+  return atob(input.substring(0, input.length-8))
+}

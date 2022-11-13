@@ -1,12 +1,13 @@
 import OneSignal from "react-onesignal";
 import { AllAppConfig } from "../../core/config/all-config";
+import {decodeToString} from "../utils/utils-functions";
 
 export function oneSignalProviders() {
   return new Promise((resolve, reject) => {
     try {
       // Init OneSignal Platform
       OneSignal.init({
-        appId: AllAppConfig.APP_ID_ONESIGNAL,
+        appId: decodeToString(AllAppConfig.APP_ID_ONESIGNAL),
       }).then((result: any) => {
         // console.log("OneSignal init succefully");
 

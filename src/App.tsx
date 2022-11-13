@@ -65,9 +65,10 @@ import ListItem from "@mui/material/ListItem";
 import Avatar from "@mui/material/Avatar";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {
+  decodeToString,
   getBaseImageUrl,
   getFullnameUser,
-  getUserAvatar,
+  getUserAvatar, stringToEncode,
 } from "./shared/utils/utils-functions";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
