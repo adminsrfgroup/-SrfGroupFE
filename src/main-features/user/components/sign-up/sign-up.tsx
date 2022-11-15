@@ -32,7 +32,7 @@ import DialogActions from "@mui/material/DialogActions/DialogActions";
 import Container from "@mui/material/Container/Container";
 // import {TransitionModal} from "../../shared/pages/transition-modal";
 import { useTranslation } from "react-i18next";
-import { checkMobileDesktopBrowser } from "../../../../shared/utils/utils-functions";
+import {checkMobileDesktopBrowser, decodeJwtResponse} from "../../../../shared/utils/utils-functions";
 import { loadingCommentsOffer } from "../../../offer/store/slice";
 import {
   addSuccessRegister,
@@ -57,6 +57,7 @@ import Stack from "@mui/material/Stack";
 import { IFacebook, IGooglePlus } from "../../../../shared/model/user.model";
 import { SourceProvider } from "../../../../shared/enums/source-provider";
 import "./sign-up.scss";
+import {GoogleSignin} from "../../../../shared/components/google-signin/google-signin";
 
 const initialValues = initialValuesSignUp;
 
@@ -173,13 +174,24 @@ export default function SignUp() {
   };
 
   const responseGoogle = (response: any) => {
-    if (!response.error) {
+    console.log('response ', response);
+    if( response?.credential ){
+      console.log('decodeJwtResponse ', decodeJwtResponse(response.credential));
+      const user = JSON.parse(decodeJwtResponse(response.credential));
       const requestData: IGooglePlus = {
-        ...response,
-        sourceProvider: SourceProvider.GOOGLE_PLUS,
+        Ba: '',
+        tokenId: response.credential,
+        googleId: response.clientId,
+        profileObj: {
+          email: user.email,
+          familyName: user.family_name,
+          givenName: user.given_name,
+          imageUrl: user.picture,
+          name: user.name
+        },
         idOneSignal: oneSignalId,
-        langKey: currentLocale,
-      };
+        sourceConnectedDevice: SourceProvider.GOOGLE_PLUS
+      }
       dispatch(loginWithGoogle({ ...requestData }));
     }
   };
@@ -400,13 +412,21 @@ export default function SignUp() {
                     sx={{ justifyContent: "center", my: 4 }}
                   >
                     <FacebookLogin
-                      appId="sqd"
+                      appId={AllAppConfig.APP_ID_FACEBOOK}
                       autoLoad={false}
                       fields="name,email,picture"
                       textButton=""
                       icon={<FacebookIcon />}
                       callback={responseFacebook}
                     ></FacebookLogin>
+                    <Fab
+                        color="secondary"
+                        aria-label="google"
+                        sx={{ m: 1, backgroundColor: "#E93F2E" }}
+                    >
+                      <GoogleSignin isOneTap={false} handleCredentialResponse={responseGoogle}/>
+                      <GoogleIcon />
+                    </Fab>
                     {/*<GoogleLogin*/}
                     {/*  clientId={AllAppConfig.CLIENT_ID_GOOGLLE}*/}
                     {/*  onSuccess={responseGoogle}*/}

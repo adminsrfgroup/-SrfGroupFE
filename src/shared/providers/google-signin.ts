@@ -8,10 +8,16 @@ export function loadScriptGoogleSignin(): Promise<boolean> {
                 script.id = "google-signin";
                 document.body.appendChild(script);
                 script.onload = () => {
-                    resolve(true);
+                    setTimeout(() => {
+                        resolve(true);
+                    }, 1000)
                 };
             }
-            if (existingScript) resolve(true);
+            if (existingScript) {
+                setTimeout(() => {
+                    resolve(true);
+                }, 1000)
+            }
         } catch (e) {
             reject(false);
         }
