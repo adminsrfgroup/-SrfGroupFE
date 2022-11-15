@@ -24,7 +24,7 @@ export const AllAppConfig = {
   APP_ID_FACEBOOK: "667046544674033",
   PAGEFACEBOO__ID: "100054409273167",
   CLIENT_ID_GOOGLLE:
-    "254542711718-39qpedgkb592m96raq2s94tji0p77v16.apps.googleusercontent.com",
+    "254542711718-57hnbbbj67l1sbje3pq7cekk4l2jpclf.apps.googleusercontent.com",
   APP_ID_ONESIGNAL: "YmMxYjU0NzItYTM3ZS00OWVkLWEwZjktMGRiYTFmZGZkZmQ5SrfGroup",
   OFFERS_PER_PAGE: 10,
   ORDERS_PER_PAGE: 10,

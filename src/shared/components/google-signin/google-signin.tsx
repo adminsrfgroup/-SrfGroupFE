@@ -1,4 +1,5 @@
 import React, {LegacyRef} from "react";
+import { AllAppConfig } from "../../../core/config/all-config";
 import {loadScriptGoogleSignin} from "../../providers/google-signin";
 
 
@@ -21,7 +22,7 @@ export class GoogleSignin extends React.Component<any, any> {
         loadScriptGoogleSignin()
             .then(() => {
                 google.accounts.id.initialize({
-                    client_id: "254542711718-57hnbbbj67l1sbje3pq7cekk4l2jpclf.apps.googleusercontent.com",
+                    client_id: AllAppConfig.CLIENT_ID_GOOGLLE,
                     callback: this.handleClick
                 });
 
@@ -32,6 +33,7 @@ export class GoogleSignin extends React.Component<any, any> {
                     );
                 }
                 else{
+                    console.log('oneTap');
                     google.accounts.id.prompt();
                 }
             });
@@ -39,7 +41,9 @@ export class GoogleSignin extends React.Component<any, any> {
 
     render() {
         return (
-            <div ref={this.googleSignInButton} className="customGPlusSignIn"></div>
+            <div>
+                <div ref={this.googleSignInButton} className={!this.props.isOneTap ? 'customGPlusSignIn' : ''}></div>
+            </div>
         );
     }
 }

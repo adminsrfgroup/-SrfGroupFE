@@ -754,7 +754,6 @@ export const App = () => {
 
   const responseGoogle = (response: any) => {
     if( response?.credential ){
-      console.log('decodeJwtResponse ', decodeJwtResponse(response.credential));
       const user = JSON.parse(decodeJwtResponse(response.credential));
       const requestData: IGooglePlus = {
         Ba: '',
