@@ -40,12 +40,11 @@ export const defaultValue: Readonly<IUser> = {
 
 export interface IGooglePlus {
   Ba: string;
-  accessToken: string;
+  tokenId: string;
   googleId: string;
   profileObj: any;
-  tokenId: string;
-  sourceProvider: string;
   idOneSignal: string;
+  sourceConnectedDevice: string;
 }
 
 export interface IFacebook {
@@ -63,25 +62,3 @@ export interface IFacebook {
   idOneSignal: string;
 }
 
-export interface IGooglePlusOneTap {
-  alg: string;
-  aud: string;
-  azp: string;
-  email: string;
-  email_verified: string;
-  exp: string;
-  family_name: string;
-  given_name: string;
-  iat: string;
-  iss: string;
-  jti: string;
-  kid: string;
-  name: string;
-  nbf: string;
-  picture: string;
-  sub: string;
-  typ: string;
-  sourceProvider: string;
-  idOneSignal: string;
-  langKey: string;
-}

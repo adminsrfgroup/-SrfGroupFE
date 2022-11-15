@@ -49,7 +49,7 @@ import { ALL_APP_ROUTES } from "../../../../core/config/all-app-routes";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import FacebookLogin from "react-facebook-login";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 import { AllAppConfig } from "../../../../core/config/all-config";
 import Fab from "@mui/material/Fab/Fab";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -407,23 +407,23 @@ export default function SignUp() {
                       icon={<FacebookIcon />}
                       callback={responseFacebook}
                     ></FacebookLogin>
-                    <GoogleLogin
-                      clientId={AllAppConfig.CLIENT_ID_GOOGLLE}
-                      onSuccess={responseGoogle}
-                      onFailure={responseGoogle}
-                      autoLoad={false}
-                      render={(renderProps) => (
-                        <Fab
-                          color="secondary"
-                          aria-label="google"
-                          sx={{ m: 1, backgroundColor: "#E93F2E" }}
-                          onClick={renderProps.onClick}
-                          disabled={renderProps.disabled}
-                        >
-                          <GoogleIcon />
-                        </Fab>
-                      )}
-                    ></GoogleLogin>
+                    {/*<GoogleLogin*/}
+                    {/*  clientId={AllAppConfig.CLIENT_ID_GOOGLLE}*/}
+                    {/*  onSuccess={responseGoogle}*/}
+                    {/*  onFailure={responseGoogle}*/}
+                    {/*  autoLoad={false}*/}
+                    {/*  render={(renderProps) => (*/}
+                    {/*    <Fab*/}
+                    {/*      color="secondary"*/}
+                    {/*      aria-label="google"*/}
+                    {/*      sx={{ m: 1, backgroundColor: "#E93F2E" }}*/}
+                    {/*      onClick={renderProps.onClick}*/}
+                    {/*      disabled={renderProps.disabled}*/}
+                    {/*    >*/}
+                    {/*      <GoogleIcon />*/}
+                    {/*    </Fab>*/}
+                    {/*  )}*/}
+                    {/*></GoogleLogin>*/}
                   </Stack>
                 </form>
               </Box>

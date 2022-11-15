@@ -35,7 +35,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import createTheme from "@mui/material/styles/createTheme";
 import { MaterialUISwitch } from "./shared/pages/material-ui-switch";
-import { IGooglePlusOneTap } from "./shared/model/user.model";
+import {IGooglePlus} from "./shared/model/user.model";
 import { SourceProvider } from "./shared/enums/source-provider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CookieConsent from "react-cookie-consent";
@@ -47,7 +47,6 @@ import {
   logout,
   allLoginSelector,
   sessionUser,
-  loginWithGoogleOneTapSuccessLogin,
   setUserIdOS,
   currentUserSession,
   getNumberOfCarts,
@@ -65,10 +64,10 @@ import ListItem from "@mui/material/ListItem";
 import Avatar from "@mui/material/Avatar";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {
-  decodeToString,
+  decodeJwtResponse,
   getBaseImageUrl,
   getFullnameUser,
-  getUserAvatar, stringToEncode,
+  getUserAvatar,
 } from "./shared/utils/utils-functions";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
@@ -91,8 +90,6 @@ import {
 } from "./main-features/user/store/slice";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { AllAppConfig } from "./core/config/all-config";
-import GoogleOneTapLogin from "react-google-one-tap-login";
 import {
   fetchFindOffer,
   fetchImagesOffer,
@@ -106,7 +103,7 @@ import isEmpty from "lodash/isEmpty";
 import { languages, locales } from "./main-features/user/store/initial.state";
 import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthorized-content-modal";
 
-import { init as initApm } from '@elastic/apm-rum'
+// import { init as initApm } from '@elastic/apm-rum'
 import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { resetRentRequests } from "./main-features/rent-request/store/slice";
@@ -114,6 +111,7 @@ import { resetCart } from "./main-features/cart/store/slice";
 import { resetMyNotifications } from "./main-features/notification/store/slice";
 import {resetFavoriteUsers} from "./main-features/favorite/store/slice";
 import './App.css';
+import {GoogleSignin} from "./shared/components/google-signin/google-signin";
 
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
@@ -755,13 +753,23 @@ export const App = () => {
   );
 
   const responseGoogle = (response: any) => {
-    if (!response.error) {
-      const requestData: IGooglePlusOneTap = {
-        ...response,
-        sourceProvider: SourceProvider.GOOGLE_ONE_TAP_LOGIN,
+    if( response?.credential ){
+      console.log('decodeJwtResponse ', decodeJwtResponse(response.credential));
+      const user = JSON.parse(decodeJwtResponse(response.credential));
+      const requestData: IGooglePlus = {
+        Ba: '',
+        tokenId: response.credential,
+        googleId: response.clientId,
+        profileObj: {
+          email: user.email,
+          familyName: user.family_name,
+          givenName: user.given_name,
+          imageUrl: user.picture,
+          name: user.name
+        },
         idOneSignal: oneSignalId,
-        langKey: currentLocale,
-      };
+        sourceConnectedDevice: SourceProvider.GOOGLE_ONE_TAP_LOGIN,
+      }
       dispatch(loginWithGoogleOneTap({ ...requestData }));
     }
   };
@@ -841,11 +849,7 @@ export const App = () => {
         <Footer />
 
         {!isAuthenticated ? (
-          <GoogleOneTapLogin
-            onError={(error: any) => console.log("error ", error)}
-            onSuccess={(response: any) => responseGoogle(response)}
-            googleAccountConfigs={{ client_id: AllAppConfig.CLIENT_ID_GOOGLLE }}
-          />
+          <GoogleSignin isOneTap={true} handleCredentialResponse={responseGoogle}/>
         ) : null}
 
         {renderMenuLanguages}

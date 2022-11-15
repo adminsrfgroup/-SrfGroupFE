@@ -14,6 +14,11 @@ import "swiper/css/navigation";
 import "./index.css";
 import { App } from "./App";
 import { logout } from "./main-features/user/store/slice";
+import {GoogleSignin} from "./shared/components/google-signin/google-signin";
+import GoogleIcon from "@mui/icons-material/Google";
+import Fab from "@mui/material/Fab/Fab";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import FacebookLogin from "react-facebook-login";
 
 // Store initialize
 // const store = initStore;

@@ -11,7 +11,7 @@ export default class GoogleAdsense extends React.Component {
       document.body.insertBefore(elem, document.body.firstChild);
     };
     installGoogleAds();
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    // (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   render() {

@@ -169,7 +169,7 @@ export function checkMobileDesktopBrowser() {
       )
     )
       check = SourceProvider.MOBILE_BROWSER;
-  })(navigator.userAgent || navigator.vendor || window.opera || "");
+  })(navigator.userAgent || navigator.vendor || (<any>window).opera || "");
   return check;
 }
 
@@ -205,4 +205,14 @@ export const stringToEncode = (input: string) => {
 
 export const decodeToString = (input: string) => {
   return atob(input.substring(0, input.length-8))
+}
+
+
+export const decodeJwtResponse = (token: string) => {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return jsonPayload;
 }

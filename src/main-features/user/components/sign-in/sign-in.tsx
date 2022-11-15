@@ -27,7 +27,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs/Breadcrumbs";
 import Slide from "@mui/material/Slide";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import Container from "@mui/material/Container/Container";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 import { useTranslation } from "react-i18next";
 import {
   allLocaleSelector,
@@ -48,6 +48,8 @@ import { AllAppConfig } from "../../../../core/config/all-config";
 import { loginUser } from "../../store/slice";
 import "./sign-in.scss";
 import Stack from "@mui/material/Stack";
+import {GoogleSignin} from "../../../../shared/components/google-signin/google-signin";
+import {decodeJwtResponse} from "../../../../shared/utils/utils-functions";
 
 const initialValues = initialValuesSignIn;
 
@@ -106,13 +108,24 @@ export default function SignIn() {
   };
 
   const responseGoogle = (response: any) => {
-    if (!response.error) {
+    console.log('response ', response);
+    if( response?.credential ){
+      console.log('decodeJwtResponse ', decodeJwtResponse(response.credential));
+      const user = JSON.parse(decodeJwtResponse(response.credential));
       const requestData: IGooglePlus = {
-        ...response,
-        sourceProvider: SourceProvider.GOOGLE_PLUS,
+        Ba: '',
+        tokenId: response.credential,
+        googleId: response.clientId,
+        profileObj: {
+          email: user.email,
+          familyName: user.family_name,
+          givenName: user.given_name,
+          imageUrl: user.picture,
+          name: user.name
+        },
         idOneSignal: oneSignalId,
-        langKey: currentLocale,
-      };
+        sourceConnectedDevice: SourceProvider.GOOGLE_PLUS
+      }
       dispatch(loginWithGoogle({ ...requestData }));
     }
   };
@@ -299,30 +312,39 @@ export default function SignIn() {
               sx={{ justifyContent: "center", my: 4 }}
             >
               <FacebookLogin
-                appId="sqd"
+                appId={AllAppConfig.APP_ID_FACEBOOK}
                 autoLoad={false}
                 fields="name,email,picture"
                 textButton=""
                 icon={<FacebookIcon />}
                 callback={responseFacebook}
               ></FacebookLogin>
-              <GoogleLogin
-                clientId={AllAppConfig.CLIENT_ID_GOOGLLE}
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                autoLoad={false}
-                render={(renderProps) => (
-                  <Fab
-                    color="secondary"
-                    aria-label="google"
-                    sx={{ m: 1, backgroundColor: "#E93F2E" }}
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
-                  >
-                    <GoogleIcon />
-                  </Fab>
-                )}
-              ></GoogleLogin>
+              <Fab
+                  color="secondary"
+                  aria-label="google"
+                  sx={{ m: 1, backgroundColor: "#E93F2E" }}
+              >
+                <GoogleSignin isOneTap={false} handleCredentialResponse={responseGoogle}/>
+                <GoogleIcon />
+              </Fab>
+              {/*<GoogleLogin*/}
+              {/*  clientId={AllAppConfig.CLIENT_ID_GOOGLLE}*/}
+              {/*  onSuccess={responseGoogle}*/}
+              {/*  onFailure={responseGoogle}*/}
+              {/*  autoLoad={false}*/}
+              {/*  render={(renderProps) => (*/}
+              {/*    <Fab*/}
+              {/*      color="secondary"*/}
+              {/*      aria-label="google"*/}
+              {/*      sx={{ m: 1, backgroundColor: "#E93F2E" }}*/}
+              {/*      onClick={renderProps.onClick}*/}
+              {/*      disabled={renderProps.disabled}*/}
+              {/*    >*/}
+              {/*      <GoogleIcon />*/}
+              {/*    </Fab>*/}
+              {/*  )}*/}
+              {/*></GoogleLogin>*/}
+
             </Stack>
           </Grid>
           <Grid item xs={4}></Grid>

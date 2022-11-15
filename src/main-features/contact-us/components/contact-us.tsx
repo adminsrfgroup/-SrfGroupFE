@@ -10,7 +10,7 @@ import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
 import FormControl from "@mui/material/FormControl/FormControl";
 import InputLabel from "@mui/material/InputLabel/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import List from "@mui/material/List/List";
 import ListItem from "@mui/material/ListItem/ListItem";

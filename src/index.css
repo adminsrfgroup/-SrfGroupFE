@@ -100,6 +100,9 @@
     text-transform: uppercase !important;
 }
 
-
-
+/*******************************/
+.customGPlusSignIn {
+    position: absolute;
+    opacity: 0;
+}
 
