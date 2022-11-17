@@ -30,10 +30,8 @@ import Container from "@mui/material/Container/Container";
 // import { GoogleLogin } from "react-google-login";
 import { useTranslation } from "react-i18next";
 import {
-  allLocaleSelector,
   allLoginSelector,
   allSessionSelector,
-  connectedUserWS,
   loginWithFacebook,
   loginWithGoogle,
 } from "../../store/slice";
@@ -44,7 +42,7 @@ import {
 import { IFacebook, IGooglePlus } from "../../../../shared/model/user.model";
 import { SourceProvider } from "../../../../shared/enums/source-provider";
 import { ALL_APP_ROUTES } from "../../../../core/config/all-app-routes";
-import { AllAppConfig } from "../../../../core/config/all-config";
+// import { AllAppConfig } from "../../../../core/config/all-config";
 import { loginUser } from "../../store/slice";
 import "./sign-in.scss";
 import Stack from "@mui/material/Stack";
@@ -64,7 +62,7 @@ export default function SignIn() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading } = useSelector(allLoginSelector);
-  const { currentLocale } = useSelector(allLocaleSelector);
+  // const { currentLocale } = useSelector(allLocaleSelector);
   const { oneSignalId } = useSelector(allSessionSelector);
 
   const handleClickShowPassword = () => {
@@ -96,18 +94,6 @@ export default function SignIn() {
     },
   });
 
-  // const responseFacebook = (response: any) => {
-  //   if (!response.status) {
-  //     const requestData: IFacebook = {
-  //       ...response,
-  //       sourceConnectedDevice: SourceProvider.FACEBOOK,
-  //       idOneSignal: oneSignalId,
-  //       langKey: currentLocale,
-  //     };
-  //     dispatch(loginWithFacebook({ ...requestData }));
-  //   }
-  // };
-
   const responseGoogle = (response: any) => {
     console.log('response ', response);
     if( response?.credential ){
@@ -135,11 +121,11 @@ export default function SignIn() {
     setCheckedRememberMe(event.target.checked);
   }
 
-  const logoutFB = useCallback(() => {
-    FB.logout((response: any) => {
-      console.log('FB logout');
-    });
-  }, [])
+  // const logoutFB = useCallback(() => {
+  //   FB.logout((response: any) => {
+  //     console.log('FB logout');
+  //   });
+  // }, [])
 
   const loginFB = useCallback(() => {
     FB.login(
@@ -148,7 +134,6 @@ export default function SignIn() {
             console.log('response ', response);
             FB.api('/me', {fields: "id,name,email,picture"}, (responseMe: any) => {
               console.log('Good to see you, ', responseMe);
-
               const requestData: IFacebook = {
                 accessToken: response.authResponse.accessToken,
                 data_access_expiration_time: response.authResponse.data_access_expiration_time,

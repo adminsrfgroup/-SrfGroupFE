@@ -32,8 +32,8 @@ import DialogActions from "@mui/material/DialogActions/DialogActions";
 import Container from "@mui/material/Container/Container";
 // import {TransitionModal} from "../../shared/pages/transition-modal";
 import { useTranslation } from "react-i18next";
-import {checkMobileDesktopBrowser, decodeJwtResponse} from "../../../../shared/utils/utils-functions";
-import { loadingCommentsOffer } from "../../../offer/store/slice";
+import {decodeJwtResponse} from "../../../../shared/utils/utils-functions";
+// import { loadingCommentsOffer } from "../../../offer/store/slice";
 import {
   addSuccessRegister,
   allLocaleSelector,
@@ -47,10 +47,10 @@ import {
 import { TransitionModal } from "../../../../shared/pages/transition-modal";
 import { ALL_APP_ROUTES } from "../../../../core/config/all-app-routes";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
-import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from "react-facebook-login";
 import FacebookIcon from "@mui/icons-material/Facebook";
 // import { GoogleLogin } from "react-google-login";
-import { AllAppConfig } from "../../../../core/config/all-config";
+// import { AllAppConfig } from "../../../../core/config/all-config";
 import Fab from "@mui/material/Fab/Fab";
 import GoogleIcon from "@mui/icons-material/Google";
 import Stack from "@mui/material/Stack";
@@ -86,7 +86,7 @@ export default function SignUp() {
   const addSuccessRegisterSelector = useSelector(addSuccessRegister) ?? false;
 
   const { oneSignalId } = useSelector(allSessionSelector);
-  const { currentLocale } = useSelector(allLocaleSelector);
+  // const { currentLocale } = useSelector(allLocaleSelector);
 
   React.useEffect(() => {
     setStartAnimation(true);
@@ -168,7 +168,6 @@ export default function SignUp() {
             console.log('response ', response);
             FB.api('/me', {fields: "id,name,email,picture"}, (responseMe: any) => {
               console.log('Good to see you, ', responseMe);
-
               const requestData: IFacebook = {
                 accessToken: response.authResponse.accessToken,
                 data_access_expiration_time: response.authResponse.data_access_expiration_time,

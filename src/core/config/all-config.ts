@@ -21,7 +21,7 @@ export const AllAppConfig = {
   KeyGoogleMaps: "AIzaSyAe3rSYWX0QyDedMkgg9Mguzj-zd_1sO9k",
   NAME_TOKEN_CURRENT_USER: "tokenCurrentUser",
   VALUE_CURRENT_USER: "currentUser",
-  APP_ID_FACEBOOK: "667046544674033",
+  APP_ID_FACEBOOK: "2910144589284575",
   PAGEFACEBOO__ID: "100054409273167",
   CLIENT_ID_GOOGLLE:
     "254542711718-57hnbbbj67l1sbje3pq7cekk4l2jpclf.apps.googleusercontent.com",
