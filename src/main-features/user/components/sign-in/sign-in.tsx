@@ -134,6 +134,32 @@ export default function SignIn() {
     setCheckedRememberMe(event.target.checked);
   }
 
+  const logoutFB = () => {
+    FB.logout(function(response: any) {
+      // Person is now logged out
+      console.log('FB logout');
+    });
+  }
+
+  const login = () => {
+    FB.login(
+        function (response: any) {
+          if (response.status === "connected") {
+            console.log('response ', response);
+            FB.api('/me', function(responseMe: any) {
+              console.log('Good to see you, ' + responseMe + '.');
+            });
+            // const accessToken = response.authResponse.accessToken;
+            // return onToken(accessToken);
+          } else {
+            console.error('Error FB')
+            // onError();
+          }
+        },
+        { scope: "public_profile, email" }
+    );
+  };
+
   return (
     <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
       <Container maxWidth="xl">
@@ -311,14 +337,18 @@ export default function SignIn() {
               direction="row"
               sx={{ justifyContent: "center", my: 4 }}
             >
-              <FacebookLogin
-                appId={AllAppConfig.APP_ID_FACEBOOK}
-                autoLoad={false}
-                fields="name,email,picture"
-                textButton=""
-                icon={<FacebookIcon />}
-                callback={responseFacebook}
-              ></FacebookLogin>
+              {/*<FacebookLogin*/}
+              {/*  appId={AllAppConfig.APP_ID_FACEBOOK}*/}
+              {/*  autoLoad={true}*/}
+              {/*  fields="name,email,picture"*/}
+              {/*  textButton=""*/}
+              {/*  icon={<FacebookIcon />}*/}
+              {/*  callback={responseFacebook}*/}
+              {/*  isDisabled={false}*/}
+              {/*></FacebookLogin>*/}
+
+              <button onClick={login}>login</button>
+              <button onClick={logoutFB}>logoutFB</button>
               <Fab
                   color="secondary"
                   aria-label="google"

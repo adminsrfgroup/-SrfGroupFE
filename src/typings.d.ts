@@ -2,6 +2,7 @@ declare const FB: any;
 declare const gtag: any;
 declare const google: any;
 
+
 // declare let adsbygoogle: any;
 
 //credit goes to https://github.com/ckeditor/ckeditor5/issues
