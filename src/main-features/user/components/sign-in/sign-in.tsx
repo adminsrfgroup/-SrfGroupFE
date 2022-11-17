@@ -99,7 +99,7 @@ export default function SignIn() {
     if (!response.status) {
       const requestData: IFacebook = {
         ...response,
-        sourceProvider: SourceProvider.FACEBOOK,
+        sourceConnectedDevice: SourceProvider.FACEBOOK,
         idOneSignal: oneSignalId,
         langKey: currentLocale,
       };
