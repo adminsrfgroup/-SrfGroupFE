@@ -135,7 +135,7 @@ export default function SignIn() {
   }
 
   const logoutFB = () => {
-    FB.logout(function(response: any) {
+    FB.logout((response: any) => {
       // Person is now logged out
       console.log('FB logout');
     });
@@ -146,8 +146,8 @@ export default function SignIn() {
         function (response: any) {
           if (response.status === "connected") {
             console.log('response ', response);
-            FB.api('/me', function(responseMe: any) {
-              console.log('Good to see you, ' + responseMe + '.');
+            FB.api('/me', (responseMe: any) => {
+              console.log('Good to see you, ', responseMe);
             });
             // const accessToken = response.authResponse.accessToken;
             // return onToken(accessToken);
