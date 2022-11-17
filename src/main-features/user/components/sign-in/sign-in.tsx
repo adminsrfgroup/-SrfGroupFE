@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import Avatar from "@mui/material/Avatar";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -50,7 +50,6 @@ import "./sign-in.scss";
 import Stack from "@mui/material/Stack";
 import {GoogleSignin} from "../../../../shared/components/google-signin/google-signin";
 import {decodeJwtResponse} from "../../../../shared/utils/utils-functions";
-import {facebookEvent} from "../../../../shared/hooks/facebook-signin/facebook-event";
 
 const initialValues = initialValuesSignIn;
 
@@ -61,7 +60,6 @@ export default function SignIn() {
   });
   const [checkedRememberMe, setCheckedRememberMe] = React.useState<boolean>(true);
 
-  const {logoutFB} = facebookEvent();
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -98,17 +96,17 @@ export default function SignIn() {
     },
   });
 
-  const responseFacebook = (response: any) => {
-    if (!response.status) {
-      const requestData: IFacebook = {
-        ...response,
-        sourceConnectedDevice: SourceProvider.FACEBOOK,
-        idOneSignal: oneSignalId,
-        langKey: currentLocale,
-      };
-      dispatch(loginWithFacebook({ ...requestData }));
-    }
-  };
+  // const responseFacebook = (response: any) => {
+  //   if (!response.status) {
+  //     const requestData: IFacebook = {
+  //       ...response,
+  //       sourceConnectedDevice: SourceProvider.FACEBOOK,
+  //       idOneSignal: oneSignalId,
+  //       langKey: currentLocale,
+  //     };
+  //     dispatch(loginWithFacebook({ ...requestData }));
+  //   }
+  // };
 
   const responseGoogle = (response: any) => {
     console.log('response ', response);
@@ -137,31 +135,43 @@ export default function SignIn() {
     setCheckedRememberMe(event.target.checked);
   }
 
-  const logoutFB0 = () => {
+  const logoutFB = useCallback(() => {
     FB.logout((response: any) => {
-      // Person is now logged out
       console.log('FB logout');
     });
-  }
+  }, [])
 
-  const login = () => {
+  const loginFB = useCallback(() => {
     FB.login(
-        function (response: any) {
+        (response: any) => {
           if (response.status === "connected") {
             console.log('response ', response);
-            FB.api('/me', (responseMe: any) => {
+            FB.api('/me', {fields: "id,name,email,picture"}, (responseMe: any) => {
               console.log('Good to see you, ', responseMe);
+
+              const requestData: IFacebook = {
+                accessToken: response.authResponse.accessToken,
+                data_access_expiration_time: response.authResponse.data_access_expiration_time,
+                graphDomain: response.authResponse.graphDomain,
+                signedRequest: response.authResponse.signedRequest,
+                email: responseMe.email,
+                id: responseMe.id,
+                name: responseMe.name,
+                picture: responseMe.picture,
+                userID: response.authResponse.userID,
+                sourceConnectedDevice: SourceProvider.FACEBOOK,
+                idOneSignal: oneSignalId
+              };
+              dispatch(loginWithFacebook({ ...requestData }));
+
             });
-            // const accessToken = response.authResponse.accessToken;
-            // return onToken(accessToken);
           } else {
             console.error('Error FB')
-            // onError();
           }
         },
         { scope: "public_profile, email" }
     );
-  };
+  }, [])
 
   return (
     <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
@@ -350,8 +360,9 @@ export default function SignIn() {
               {/*  isDisabled={false}*/}
               {/*></FacebookLogin>*/}
 
-              <button onClick={login}>login</button>
-              <button onClick={logoutFB}>logoutFB</button>
+              <Fab color="primary" aria-label="add" onClick={loginFB}>
+                <FacebookIcon />
+              </Fab>
               <Fab
                   color="secondary"
                   aria-label="google"

@@ -51,14 +51,13 @@ export interface IFacebook {
   accessToken: string;
   data_access_expiration_time: string;
   email: string;
-  expiresIn: string;
   graphDomain: string;
   id: string;
   name: string;
   picture: any;
   signedRequest: string;
   userID: string;
-  sourceProvider: string;
+  sourceConnectedDevice: string;
   idOneSignal: string;
 }
 
