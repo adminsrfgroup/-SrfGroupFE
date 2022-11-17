@@ -50,6 +50,7 @@ import "./sign-in.scss";
 import Stack from "@mui/material/Stack";
 import {GoogleSignin} from "../../../../shared/components/google-signin/google-signin";
 import {decodeJwtResponse} from "../../../../shared/utils/utils-functions";
+import {facebookEvent} from "../../../../shared/hooks/facebook-signin/facebook-event";
 
 const initialValues = initialValuesSignIn;
 
@@ -59,6 +60,8 @@ export default function SignIn() {
     showPassword: false,
   });
   const [checkedRememberMe, setCheckedRememberMe] = React.useState<boolean>(true);
+
+  const {logoutFB} = facebookEvent();
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -134,7 +137,7 @@ export default function SignIn() {
     setCheckedRememberMe(event.target.checked);
   }
 
-  const logoutFB = () => {
+  const logoutFB0 = () => {
     FB.logout((response: any) => {
       // Person is now logged out
       console.log('FB logout');
