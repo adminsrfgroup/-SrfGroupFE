@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -161,17 +161,37 @@ export default function SignUp() {
     );
   };
 
-  const responseFacebook = (response: any) => {
-    if (!response.status) {
-      const requestData: IFacebook = {
-        ...response,
-        sourceProvider: SourceProvider.FACEBOOK,
-        idOneSignal: oneSignalId,
-        langKey: currentLocale,
-      };
-      dispatch(loginWithFacebook({ ...requestData }));
-    }
-  };
+  const loginFB = useCallback(() => {
+    FB.login(
+        (response: any) => {
+          if (response.status === "connected") {
+            console.log('response ', response);
+            FB.api('/me', {fields: "id,name,email,picture"}, (responseMe: any) => {
+              console.log('Good to see you, ', responseMe);
+
+              const requestData: IFacebook = {
+                accessToken: response.authResponse.accessToken,
+                data_access_expiration_time: response.authResponse.data_access_expiration_time,
+                graphDomain: response.authResponse.graphDomain,
+                signedRequest: response.authResponse.signedRequest,
+                email: responseMe.email,
+                id: responseMe.id,
+                name: responseMe.name,
+                picture: responseMe.picture,
+                userID: response.authResponse.userID,
+                sourceConnectedDevice: SourceProvider.FACEBOOK,
+                idOneSignal: oneSignalId
+              };
+              dispatch(loginWithFacebook({ ...requestData }));
+
+            });
+          } else {
+            console.error('Error FB')
+          }
+        },
+        { scope: "public_profile, email" }
+    );
+  }, [])
 
   const responseGoogle = (response: any) => {
     console.log('response ', response);
@@ -411,14 +431,9 @@ export default function SignUp() {
                     direction="row"
                     sx={{ justifyContent: "center", my: 4 }}
                   >
-                    <FacebookLogin
-                      appId={AllAppConfig.APP_ID_FACEBOOK}
-                      autoLoad={false}
-                      fields="name,email,picture"
-                      textButton=""
-                      icon={<FacebookIcon />}
-                      callback={responseFacebook}
-                    ></FacebookLogin>
+                    <Fab color="primary" aria-label="add" onClick={loginFB}>
+                      <FacebookIcon />
+                    </Fab>
                     <Fab
                         color="secondary"
                         aria-label="google"

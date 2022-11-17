@@ -350,15 +350,6 @@ export default function SignIn() {
               direction="row"
               sx={{ justifyContent: "center", my: 4 }}
             >
-              {/*<FacebookLogin*/}
-              {/*  appId={AllAppConfig.APP_ID_FACEBOOK}*/}
-              {/*  autoLoad={true}*/}
-              {/*  fields="name,email,picture"*/}
-              {/*  textButton=""*/}
-              {/*  icon={<FacebookIcon />}*/}
-              {/*  callback={responseFacebook}*/}
-              {/*  isDisabled={false}*/}
-              {/*></FacebookLogin>*/}
 
               <Fab color="primary" aria-label="add" onClick={loginFB}>
                 <FacebookIcon />
@@ -371,23 +362,6 @@ export default function SignIn() {
                 <GoogleSignin isOneTap={false} handleCredentialResponse={responseGoogle}/>
                 <GoogleIcon />
               </Fab>
-              {/*<GoogleLogin*/}
-              {/*  clientId={AllAppConfig.CLIENT_ID_GOOGLLE}*/}
-              {/*  onSuccess={responseGoogle}*/}
-              {/*  onFailure={responseGoogle}*/}
-              {/*  autoLoad={false}*/}
-              {/*  render={(renderProps) => (*/}
-              {/*    <Fab*/}
-              {/*      color="secondary"*/}
-              {/*      aria-label="google"*/}
-              {/*      sx={{ m: 1, backgroundColor: "#E93F2E" }}*/}
-              {/*      onClick={renderProps.onClick}*/}
-              {/*      disabled={renderProps.disabled}*/}
-              {/*    >*/}
-              {/*      <GoogleIcon />*/}
-              {/*    </Fab>*/}
-              {/*  )}*/}
-              {/*></GoogleLogin>*/}
 
             </Stack>
           </Grid>
