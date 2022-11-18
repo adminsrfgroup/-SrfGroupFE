@@ -35,6 +35,8 @@ import { getStompClient } from "../../../../core/config/websocket-middleware";
 import { IUser } from "../../../../shared/model/user.model";
 import { ALL_APP_ROUTES } from "../../../../core/config/all-app-routes";
 import { ConvertReactTimeAgo } from "../../../../shared/pages/react-time-ago";
+import {Typography} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 const initialValues = initialValuesMessage;
 
@@ -67,6 +69,7 @@ export function MessageConversation({
   const [newMessage, setNewMessage] = React.useState<any>(null);
   const messagesEndRef = React.useRef<any>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues,
@@ -140,6 +143,9 @@ export function MessageConversation({
     if (listMessages.length) {
       setListCurrentMessages(listMessages.slice());
     }
+    else{ // Empty list after open list message
+      setListCurrentMessages([]);
+    }
   }, [listMessages]);
 
   React.useEffect(() => {
@@ -203,11 +209,11 @@ export function MessageConversation({
   };
 
   return (
-    <div className="container-messages">
-      <div className="row clearfix">
-        <div className="col-lg-12">
-          <div className="card chat-app">
-            <div className="chat">
+    <div className="container-messages h-100">
+      <div className="row clearfix h-100">
+        <div className="col-lg-12 h-100">
+          <div className="card chat-app h-100">
+            <div className="chat h-100">
               <div className="chat-header clearfix">
                 <List
                   sx={{
@@ -235,15 +241,9 @@ export function MessageConversation({
                       onClick={() => redirectProfile()}
                       secondary={
                         <React.Fragment>
-                          {/*<Typography*/}
-                          {/*sx={{ display: 'inline' }}*/}
-                          {/*component="span"*/}
-                          {/*variant="body2"*/}
-                          {/*color="text.primary"*/}
-                          {/*>*/}
-                          {/*Ali Connors*/}
-                          {/*</Typography>*/}
-                          {/*{" — I'll be in your neighborhood doing errands this…"}*/}
+                          <Typography variant="caption">
+                            {getReceiverUser()!.email}
+                          </Typography>
                         </React.Fragment>
                       }
                     />
@@ -251,6 +251,7 @@ export function MessageConversation({
                 </List>
               </div>
               <div className="chat-history">
+
                 {totalPagesMessages - 1 > activePage ? (
                   <Box sx={{ paddingTop: 5, textAlign: "center" }}>
                     <Button
@@ -258,7 +259,7 @@ export function MessageConversation({
                       variant="outlined"
                       onClick={loadMoreMessages}
                     >
-                      Load More...
+                      {t<string>('common.label_load_more')}
                     </Button>
                   </Box>
                 ) : null}
@@ -343,7 +344,7 @@ export function MessageConversation({
                           <TextField
                             id="content"
                             name="content"
-                            label="Write your message..."
+                            label={t<string>('chat.write_your_message')}
                             variant="standard"
                             autoComplete="off"
                             value={formik.values.content}

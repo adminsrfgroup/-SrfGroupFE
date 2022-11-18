@@ -25,7 +25,7 @@ import {
   loadingMessage,
   resetMessage,
   totalItemsMessage,
-  deleteConversation,
+  deleteConversation, totalPagesMessage,
 } from "../store/slice";
 import {
   allSessionSelector,
@@ -33,7 +33,7 @@ import {
 } from "../../user/store/slice";
 import { Conversation } from "./ui-segments/Conversation";
 import { MessageConversation } from "./ui-segments/MessageConversation";
-import {getBaseImageUrl, isOnLine} from "../../../shared/utils/utils-functions";
+import {getBaseImageUrl, getFullUrlWithParams, isOnLine} from "../../../shared/utils/utils-functions";
 
 export default function Chat() {
   const [currentConversation, setCurrentConversation] =
@@ -61,8 +61,8 @@ export default function Chat() {
   const loadingEntitiesMessageSelector =
     useSelector(loadingEntitiesMessage) ?? [];
   const entitiesMessageSelector = useSelector(entitiesMessage) ?? [];
-  const totalItemsMessageSelector = useSelector(totalItemsMessage) ?? [];
-  // const totalPagesMessageSelector = useSelector(totalPagesMessage) ?? [];
+  // const totalItemsMessageSelector = useSelector(totalItemsMessage) ?? [];
+  const totalPagesMessageSelector = useSelector(totalPagesMessage) ?? [];
 
   const listConnectedUsersWebsocketSelector =
     useSelector(listConnectedUsersWebsocket) ?? [];
@@ -74,7 +74,6 @@ export default function Chat() {
       fetchConversation({
         page: 0,
         size: 20,
-        queryParams: "",
       })
     );
   }, []);
@@ -85,7 +84,7 @@ export default function Chat() {
 
   const getListMessages = (conversation: IConversation) => {
     console.log("getListMessages ");
-    dispatch(resetMessage({}));
+    // dispatch(resetMessage({}));
 
     setListCurrentMessages([]);
     setCurrentConversation(conversation);
@@ -159,11 +158,33 @@ export default function Chat() {
         fetchConversation({
           page: 0,
           size: 20,
-          queryParams: "",
         })
       );
     }
   }, [deleteSuccessConversationSelector]);
+
+  const searchConversation = (valueSearch: string) => {
+    if( valueSearch ){
+      console.log('valueSearch ', valueSearch);
+      dispatch(
+          fetchConversation({
+            page: 0,
+            size: 20,
+            queryParams: getFullUrlWithParams({
+              'receiverUser.firstName': valueSearch
+            })
+          })
+      );
+    }
+    else{
+      dispatch(
+          fetchConversation({
+            page: 0,
+            size: 20
+          })
+      );
+    }
+  }
 
   return (
     <Container maxWidth="xl">
@@ -215,6 +236,7 @@ export default function Chat() {
             listMessages={getListMessages}
             isOnLine={isUserOnline}
             deleteConversation={actionDeleteConversation}
+            searchCallback={searchConversation}
           />
 
           <Box sx={{mt: 3, display: { xs: "none", md: "block" }}}>
@@ -248,7 +270,7 @@ export default function Chat() {
               loadingListMessages={loadingEntitiesMessageSelector}
               listMessages={listCurrentMessages}
               loadingAddMessage={loadingMessageSelector}
-              totalPagesMessages={totalItemsMessageSelector}
+              totalPagesMessages={totalPagesMessageSelector}
               activePage={activePageMessages}
               callbackLoadMoreMessages={loadMoreMessages}
               calbackBackToConversations={backToConversations}

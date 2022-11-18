@@ -22,6 +22,9 @@
     "for_sell": "À vendre",
     "for_rent": "À louer",
     "for_find": "À trouver",
+    "label_for_sell": "Vendre",
+    "label_for_rent": "Louer",
+    "label_for_find": "Trouver",
     "label_address": "Addresse",
     "label_category": "Categorie",
     "type_offer": "Type offre",
@@ -110,7 +113,8 @@
     "message_update_password_succefully": "Mettre à jour le mot de passe avec succès",
     "message_update_avatar_succefully": "Votre photo de profil a été modifié avec succès",
     "message_activation_account_succefully": "Le compte a été activé avec succès",
-    "invalid_old_password": "L'ancien mot de passe invalid"
+    "invalid_old_password": "L'ancien mot de passe invalid",
+    "title_charts": "AreaChart de valeurs discrètes"
   },
   "signup": {
     "title-dialog-register": "Inscription avec succès",
@@ -273,7 +277,8 @@
   "chat": {
     "title_delete_conversation": "Supprimer la conversation",
     "description_delete_conversation": "Ete vous sur de supprimer cette conversation ?",
-    "conversation_delete_succefully": "Conversation supprimée avec succès"
+    "conversation_delete_succefully": "Conversation supprimée avec succès",
+    "write_your_message": "Ecrire le message"
   },
   "cart": {
     "message_add_cart_succefull": "Ajout avec succès",

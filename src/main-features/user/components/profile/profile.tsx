@@ -541,6 +541,7 @@ export default function Profile() {
                   <Box>
                     <StatisticOffers
                       countOffersByUser={entityCountOffersByUserSelector}
+                      t={t}
                     />
                   </Box>
                 ) : null}

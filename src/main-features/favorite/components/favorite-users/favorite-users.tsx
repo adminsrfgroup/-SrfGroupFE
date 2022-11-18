@@ -119,77 +119,47 @@ export default function FavoriteUsers() {
                 </Grid>
             </Grid>
 
-            <InfiniteScroll
-                pageStart={activePageFavoriteUserSelector}
-                loadMore={loadMore}
-                hasMore={
-                    totalPagesFavoriteUserSelector - 1 > activePageFavoriteUserSelector
-                }
-                loader={<div className="loader" key={0}></div>}
-                threshold={0}
-                initialLoad={false}
-            >
+            <Box  sx={{mt: 3}}>
+                <InfiniteScroll
+                    pageStart={activePageFavoriteUserSelector}
+                    loadMore={loadMore}
+                    hasMore={
+                        totalPagesFavoriteUserSelector - 1 > activePageFavoriteUserSelector
+                    }
+                    loader={<div className="loader" key={0}></div>}
+                    threshold={0}
+                    initialLoad={false}
+                >
 
-                <Grid container spacing={4} sx={{mt: 3}}>
+                    <Grid container spacing={{xs:0, md: 4}}>
 
-                    {
-                        entitiesFavoriteUserSelector.map(
-                            (favorite: IFavoriteUser, index: number) => (
-                                <ListFavoriteUsers
-                                    key={favorite.id}
-                                    favorite={favorite}
-                                    parentCallback={deleteFavoriteUser}
-                                />
+                        {
+                            entitiesFavoriteUserSelector.map(
+                                (favorite: IFavoriteUser, index: number) => (
+                                    <ListFavoriteUsers
+                                        key={favorite.id}
+                                        favorite={favorite}
+                                        parentCallback={deleteFavoriteUser}
+                                    />
+                                )
                             )
-                        )
-                    }
+                        }
 
-                    {
-                        loadingEntitiesFavoriteUserSelector ? <LoadingFavoriteUsers/> : null
-                    }
+                        {
+                            loadingEntitiesFavoriteUserSelector ? <LoadingFavoriteUsers/> : null
+                        }
 
-                    {
-                        !loadingEntitiesFavoriteUserSelector && entitiesFavoriteUserSelector?.length == 0 ?
-                            <Grid item xs={12}>
-                                <Alert severity="warning">{t<string>("favorite.user.message_no_favorite_found")}</Alert>
-                            </Grid> : null
-                    }
+                        {
+                            !loadingEntitiesFavoriteUserSelector && entitiesFavoriteUserSelector?.length == 0 ?
+                                <Grid item xs={12}>
+                                    <Alert severity="warning">{t<string>("favorite.user.message_no_favorite_found")}</Alert>
+                                </Grid> : null
+                        }
 
-                </Grid>
+                    </Grid>
 
-
-
-
-
-                {/*<Grid container spacing={4} sx={{mt: 3}}>*/}
-
-                {/*    {*/}
-                {/*        entitiesFavoriteUserSelector.map(*/}
-                {/*            (favorite: IFavoriteUser, index: number) => (*/}
-                {/*                <ListFavoriteUsers*/}
-                {/*                    key={favorite.id}*/}
-                {/*                    favorite={favorite}*/}
-                {/*                    parentCallback={deleteFavoriteUser}*/}
-                {/*                />*/}
-                {/*            )*/}
-                {/*        )*/}
-                {/*    }*/}
-
-                {/*    {*/}
-                {/*        !loadingEntitiesFavoriteUserSelector ? <LoadingFavoriteUsers /> : null*/}
-                {/*    }*/}
-
-                {/*    {!loadingEntitiesFavoriteUserSelector && entitiesFavoriteUserSelector?.length == 0 ? (*/}
-                {/*        <Grid item xs={12}>*/}
-                {/*            <Alert severity="warning">*/}
-                {/*                {t<string>("favorite.user.message_no_favorite_found")}*/}
-                {/*            </Alert>*/}
-                {/*        </Grid>*/}
-                {/*    ) : null}*/}
-
-                {/*</Grid>*/}
-            </InfiniteScroll>
-
+                </InfiniteScroll>
+            </Box>
 
         </Container>
     );

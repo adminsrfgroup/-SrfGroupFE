@@ -41,11 +41,11 @@ import "./statistic-offers.scss";
 export default class StatisticOffers extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-
+    console.log('this.props ', this.props);
     this.state = {
       data: [
         {
-          name: "Sell",
+          name: this.props?.t("common.label_for_sell"),
           uv: this.props.countOffersByUser.countSellOffers,
           pv: this.props.countOffersByUser.countSellOffers,
           amt: Math.max(
@@ -56,7 +56,7 @@ export default class StatisticOffers extends React.Component<any, any> {
           cnt: 590,
         },
         {
-          name: "Rent",
+          name: this.props?.t("common.label_for_rent"),
           uv: this.props.countOffersByUser.countRentOffers,
           pv: this.props.countOffersByUser.countRentOffers,
           amt: Math.max(
@@ -67,7 +67,7 @@ export default class StatisticOffers extends React.Component<any, any> {
           cnt: 590,
         },
         {
-          name: "Find",
+          name: this.props?.t("common.label_for_find"),
           uv: this.props.countOffersByUser.countFindOffers,
           pv: this.props.countOffersByUser.countFindOffers,
           amt: Math.max(
@@ -79,15 +79,12 @@ export default class StatisticOffers extends React.Component<any, any> {
         },
       ],
     };
-
-    console.log("this.state ", this.state);
-    console.log("this.props ", this.props.countOffersByUser);
   }
 
   render() {
     return (
       <div className="area-charts">
-        <p>AreaChart of discrete values</p>
+        <p>{this.props.t("account.title_charts")}</p>
         <div className="area-chart-wrapper">
           <div className="area-chart-wrapper-container">
             <ResponsiveContainer width="100%" height="100%">

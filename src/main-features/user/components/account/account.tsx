@@ -90,7 +90,7 @@ export default function Account() {
   const entityUpdateInfosAccountSelector =
     useSelector(entityUpdateInfosAccount) ?? {};
 
-  const loadingUpdateAvatarSelector = useSelector(loadingUpdateAvatar) ?? false;
+  // const loadingUpdateAvatarSelector = useSelector(loadingUpdateAvatar) ?? false;
   const updateSuccessAvatarSelector = useSelector(updateSuccessAvatar) ?? false;
   const entityUpdateAvatarSelector = useSelector(entityUpdateAvatar) ?? {};
 
@@ -357,6 +357,7 @@ export default function Account() {
               <Box>
                 <StatisticOffers
                   countOffersByUser={entityCountOffersByUserSelector}
+                  t={t}
                 />
               </Box>
             ) : null}

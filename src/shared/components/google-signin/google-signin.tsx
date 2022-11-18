@@ -15,6 +15,7 @@ export class GoogleSignin extends React.Component<any, any> {
     }
 
     handleClick (value: any){
+        google.accounts.id.cancel();
         this.props.handleCredentialResponse(value);
     }
 

@@ -41,6 +41,7 @@ export function Conversation({
   listMessages,
   isOnLine,
   deleteConversation,
+  searchCallback
 }: {
   loading: boolean;
   list: IConversationMessage[];
@@ -48,11 +49,14 @@ export function Conversation({
   listMessages: any;
   isOnLine: (email: string) => void;
   deleteConversation: any;
+  searchCallback: any;
 }) {
   const [openDeleteConvModal, setOpenDeleteConvModal] = React.useState(false);
   const [conversationDel, setConversationDel] = React.useState<
     IConversation | undefined
   >(undefined);
+  const [valueSearch, setValueSearch] = React.useState('');
+
   const { t } = useTranslation();
 
   const getAvatar = (conversatioinMessage: IConversationMessage) => {
@@ -140,19 +144,24 @@ export function Conversation({
 
   return (
     <Box>
-      <Paper sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
-        <IconButton sx={{ p: "10px" }} aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Search .."
-          inputProps={{ "aria-label": "search conversation" }}
-        />
-        <IconButton sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper>
+      <form>
+        <Paper sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
+          <IconButton sx={{ p: "10px" }} aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search .."
+            inputProps={{ "aria-label": "search conversation" }}
+            name="search"
+            value={valueSearch}
+            onChange={(e) => setValueSearch(e.target.value)}
+          />
+          <IconButton sx={{ p: "10px" }} aria-label="search" onClick={() => searchCallback(valueSearch)}>
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+      </form>
       <br />
 
       {loading ? (

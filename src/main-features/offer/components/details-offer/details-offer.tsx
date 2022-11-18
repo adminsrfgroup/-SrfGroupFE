@@ -100,6 +100,7 @@ import CustomShare from "../../../../shared/components/custom-share/CustomShare"
 import {
   addFavoriteUsers,
   addSuccessFavoriteUser,
+  resetFavoriteUsers,
 } from "../../../favorite/store/slice";
 import ListRelatedDetailsOffer from "./ui-segments/list-related-details-offer";
 import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
@@ -380,6 +381,7 @@ export default function DetailsOfffer() {
 
   React.useEffect(() => {
     if (addSuccessFavoriteUserSelector) {
+      dispatch(resetFavoriteUsers({}));
       setIsFavoriteUser(true);
     }
   }, [addSuccessFavoriteUserSelector]);

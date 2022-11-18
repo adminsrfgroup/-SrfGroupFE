@@ -13,7 +13,8 @@ const apiUrl = "api/conversation";
 
 export function* fetchConversationHandler(data: any): Generator<any, any, any> {
   try {
-    const requestUrl = `${apiUrl}/current-user?page=${data.payload?.page}&size=${data.payload?.size}`;
+    let requestUrl = `${apiUrl}/current-user?page=${data.payload?.page}&size=${data.payload?.size}`;
+    requestUrl = data.payload?.queryParams ? requestUrl+data.payload?.queryParams : requestUrl;
     const result = yield invokeWS({
       url: `${requestUrl}`,
       method: MethodHttp.get,

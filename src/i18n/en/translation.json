@@ -21,7 +21,10 @@
     "label_favorite": "Favorite",
     "for_sell": "For Sell",
     "for_rent": "For Rent",
-    "for_find": "For find",
+    "for_find": "For Find",
+    "label_for_sell": "Sell",
+    "label_for_rent": "Rent",
+    "label_for_find": "Find",
     "label_address": "Address",
     "label_category": "Category: ",
     "cateory": "Category",
@@ -105,7 +108,8 @@
     "message_update_password_succefully": "Update password succefully",
     "message_update_avatar_succefully": "Update avatar succefully",
     "message_activation_account_succefully": "Account activated successfully",
-    "invalid_old_password": "Old password invalid"
+    "invalid_old_password": "Old password invalid",
+    "title_charts": "AreaChart of discrete values"
   },
   "signup": {
     "title-dialog-register": "Register succefully",
@@ -264,7 +268,8 @@
   "chat": {
     "title_delete_conversation": "Delete conversation",
     "description_delete_conversation": "Are you sur to delete this conversation ?",
-    "conversation_delete_succefully": "Conversation delete successfully"
+    "conversation_delete_succefully": "Conversation delete successfully",
+    "write_your_message": "Write your message"
   },
   "cart": {
     "message_add_cart_succefull": "Add successfully",

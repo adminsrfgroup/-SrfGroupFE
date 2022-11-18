@@ -17,16 +17,17 @@
         position: relative;
         min-height: 900px;
         .container-chat-message{
-            position: absolute;
+            position: fixed;
             z-index: 9;
             right: 0;
             left: 0;
-            top: -50px;
+            top: 0;
             bottom: 0;
             visibility: hidden;
-            -webkit-transform: translateX(100%);
             transform: translateX(100%);
-            transition: all .4s;
+            -webkit-transform: translateX(100%);
+            transition: all 0.4s;
+            padding: 0;
             &.open{
                 visibility: visible;
                 -webkit-transform: translateX(0);
