@@ -1,7 +1,6 @@
 .container-chat{
     min-height: 600px;
     //overflow-x: hidden;
-    z-index: 9999999999;
 }
 
 .item-conversation-infos{
@@ -17,8 +16,8 @@
         position: relative;
         min-height: 900px;
         .container-chat-message{
+            z-index: 9999999999;
             position: fixed;
-            z-index: 9;
             right: 0;
             left: 0;
             top: 0;
