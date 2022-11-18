@@ -1,7 +1,7 @@
 .container-chat{
     min-height: 600px;
-    overflow-x: hidden;
-    .container-chat-conversation{}
+    //overflow-x: hidden;
+    z-index: 9999999999;
 }
 
 .item-conversation-infos{

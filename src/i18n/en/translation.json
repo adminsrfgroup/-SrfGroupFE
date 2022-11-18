@@ -269,7 +269,8 @@
     "title_delete_conversation": "Delete conversation",
     "description_delete_conversation": "Are you sur to delete this conversation ?",
     "conversation_delete_succefully": "Conversation delete successfully",
-    "write_your_message": "Write your message"
+    "write_your_message": "Write your message",
+    "label_search_by_name": "Search by name"
   },
   "cart": {
     "message_add_cart_succefull": "Add successfully",

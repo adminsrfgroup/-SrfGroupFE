@@ -151,7 +151,7 @@ export function Conversation({
           </IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Search .."
+            placeholder={t<string>("chat.label_search_by_name")}
             inputProps={{ "aria-label": "search conversation" }}
             name="search"
             value={valueSearch}

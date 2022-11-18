@@ -278,7 +278,8 @@
     "title_delete_conversation": "Supprimer la conversation",
     "description_delete_conversation": "Ete vous sur de supprimer cette conversation ?",
     "conversation_delete_succefully": "Conversation supprimée avec succès",
-    "write_your_message": "Ecrire le message"
+    "write_your_message": "Ecrire le message",
+    "label_search_by_name": "Recherche par nom"
   },
   "cart": {
     "message_add_cart_succefull": "Ajout avec succès",
