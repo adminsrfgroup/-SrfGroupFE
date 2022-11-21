@@ -11,9 +11,9 @@ import {useDispatch, useSelector} from "react-redux";
 import Alert from "@mui/material/Alert/Alert";
 import {
     entitiesOrder,
-    fetchOrder, resetOrder,
+    fetchPassedOrder, resetOrder,
     loadingEntitiesOrder,
-    totalPagesOrder, activePageOrder, setActivePageOrder
+    totalPagesOrder, activePageOrder, setActivePageOrder, loadingEntitiesOrderReceived, entitiesOrderReceived, totalPagesOrderReceived, activePageOrderReceived, setActivePageReceivedOrder, fetchReceivedOrder
 } from "../store/slice";
 import Card from "@mui/material/Card/Card";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
@@ -36,10 +36,45 @@ import {StatusOrder} from "../../../shared/enums/order.enum";
 import InfiniteScroll from "react-infinite-scroller";
 import CardHeader from "@mui/material/CardHeader";
 import Avatar from "@mui/material/Avatar";
-import red from "@mui/material/colors/red";
+// import red from "@mui/material/colors/red";
 import IconButton from "@mui/material/IconButton";
 import {ICart} from "../../../shared/model/cart.model";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ pt: 3 }}>
+                    <Box>{children}</Box>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function a11yProps(index: number) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 
 function LoadingOrders() {
     return (
@@ -82,7 +117,7 @@ function LoadingOrders() {
     );
 }
 
-function ItemOrder({item}: { item: any }) {
+function ItemPassedOrder({item}: { item: any}) {
 
     const navigate = useNavigate();
 
@@ -125,29 +160,29 @@ function ItemOrder({item}: { item: any }) {
                                 color="text.secondary"
                                 display="flex"
                             >
-                                Nombres des produits: {item.numberCarts}
+                                Nombres des produits: {item.numberOfProducts}
                             </Typography>
+
+                            {/*<Typography*/}
+                            {/*    variant="subtitle2"*/}
+                            {/*    display="flex"*/}
+                            {/*>*/}
+                            {/*    Frais de livraison = {item.taxDelivery}*/}
+                            {/*</Typography>*/}
 
                             <Typography
                                 variant="subtitle2"
                                 display="flex"
                             >
-                                Frais de livraison = {item.taxDelivery}
+                                Total du commande = {item.totalCarts.toLocaleString("tn-TN")} TND
                             </Typography>
 
-                            <Typography
-                                variant="subtitle2"
-                                display="flex"
-                            >
-                                Total des produits = {item.totalCarts.toLocaleString("tn-TN")} TND
-                            </Typography>
-
-                            <Typography
-                                variant="subtitle2"
-                                display="flex"
-                            >
-                                Total TTC = {item.totalGlobalCarts.toLocaleString("tn-TN")} TND
-                            </Typography>
+                            {/*<Typography*/}
+                            {/*    variant="subtitle2"*/}
+                            {/*    display="flex"*/}
+                            {/*>*/}
+                            {/*    Total TTC = {item.totalGlobalCarts.toLocaleString("tn-TN")} TND*/}
+                            {/*</Typography>*/}
 
                         </Grid>
 
@@ -209,7 +244,13 @@ function ItemOrder({item}: { item: any }) {
                                     />
                                     <CardContent>
                                         <Typography variant="body2" color="text.secondary">
-                                            {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
+                                            Montant {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Quantité {cart?.quantity}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Frais de livraison {cart?.sellOffer?.shippingCost} TND
                                         </Typography>
                                     </CardContent>
                                 </Box>
@@ -220,51 +261,181 @@ function ItemOrder({item}: { item: any }) {
 
                 </AccordionDetails>
             </Accordion>
+
+        </Grid>
+    );
+}
+
+
+function ItemReceivedOrder({item}: { item: any }) {
+
+    const navigate = useNavigate();
+
+    const redirectToPorfile = (event: any, userId: number) => {
+        event.stopPropagation();
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
+        }, 300);
+    };
+
+    return (
+        <Grid item xs={12} md={6}>
+            <Card
+                sx={{display: {xs: "block", sm: "flex"}}}>
+                <CardContent sx={{flex: 1}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={8}>
+                            <Typography
+                                component="h4"
+                                variant="h4"
+                                sx={{fontSize: "1.2rem"}}
+                            >
+                                <ConvertReactTimeAgo
+                                    convertDate={
+                                        item?.passedDate
+                                    }
+                                />
+                            </Typography>
+
+                            <Typography
+                                component="h5"
+                                variant="h5"
+                                display="flex"
+                            >
+                                {item.paymentMode}
+                            </Typography>
+
+                            <Typography
+                                variant="subtitle2"
+                                color="text.secondary"
+                                display="flex"
+                            >
+                                Nombres des produits: {item.numberOfProducts}
+                            </Typography>
+
+                            {/*<Typography*/}
+                            {/*    variant="subtitle2"*/}
+                            {/*    display="flex"*/}
+                            {/*>*/}
+                            {/*    Frais de livraison = {item.taxDelivery}*/}
+                            {/*</Typography>*/}
+
+                            <Typography
+                                variant="subtitle2"
+                                display="flex"
+                            >
+                                Total du commande = {item.totalCarts.toLocaleString("tn-TN")} TND
+                            </Typography>
+
+                            {/*<Typography*/}
+                            {/*    variant="subtitle2"*/}
+                            {/*    display="flex"*/}
+                            {/*>*/}
+                            {/*    Total TTC = {item.totalGlobalCarts.toLocaleString("tn-TN")} TND*/}
+                            {/*</Typography>*/}
+
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <Typography
+                                variant="subtitle1"
+                                color="secondary"
+                                display="flex"
+                                sx={{justifyContent: "end"}}
+                            >
+                                {
+                                    item.status === StatusOrder.PASSED ? item.status : item.status
+                                }
+                            </Typography>
+
+                        </Grid>
+                    </Grid>
+                    <Box>
+                        <Divider/>
+                        <CardHeader
+                            avatar={
+                                <Avatar
+                                    role="img"
+                                    aria-label="Image avatar"
+                                    src={getUserAvatar(
+                                        item?.user?.id,
+                                        item?.user?.imageUrl,
+                                        item?.user?.sourceConnectedDevice
+                                    )}
+                                    alt="image not found"
+                                    onClick={(event: any) => redirectToPorfile(event, item?.user?.id)}
+                                >
+                                    {getFullnameUser(item?.user)?.charAt(0)}
+                                </Avatar>
+                            }
+                            action={
+                                <IconButton aria-label="settings">
+                                    <ExpandMoreIcon/>
+                                </IconButton>
+                            }
+                            title={getFullnameUser(item?.user)}
+                            subheader={item?.user?.email}
+                        />
+                    </Box>
+                </CardContent>
+            </Card>
+
         </Grid>
     );
 }
 
 export default function ListOrders() {
 
+    const [value, setValue] = React.useState(0);
     const [isFirstTime, setIsFirstTime] = React.useState(true);
 
-    const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
-    const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
-    const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
-    const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
-    // const [activePage, setActivePage] = React.useState(-1);
-
+    // const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
+    // const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
+    // const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
+    // const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
+    //
+    // const loadingEntitiesOrderReceivedSelector = useSelector(loadingEntitiesOrderReceived) ?? false;
+    // const entitiesOrderReceivedSelector = useSelector(entitiesOrderReceived) ?? [];
+    // const totalPagesOrderReceivedSelector = useSelector(totalPagesOrderReceived) ?? 0;
+    // const activePageOrderReceivedSelector = useSelector(activePageOrderReceived) ?? -1;
+    //
+    //
     const {t} = useTranslation();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    //
+    //
+    // const resetAll = () => {
+    //     dispatch(resetOrder({}));
+    //     dispatch(setActivePageOrder(0));
+    //     dispatch(setActivePageReceivedOrder(0));
+    // };
+    //
+    // React.useEffect(() => {
+    //     if (isFirstTime && entitiesOrderSelector.length === 0) {
+    //         setIsFirstTime(false);
+    //         resetAll();
+    //     }
+    // }, [isFirstTime]);
+    //
+    // React.useEffect(() => {
+    //     if (activePageOrderSelector >= 0 && !isFirstTime) {
+    //         dispatch(
+    //             fetchPassedOrder({
+    //                 page: activePageOrderSelector,
+    //                 size: AllAppConfig.ORDERS_PER_PAGE,
+    //                 queryParams: '',
+    //             })
+    //         );
+    //     }
+    // }, [activePageOrderSelector, isFirstTime]);
+    //
+    // const loadMore = () => {
+    //     setIsFirstTime(false);
+    //     dispatch(setActivePageOrder(activePageOrderSelector + 1));
+    // };
 
-
-    const resetAll = () => {
-        dispatch(resetOrder({}));
-        dispatch(setActivePageOrder(0));
-    };
-
-    React.useEffect(() => {
-        if (isFirstTime && entitiesOrderSelector.length === 0) {
-            setIsFirstTime(false);
-            resetAll();
-        }
-    }, [isFirstTime]);
-
-    React.useEffect(() => {
-        if (activePageOrderSelector >= 0 && !isFirstTime) {
-            dispatch(
-                fetchOrder({
-                    page: activePageOrderSelector,
-                    size: AllAppConfig.ORDERS_PER_PAGE,
-                    queryParams: '',
-                })
-            );
-        }
-    }, [activePageOrderSelector, isFirstTime]);
-
-    const loadMore = () => {
-        setIsFirstTime(false);
-        dispatch(setActivePageOrder(activePageOrderSelector + 1));
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
     };
 
     return (
@@ -287,38 +458,173 @@ export default function ListOrders() {
                 </Grid>
             </Grid>
 
-
-            <InfiniteScroll
-                pageStart={activePageOrderSelector}
-                loadMore={loadMore}
-                hasMore={totalPagesOrderSelector - 1 > activePageOrderSelector}
-                loader={<div className="loader" key={0}></div>}
-                threshold={0}
-                initialLoad={false}
-            >
-                <Grid container spacing={4} sx={{mt: 3}}>
-
-                    {
-                        entitiesOrderSelector?.map((item: any, index: number) => (
-                            <ItemOrder item={item} key={index}/>
-                        ))
-                    }
-
-                    {
-                        loadingEntitiesOrderSelector ? <LoadingOrders/> : null
-                    }
-
-                    {
-                        !loadingEntitiesOrderSelector && entitiesOrderSelector?.length == 0 ?
-                            <Grid item xs={12}>
-                                <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
-                            </Grid> : null
-                    }
-
-                </Grid>
-            </InfiniteScroll>
-
+            <Box sx={{ mt: 5 }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange}
+                          aria-label="basic tabs example"
+                          textColor="secondary"
+                          indicatorColor="secondary">
+                        <Tab label="Commande reçu" {...a11yProps(0)} />
+                        <Tab label="Commande passée" {...a11yProps(1)} />
+                    </Tabs>
+                </Box>
+                <TabPanel value={value} index={0}>
+                    <ListReceivedORders />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <ListPassedORders />
+                </TabPanel>
+            </Box>
 
         </Container>
     );
+}
+
+function ListPassedORders() {
+    const [isFirstTime, setIsFirstTime] = React.useState(true);
+
+    const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
+    const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
+    const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
+    const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
+
+    const {t} = useTranslation();
+    const dispatch = useDispatch();
+
+
+    const resetAll = () => {
+        dispatch(resetOrder({}));
+        dispatch(setActivePageOrder(0));
+    };
+
+    React.useEffect(() => {
+        if (isFirstTime && entitiesOrderSelector.length === 0) {
+            setIsFirstTime(false);
+            resetAll();
+        }
+    }, [isFirstTime]);
+
+    React.useEffect(() => {
+        if (activePageOrderSelector >= 0 && !isFirstTime) {
+            dispatch(
+                fetchPassedOrder({
+                    page: activePageOrderSelector,
+                    size: AllAppConfig.ORDERS_PER_PAGE,
+                    queryParams: '',
+                })
+            );
+        }
+    }, [activePageOrderSelector, isFirstTime]);
+
+    const loadMore = () => {
+        setIsFirstTime(false);
+        dispatch(setActivePageOrder(activePageOrderSelector + 1));
+    };
+
+    return (
+        <InfiniteScroll
+            pageStart={activePageOrderSelector}
+            loadMore={loadMore}
+            hasMore={totalPagesOrderSelector - 1 > activePageOrderSelector}
+            loader={<div className="loader" key={0}></div>}
+            threshold={0}
+            initialLoad={false}
+        >
+            <Grid container spacing={4} sx={{mt: 3}}>
+
+                {
+                    entitiesOrderSelector?.map((item: any, index: number) => (
+                        <ItemPassedOrder item={item} key={index}/>
+                    ))
+                }
+
+                {
+                    loadingEntitiesOrderSelector ? <LoadingOrders/> : null
+                }
+
+                {
+                    !loadingEntitiesOrderSelector && entitiesOrderSelector?.length == 0 ?
+                        <Grid item xs={12}>
+                            <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
+                        </Grid> : null
+                }
+
+            </Grid>
+        </InfiniteScroll>
+    )
+}
+
+
+function ListReceivedORders() {
+    const [isFirstTime, setIsFirstTime] = React.useState(true);
+
+    const loadingEntitiesOrderReceivedSelector = useSelector(loadingEntitiesOrderReceived) ?? false;
+    const entitiesOrderReceivedSelector = useSelector(entitiesOrderReceived) ?? [];
+    const totalPagesOrderReceivedSelector = useSelector(totalPagesOrderReceived) ?? 0;
+    const activePageOrderReceivedSelector = useSelector(activePageOrderReceived) ?? -1;
+
+    const {t} = useTranslation();
+    const dispatch = useDispatch();
+
+
+    const resetAll = () => {
+        dispatch(resetOrder({}));
+        dispatch(setActivePageReceivedOrder(0));
+    };
+
+    React.useEffect(() => {
+        if (isFirstTime && entitiesOrderReceivedSelector.length === 0) {
+            setIsFirstTime(false);
+            resetAll();
+        }
+    }, [isFirstTime]);
+
+    React.useEffect(() => {
+        if (activePageOrderReceivedSelector >= 0 && !isFirstTime) {
+            dispatch(
+                fetchReceivedOrder({
+                    page: activePageOrderReceivedSelector,
+                    size: AllAppConfig.ORDERS_PER_PAGE,
+                    queryParams: '',
+                })
+            );
+        }
+    }, [activePageOrderReceivedSelector, isFirstTime]);
+
+    const loadMore = () => {
+        setIsFirstTime(false);
+        dispatch(setActivePageReceivedOrder(activePageOrderReceivedSelector + 1));
+    };
+
+    return (
+        <InfiniteScroll
+            pageStart={activePageOrderReceivedSelector}
+            loadMore={loadMore}
+            hasMore={totalPagesOrderReceivedSelector - 1 > activePageOrderReceivedSelector}
+            loader={<div className="loader" key={0}></div>}
+            threshold={0}
+            initialLoad={false}
+        >
+            <Grid container spacing={4} sx={{mt: 3}}>
+
+                {
+                    entitiesOrderReceivedSelector?.map((item: any, index: number) => (
+                        <ItemReceivedOrder item={item} key={index}/>
+                    ))
+                }
+
+                {
+                    loadingEntitiesOrderReceivedSelector ? <LoadingOrders/> : null
+                }
+
+                {
+                    !loadingEntitiesOrderReceivedSelector && entitiesOrderReceivedSelector?.length == 0 ?
+                        <Grid item xs={12}>
+                            <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
+                        </Grid> : null
+                }
+
+            </Grid>
+        </InfiniteScroll>
+    )
 }

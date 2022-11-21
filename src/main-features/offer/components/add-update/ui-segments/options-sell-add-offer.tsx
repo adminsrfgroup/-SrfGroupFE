@@ -51,7 +51,37 @@ export default function OptionsSellAddOffer(props: any) {
           </FormControl>
 
         </Grid>
-        <Grid item xs={12} md={6}></Grid>
+        <Grid item xs={12} md={6}>
+
+          <FormControl
+              fullWidth
+              size="small"
+              error={
+                formik.touched.shippingCost && Boolean(formik.errors.shippingCost)
+              }
+          >
+            <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
+              {t<string>("common.label_shipping_cost")}
+            </InputLabel>
+            <OutlinedInput
+                id="shippingCost"
+                name="shippingCost"
+                color="secondary"
+                type="number"
+                label={t<string>("common.label_shipping_cost")}
+                value={formik.values.shippingCost}
+                onChange={formik.handleChange}
+                autoComplete="off"
+                inputProps={{ min: 1, max: 999999999999 }}
+            />
+            {formik.touched.shippingCost && formik.errors.shippingCost ? (
+                <FormHelperText id="component-helper-text">
+                  {t<string>(formik.errors.shippingCost)}
+                </FormHelperText>
+            ) : null}
+          </FormControl>
+
+        </Grid>
       </Grid>
 
       <Grid container spacing={2} sx={{ my: 2 }}>
@@ -82,6 +112,8 @@ export default function OptionsSellAddOffer(props: any) {
             </RadioGroup>
           </FormControl>
         </Grid>
+
+
       </Grid>
     </Box>
   );

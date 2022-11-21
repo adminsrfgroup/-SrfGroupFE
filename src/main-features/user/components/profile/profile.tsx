@@ -439,7 +439,7 @@ export default function Profile() {
                       <Skeleton animation="wave" height={30} />
                     ) : (
                       <React.Fragment>
-                        {getFullnameUser(entityProfileSelector)}
+                        {getFullnameUser(entityProfileSelector?.user)}
                       </React.Fragment>
                     )}
                   </h4>

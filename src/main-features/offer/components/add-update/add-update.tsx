@@ -342,24 +342,18 @@ export default function AddUpdate() {
     if (!id) {
       if (formik.values.typeOffer === TypeOfferEnum.Sell) {
         dispatch(addSellerOffer({ ...entity }));
-        // props.createEntitySellerOffer(entity);
       } else if (formik.values.typeOffer === TypeOfferEnum.Rent) {
         dispatch(addRentOffer({ ...entity }));
-        // props.createEntityRentOffer(entity);
       } else if (formik.values.typeOffer === TypeOfferEnum.Find) {
         dispatch(addFindOffer({ ...entity }));
-        // props.createEntityFindOffer(entity);
       }
     } else {
       if (formik.values.typeOffer === TypeOfferEnum.Sell) {
         dispatch(updateSellerOffer({ ...entity }));
-        // props.updateEntitySell(entity);
       } else if (formik.values.typeOffer === TypeOfferEnum.Rent) {
         dispatch(updateRentOffer({ ...entity }));
-        // props.updateEntityRent(entity);
       } else if (formik.values.typeOffer === TypeOfferEnum.Find) {
         dispatch(updateFindOffer({ ...entity }));
-        // props.updateEntityFind(entity);
       }
     }
   };

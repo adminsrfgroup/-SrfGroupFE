@@ -107,7 +107,7 @@ import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthoriz
 import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { resetRentRequests } from "./main-features/rent-request/store/slice";
-import { resetCart } from "./main-features/cart/store/slice";
+import {resetCart, resetOrder} from "./main-features/cart/store/slice";
 import { resetMyNotifications } from "./main-features/notification/store/slice";
 import {resetFavoriteUsers} from "./main-features/favorite/store/slice";
 import './App.css';
@@ -217,6 +217,7 @@ export const App = () => {
   React.useEffect(() => {
     if (token) {
       console.log("token ", token);
+      google.accounts.id.cancel();
       dispatch(sessionUser({}));
       dispatch(getNumberOfNotificationsNotSee({}));
       dispatch(getNumberOfMessagesNotSee({}));
@@ -359,6 +360,7 @@ export const App = () => {
     dispatch(resetPublicOffers({}));
     dispatch(resetMyNotifications({}));
     dispatch(resetFavoriteUsers({}));
+    dispatch(resetOrder({}));
     dispatch(logout({}));
     navigate(ALL_APP_ROUTES.HOME);
   };

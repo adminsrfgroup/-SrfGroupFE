@@ -47,7 +47,8 @@
     "label_back": "Retour",
     "label_confirm": "Confirmer",
     "show_details": "Voir details",
-    "hide_details": "Masquer details"
+    "hide_details": "Masquer details",
+    "label_shipping_cost": "Frais de livraison"
   },
   "cookie": {
     "accept": "Accepter",

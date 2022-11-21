@@ -10,19 +10,19 @@ import Card from "@mui/material/Card/Card";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
 import CardContent from "@mui/material/CardContent/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddLocationAltIcon from "@mui/icons-material/AddLocation";
-import CheckIcon from "@mui/icons-material/Check";
+// import AddLocationAltIcon from "@mui/icons-material/AddLocation";
+// import CheckIcon from "@mui/icons-material/Check";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog/Dialog";
 import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogContent from "@mui/material/DialogContent/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
-import { List } from "@mui/material";
-import ListSubheader from "@mui/material/ListSubheader";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+// import { List } from "@mui/material";
+// import ListSubheader from "@mui/material/ListSubheader";
+// import ListItem from "@mui/material/ListItem";
+// import ListItemText from "@mui/material/ListItemText";
+// import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton/Skeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
@@ -228,7 +228,10 @@ function ItemCart({
                     </Avatar>
                   }
                   title={getFullnameUser(cart?.sellOffer?.user)}
-                  subheader={cart?.sellOffer?.title}
+                  subheader={<React.Fragment>
+                    <Typography>{cart?.sellOffer?.title}</Typography>
+                    <Typography>Frais de livraison {cart?.sellOffer?.shippingCost} TND</Typography>
+                  </React.Fragment>}
               />
 
             </Grid>

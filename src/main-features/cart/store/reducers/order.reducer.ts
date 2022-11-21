@@ -15,10 +15,10 @@ const reducer = {
         state.order.loading = false;
     },
 
-    fetchOrder: (state: any) => {
+    fetchPassedOrder: (state: any) => {
         state.order.loadingEntities = true;
     },
-    fetchOrderSuccess: (state: any, action: any) => {
+    fetchPassedOrderSuccess: (state: any, action: any) => {
         state.order.loadingEntities = false;
         state.order.entities = [
             ...state.order.entities,
@@ -27,12 +27,31 @@ const reducer = {
         state.order.totalItems = action.payload?.totalElements;
         state.order.totalPages = action.payload?.totalPages;
     },
-    fetchOrderFailure: (state: any, action: PayloadAction) => {
+    fetchPassedOrderFailure: (state: any, action: PayloadAction) => {
         state.order.loadingEntities = false;
+    },
+
+    fetchReceivedOrder: (state: any) => {
+        state.order.loadingEntities = true;
+    },
+    fetchReceivedOrderSuccess: (state: any, action: any) => {
+        state.orderReceived.loadingEntities = false;
+        state.orderReceived.entities = [
+            ...state.orderReceived.entities,
+            ...action.payload.content
+        ];
+        state.orderReceived.totalItems = action.payload?.totalElements;
+        state.orderReceived.totalPages = action.payload?.totalPages;
+    },
+    fetchReceivedOrderFailure: (state: any, action: PayloadAction) => {
+        state.orderReceived.loadingEntities = false;
     },
 
     setActivePageOrder: (state: any, action: PayloadAction) => {
         state.order.activePage = action.payload;
+    },
+    setActivePageReceivedOrder: (state: any, action: PayloadAction) => {
+        state.orderReceived.activePage = action.payload;
     },
 
     resetOrder: (state: any) => {

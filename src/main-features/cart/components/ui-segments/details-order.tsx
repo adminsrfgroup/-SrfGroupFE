@@ -28,26 +28,37 @@ export default function DetailsCart({
         sx={{ width: "100%", bgcolor: "background.paper" }}
         subheader={<ListSubheader>Details Panier</ListSubheader>}
       >
-        <ListItem>
-          <ListItemText
-            id="switch-list-label-wifi"
-            primary={`${entityCartSelector.numberCarts} produits`}
-          />
-          <Typography variant="subtitle2" color="text.secondary">
-            {entityCartSelector.totalCarts?.toLocaleString("tn-TN")} TND
-          </Typography>
-        </ListItem>
 
-        <ListItem>
-          <ListItemText
-            id="switch-list-label-wifi"
-            primary="Frais de livraison"
-          />
-          <Typography variant="subtitle2" color="text.secondary">
-            {entityCartSelector.taxDelivery} TND
-          </Typography>
-        </ListItem>
-        <Divider />
+        {
+          entityCartSelector?.detailsCartGlobal?.map((cartDetails: any, index: null) => (
+            <ListItem key={index}>
+              <ListItemText
+                  id="switch-list-label-wifi"
+                  primary={`${cartDetails?.numberOfProducts} produits`}
+              />
+              <Typography variant="subtitle2" color="text.secondary">
+                {cartDetails?.totalCarts?.toLocaleString("tn-TN")} TND
+              </Typography>
+            </ListItem>
+          ))
+        }
+
+        {/*{*/}
+        {/*  entityCartSelector.detailsCartGlobal.map((cartDetails: any, index: null) => {*/}
+        {/*    <Box key={index}>*/}
+        {/*      <ListItem>*/}
+        {/*        <ListItemText*/}
+        {/*            id="switch-list-label-wifi"*/}
+        {/*            primary="Frais de livraison"*/}
+        {/*        />*/}
+        {/*        <Typography variant="subtitle2" color="text.secondary">*/}
+        {/*          {cartDetails.numberOfProducts} TND*/}
+        {/*        </Typography>*/}
+        {/*      </ListItem>*/}
+        {/*      <Divider />*/}
+        {/*    </Box>*/}
+        {/*  })*/}
+        {/*}*/}
 
         <ListItem>
           <ListItemText id="switch-list-label-wifi" primary="Total TTC" />

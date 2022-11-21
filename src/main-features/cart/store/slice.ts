@@ -48,12 +48,18 @@ export const {
   addOrderSuccess,
   addOrderFailure,
 
-  //? ********************| FETCH ORDERS ACTIONS |*******************/
-  fetchOrder,
-  fetchOrderSuccess,
-  fetchOrderFailure,
+  //? ********************| FETCH PASSED ORDERS ACTIONS |*******************/
+  fetchPassedOrder,
+  fetchPassedOrderSuccess,
+  fetchPassedOrderFailure,
+
+  //? ********************| FETCH RECEIVED ORDERS ACTIONS |*******************/
+  fetchReceivedOrder,
+  fetchReceivedOrderSuccess,
+  fetchReceivedOrderFailure,
 
   setActivePageOrder,
+  setActivePageReceivedOrder,
   resetOrder
 
 } = cartSlice.actions;
@@ -78,7 +84,7 @@ export const addSuccessCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.addSuccess;
 
 
-//? ********************| ORDER SELECTORS |*******************/
+//? ********************| PASSED ORDER SELECTORS |*******************/
 export const loadingOrder = (state: any) =>
     state[CART_KEY_IN_STORE].order.loading;
 export const entityOrder = (state: any) => state[CART_KEY_IN_STORE].order.entity;
@@ -96,3 +102,23 @@ export const deleteSuccessOrder = (state: any) =>
     state[CART_KEY_IN_STORE].order.deleteSuccess;
 export const addSuccessOrder = (state: any) =>
     state[CART_KEY_IN_STORE].order.addSuccess;
+
+
+//? ********************| RECEIVED ORDER SELECTORS |*******************/
+export const loadingOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.loading;
+export const entityOrderReceived = (state: any) => state[CART_KEY_IN_STORE].orderReceived.entity;
+export const loadingEntitiesOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.loadingEntities;
+export const entitiesOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.entities;
+export const totalItemsOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.totalItems;
+export const totalPagesOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.totalPages;
+export const activePageOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.activePage;
+export const deleteSuccessOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.deleteSuccess;
+export const addSuccessOrderReceived = (state: any) =>
+    state[CART_KEY_IN_STORE].orderReceived.addSuccess;

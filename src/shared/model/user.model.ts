@@ -50,7 +50,7 @@ export interface IGooglePlus {
 export interface IFacebook {
   accessToken: string;
   data_access_expiration_time: string;
-  email: string;
+  email?: string | null;
   graphDomain: string;
   id: string;
   name: string;

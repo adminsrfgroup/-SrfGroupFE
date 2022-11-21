@@ -12,6 +12,7 @@ export const initialValuesAddOffer = {
   category: null,
   typeFindOffer: "",
   typeContactClient: "",
+  shippingCost: 0
 };
 
 export const validationSchemaAddOffer = Yup.object({
@@ -22,6 +23,7 @@ export const validationSchemaAddOffer = Yup.object({
     .max(200, "add_offer.title_max_length"),
   description: Yup.string().required("add_offer.description_required"),
   amount: Yup.number().nullable().notRequired(),
+  shippingCost: Yup.number().nullable().notRequired(),
   startDate: Yup.date().nullable().notRequired(),
   endDate: Yup.date().nullable().notRequired(),
   typePeriodRent: Yup.string().nullable().notRequired(),

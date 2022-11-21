@@ -10,16 +10,16 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import InputLabel from "@mui/material/InputLabel/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
 import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
-import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
-import IconButton from "@mui/material/IconButton/IconButton";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+// import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
+// import IconButton from "@mui/material/IconButton/IconButton";
+// import { Visibility, VisibilityOff } from "@mui/icons-material";
+// import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import {
-  initialValuesSignUp,
-  validationSchemaSignUp,
-} from "../../../user/components/sign-up/validation/validation-signup";
-import { registerUser } from "../../../user/store/slice";
+// import {
+//   initialValuesSignUp,
+//   validationSchemaSignUp,
+// } from "../../../user/components/sign-up/validation/validation-signup";
+// import { registerUser } from "../../../user/store/slice";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import Typography from "@mui/material/Typography/Typography";
 import FormLabel from "@mui/material/FormLabel";
@@ -29,7 +29,7 @@ import {initialValuesFormPassCart, validationSchemaFormPassCart} from "../../val
 
 const initialValues = initialValuesFormPassCart;
 
-export function PassOrder({callbackAddOrder}: {callbackAddOrder: any}) {
+export function PassOrder({callbackAddOrder, loadingOrder}: {callbackAddOrder: any, loadingOrder: boolean}) {
   const { t } = useTranslation();
 
   const [value, setValue] = React.useState("");
@@ -135,9 +135,12 @@ export function PassOrder({callbackAddOrder}: {callbackAddOrder: any}) {
           />
         </FormGroup>
 
-        <Button variant="contained" color="secondary" fullWidth type="submit">
+        <LoadingButton
+            loading={loadingOrder}
+            variant="contained" color="secondary" fullWidth type="submit">
           {t<string>("cart.label_pass_order")}
-        </Button>
+        </LoadingButton>
+
       </form>
     </Box>
   );

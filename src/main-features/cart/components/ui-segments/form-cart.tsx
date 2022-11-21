@@ -185,7 +185,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                 name="phone"
                 label={t<string>("account.label_phone")}
                 type="tel"
-                value={formik.values.phone}
+                value={formik.values.phone || ''}
                 onChange={formik.handleChange}
                 // disabled={!showEditInfos}
               />

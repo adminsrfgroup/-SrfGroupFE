@@ -79,7 +79,7 @@ import {useFormik} from "formik";
 import { initialValuesRentRequestReceived, validationSchemaRentRequestReceived } from "../validation/init-value-rent-request";
 
 import './rent_request.scss';
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import SignatureRentRequest from "./ui-segments/signature-rent-request";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";

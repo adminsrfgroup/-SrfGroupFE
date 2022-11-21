@@ -224,7 +224,7 @@ export default function Cart() {
               ) : activeStep === 1 ? (
                 <FormCart submitHandler={actionDetailsCart} />
               ) : (
-                <PassOrder callbackAddOrder={addNewOrder}/>
+                <PassOrder callbackAddOrder={addNewOrder} loadingOrder={loadingOrderSelector}/>
               )}
               <React.Fragment>
                 <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
