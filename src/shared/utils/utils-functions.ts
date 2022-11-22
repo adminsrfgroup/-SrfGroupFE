@@ -200,14 +200,19 @@ export const hasUserRole = (authorities: any[] | undefined, role: string) => {
 };
 
 export const stringToEncode = (input: string) => {
-  return btoa(input)+'SrfGroup';
+  return 'puorgfrs'+btoa(input)+'SrfGroup';
 }
 
 export const decodeToString = (input: string) => {
-  return atob(input.substring(0, input.length-8))
+  const strTmp: string = input.substring(8, input.length);
+  return atob(strTmp.substring(0, strTmp.length-8))
 }
 
 
+/**
+ * For Google And Facebook
+ * @param token
+ */
 export const decodeJwtResponse = (token: string) => {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

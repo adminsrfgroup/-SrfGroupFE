@@ -60,6 +60,8 @@ export const {
 
   setActivePageOrder,
   setActivePageReceivedOrder,
+  resetReceivedOrder,
+  resetPassedOrder,
   resetOrder
 
 } = cartSlice.actions;
@@ -82,6 +84,8 @@ export const deleteSuccessCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.deleteSuccess;
 export const addSuccessCart = (state: any) =>
   state[CART_KEY_IN_STORE].cart.addSuccess;
+export const updateSuccessCart = (state: any) =>
+    state[CART_KEY_IN_STORE].cart.updateSuccess;
 
 
 //? ********************| PASSED ORDER SELECTORS |*******************/

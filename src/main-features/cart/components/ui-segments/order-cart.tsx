@@ -40,6 +40,7 @@ import {
 import Avatar from "@mui/material/Avatar/Avatar";
 import CardHeader from "@mui/material/CardHeader/CardHeader";
 import InfiniteScroll from "react-infinite-scroller";
+import {ConvertReactTimeAgo} from "../../../../shared/pages/react-time-ago";
 
 function LoadingCarts() {
   return (
@@ -229,8 +230,7 @@ function ItemCart({
                   }
                   title={getFullnameUser(cart?.sellOffer?.user)}
                   subheader={<React.Fragment>
-                    <Typography>{cart?.sellOffer?.title}</Typography>
-                    <Typography>Frais de livraison {cart?.sellOffer?.shippingCost} TND</Typography>
+                    <Typography><ConvertReactTimeAgo convertDate={cart?.passedDate} /></Typography>
                   </React.Fragment>}
               />
 
@@ -249,6 +249,19 @@ function ItemCart({
               </Grid>
             ) : null}
           </Grid>
+
+          <CardContent>
+            <Typography>{cart?.sellOffer?.title}</Typography>
+            <Typography variant="body2" color="text.secondary">
+              Montant {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Quantité {cart?.quantity}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Frais de livraison {cart?.sellOffer?.shippingCost} TND
+            </Typography>
+          </CardContent>
 
           <Box sx={{ my: 1 }}>
             <Box sx={{ float: "left" }}>

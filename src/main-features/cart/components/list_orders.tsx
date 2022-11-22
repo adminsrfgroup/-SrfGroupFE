@@ -11,9 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 import Alert from "@mui/material/Alert/Alert";
 import {
     entitiesOrder,
-    fetchPassedOrder, resetOrder,
     loadingEntitiesOrder,
-    totalPagesOrder, activePageOrder, setActivePageOrder, loadingEntitiesOrderReceived, entitiesOrderReceived, totalPagesOrderReceived, activePageOrderReceived, setActivePageReceivedOrder, fetchReceivedOrder
+    totalPagesOrder, activePageOrder, setActivePageOrder, loadingEntitiesOrderReceived, entitiesOrderReceived, totalPagesOrderReceived, activePageOrderReceived, setActivePageReceivedOrder, fetchReceivedOrder, resetReceivedOrder, resetPassedOrder, fetchPassedOrder
 } from "../store/slice";
 import Card from "@mui/material/Card/Card";
 import CardMedia from "@mui/material/CardMedia/CardMedia";
@@ -41,6 +40,10 @@ import IconButton from "@mui/material/IconButton";
 import {ICart} from "../../../shared/model/cart.model";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import {ListItem} from "@mui/material";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
 interface TabPanelProps {
@@ -117,7 +120,7 @@ function LoadingOrders() {
     );
 }
 
-function ItemPassedOrder({item}: { item: any}) {
+function ItemPassedOrder({t, item}: { t: any,item: any}) {
 
     const navigate = useNavigate();
 
@@ -163,13 +166,6 @@ function ItemPassedOrder({item}: { item: any}) {
                                 Nombres des produits: {item.numberOfProducts}
                             </Typography>
 
-                            {/*<Typography*/}
-                            {/*    variant="subtitle2"*/}
-                            {/*    display="flex"*/}
-                            {/*>*/}
-                            {/*    Frais de livraison = {item.taxDelivery}*/}
-                            {/*</Typography>*/}
-
                             <Typography
                                 variant="subtitle2"
                                 display="flex"
@@ -177,12 +173,196 @@ function ItemPassedOrder({item}: { item: any}) {
                                 Total du commande = {item.totalCarts.toLocaleString("tn-TN")} TND
                             </Typography>
 
-                            {/*<Typography*/}
-                            {/*    variant="subtitle2"*/}
-                            {/*    display="flex"*/}
-                            {/*>*/}
-                            {/*    Total TTC = {item.totalGlobalCarts.toLocaleString("tn-TN")} TND*/}
-                            {/*</Typography>*/}
+
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <Typography
+                                variant="subtitle1"
+                                color="secondary"
+                                display="flex"
+                                sx={{justifyContent: "end"}}
+                            >
+                                {
+                                    item.status === StatusOrder.PASSED ? t('order.label_passed') : item.status
+                                }
+                            </Typography>
+
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </Card>
+
+            <Accordion sx={{mt: '0 !important'}}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon/>}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    className="bg-brown"
+                >
+                    <Typography>List des produits</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+
+                    {
+                        item.carts.map((cart: ICart, index: number) => (
+                            <Box key={index}>
+                                <Box>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar
+                                                role="img"
+                                                aria-label="Image avatar"
+                                                src={getUserAvatar(
+                                                    cart?.sellOffer?.user?.id,
+                                                    cart?.sellOffer?.user?.imageUrl,
+                                                    cart?.sellOffer?.user?.sourceConnectedDevice
+                                                )}
+                                                alt="image not found"
+                                                onClick={(event: any) => redirectToPorfile(event, cart?.sellOffer?.user?.id)}
+                                            >
+                                                {getFullnameUser(cart?.sellOffer?.user)?.charAt(0)}
+                                            </Avatar>
+                                        }
+                                        action={
+                                            <IconButton aria-label="settings">
+                                                <ExpandMoreIcon/>
+                                            </IconButton>
+                                        }
+                                        title={getFullnameUser(cart?.sellOffer?.user)}
+                                        subheader={<React.Fragment>
+                                            <Typography><ConvertReactTimeAgo convertDate={cart?.sellOffer?.dateCreated} /></Typography>
+                                        </React.Fragment>}
+                                    />
+
+                                    <Box sx={{ display: { xs: "block", sm: "flex" } }}>
+                                        {
+                                            cart?.sellOffer?.offerImages?.length ? (
+                                                <CardMedia
+                                                    sx={{
+                                                        width: { xs: "100%", sm: 250 },
+                                                        height: { xs: "100%", sm: 200 },
+                                                    }}
+                                                >
+                                                    <LazyLoadImage
+                                                        alt="Image offer"
+                                                        src={getImageForOffer(
+                                                            cart?.sellOffer?.id,
+                                                            cart?.sellOffer?.offerImages[0].path
+                                                        )}
+                                                        placeholder={
+                                                            <img
+                                                                src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
+                                                                className="img-lazy-loading"
+                                                                alt="image srfgroup"
+                                                            />
+                                                        }
+                                                        placeholderSrc={getBaseImageUrl(
+                                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
+                                                        )}
+                                                        onError={(e: any) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
+                                                        }}
+                                                        className="img-lazy-loading"
+                                                    />
+                                                </CardMedia>
+                                            ) : null
+                                        }
+                                        <CardContent>
+                                            <Typography variant="h6">
+                                                {cart?.sellOffer?.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Montant {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Quantité {cart?.quantity}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Frais de livraison {cart?.sellOffer?.shippingCost} TND
+                                            </Typography>
+                                            <Typography variant="h5" color="text.secondary">
+                                                Total {cart?.total} TND
+                                            </Typography>
+                                        </CardContent>
+                                    </Box>
+                                </Box>
+                                <Divider/>
+                            </Box>
+                        ))
+                    }
+
+                </AccordionDetails>
+            </Accordion>
+
+        </Grid>
+    );
+}
+
+
+function ItemReceivedOrder({item}: { item: any }) {
+
+    const navigate = useNavigate();
+
+    const redirectToPorfile = (event: any, userId: number) => {
+        event.stopPropagation();
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
+        }, 300);
+    };
+
+    return (
+        <Grid item xs={12} md={6}>
+
+            <Card>
+                <CardHeader
+                    avatar={
+                        <Avatar
+                            role="img"
+                            aria-label="Image avatar"
+                            src={getUserAvatar(
+                                item?.user?.id,
+                                item?.user?.imageUrl,
+                                item?.user?.sourceConnectedDevice
+                            )}
+                            alt="image not found"
+                            onClick={(event: any) => redirectToPorfile(event, item?.user?.id)}
+                        >
+                            {getFullnameUser(item?.user)?.charAt(0)}
+                        </Avatar>
+                    }
+                    action={
+                        <IconButton aria-label="settings">
+                            <ExpandMoreIcon/>
+                        </IconButton>
+                    }
+                    title={getFullnameUser(item?.user)}
+                    subheader={item?.user?.email}
+                />
+
+                <CardContent className="card-content">
+                    <Grid container spacing={2}>
+                        <Grid item xs={8}>
+                            <Typography
+                                component="h4"
+                                variant="h4"
+                                sx={{fontSize: "1.2rem"}}
+                            >
+                                <ConvertReactTimeAgo
+                                    convertDate={
+                                        item?.passedDate
+                                    }
+                                />
+                            </Typography>
+
+                            <Typography
+                                component="h5"
+                                variant="h5"
+                                display="flex"
+                            >
+                                {item.paymentMode}
+                            </Typography>
 
                         </Grid>
 
@@ -239,20 +419,61 @@ function ItemPassedOrder({item}: { item: any}) {
                                                 <ExpandMoreIcon/>
                                             </IconButton>
                                         }
-                                        title={getFullnameUser(cart?.sellOffer?.user)}
-                                        subheader={cart?.sellOffer?.title}
+                                        title={cart?.sellOffer?.title}
+                                        subheader={<React.Fragment>
+                                            <Typography><ConvertReactTimeAgo convertDate={cart?.sellOffer?.dateCreated} /></Typography>
+                                        </React.Fragment>}
                                     />
-                                    <CardContent>
-                                        <Typography variant="body2" color="text.secondary">
-                                            Montant {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            Quantité {cart?.quantity}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            Frais de livraison {cart?.sellOffer?.shippingCost} TND
-                                        </Typography>
-                                    </CardContent>
+
+                                    <Box sx={{ display: { xs: "block", sm: "flex" } }}>
+                                        {
+                                            cart?.sellOffer?.offerImages?.length ? (
+                                                <CardMedia
+                                                    sx={{
+                                                        width: { xs: "100%", sm: 250 },
+                                                        height: { xs: "100%", sm: 200 },
+                                                    }}
+                                                >
+                                                    <LazyLoadImage
+                                                        alt="Image offer"
+                                                        src={getImageForOffer(
+                                                            cart?.sellOffer?.id,
+                                                            cart?.sellOffer?.offerImages[0].path
+                                                        )}
+                                                        placeholder={
+                                                            <img
+                                                                src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
+                                                                className="img-lazy-loading"
+                                                                alt="image srfgroup"
+                                                            />
+                                                        }
+                                                        placeholderSrc={getBaseImageUrl(
+                                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
+                                                        )}
+                                                        onError={(e: any) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
+                                                        }}
+                                                        className="img-lazy-loading"
+                                                    />
+                                                </CardMedia>
+                                            ) : null
+                                        }
+                                        <CardContent>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Montant {cart?.sellOffer?.amount?.toLocaleString("tn-TN")} TND
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Quantité {cart?.quantity}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Frais de livraison {cart?.sellOffer?.shippingCost} TND
+                                            </Typography>
+                                            <Typography variant="h5" color="text.secondary">
+                                                Total {cart?.total} TND
+                                            </Typography>
+                                        </CardContent>
+                                    </Box>
                                 </Box>
                                 <Divider/>
                             </Box>
@@ -266,173 +487,11 @@ function ItemPassedOrder({item}: { item: any}) {
     );
 }
 
-
-function ItemReceivedOrder({item}: { item: any }) {
-
-    const navigate = useNavigate();
-
-    const redirectToPorfile = (event: any, userId: number) => {
-        event.stopPropagation();
-        setTimeout(() => {
-            navigate(ALL_APP_ROUTES.PROFILE + "/" + userId);
-        }, 300);
-    };
-
-    return (
-        <Grid item xs={12} md={6}>
-            <Card
-                sx={{display: {xs: "block", sm: "flex"}}}>
-                <CardContent sx={{flex: 1}}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={8}>
-                            <Typography
-                                component="h4"
-                                variant="h4"
-                                sx={{fontSize: "1.2rem"}}
-                            >
-                                <ConvertReactTimeAgo
-                                    convertDate={
-                                        item?.passedDate
-                                    }
-                                />
-                            </Typography>
-
-                            <Typography
-                                component="h5"
-                                variant="h5"
-                                display="flex"
-                            >
-                                {item.paymentMode}
-                            </Typography>
-
-                            <Typography
-                                variant="subtitle2"
-                                color="text.secondary"
-                                display="flex"
-                            >
-                                Nombres des produits: {item.numberOfProducts}
-                            </Typography>
-
-                            {/*<Typography*/}
-                            {/*    variant="subtitle2"*/}
-                            {/*    display="flex"*/}
-                            {/*>*/}
-                            {/*    Frais de livraison = {item.taxDelivery}*/}
-                            {/*</Typography>*/}
-
-                            <Typography
-                                variant="subtitle2"
-                                display="flex"
-                            >
-                                Total du commande = {item.totalCarts.toLocaleString("tn-TN")} TND
-                            </Typography>
-
-                            {/*<Typography*/}
-                            {/*    variant="subtitle2"*/}
-                            {/*    display="flex"*/}
-                            {/*>*/}
-                            {/*    Total TTC = {item.totalGlobalCarts.toLocaleString("tn-TN")} TND*/}
-                            {/*</Typography>*/}
-
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{justifyContent: "end"}}
-                            >
-                                {
-                                    item.status === StatusOrder.PASSED ? item.status : item.status
-                                }
-                            </Typography>
-
-                        </Grid>
-                    </Grid>
-                    <Box>
-                        <Divider/>
-                        <CardHeader
-                            avatar={
-                                <Avatar
-                                    role="img"
-                                    aria-label="Image avatar"
-                                    src={getUserAvatar(
-                                        item?.user?.id,
-                                        item?.user?.imageUrl,
-                                        item?.user?.sourceConnectedDevice
-                                    )}
-                                    alt="image not found"
-                                    onClick={(event: any) => redirectToPorfile(event, item?.user?.id)}
-                                >
-                                    {getFullnameUser(item?.user)?.charAt(0)}
-                                </Avatar>
-                            }
-                            action={
-                                <IconButton aria-label="settings">
-                                    <ExpandMoreIcon/>
-                                </IconButton>
-                            }
-                            title={getFullnameUser(item?.user)}
-                            subheader={item?.user?.email}
-                        />
-                    </Box>
-                </CardContent>
-            </Card>
-
-        </Grid>
-    );
-}
-
 export default function ListOrders() {
 
     const [value, setValue] = React.useState(0);
-    const [isFirstTime, setIsFirstTime] = React.useState(true);
-
-    // const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
-    // const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
-    // const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
-    // const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
-    //
-    // const loadingEntitiesOrderReceivedSelector = useSelector(loadingEntitiesOrderReceived) ?? false;
-    // const entitiesOrderReceivedSelector = useSelector(entitiesOrderReceived) ?? [];
-    // const totalPagesOrderReceivedSelector = useSelector(totalPagesOrderReceived) ?? 0;
-    // const activePageOrderReceivedSelector = useSelector(activePageOrderReceived) ?? -1;
-    //
-    //
+    const [isFirstTimePassed, setIsFirstTimePassed] = React.useState(true);
     const {t} = useTranslation();
-    // const dispatch = useDispatch();
-    //
-    //
-    // const resetAll = () => {
-    //     dispatch(resetOrder({}));
-    //     dispatch(setActivePageOrder(0));
-    //     dispatch(setActivePageReceivedOrder(0));
-    // };
-    //
-    // React.useEffect(() => {
-    //     if (isFirstTime && entitiesOrderSelector.length === 0) {
-    //         setIsFirstTime(false);
-    //         resetAll();
-    //     }
-    // }, [isFirstTime]);
-    //
-    // React.useEffect(() => {
-    //     if (activePageOrderSelector >= 0 && !isFirstTime) {
-    //         dispatch(
-    //             fetchPassedOrder({
-    //                 page: activePageOrderSelector,
-    //                 size: AllAppConfig.ORDERS_PER_PAGE,
-    //                 queryParams: '',
-    //             })
-    //         );
-    //     }
-    // }, [activePageOrderSelector, isFirstTime]);
-    //
-    // const loadMore = () => {
-    //     setIsFirstTime(false);
-    //     dispatch(setActivePageOrder(activePageOrderSelector + 1));
-    // };
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -480,81 +539,6 @@ export default function ListOrders() {
     );
 }
 
-function ListPassedORders() {
-    const [isFirstTime, setIsFirstTime] = React.useState(true);
-
-    const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
-    const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
-    const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
-    const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
-
-    const {t} = useTranslation();
-    const dispatch = useDispatch();
-
-
-    const resetAll = () => {
-        dispatch(resetOrder({}));
-        dispatch(setActivePageOrder(0));
-    };
-
-    React.useEffect(() => {
-        if (isFirstTime && entitiesOrderSelector.length === 0) {
-            setIsFirstTime(false);
-            resetAll();
-        }
-    }, [isFirstTime]);
-
-    React.useEffect(() => {
-        if (activePageOrderSelector >= 0 && !isFirstTime) {
-            dispatch(
-                fetchPassedOrder({
-                    page: activePageOrderSelector,
-                    size: AllAppConfig.ORDERS_PER_PAGE,
-                    queryParams: '',
-                })
-            );
-        }
-    }, [activePageOrderSelector, isFirstTime]);
-
-    const loadMore = () => {
-        setIsFirstTime(false);
-        dispatch(setActivePageOrder(activePageOrderSelector + 1));
-    };
-
-    return (
-        <InfiniteScroll
-            pageStart={activePageOrderSelector}
-            loadMore={loadMore}
-            hasMore={totalPagesOrderSelector - 1 > activePageOrderSelector}
-            loader={<div className="loader" key={0}></div>}
-            threshold={0}
-            initialLoad={false}
-        >
-            <Grid container spacing={4} sx={{mt: 3}}>
-
-                {
-                    entitiesOrderSelector?.map((item: any, index: number) => (
-                        <ItemPassedOrder item={item} key={index}/>
-                    ))
-                }
-
-                {
-                    loadingEntitiesOrderSelector ? <LoadingOrders/> : null
-                }
-
-                {
-                    !loadingEntitiesOrderSelector && entitiesOrderSelector?.length == 0 ?
-                        <Grid item xs={12}>
-                            <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
-                        </Grid> : null
-                }
-
-            </Grid>
-        </InfiniteScroll>
-    )
-}
-
-
 function ListReceivedORders() {
     const [isFirstTime, setIsFirstTime] = React.useState(true);
 
@@ -568,7 +552,7 @@ function ListReceivedORders() {
 
 
     const resetAll = () => {
-        dispatch(resetOrder({}));
+        dispatch(resetReceivedOrder({}));
         dispatch(setActivePageReceivedOrder(0));
     };
 
@@ -628,3 +612,78 @@ function ListReceivedORders() {
         </InfiniteScroll>
     )
 }
+
+function ListPassedORders() {
+    const [isFirstTime, setIsFirstTime] = React.useState(true);
+
+    const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
+    const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
+    const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
+    const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
+
+    const {t} = useTranslation();
+    const dispatch = useDispatch();
+
+
+    const resetAll = () => {
+        dispatch(resetPassedOrder({}));
+        dispatch(setActivePageOrder(0));
+    };
+
+    React.useEffect(() => {
+        if (isFirstTime && entitiesOrderSelector.length === 0) {
+            setIsFirstTime(false);
+            resetAll();
+        }
+    }, [isFirstTime]);
+
+    React.useEffect(() => {
+        if (activePageOrderSelector >= 0 && !isFirstTime) {
+            dispatch(
+                fetchPassedOrder({
+                    page: activePageOrderSelector,
+                    size: AllAppConfig.ORDERS_PER_PAGE,
+                    queryParams: '',
+                })
+            );
+        }
+    }, [activePageOrderSelector, isFirstTime]);
+
+    const loadMore = () => {
+        setIsFirstTime(false);
+        dispatch(setActivePageOrder(activePageOrderSelector + 1));
+    };
+
+    return (
+        <InfiniteScroll
+            pageStart={activePageOrderSelector}
+            loadMore={loadMore}
+            hasMore={totalPagesOrderSelector - 1 > activePageOrderSelector}
+            loader={<div className="loader" key={0}></div>}
+            threshold={0}
+            initialLoad={false}
+        >
+            <Grid container spacing={4} sx={{mt: 3}}>
+
+                {
+                    entitiesOrderSelector?.map((item: any, index: number) => (
+                        <ItemPassedOrder t={t} item={item} key={index}/>
+                    ))
+                }
+
+                {
+                    loadingEntitiesOrderSelector ? <LoadingOrders/> : null
+                }
+
+                {
+                    !loadingEntitiesOrderSelector && entitiesOrderSelector?.length == 0 ?
+                        <Grid item xs={12}>
+                            <Alert severity="warning">{t<string>("order.no_commandes_founds")}</Alert>
+                        </Grid> : null
+                }
+
+            </Grid>
+        </InfiniteScroll>
+    )
+}
+

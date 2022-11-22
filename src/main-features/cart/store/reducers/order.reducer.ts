@@ -32,7 +32,7 @@ const reducer = {
     },
 
     fetchReceivedOrder: (state: any) => {
-        state.order.loadingEntities = true;
+        state.orderReceived.loadingEntities = true;
     },
     fetchReceivedOrderSuccess: (state: any, action: any) => {
         state.orderReceived.loadingEntities = false;
@@ -54,8 +54,15 @@ const reducer = {
         state.orderReceived.activePage = action.payload;
     },
 
+    resetReceivedOrder: (state: any) => {
+        state.orderReceived = initialState.orderReceived;
+    },
+    resetPassedOrder: (state: any) => {
+        state.order = initialState.order;
+    },
     resetOrder: (state: any) => {
         state.order = initialState.order;
+        state.orderReceived = initialState.orderReceived;
     },
 };
 

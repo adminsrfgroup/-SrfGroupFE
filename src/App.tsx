@@ -216,7 +216,6 @@ export const App = () => {
 
   React.useEffect(() => {
     if (token) {
-      console.log("token ", token);
       google.accounts.id.cancel();
       dispatch(sessionUser({}));
       dispatch(getNumberOfNotificationsNotSee({}));

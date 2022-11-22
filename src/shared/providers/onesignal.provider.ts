@@ -8,12 +8,24 @@ export function oneSignalProviders() {
       // Init OneSignal Platform
       OneSignal.init({
         appId: decodeToString(AllAppConfig.APP_ID_ONESIGNAL),
-      }).then((result: any) => {
+      }).then(() => {
         console.log("OneSignal init succefully");
 
         OneSignal.isPushNotificationsEnabled((result: boolean) => {
           if (result) {
             OneSignal.getUserId((userId: string | null | undefined) => {
+
+              OneSignal.on('notificationDisplay', () => {
+                console.log("notificationDisplay");
+              });
+
+              OneSignal.on('notificationDismiss', () => {
+                console.log("notificationDismiss");
+              });
+
+              OneSignal.on('notificationPermissionChange', () => {
+                console.log("notificationPermissionChange");
+              });
               resolve(userId);
             });
           } else {

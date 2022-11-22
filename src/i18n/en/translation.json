@@ -40,12 +40,12 @@
     "label_delete": "Delete",
     "label_disfavorite": "Disfavorite",
     "label_report": "Report",
-    "label_amount": "Amouont",
+    "label_amount": "Amouont (TND)",
     "label_share": "Partager",
     "label_unauthorized_action": "Unauthorized action",
     "message_unauthorized_action": "Unauthorized action, please logged in",
     "label_user_name": "Username",
-    "label_shipping_cost": "Shipping cost"
+    "label_shipping_cost": "Shipping cost (TND)"
   },
   "cookie": {
     "accept": "Accept",

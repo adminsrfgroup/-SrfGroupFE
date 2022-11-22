@@ -118,6 +118,11 @@ export default function Notification() {
         navigate(ALL_APP_ROUTES.RENT_REQUEST.LIST);
       }, 300);
     }
+    else if(notification.module === ModuleNotification.SELL_REQUEST_NOTIFICATION){
+      setTimeout(() => {
+        navigate(ALL_APP_ROUTES.ORDER.LIST);
+      }, 300);
+    }
   };
 
   return (

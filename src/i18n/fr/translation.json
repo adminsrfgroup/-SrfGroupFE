@@ -39,7 +39,7 @@
     "label_delete": "Supprimer",
     "label_disfavorite": "Disfavorite",
     "label_report": "Signaler",
-    "label_amount": "Montant",
+    "label_amount": "Montant (TND)",
     "label_share": "Partager",
     "label_unauthorized_action": "Action non autorisée",
     "message_unauthorized_action": "Action non autorisée, veuillez vous connecter",
@@ -48,7 +48,7 @@
     "label_confirm": "Confirmer",
     "show_details": "Voir details",
     "hide_details": "Masquer details",
-    "label_shipping_cost": "Frais de livraison"
+    "label_shipping_cost": "Frais de livraison (TND)"
   },
   "cookie": {
     "accept": "Accepter",
@@ -301,7 +301,8 @@
     "label_failure": "Commandes échouées",
     "title_dialog_add_order": "Passer la commande",
     "description_dialog_add_order": "Votre commande a été bien passée",
-    "no_commandes_founds": "Aucune commande trouvée"
+    "no_commandes_founds": "Aucune commande trouvée",
+    "label_passed": "Passée (en cours de livraison)"
   },
   "rentrequest": {
     "label_rent_request": "Demande de location",

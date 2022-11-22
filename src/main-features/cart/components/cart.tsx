@@ -24,7 +24,7 @@ import {
   fetchCart,
   loadingEntitiesCart,
   loadingOrder, resetCart,
-  resetOrder, setActivePage, totalPagesCart
+  resetOrder, setActivePage, totalPagesCart, updateSuccessCart
 } from "../store/slice";
 import Alert from "@mui/material/Alert/Alert";
 import DetailsCart from "./ui-segments/details-order";
@@ -58,6 +58,8 @@ export default function Cart() {
   const loadingOrderSelector = useSelector(loadingOrder) ?? false;
   const addSuccessOrderSelector = useSelector(addSuccessOrder) ?? false;
 
+  const updateSuccessCartSelector = useSelector(updateSuccessCart) ?? false;
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -88,7 +90,7 @@ export default function Cart() {
   }, [activePageCartSelector, isFirstTime]);
 
   React.useEffect(() => {
-    if (deleteSuccessCartSelector) {
+    if (deleteSuccessCartSelector || updateSuccessCartSelector) {
       dispatch(setActivePage(0));
       resetAll();
       dispatch(
@@ -98,10 +100,10 @@ export default function Cart() {
             queryParams: '',
           })
       );
-
       dispatch(getNumberOfCarts({}));
+      dispatch(detailsCart({}));
     }
-  }, [deleteSuccessCartSelector]);
+  }, [deleteSuccessCartSelector, updateSuccessCartSelector]);
 
   const loadMoreCart = () => {
     setIsFirstTime(false);

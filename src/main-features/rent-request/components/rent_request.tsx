@@ -559,7 +559,7 @@ function DisplayItemSent({item, removeRentRequest}: {item: IRentRequest, removeR
                         {
                             indexShowMoreDetails === item.id ?
                                 <Box>
-                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                    <List sx={{ bgcolor: 'background.paper' }}>
 
                                         <ListItem alignItems="flex-start">
                                             <div

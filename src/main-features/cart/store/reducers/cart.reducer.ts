@@ -33,11 +33,11 @@ const reducer = {
 
   updateByQuantityCart: (state: any) => {
     state.cart.loading = true;
-    state.cart.addSuccess = false;
+    state.cart.updateSuccess = false;
   },
   updateByQuantityCartSuccess: (state: any, action: any) => {
     state.cart.loading = false;
-    state.cart.addSuccess = true;
+    state.cart.updateSuccess = true;
     state.cart.entity = action.payload;
   },
   updateByQuantityCartFailure: (state: any, action: PayloadAction) => {

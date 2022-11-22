@@ -3,4 +3,5 @@ export enum ModuleNotification {
   OFFER_NOTIfICATION = "OfferNotification",
   COMMENT_OFFER_NOTIFICATION = "CommentOfferNotification",
   RENT_REQUEST_NOTIFICATION = "RentRequestNotification",
+  SELL_REQUEST_NOTIFICATION = "SellRequestNotification",
 }
