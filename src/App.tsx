@@ -183,7 +183,7 @@ export const App = () => {
   const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
   const isLanguagesMenuOpen = Boolean(languagesAnchorEl);
   const [darkMode, setDarkMode] = React.useState<"light" | "dark">(StorageService.local.get(AllAppConfig.DARK_MODE) ?? "light");
-  const [defaultChecked, setDefaultChecked] = React.useState<boolean>(darkMode=='light' ? true : false);
+  const [defaultChecked, setDefaultChecked] = React.useState<boolean>(darkMode=='light' ?? false);
   const [isGoogleAnalytics, setIsGoogleAnalytics] =
     React.useState<boolean>(false);
   const { token } = useSelector(allLoginSelector);
@@ -216,9 +216,11 @@ export const App = () => {
     console.log('darkMode ', darkMode);
     if( darkMode==='dark' ){
       document.body.classList.add('dark-mode');
+      setDefaultChecked(false);
     }
     else{
       document.body.classList.remove('dark-mode');
+      setDefaultChecked(true);
     }
   }, [darkMode])
   const toggleDarkMode = (event: any, checked: boolean) => {
