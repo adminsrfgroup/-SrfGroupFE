@@ -24,7 +24,7 @@ import {
   validationSchemaSignUp,
 } from "./validation/validation-signup";
 import { connect, useDispatch, useSelector } from "react-redux";
-import Dialog from "@mui/material/Dialog/Dialog";
+import Dialog, {DialogProps} from "@mui/material/Dialog/Dialog";
 import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogContent from "@mui/material/DialogContent/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
@@ -77,6 +77,9 @@ export default function SignUp() {
     showPassword: false,
   });
   const [openDialogRegister, setOpenDialogRegister] = React.useState(false);
+
+  const [openCGU, setOpenCGU] = React.useState(false);
+  const [scrollCGU, setScrollCGU] = React.useState<DialogProps['scroll']>('paper');
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -134,6 +137,65 @@ export default function SignUp() {
     formik.resetForm();
     navigate(ALL_APP_ROUTES.LOGIN);
   };
+
+  const handleClickOpen = (scrollType: DialogProps['scroll']) => {
+    setOpenCGU(true);
+    setScrollCGU(scrollType);
+  };
+
+  const handleCloseCGU = (response: boolean) => {
+    setOpenCGU(false);
+
+    if( !response ){
+      formik.setFieldValue('accept', false);
+    }
+  };
+
+  const descriptionElementRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    console.log('openCGU ', openCGU);
+    if (openCGU) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [openCGU]);
+  const showDialogCGU = () => {
+    return (
+        <Box>
+          <Dialog
+              open={openCGU}
+              onClose={handleCloseCGU}
+              scroll={scrollCGU}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description"
+          >
+            <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+            <DialogContent dividers={scrollCGU === 'paper'}>
+              <DialogContentText
+                  id="scroll-dialog-description"
+                  ref={descriptionElementRef}
+                  tabIndex={-1}
+              >
+                {[...new Array(50)]
+                    .map(
+                        () => `Cras mattis consectetur purus sit amet fermentum.
+Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+                    )
+                    .join('\n')}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button color="neutral" onClick={() => handleCloseCGU(false)}>{t<string>('common.label_cancel')}</Button>
+              <Button color="secondary" onClick={() => handleCloseCGU(true)}>{t<string>('signup.label_accept_cgu')}</Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+    )
+  }
 
   const shwDialogRegister = () => {
     return (
@@ -214,6 +276,15 @@ export default function SignUp() {
       dispatch(loginWithGoogle({ ...requestData }));
     }
   };
+
+  const handleChangeCGU = (value: any) => {
+    console.log('value ', value.target.checked);
+    formik.handleChange(value);
+    if(value.target.checked){
+      handleClickOpen('paper');
+    }
+  }
+
 
   return (
     <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
@@ -388,7 +459,7 @@ export default function SignUp() {
                               name="accept"
                               color="secondary"
                               checked={formik.values.accept}
-                              onChange={formik.handleChange}
+                              onChange={handleChangeCGU}
                             />
                           }
                           label={
@@ -466,6 +537,7 @@ export default function SignUp() {
           <Grid item xs={4}></Grid>
         </Grid>
         {shwDialogRegister()}
+        {showDialogCGU()}
       </Container>
     </Slide>
   );

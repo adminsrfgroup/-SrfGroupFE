@@ -235,6 +235,17 @@ export default function RightDetailsOffer({
     }
   };
 
+  const contactWithPhoneCheck = () => {
+    if (!offerEntity?.user?.phone) {
+      setMessageAlert(
+          t("details_offer.message_not_link_profile_phone_exist")
+      );
+      setOpenAlert(true);
+    } else {
+      setContactWithPhone(!contactWithPhone);
+    }
+  };
+
   return (
     <Grid item xs={12} sm={12}>
       <Card>
@@ -448,7 +459,7 @@ export default function RightDetailsOffer({
               startIcon={<PhoneIcon />}
               fullWidth
               sx={{ mt: 3 }}
-              onClick={() => setContactWithPhone(!contactWithPhone)}
+              onClick={() => contactWithPhoneCheck()}
             >
               {contactWithPhone
                 ? offerEntity?.user?.phone

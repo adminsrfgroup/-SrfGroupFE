@@ -729,11 +729,6 @@ export default function Profile() {
       {renderDialogFavoriteUser()}
       {renderDialogReportUser()}
 
-      {/*<UnauthorizeContentModal*/}
-      {/*    isShowing={isShowing}*/}
-      {/*    onOpen={open}*/}
-      {/*    onClose={close}*/}
-      {/*/>*/}
     </Box>
   );
 }

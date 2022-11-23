@@ -131,7 +131,6 @@
     "blocked_by_admin": "You are blocked, please contact the administration"
   },
   "comment_offer": {
-    "comment_offer_added_succefully": "Comment added succefully",
     "show_comment_details_offer": "Show comments",
     "hide_comment_details_offer": "Hide comments",
     "show_more_comment": "Show more comments",
@@ -183,9 +182,6 @@
     "confirm_delete_image": "Delete image",
     "message_confirm_delete_image": "Are you sur to delete this image !"
   },
-  "news_letter": {
-    "added_success": "Thanks for your subscription"
-  },
   "message": {
     "sent_succefully": "Message sent succefully"
   },
@@ -213,6 +209,7 @@
     "not_address_found_itenarary": "Not available address",
     "miss_address_account": "Please add address in your account",
     "message_not_link_profile_facebook_exist": "Not link facebook exist",
+    "message_not_link_profile_phone_exist": "Not existe",
     "title_dialog_report_offer": "Repoprt offer",
     "description_dialog_report_offer": "Do you want report this offer !",
     "title_dialog_delete_comment": "Delete comment",
@@ -260,9 +257,6 @@
       "description_remove_favrite_user": "Remove this user to your favorite list"
     }
   },
-  "report_probleme": {
-    "report_probleme_added_succefully": "Declaration sent successfully"
-  },
   "contact-us": {
     "messages.success": "Message sent successfully"
   },
@@ -285,7 +279,8 @@
     "label_pass_order": "Passer the order",
     "label_code": "Code",
     "label_back_order": "Retour",
-    "select_your_mode_payment": "Choose your way of payment please"
+    "select_your_mode_payment": "Choose your way of payment please",
+    "missing_account_informations": "Merci de remplir les information dans votre compte"
   },
   "order": {
     "title_order": "Commandes",

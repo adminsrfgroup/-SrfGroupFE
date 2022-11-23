@@ -44,7 +44,7 @@ export function ListOffersProfile({
           <CircularProgress color="inherit" />
         </Box>
       ) : (
-        <Container sx={{ py: 4 }} maxWidth="lg">
+        <Container sx={{ py: 4, px: 0 }} maxWidth="lg">
           <h3>{t<string>("profile.title_list_offers_by_user")}</h3>
           <Grid container spacing={4}>
             {listOffers.map((offer: IOffer) => (
