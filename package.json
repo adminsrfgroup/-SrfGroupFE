@@ -1,6 +1,6 @@
 {
   "name": "srf-group",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "private": true,
   "dependencies": {
     "@elastic/apm-rum": "5.12.0",
