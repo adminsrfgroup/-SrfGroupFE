@@ -39,6 +39,8 @@ export const AllAppConfig = {
     SECRET_KEY: "6LfkFmsfAAAAAIzBdH6gAR5VjWAo93Kcb0xBVdB_",
   },
   NBE_WORD_SHOW_MORE_LESS: 250,
+  LOCALE: 'locale',
+  DARK_MODE: 'dark_mode'
 };
 
 // export const APP_DATE_FORMAT = 'DD/MM/YY HH:mm';

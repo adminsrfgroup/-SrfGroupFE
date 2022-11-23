@@ -1,4 +1,10 @@
-
 .CookieConsent #rcc-confirm-button{
     margin-right: 50px !important;
+}
+
+main{
+    background-color: #F2F3F7;
+}
+.dark-mode main{
+    background-color: #121212;
 }

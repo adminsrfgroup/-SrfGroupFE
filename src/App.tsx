@@ -112,6 +112,7 @@ import { resetMyNotifications } from "./main-features/notification/store/slice";
 import {resetFavoriteUsers} from "./main-features/favorite/store/slice";
 import './App.css';
 import {GoogleSignin} from "./shared/components/google-signin/google-signin";
+import { AllAppConfig } from "./core/config/all-config";
 
 // if (process.env.NODE_ENV === "development") {
 //   initApm({
@@ -181,7 +182,8 @@ export const App = () => {
   const [openSubMenuSupport, setOpenSubMenuSupport] = React.useState(false);
   const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
   const isLanguagesMenuOpen = Boolean(languagesAnchorEl);
-  const [darkMode, setDarkMode] = React.useState<"light" | "dark">("light");
+  const [darkMode, setDarkMode] = React.useState<"light" | "dark">(StorageService.local.get(AllAppConfig.DARK_MODE) ?? "light");
+  const [defaultChecked, setDefaultChecked] = React.useState<boolean>(darkMode=='light' ? true : false);
   const [isGoogleAnalytics, setIsGoogleAnalytics] =
     React.useState<boolean>(false);
   const { token } = useSelector(allLoginSelector);
@@ -210,7 +212,17 @@ export const App = () => {
     },
   });
 
+  React.useEffect(() => {
+    console.log('darkMode ', darkMode);
+    if( darkMode==='dark' ){
+      document.body.classList.add('dark-mode');
+    }
+    else{
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode])
   const toggleDarkMode = (event: any, checked: boolean) => {
+    StorageService.local.set(AllAppConfig.DARK_MODE, checked ? "light" : "dark");
     setDarkMode(checked ? "light" : "dark");
   };
 
@@ -280,10 +292,9 @@ export const App = () => {
       }
     );
 
-    // Set Default configs
-    i18n.changeLanguage(StorageService.session.get("locale", "fr"));
-    dispatch(changeLocale(StorageService.session.get("locale", "fr")));
-    // props.setLocale(StorageService.session.get('locale', 'fr'));
+    // Set Default configs local
+    i18n.changeLanguage(StorageService.local.get(AllAppConfig.LOCALE) ?? "fr");
+    dispatch(changeLocale(StorageService.local.get(AllAppConfig.LOCALE) ?? "fr"));
 
     dispatch(
       fetchCategories({
@@ -437,61 +448,6 @@ export const App = () => {
             <InboxIcon />
           </ListItemIcon>
           <ListItemText
-            primary={t<string>("common.label_category")}
-          />
-          {openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openSubMenuSupport} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemButton
-              sx={{ pl: 4 }}
-              component={Link}
-              to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}
-              onClick={() => handleDrawerToggle(false)}
-            >
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText
-                primary={t<string>("header.link_support.link_contact_us")}
-              />
-            </ListItemButton>
-
-            <ListItemButton
-              sx={{ pl: 4 }}
-              component={Link}
-              to={ALL_APP_ROUTES.SUPPORT.ABOUT_US}
-              onClick={() => handleDrawerToggle(false)}
-            >
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={t<string>("header.link_support.link_about")}
-              />
-            </ListItemButton>
-
-            <ListItemButton
-              sx={{ pl: 4 }}
-              component={Link}
-              to={ALL_APP_ROUTES.SUPPORT.FAQ}
-              onClick={() => handleDrawerToggle(false)}
-            >
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={t<string>("header.link_support.link_faq")}
-              />
-            </ListItemButton>
-          </List>
-        </Collapse>
-
-        <ListItemButton onClick={handleClickSupport}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText
               primary={t<string>("header.link_support.link_label_support")}
           />
           {openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
@@ -555,7 +511,7 @@ export const App = () => {
         <ListItem>
           <FormGroup>
             <FormControlLabel
-              control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+              control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked={defaultChecked} />}
               onChange={toggleDarkMode}
               label=""
             />
@@ -715,10 +671,10 @@ export const App = () => {
   );
 
   const handleLocaleChange = (locale: string) => {
+    StorageService.local.set(AllAppConfig.LOCALE, locale);
     i18n.changeLanguage(locale);
     handleLAnguagesMenuClose();
     dispatch(changeLocale(locale));
-    // props.setLocale(locale);
   };
   const handleLAnguagesMenuClose = () => {
     setLanguagesAnchorEl(null);
@@ -774,10 +730,6 @@ export const App = () => {
     }
   };
 
-  const changeLocaleApp = () => {
-    dispatch(changeLocale({}));
-  };
-
   return (
     <>
       <ScrollToTopRouters data-testid="scroll-to-top-routers" />
@@ -817,7 +769,7 @@ export const App = () => {
           }
           parentCallbackMenuMobile={(event: any) => handleDrawerToggle(event)}
           currentLocale={currentLocale}
-          onLocaleChange={changeLocaleApp}
+          onLocaleChange={handleLocaleChange}
           nbeNotificationsNotSee={nbeNotificationsNotRead}
           parentCallbackDarkMode={(event: any, checked: boolean) =>
             toggleDarkMode(event, checked)
@@ -827,7 +779,6 @@ export const App = () => {
         />
         <main
           style={{
-            background: "#F2F3F7",
             paddingBottom: 50,
             position: "relative",
           }}

@@ -19,6 +19,8 @@ import {
   initialValuesFormCart,
   validationSchemaFormCart,
 } from "../../validation/cart-form-validation";
+import {ALL_APP_ROUTES} from "../../../../core/config/all-app-routes";
+import {Link} from "react-router-dom";
 
 const initialValues = initialValuesFormCart;
 
@@ -34,7 +36,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
     validationSchema: validationSchemaFormCart,
     onSubmit: (values) => {
       submitHandler(values);
-    },
+    }
   });
 
   React.useEffect(() => {
@@ -72,6 +74,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                 label={t<string>("account.label_firstname")}
                 value={formik.values.firstName}
                 onChange={formik.handleChange}
+                disabled
               />
               <FormHelperText id="component-helper-text">
                 {formik.touched.firstName && formik.errors.firstName}
@@ -94,7 +97,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                 label={t<string>("account.label_lastname")}
                 value={formik.values.lastName}
                 onChange={formik.handleChange}
-                // disabled={!showEditInfos}
+                disabled
               />
               <FormHelperText id="component-helper-text">
                 {formik.touched.lastName && formik.errors.lastName}
@@ -136,6 +139,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                 id="address"
                 fullWidth
                 size="small"
+                disabled
                 options={entitiesAddress}
                 value={formik.values.address}
                 onChange={(e, value) =>
@@ -187,7 +191,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                 type="tel"
                 value={formik.values.phone || ''}
                 onChange={formik.handleChange}
-                // disabled={!showEditInfos}
+                disabled
               />
               <FormHelperText id="component-helper-text">
                 {formik.touched.phone && formik.errors.phone}
@@ -197,7 +201,20 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
 
           <Grid item xs={12} md={6}></Grid>
         </Grid>
-
+        {
+          (formik.touched.firstName && Boolean(formik.errors.firstName)) ||
+          (formik.touched.lastName && Boolean(formik.errors.lastName)) ||
+          (formik.touched.phone && Boolean(formik.errors.phone)) ||
+          (formik.touched.address && Boolean(formik.errors.address)) ?
+              <Box>
+                <Typography color="error">
+                  {t<string>('cart.missing_account_informations')}
+                </Typography>
+                <Link color="inherit" to={ALL_APP_ROUTES.ACCOUNT}>
+                  Mon compte
+                </Link>
+              </Box> : null
+        }
         <Button
           sx={{ mt: 1 }}
           variant="contained"

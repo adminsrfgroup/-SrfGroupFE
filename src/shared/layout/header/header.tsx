@@ -44,6 +44,8 @@ import {
   languages,
   locales,
 } from "../../../main-features/user/store/initial.state";
+import {StorageService} from "../../services/storage.service";
+import {AllAppConfig} from "../../../core/config/all-config";
 
 const sections = [
   {
@@ -69,13 +71,15 @@ export default function Header(props: any) {
   const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
   const [anchorElSupport, setAnchorElSupport] =
     React.useState<HTMLElement | null>(null);
+  const [darkMode, setDarkMode] = React.useState<"light" | "dark">(StorageService.local.get(AllAppConfig.DARK_MODE) ?? "light");
+  const [defaultChecked, setDefaultChecked] = React.useState<boolean>(darkMode=='light' ? true : false);
 
   const navigate = useNavigate();
 
-  const { t, i18n } = useTranslation();
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  // const dispatch = useDispatch();
 
-  const { currentUser, isAuthenticated, nbeNotificationsNotSee, nbeCarts } =
+  const { onLocaleChange, currentUser, isAuthenticated, nbeNotificationsNotSee, nbeCarts } =
     props;
 
   const isMenuOpen = Boolean(anchorEl);
@@ -85,13 +89,8 @@ export default function Header(props: any) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    // setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
   const logout = () => {
@@ -109,10 +108,11 @@ export default function Header(props: any) {
 
   const handleLocaleChange = (locale: string) => {
     console.log("handleLocaleChange ", locale);
-    i18n.changeLanguage(locale);
+    // i18n.changeLanguage(locale);
     handleLAnguagesMenuClose();
-    dispatch(changeLocale(locale));
+    //dispatch(changeLocale(locale));
     // props.onLocaleChange(locale);
+    onLocaleChange(locale);
   };
 
   const handleLAnguagesMenuClose = () => {
@@ -316,7 +316,6 @@ export default function Header(props: any) {
   const toggleDarkMode = (event: any, checked: boolean) => {
     console.log("event ", checked);
     props.parentCallbackDarkMode(event, checked);
-    // setDarkMode(checked ? 'light' : 'dark' );
   };
 
   return (
@@ -383,7 +382,7 @@ export default function Header(props: any) {
                   <FormGroup>
                     <FormControlLabel
                       control={
-                        <MaterialUISwitch sx={{ m: 0 }} defaultChecked />
+                        <MaterialUISwitch sx={{ m: 0 }} defaultChecked={defaultChecked} />
                       }
                       onChange={toggleDarkMode}
                       label=""

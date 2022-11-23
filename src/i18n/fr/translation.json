@@ -7,10 +7,10 @@
     "label_subscribe": "Inscrire",
     "label_name": "Nom",
     "label_email": "Email",
-    "label_phone": "Téléphoner",
+    "label_phone": "Téléphone",
     "label_add": "Ajouter",
     "label_google_maps": "Google Maps",
-    "label_firstname": "Prenom",
+    "label_firstname": "Prénom",
     "label_lastname": "Nom",
     "label_password": "Mot de passe",
     "label_new_password": "Nouveau mot de passe",
@@ -124,7 +124,8 @@
     "title-page-register": "Inscription",
     "accept-cgu": "En validant votre compte, vous acceptez nos termes et conditions.",
     "label-already-have-account": "Vous avez déjà un compte? S'identifier",
-    "label_email_already_used": "Email déja utilisé!"
+    "label_email_already_used": "Email déja utilisé!",
+    "label_accept_cgu": "Accept"
   },
   "signin": {
     "title_page_signin": "Authentification",
@@ -137,7 +138,6 @@
     "blocked_by_report": "Vous êtes bloqué par le signal, merci de contacter l'administration"
   },
   "comment_offer": {
-    "comment_offer_added_succefully": "Commentaire ajouté avec succès",
     "show_comment_details_offer": "Afficher les commentaires",
     "hide_comment_details_offer": "Masquer les commentaires",
     "show_more_comment": "Afficher plus de commentaires",
@@ -190,9 +190,6 @@
     "confirm_delete_image": "Supprimer l image",
     "message_confirm_delete_image": "Ete vous sur de supprimer cette image !"
   },
-  "news_letter": {
-    "added_success": "Merci pour votre abonnement"
-  },
   "message": {
     "sent_succefully": "Message envoyé avec succès"
   },
@@ -220,6 +217,7 @@
     "not_address_found_itenarary": "Adresse non disponible",
     "miss_address_account": "Veuillez ajouter l'adresse dans votre compte",
     "message_not_link_profile_facebook_exist": "Le lien facebook n'existe pas",
+    "message_not_link_profile_phone_exist": "Aucune information",
     "label_category": "Categorie: ",
     "title_dialog_report_offer": "Signaler l offre",
     "description_dialog_report_offer": "Vous souhaitez signaler cette offre !",
@@ -269,9 +267,6 @@
       "description_remove_favrite_user": "Supprimer cet utilisateur de votre liste de favoris"
     }
   },
-  "report_probleme": {
-    "report_probleme_added_succefully": "Déclaration envoyée avec succès"
-  },
   "contact-us": {
     "messages.success": "Message envoyé avec succès"
   },
@@ -293,7 +288,9 @@
     "label_code": "Code",
     "label_back_order": "Retour",
     "select_your_mode_payment": "Merci de séléctionner le mode de paiment",
-    "label_add_cart": "Ajouter au panier"
+    "label_add_cart": "Ajouter au panier",
+    "fileds_should_update_account": "Merci de remplir votre informations une fois pour toutes dans votre compte",
+    "missing_account_informations": "Merci de remplir les information dans votre compte"
   },
   "order": {
     "title_order": "Commandes",
