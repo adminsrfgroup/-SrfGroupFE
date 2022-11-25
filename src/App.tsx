@@ -213,7 +213,6 @@ export const App = () => {
   });
 
   React.useEffect(() => {
-    console.log('darkMode ', darkMode);
     if( darkMode==='dark' ){
       document.body.classList.add('dark-mode');
       setDefaultChecked(false);

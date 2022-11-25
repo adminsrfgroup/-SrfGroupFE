@@ -15,23 +15,23 @@ import './home.scss';
 export default function Home() {
   return (
     <Box>
-        {/*<TopHomeSlides />*/}
+        <TopHomeSlides />
 
         <FirstHorizentalListHomeClient />
 
-        {/*<ForRentHomeClient />*/}
+        <ForRentHomeClient />
 
-        {/*<SecondHorizentalListHomeClient />*/}
+        <SecondHorizentalListHomeClient />
 
-        {/*<ForFindHomeClient />*/}
+        <ForFindHomeClient />
 
-        {/*<ThirdHorizentalListHomeClient />*/}
+        <ThirdHorizentalListHomeClient />
 
-        {/*<RecentlyAddedHomeClient />*/}
+        <RecentlyAddedHomeClient />
 
-        {/*<PostHomeFeature />*/}
+        <PostHomeFeature />
 
-        {/*<BottomHomeSlides />*/}
+        <BottomHomeSlides />
     </Box>
   );
 }

@@ -35,7 +35,7 @@ export class GoogleSignin extends React.Component<any, any> {
                     );
                 }
                 else{
-                    console.log('oneTap');
+                    // console.log('oneTap');
                     google.accounts.id.prompt();
                 }
             });
