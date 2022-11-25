@@ -5,6 +5,7 @@ export function loadScriptFacebook(): Promise<boolean> {
       if (!existingScript) {
         const script = document.createElement("script");
         script.src = "https://connect.facebook.net/en_US/sdk.js";
+        script.async=true;
         script.id = "facebook";
         document.body.appendChild(script);
         script.onload = () => {

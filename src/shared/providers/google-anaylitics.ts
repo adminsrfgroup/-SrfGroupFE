@@ -13,6 +13,7 @@ export function loadScriptGoogleAnalytics(): Promise<boolean> {
         const gTagManagerScript = document.createElement("script");
         gTagManagerScript.async = true;
         gTagManagerScript.src = `https://www.googletagmanager.com/gtag/js?id=${AllAppConfig.GOOGLE_ANALYTICS_MEASUREMENT_ID}`;
+        gTagManagerScript.async=true;
         gTagManagerScript.id = "googleAnalytics";
         document.head.appendChild(gTagManagerScript);
 
