@@ -119,7 +119,9 @@
     "title-page-register": "Registration",
     "accept-cgu": "By validating your account, you agree to our terms and conditions.",
     "label-already-have-account": "Already have an account? Sign in",
-    "label_email_already_used": "Email is already in use!"
+    "label_email_already_used": "Email is already in use!",
+    "label_accept_cgu": "Accept",
+    "title_dialog_cgu": "شروط الاستخدام العامة"
   },
   "signin": {
     "title_page_signin": "Sing In",

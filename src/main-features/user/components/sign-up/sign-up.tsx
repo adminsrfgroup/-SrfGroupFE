@@ -153,7 +153,6 @@ export default function SignUp() {
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
-    console.log('openCGU ', openCGU);
     if (openCGU) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
@@ -171,7 +170,7 @@ export default function SignUp() {
               aria-labelledby="scroll-dialog-title"
               aria-describedby="scroll-dialog-description"
           >
-            <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+            <DialogTitle id="scroll-dialog-title">{t<string>('signup.title_dialog_cgu')}</DialogTitle>
             <DialogContent dividers={scrollCGU === 'paper'}>
               <DialogContentText
                   id="scroll-dialog-description"
@@ -278,13 +277,11 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
   };
 
   const handleChangeCGU = (value: any) => {
-    console.log('value ', value.target.checked);
     formik.handleChange(value);
     if(value.target.checked){
       handleClickOpen('paper');
     }
   }
-
 
   return (
     <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>

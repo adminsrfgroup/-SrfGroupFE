@@ -125,7 +125,8 @@
     "accept-cgu": "En validant votre compte, vous acceptez nos termes et conditions.",
     "label-already-have-account": "Vous avez déjà un compte? S'identifier",
     "label_email_already_used": "Email déja utilisé!",
-    "label_accept_cgu": "Accept"
+    "label_accept_cgu": "Accepter",
+    "title_dialog_cgu": "Condition Générale d'Utilisation "
   },
   "signin": {
     "title_page_signin": "Authentification",
