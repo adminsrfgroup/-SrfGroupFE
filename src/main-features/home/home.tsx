@@ -17,6 +17,8 @@ export default function Home() {
     <Box>
         <TopHomeSlides />
 
+        <ForSellHomeClient />
+
         <FirstHorizentalListHomeClient />
 
         <ForRentHomeClient />
