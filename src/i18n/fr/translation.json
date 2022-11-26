@@ -198,6 +198,9 @@
     "title_page": "Notifications",
     "not_found_result": "Aucune notification trouvée"
   },
+  "search": {
+    "label_most_requested": "Les plus demandées"
+  },
   "my_offers": {
     "title_page": "Mes offres",
     "no_offers_found": "Aucune offre trouvée",

@@ -79,6 +79,10 @@ export const initialState = {
     activePage: -1,
     uploadSuccess: false,
   },
+  mostRequested: {
+    loadingEntities: false,
+    entities: [],
+  },
   commentsOffer: {
     loading: false,
     entity: {},

@@ -32,8 +32,7 @@ const initialValues = initialValuesAddMessage;
 
 export default function ProblemeDeclaration() {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-  // const { isShowing, open, close } = useUnauthorizedModal();
+  // const { t } = useTranslation();
 
   const { isAuthenticated } = useSelector(allSessionSelector);
 
@@ -101,12 +100,6 @@ export default function ProblemeDeclaration() {
           </CardContent>
         </Card>
       </form>
-
-      {/*<UnauthorizeContentModal*/}
-      {/*    isShowing={isShowing}*/}
-      {/*    onOpen={open}*/}
-      {/*    onClose={close}*/}
-      {/*/>*/}
     </Box>
   );
 }

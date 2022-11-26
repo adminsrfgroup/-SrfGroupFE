@@ -18,7 +18,7 @@ import {
   fetchFindDetailsOffersSuccess,
   fetchFindDetailsOffersFailure,
   fetchCountAllOffersByUserSuccess,
-  fetchCountAllOffersByUserFailure,
+  fetchCountAllOffersByUserFailure, fetchMostRequestedOffersSuccess, fetchMostRequestedOffersFailure,
 } from "../../../offer/store/slice";
 import { TypeOfferEnum } from "../../../../shared/enums/type-offer.enum";
 
@@ -157,5 +157,22 @@ export function* fetchRecentlyOfferHandler(
   } catch (e) {
     console.error(e);
     yield put(fetchRecentlyOfferFailure(e));
+  }
+}
+
+/**
+ *
+ */
+export function* fetchMostRequestedOffersHandler(): Generator<any, any, any> {
+  try {
+    const requestUrl = `${apiUrl}/public/most-requested`;
+    const result = yield invokeWS({
+      url: `${requestUrl}`,
+      method: MethodHttp.get,
+    });
+    yield put(fetchMostRequestedOffersSuccess(result?.data));
+  } catch (e) {
+    console.error(e);
+    yield put(fetchMostRequestedOffersFailure(e));
   }
 }

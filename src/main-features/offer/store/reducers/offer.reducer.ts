@@ -146,6 +146,16 @@ const reducer = {
     state.countOffersByUser.loading = false;
   },
 
+  fetchMostRequestedOffers: (state: any) => {
+    state.mostRequested.loadingEntities = true;
+  },
+  fetchMostRequestedOffersSuccess: (state: any, action: any) => {
+    state.mostRequested.loadingEntities = false;
+    state.mostRequested.entities = action.payload?.content;
+  },
+  fetchMostRequestedOffersFailure: (state: any, action: PayloadAction) => {
+    state.mostRequested.loadingEntities = false;
+  },
 };
 
 export default reducer;

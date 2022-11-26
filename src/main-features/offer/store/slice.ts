@@ -116,6 +116,11 @@ export const {
   setActivePageMyOffer,
   resetMyOffers,
 
+  //? ********************| MOST REQUESTED OFFERS ACTIONS |*******************/
+  fetchMostRequestedOffers,
+  fetchMostRequestedOffersSuccess,
+  fetchMostRequestedOffersFailure,
+
   //? ********************| DELETE OFFER ACTIONS |*******************/
   deleteMyOffer,
   deleteMyOfferSuccess,
@@ -336,3 +341,7 @@ export const loadingEntityCountOffersByUser = (state: any) =>
   state[OFFER_KEY_IN_STORE].countOffersByUser.loading;
 export const entityCountOffersByUser = (state: any) =>
   state[OFFER_KEY_IN_STORE].countOffersByUser.entity;
+
+//? ********************| MOST REQUESTED OFFERS SELECTORS |*******************/
+export const entitiesMostRequested = (state: any) =>
+    state[OFFER_KEY_IN_STORE].mostRequested.entities;
