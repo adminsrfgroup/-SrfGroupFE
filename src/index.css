@@ -65,9 +65,13 @@
     color: #fc3 !important;
 }
 
-/*.color-orange{*/
-/*    color: #f75306 !important;*/
-/*}*/
+.color-purple{
+    color: #9c27b0 !important;
+}
+
+.ml-05{
+    margin-left: 0.5rem;
+}
 
 .bg-grey{
     background-color: #94908f !important;

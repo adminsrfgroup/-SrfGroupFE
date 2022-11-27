@@ -48,7 +48,7 @@ class CustomRating extends React.Component<any, any> {
     return (
       <Rating
         name="highlight-selected-only"
-        defaultValue={2}
+        defaultValue={4}
         IconContainerComponent={IconContainer}
         highlightSelectedOnly
       />

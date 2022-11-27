@@ -172,7 +172,7 @@ function CardList({
               sx={{ pl: 0 }}
               secondaryAction={
                 <React.Fragment>
-                  {forMe ? (
+                  {forMe && offer?.available ? (
                     <CardActions>
                       <IconButton
                         aria-label="amount"
@@ -422,7 +422,7 @@ function CardGrid({
             ) : null}
           </CardActions>
         </Box>
-        {forMe ? (
+        {forMe && offer?.available ? (
           <CardActions>
             <IconButton
               aria-label="amount"

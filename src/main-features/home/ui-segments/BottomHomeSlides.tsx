@@ -27,6 +27,7 @@ import {
   loadingEntitiesImagesOffers,
 } from "../../offer/store/slice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import {url} from "inspector";
 
 // install Swiper modules
 SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
@@ -71,7 +72,8 @@ const BottomHomeSlides: FunctionComponent = () => {
   return slideListBottom &&
     slideListBottom.length > 0 &&
     !loadingEntitiesImagesOffersSelector ? (
-    <Box sx={{ my: 5 }} className="bottom-home-slides">
+    <Box sx={{ my: 5 }}
+         className="bottom-home-slides">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}

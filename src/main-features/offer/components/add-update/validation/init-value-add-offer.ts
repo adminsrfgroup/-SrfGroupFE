@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import {TypeOfferEnum} from "../../../../../shared/enums/type-offer.enum";
 
 export const initialValuesAddOffer = {
   typeOffer: "",
@@ -43,14 +44,18 @@ export const setDefaultsValues = (formik: any, offerEntity: any) => {
     "description",
     offerEntity.description ? offerEntity.description : ""
   );
-  //
-  // if (offerEntity.typeOffer === TypeOfferEnum.Sell) {
-  //   formik.setFieldValue('amount', offerEntity.title ? offerEntity.amount : null);
-  // } else if (offerEntity.typeOffer === TypeOfferEnum.Rent) {
-  //   formik.setFieldValue('amount', offerEntity.title ? offerEntity.amount : null);
-  //   formik.setFieldValue('startDate', offerEntity.title ? offerEntity.startDate : null);
-  //   formik.setFieldValue('endDate', offerEntity.title ? offerEntity.endDate : null);
-  // } else if (offerEntity.typeOffer === TypeOfferEnum.Find) {
+
+  if (offerEntity.typeOffer === TypeOfferEnum.Sell) {
+    formik.setFieldValue('amount', offerEntity.amount ? offerEntity.amount : null);
+    formik.setFieldValue('shippingCost', offerEntity.shippingCost ? offerEntity.shippingCost : 0);
+    formik.setFieldValue('typeContactClient', offerEntity.typeContactClient ? offerEntity.typeContactClient : "");
+  }
+  else if (offerEntity.typeOffer === TypeOfferEnum.Rent) {
+    formik.setFieldValue('amount', offerEntity.amount ? offerEntity.amount : null);
+    formik.setFieldValue('startDate', offerEntity.title ? offerEntity.startDate : null);
+    formik.setFieldValue('endDate', offerEntity.title ? offerEntity.endDate : null);
+  }
+  // else if (offerEntity.typeOffer === TypeOfferEnum.Find) {
   //   formik.setFieldValue('amount', offerEntity.title ? offerEntity.amount : null);
   // }
 

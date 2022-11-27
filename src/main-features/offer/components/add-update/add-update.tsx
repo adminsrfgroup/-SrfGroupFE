@@ -59,7 +59,6 @@ import {
 } from "../../../../shared/utils/utils-functions";
 import { TypeOfferEnum } from "../../../../shared/enums/type-offer.enum";
 import { AllAppConfig } from "../../../../core/config/all-config";
-import { getImageUrl } from "../../../../shared/utils/image-url";
 import { TransitionModal } from "../../../../shared/pages/transition-modal";
 import {
   addEventGA,
@@ -133,6 +132,7 @@ export default function AddUpdate() {
       React.useState(false);
   const [indexDeleteImageOffer, setIndexDeleteImageOffer] = React.useState(-1);
   const [defaultLanguage, setDefaultLanguage] = React.useState("fr");
+  const [expanded, setExpanded] = React.useState(false);
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -195,11 +195,12 @@ export default function AddUpdate() {
       // For update
       console.log("id updte ", id);
       dispatch(fetchOffer({ id: id }));
+      setExpanded(true);
     } else {
       // For new offer
       formik.resetForm();
       setFileState(defaultValueFiles);
-      dispatch(resetPublicOffers({}));
+      dispatch(resetMyOffers({}));
     }
   }, [id]);
 
@@ -466,6 +467,10 @@ export default function AddUpdate() {
     return entityDescriptionNewOfferSelector?.descriptionAr || "";
   };
 
+  const changeExpanded = () => {
+    setExpanded(!expanded)
+  }
+
   return (
       <Slide direction="up" in={startAnimation} mountOnEnter unmountOnExit>
         <Container maxWidth="xl" className="page-add-offer">
@@ -673,7 +678,7 @@ export default function AddUpdate() {
                           </Grid>
 
                           <Grid item xs={12} md={12}>
-                            <Accordion sx={{ width: "100%" }}>
+                            <Accordion sx={{ width: "100%" }} expanded={expanded} onChange={changeExpanded}>
                               <AccordionSummary
                                   expandIcon={
                                     <ExpandMoreIcon
@@ -778,11 +783,6 @@ export default function AddUpdate() {
 
           <div>{renderDialogDeleteImageOffer()}</div>
 
-          {/*<UnauthorizeContentModal*/}
-          {/*    isShowing={isShowing}*/}
-          {/*    onOpen={open}*/}
-          {/*    onClose={close}*/}
-          {/*/>*/}
         </Container>
       </Slide>
   );

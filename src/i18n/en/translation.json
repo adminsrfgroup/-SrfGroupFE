@@ -223,7 +223,9 @@
     "description_dialog_report_comment": "Do you want report this comment !",
     "offer_contact_direct": "Should contact the seller directly",
     "similair_offers": "Similar Offers",
-    "missing_amount": "The amount is not declared by the seller, you can not place the order"
+    "missing_amount": "The amount is not declared by the seller, you can not place the order",
+    "available": " (Available)",
+    "not_available": " (Not available yet)"
   },
   "forgot_password_init": {
     "message_send_mail_success": "Check your emails for details on how to reset your password."

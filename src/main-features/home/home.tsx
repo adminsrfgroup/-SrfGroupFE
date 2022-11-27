@@ -15,6 +15,7 @@ import './home.scss';
 export default function Home() {
   return (
     <Box>
+
         <TopHomeSlides />
 
         <ForSellHomeClient />
@@ -33,7 +34,7 @@ export default function Home() {
 
         <PostHomeFeature />
 
-        <BottomHomeSlides />
+        {/*<BottomHomeSlides />*/}
     </Box>
   );
 }

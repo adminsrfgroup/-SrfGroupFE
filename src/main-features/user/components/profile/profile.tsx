@@ -280,7 +280,7 @@ export default function Profile() {
       if (isAuthenticated) {
         setOpenFavoriteModal(true);
       } else {
-        open();
+        dispatch(showUnauthorizedModal({}));
       }
     }
   };
@@ -725,6 +725,7 @@ export default function Profile() {
           </Grid>
         </Grid>
       </Container>
+
       {renderDialogAddMessage()}
       {renderDialogFavoriteUser()}
       {renderDialogReportUser()}

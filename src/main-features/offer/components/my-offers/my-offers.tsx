@@ -10,7 +10,6 @@ import {
   deleteSuccessMyOffers,
   entitiesMyOffers,
   fetchMyOffers,
-  fetchPublicOffers,
   loadingEntitiesMyOffers,
   resetMyOffers,
   setActivePageMyOffer,

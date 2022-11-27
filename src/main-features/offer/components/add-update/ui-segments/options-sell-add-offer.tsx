@@ -72,7 +72,7 @@ export default function OptionsSellAddOffer(props: any) {
                 value={formik.values.shippingCost}
                 onChange={formik.handleChange}
                 autoComplete="off"
-                inputProps={{ min: 1, max: 999999999999 }}
+                inputProps={{ min: 0, max: 999999999999 }}
             />
             {formik.touched.shippingCost && formik.errors.shippingCost ? (
                 <FormHelperText id="component-helper-text">

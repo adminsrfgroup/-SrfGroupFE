@@ -232,7 +232,9 @@
     "offer_contact_direct": "Veuillez contacter le vendeur directement",
     "similair_offers": "Offres similaires",
     "missing_amount": "Le montant n'est pas declaré par le vendeur, vous pouvez pas passer la commande",
-    "label_button_add_rent": "Demande de location"
+    "label_button_add_rent": "Demande de location",
+    "available": "(Encore disponible)",
+    "not_available": "(Non disponible)"
   },
   "forgot_password_init": {
     "message_send_mail_success": "Veuillez vérifier vos nouveaux emails et suivre les instructions pour réinitialiser votre mot de passe."

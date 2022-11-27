@@ -16,6 +16,7 @@ export interface IOffer {
   startDate?: string | null;
   endDate?: string | null;
   periodRent?: string | null;
+  available?: boolean | null;
   cities?: ICity[] | null;
   address?: IAddress;
   category?: ICategory;

@@ -531,7 +531,7 @@ export default function DetailsOfffer() {
                     ) : null}
 
                     <Typography
-                      variant="subtitle2"
+                      variant="h6"
                       color="text.secondary"
                       display="flex"
                     >
@@ -546,6 +546,13 @@ export default function DetailsOfffer() {
                           TypeOfferEnum.Find
                         ? t<string>("common.for_find")
                         : null}
+                      {
+                        entityPublicOfferSelector?.offer?.available ?
+                            <span className="color-purple ml-05">{' '}{t<string>('details_offer.available')}</span> :
+                            <span className="color-purple ml-05">{' '}{t<string>('details_offer.not_available')}</span>
+                      }
+
+
                     </Typography>
 
                     {entityPublicOfferSelector?.offer?.startDate &&
