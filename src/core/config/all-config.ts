@@ -1,3 +1,4 @@
+
 export const AllAppConfig = {
   VERSION: process.env.VERSION,
   BASE_URL:
@@ -40,7 +41,10 @@ export const AllAppConfig = {
   },
   NBE_WORD_SHOW_MORE_LESS: 250,
   LOCALE: 'locale',
-  DARK_MODE: 'dark_mode'
+  DARK_MODE: 'dark_mode',
+  ENABLE_APM_SERVER: false,
+  SERVER_APM_SERVER: 'http://localhost:8200',
+  BASE_URL_ELASTIC_SEARCH: process.env.REACT_APP_API_ELASTIC_SEARCH
 };
 
 // export const APP_DATE_FORMAT = 'DD/MM/YY HH:mm';

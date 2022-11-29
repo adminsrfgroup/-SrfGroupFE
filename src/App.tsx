@@ -103,7 +103,6 @@ import isEmpty from "lodash/isEmpty";
 import { languages, locales } from "./main-features/user/store/initial.state";
 import UnauthorizeContentModal from "./shared/hooks/unauthorize-modal/unauthorized-content-modal";
 
-// import { init as initApm } from '@elastic/apm-rum'
 import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import { resetRentRequests } from "./main-features/rent-request/store/slice";
@@ -114,21 +113,24 @@ import './App.css';
 import {GoogleSignin} from "./shared/components/google-signin/google-signin";
 import { AllAppConfig } from "./core/config/all-config";
 
-// if (process.env.NODE_ENV === "development") {
-//   initApm({
-//
-//     // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-//     serviceName: 'ServerApmSrfGroup',
-//
-//     // Set custom APM Server URL (default: http://localhost:8200)
-//     serverUrl: 'http://localhost:8200',
-//
-//     // Set service version (required for sourcemap feature)
-//     serviceVersion: '1.0',
-//
-//     logLevel: "debug"
-//   })
-// }
+
+// For Apm Server
+import { init as initApm } from '@elastic/apm-rum';
+if( AllAppConfig.ENABLE_APM_SERVER ){
+  initApm({
+
+    // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+    serviceName: 'ServerApmSrfGroup',
+
+    // Set custom APM Server URL (default: http://localhost:8200)
+    serverUrl: AllAppConfig.SERVER_APM_SERVER,
+
+    // Set service version (required for sourcemap feature)
+    serviceVersion: '1.0',
+
+    logLevel: "debug"
+  })
+}
 
 
 function ScrollToTopRouters() {

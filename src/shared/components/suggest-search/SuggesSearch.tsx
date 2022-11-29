@@ -1,11 +1,13 @@
 import * as React from "react";
 import debounce from "lodash/debounce";
 import axios from 'axios'
+import {AllAppConfig} from "../../../core/config/all-config";
 
 export default function  SuggesSearch(){
 
     const [query, setQuery] = React.useState('');
     const [searchQuery, setSearchQuery] = React.useState({});
+    const [suggestions, setSuggestions] = React.useState([]);
 
     const onChangeInput = (event: any) => {
         console.log('event.target.value ', event.target.value);
@@ -23,24 +25,25 @@ export default function  SuggesSearch(){
         search(event.target.value);
     };
 
-
     const sendQuery = (value: string) => {
         console.log('onSuggestionsFetchRequested ', value);
-        axios.post('http://localhost:9200/suggest_search/_search', {
-            "query": {
-                "multi_match": {
-                    "query": value,
-                    "fields": ["name", "description"],
-                    "fuzziness": 2
+        axios.post(AllAppConfig.BASE_URL_ELASTIC_SEARCH+'suggest_search/_search',
+            {
+                    "query": {
+                        "multi_match": {
+                            "query": value,
+                            "fields": ["name", "description"],
+                            "fuzziness": 2
+                        }
+                    }
                 }
-            }
-        })
+        )
         .then(result => {
             console.log('suggestions ', result);
             const results = result.data.hits.hits.map((h: any) => h._source)
             console.log('suggestions results', results);
             if( results?.length ){
-                // this.setState({ suggestions: results })
+                setSuggestions(results);
             }
 
         })
@@ -49,11 +52,11 @@ export default function  SuggesSearch(){
     return (
         <div>
             <input type="search" onChange={onChangeInput}/>
-            {/*{*/}
-            {/*    this.state.suggestions.map((item: any, index: number) => (*/}
-            {/*        <p key={index}>{item?.name}</p>*/}
-            {/*    ))*/}
-            {/*}*/}
+            {
+                suggestions.map((item: any, index: number) => (
+                    <p key={index}>{item?.name}</p>
+                ))
+            }
         </div>
     );
     /*

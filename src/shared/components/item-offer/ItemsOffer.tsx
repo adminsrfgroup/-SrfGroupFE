@@ -193,7 +193,7 @@ function CardList({
                         <DeleteIcon />
                       </IconButton>
                     </CardActions>
-                  ) : null}
+                  ) : <Typography variant="subtitle1" color="error" sx={{mx: 1}}>{t<string>('details_offer.not_available')}</Typography> }
                 </React.Fragment>
               }
             >
@@ -443,7 +443,7 @@ function CardGrid({
               <DeleteIcon />
             </IconButton>
           </CardActions>
-        ) : null}
+        ) : <Typography variant="subtitle1" color="error" sx={{mx: 1}}>{t<string>('details_offer.not_available')}</Typography> }
       </Card>
     </CardActionArea>
   );
