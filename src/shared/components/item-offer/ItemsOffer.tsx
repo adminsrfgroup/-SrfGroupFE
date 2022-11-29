@@ -422,28 +422,31 @@ function CardGrid({
             ) : null}
           </CardActions>
         </Box>
-        {forMe && offer?.available ? (
-          <CardActions>
-            <IconButton
-              aria-label="amount"
-              size="small"
-              color="success"
-              onClick={(event) => editOffer(event)}
-            >
-              <EditIcon />
-            </IconButton>
+        {
+          forMe ? (
+              offer?.available ?
+                  <CardActions>
+                    <IconButton
+                        aria-label="amount"
+                        size="small"
+                        color="success"
+                        onClick={(event) => editOffer(event)}
+                    >
+                      <EditIcon />
+                    </IconButton>
 
-            <IconButton
-              aria-label="report"
-              size="small"
-              sx={{ ml: "auto !important" }}
-              color="error"
-              onClick={(event) => deleteOffer(event)}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </CardActions>
-        ) : <Typography variant="subtitle1" color="error" sx={{mx: 1}}>{t<string>('details_offer.not_available')}</Typography> }
+                    <IconButton
+                        aria-label="report"
+                        size="small"
+                        sx={{ ml: "auto !important" }}
+                        color="error"
+                        onClick={(event) => deleteOffer(event)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </CardActions> : <Typography variant="subtitle1" color="error" sx={{mx: 1}}>{t<string>('details_offer.not_available')}</Typography>
+          ) : null
+        }
       </Card>
     </CardActionArea>
   );

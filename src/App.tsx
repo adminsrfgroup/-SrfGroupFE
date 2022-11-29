@@ -116,7 +116,7 @@ import { AllAppConfig } from "./core/config/all-config";
 
 // For Apm Server
 import { init as initApm } from '@elastic/apm-rum';
-if( AllAppConfig.ENABLE_APM_SERVER ){
+if( AllAppConfig.ENABLE_APM_SERVER === 'true' ){
   initApm({
 
     // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)

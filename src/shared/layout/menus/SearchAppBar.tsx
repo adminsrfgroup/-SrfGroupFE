@@ -30,19 +30,13 @@ import DialogTitle from "@mui/material/DialogTitle/DialogTitle";
 import DialogContent from "@mui/material/DialogContent/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText/DialogContentText";
 import DialogActions from "@mui/material/DialogActions/DialogActions";
-// import {FilterOffer} from "../../../main-features/search/ui-segments/FilterOffer";
 import {IAddress} from "../../model/address.model";
 import Typography from "@mui/material/Typography/Typography";
 import {FilterOffer} from "../../../main-features/offer/components/search/ui-segments/FilterOffer";
-import SuggesSearch from "../../components/suggest-search/SuggesSearch";
 import debounce from "lodash/debounce";
 import axios from "axios";
 import {AllAppConfig} from "../../../core/config/all-config";
-import {List} from "@mui/material";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Paper from "@mui/material/Paper";
+import {SuggestionAutocompleteOption} from "../../suggestions.interface";
 
 const listTypeOffers: string[] = [
     TypeOfferEnum.Sell,
@@ -72,7 +66,7 @@ export function SearchAppBar({
     const [valuesSearch, setValuesSearch] = React.useState(null);
     const [query, setQuery] = React.useState('');
     const [searchQuery, setSearchQuery] = React.useState({});
-    const [suggestions, setSuggestions] = React.useState([]);
+    const [suggestions, setSuggestions] = React.useState<SuggestionAutocompleteOption[]>([]);
 
     const {search} = useLocation();
 
@@ -203,16 +197,20 @@ export function SearchAppBar({
     };
 
     const handleChangeTitle = (event: any) => {
+        console.log('handleChangeTitle ', AllAppConfig.ENABLE_ELASTIC_SEARCH);
         formik.handleChange(event);
-        setQuery(event.target.value);
-        const search = debounce(sendQuery, 500);
-        setSearchQuery((prevSearch: any) => {
-            if (prevSearch.cancel) {
-                prevSearch.cancel();
-            }
-            return search;
-        });
-        search(event.target.value);
+
+        if(AllAppConfig.ENABLE_ELASTIC_SEARCH === 'true'){
+            setQuery(event.target.value);
+            const search = debounce(sendQuery, 500);
+            setSearchQuery((prevSearch: any) => {
+                if (prevSearch.cancel) {
+                    prevSearch.cancel();
+                }
+                return search;
+            });
+            search(event.target.value);
+        }
     }
 
     const sendQuery = (value: string) => {
@@ -228,7 +226,7 @@ export function SearchAppBar({
             }
         ).then(result => {
             const results = result.data.hits.hits.map((h: any) => h._source)
-            console.log('suggestions results', results);
+            // console.log('suggestions results', results);
             setSuggestions(results);
         })
     }
@@ -275,16 +273,39 @@ export function SearchAppBar({
                                     width: {xs: "100%", md: "auto"},
                                 }}
                             >
-                                <TextField
+                                <Autocomplete
+                                    freeSolo
                                     id="title"
-                                    name="title"
-                                    color="secondary"
-                                    type="search"
-                                    label={t<string>("common.label_search")}
-                                    variant="standard"
-                                    value={formik.values.title}
-                                    onChange={handleChangeTitle}
-                                    autoComplete="off"
+                                    options={suggestions}
+                                    // value={formik.values.title}
+                                    onChange={(e, value: any) => {
+                                            // handleChangeTitle(value);
+                                            formik.setFieldValue("title", value?.name || null)
+                                        }
+                                    }
+                                    autoHighlight
+                                    getOptionLabel={(option: any) => option.name}
+                                    renderOption={(propsRender, option) => (
+                                        <Box component="li" {...propsRender}>
+                                            {option.name}
+                                        </Box>
+                                    )}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label={t<string>("common.label_search")}
+                                            variant="standard"
+                                            color="secondary"
+                                            inputProps={{
+                                                ...params.inputProps,
+                                                form: {
+                                                    autoComplete: "off",
+                                                },
+                                                autoComplete: "off", // disable autocomplete and autofill
+                                            }}
+                                            onChange={handleChangeTitle}
+                                        />
+                                    )}
                                 />
                             </FormControl>
 
@@ -422,25 +443,6 @@ export function SearchAppBar({
                             </Box>
                         </Toolbar>
                     </AppBar>
-                    {
-                      suggestions.length ?
-                          <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                            <Paper elevation={1} >
-                              <List>
-                                {
-                                  suggestions.map((item: any, index: number) => (
-                                      <ListItem disablePadding key={index}>
-                                        <ListItemButton>
-                                          <ListItemText primary="Trash" />
-                                        </ListItemButton>
-                                      </ListItem>
-                                  ))
-                                }
-                              </List>
-                            </Paper>
-                          </Box> : null
-                    }
-
                 </Box>
             </form>
             {renderDialogFilterOffer()}
