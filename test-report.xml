@@ -1,17 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\App.test.tsx">
-    <testCase name="renders App" duration="0"/>
-  </file>
   <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\core\config\axios-interceptor.spec.ts">
-    <testCase name="Axios Interceptor setupAxiosInterceptors onRequestSuccess is called on fulfilled request" duration="2"/>
-    <testCase name="Axios Interceptor setupAxiosInterceptors onResponseSuccess is called on fulfilled response" duration="1"/>
+    <testCase name="Axios Interceptor setupAxiosInterceptors onRequestSuccess is called on fulfilled request" duration="0">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;fulfilled&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'fulfilled')
+    at Object.<anonymous> (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\core\config\axios-interceptor.spec.ts:14:58)
+    at Promise.then.completed (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:60:9)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:81:19)
+    at runTestInternal (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
+    <testCase name="Axios Interceptor setupAxiosInterceptors onResponseSuccess is called on fulfilled response" duration="0">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;fulfilled&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'fulfilled')
+    at Object.<anonymous> (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\core\config\axios-interceptor.spec.ts:24:59)
+    at Promise.then.completed (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:66:9)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:60:9)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:60:9)
+    at run (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:81:19)
+    at runTestInternal (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
   </file>
-  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\shared\reducers\__test__\user.reducer.spec.ts">
-    <testCase name="User reducer tests Common tests should return the initial state" duration="5"/>
-    <testCase name="User reducer tests Requests should detect a request" duration="2"/>
-  </file>
-  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\main-features\login\SignIn.test.tsx">
-    <testCase name="Test SignIn Component render login component" duration="298"/>
+  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\App.test.tsx">
+    <testCase name="renders App" duration="20">
+      <failure message="TestingLibraryElementError: Unable to find an element with the text: SRF. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[TestingLibraryElementError: Unable to find an element with the text: SRF. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, <script />, <style />
+<body>
+  <div />
+</body>
+    at Object.getElementError (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\@testing-library\dom\dist\config.js:38:19)
+    at query (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\@testing-library\dom\dist\query-helpers.js:90:38)
+    at getAllByText (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\@testing-library\dom\dist\query-helpers.js:130:15)
+    at Object.<anonymous> (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\App.test.tsx:141:30)
+    at Promise.then.completed (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\utils.js:316:10)
+    at _callCircusTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:66:9)
+    at run (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\run.js:25:3)
+    at runAndTransformResultsToJestFormat (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+    at jestAdapter (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:81:19)
+    at runTestInternal (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\runTest.js:389:16)
+    at runTest (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\runTest.js:475:34)
+    at Object.worker (C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
+    </testCase>
   </file>
 </testExecutions>

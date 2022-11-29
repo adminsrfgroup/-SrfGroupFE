@@ -20,12 +20,14 @@ sonarqubeScanner(
       "sonar.login": "admin",
       "sonar.password": "sonar",
       "sonar.projectName": "srfgroup_front",
-      "sonar.projectDescription":
-        'Description for "srfGroup Project" project...',
+      "sonar.projectDescription": "Description for SrfGroup Platform...",
+      "sonar.sourceEncoding":"UTF-8",
       "sonar.sources": "./src",
-      // "sonar.tests": "./src",
-      // "sonar.typescript.lcov.reportPaths": "coverage/lcov.info",
-      // "sonar.testExecutionReportPaths": "test-report.xml"
+      "sonar.test.inclusions": "./src/App.test.tsx",
+      "sonar.exclusions": "**/*.test.*",
+      "sonar.tests":"./src/App.test.tsx",
+      "sonar.testExecutionReportPaths":"test-report.xml",
+      "sonar.javascript.lcov.reportPaths":"coverage/lcov.info"
     },
   },
   () => {}
