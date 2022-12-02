@@ -160,7 +160,7 @@ export default function Footer() {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={3}>
             <Typography variant="h6" align="center" gutterBottom>
-              Follow us
+              {t<string>("footer.label_follow_us")}
             </Typography>
             <Stack
               direction="row"
@@ -196,7 +196,7 @@ export default function Footer() {
 
           <Grid item xs={12} sm={3}>
             <Typography variant="h6" align="center" gutterBottom>
-              Nos services
+              {t<string>("footer.label_our_services")}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -204,7 +204,7 @@ export default function Footer() {
               color="text.secondary"
               component="p"
             >
-              Livraison Rapide
+              {t<string>("footer.label_quick_delivery")}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -212,7 +212,7 @@ export default function Footer() {
               color="text.secondary"
               component="p"
             >
-              Moyens de Paiement
+              {t<string>("footer.label_means_payment")}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -220,7 +220,7 @@ export default function Footer() {
               color="text.secondary"
               component="p"
             >
-              Retour Facile
+              {t<string>("footer.label_easy_return")}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -228,7 +228,7 @@ export default function Footer() {
               color="text.secondary"
               component="p"
             >
-              Service client et Assistance Technique
+              {t<string>("footer.label_customer_service_technical_support")}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -236,7 +236,7 @@ export default function Footer() {
               color="text.secondary"
               component="p"
             >
-              Marques officiels
+              {t<string>("footer.label_official_brands")}
             </Typography>
           </Grid>
 
@@ -270,7 +270,7 @@ export default function Footer() {
               color="text.secondary"
               component="p"
             >
-              Politique des cookies
+              {t<string>("footer.label_cookies_policy")}
             </Typography>
             <Link to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}>
               <Typography
@@ -279,7 +279,7 @@ export default function Footer() {
                 color="text.secondary"
                 component="p"
               >
-                Contact
+                {t<string>("header.link_support.link_contact_us")}
               </Typography>
             </Link>
             <Link to={ALL_APP_ROUTES.SUPPORT.FAQ}>
@@ -289,13 +289,13 @@ export default function Footer() {
                 color="text.secondary"
                 component="p"
               >
-                FAQ
+                {t<string>("header.link_support.link_faq")}
               </Typography>
             </Link>
           </Grid>
           <Grid item xs={12} sm={3}>
             <Typography variant="h6" align="center" gutterBottom>
-              Apps mobile
+              {t<string>("footer.label_apps_mobile")}
             </Typography>
             <Typography component="p" align="center">
               <img

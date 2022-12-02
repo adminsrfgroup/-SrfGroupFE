@@ -607,7 +607,6 @@ export default function AddUpdate() {
                           </Grid>
 
                           <Grid item xs={12} md={12}>
-
                             <ImageList
                                 sx={{ width: "100%", height: "auto", mb: 0 }}
                                 cols={5} >

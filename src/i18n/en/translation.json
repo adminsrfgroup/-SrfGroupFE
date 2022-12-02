@@ -108,7 +108,6 @@
     "message_update_infos_succefully": "Update infos succefully",
     "message_update_password_succefully": "Update password succefully",
     "message_update_avatar_succefully": "Update avatar succefully",
-    "message_activation_account_succefully": "Account activated successfully",
     "invalid_old_password": "Old password invalid",
     "title_charts": "AreaChart of discrete values"
   },
@@ -121,7 +120,11 @@
     "label-already-have-account": "Already have an account? Sign in",
     "label_email_already_used": "Email is already in use!",
     "label_accept_cgu": "Accept",
-    "title_dialog_cgu": "شروط الاستخدام العامة"
+    "title_dialog_cgu": "Condition Générale d'Utilisation",
+    "label_second_password": "Password must be match",
+    "label_new_password": "Password is required",
+    "label_required_accept_cgu": "Required",
+    "label_email_required": "Email required"
   },
   "signin": {
     "title_page_signin": "Sing In",
@@ -236,7 +239,16 @@
   "footer": {
     "label_about_us": "About us",
     "label_Who_are_we": "Who are we",
-    "label_privacy_policy": "Privacy Policy"
+    "label_privacy_policy": "Privacy Policy",
+    "label_cookies_policy": "Cookies policy",
+    "label_our_services": "Our services",
+    "label_apps_mobile": "Apps Mobile",
+    "label_quick_delivery": "Livraison Rapide",
+    "label_means_payment": "Means of payment",
+    "label_easy_return": "Easy return",
+    "label_customer_service_technical_support": "Customer Service and Technical Support",
+    "label_official_brands": "Official brands",
+    "label_follow_us": "Follow us"
   },
   "contact_us": {
     "title_contact_us": "Contact us",
@@ -251,8 +263,7 @@
     "subject_is_required": "Subject is required",
     "message_is_required": "Message is required",
     "recaptcha_is_required": "Recaptcha is required",
-    "label_at_your_service": "At your service",
-    "message_add_successfully": "Message sent successfully"
+    "label_at_your_service": "At your service"
   },
   "favorite": {
     "user":{

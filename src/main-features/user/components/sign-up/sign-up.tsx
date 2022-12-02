@@ -353,9 +353,10 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                           value={formik.values.email}
                           onChange={formik.handleChange}
                         />
-                        <FormHelperText id="component-helper-text">
-                          {formik.touched.email && formik.errors.email}
-                        </FormHelperText>
+                        {
+                          formik.touched.email && formik.errors.email ?
+                              <FormHelperText id="component-helper-text">{t<string>("signup.label_email_required")}</FormHelperText> : null
+                        }
                       </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -394,10 +395,10 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                             </InputAdornment>
                           }
                         />
-                        <FormHelperText id="component-helper-text">
-                          {formik.touched.firstPassword &&
-                            formik.errors.firstPassword}
-                        </FormHelperText>
+                        {
+                          formik.touched.firstPassword && formik.errors.firstPassword ?
+                              <FormHelperText id="component-helper-text">{t<string>("signup.label_new_password")}</FormHelperText> : null
+                        }
                       </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -438,10 +439,12 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                             </InputAdornment>
                           }
                         />
-                        <FormHelperText id="component-helper-text">
-                          {formik.touched.secondPassword &&
-                            formik.errors.secondPassword}
-                        </FormHelperText>
+                        {
+                          formik.touched.secondPassword && formik.errors.secondPassword ?
+                              <FormHelperText id="component-helper-text">
+                                {t<string>("signup.label_second_password")}
+                              </FormHelperText> : null
+                        }
                       </FormControl>
                     </Grid>
                     <Grid item xs={12}>
@@ -462,13 +465,15 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                           label={
                             <React.Fragment>
                               {t<string>("signup.accept-cgu")}
-                              <Link to="qsd">ici</Link>
                             </React.Fragment>
                           }
                         />
-                        <FormHelperText id="component-helper-text">
-                          {formik.touched.accept && formik.errors.accept}
-                        </FormHelperText>
+                          {
+                            formik.touched.accept && formik.errors.accept ?
+                                <FormHelperText id="component-helper-text">
+                                  {t<string>("signup.label_required_accept_cgu")}
+                                </FormHelperText> : null
+                          }
                       </FormControl>
                     </Grid>
                   </Grid>
@@ -509,23 +514,6 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                       <GoogleSignin isOneTap={false} handleCredentialResponse={responseGoogle}/>
                       <GoogleIcon />
                     </Fab>
-                    {/*<GoogleLogin*/}
-                    {/*  clientId={AllAppConfig.CLIENT_ID_GOOGLLE}*/}
-                    {/*  onSuccess={responseGoogle}*/}
-                    {/*  onFailure={responseGoogle}*/}
-                    {/*  autoLoad={false}*/}
-                    {/*  render={(renderProps) => (*/}
-                    {/*    <Fab*/}
-                    {/*      color="secondary"*/}
-                    {/*      aria-label="google"*/}
-                    {/*      sx={{ m: 1, backgroundColor: "#E93F2E" }}*/}
-                    {/*      onClick={renderProps.onClick}*/}
-                    {/*      disabled={renderProps.disabled}*/}
-                    {/*    >*/}
-                    {/*      <GoogleIcon />*/}
-                    {/*    </Fab>*/}
-                    {/*  )}*/}
-                    {/*></GoogleLogin>*/}
                   </Stack>
                 </form>
               </Box>

@@ -113,7 +113,6 @@
     "message_update_infos_succefully": "Mettre à jour les infos avec succès",
     "message_update_password_succefully": "Mettre à jour le mot de passe avec succès",
     "message_update_avatar_succefully": "Votre photo de profil a été modifié avec succès",
-    "message_activation_account_succefully": "Le compte a été activé avec succès",
     "invalid_old_password": "L'ancien mot de passe invalid",
     "title_charts": "AreaChart de valeurs discrètes"
   },
@@ -126,7 +125,10 @@
     "label-already-have-account": "Vous avez déjà un compte? S'identifier",
     "label_email_already_used": "Email déja utilisé!",
     "label_accept_cgu": "Accepter",
-    "title_dialog_cgu": "Condition Générale d'Utilisation "
+    "label_second_password": "Le mot de passe doit correspondre",
+    "label_new_password": "Mot de passe obligatoire",
+    "label_required_accept_cgu": "Obligatoire ",
+    "label_email_required": "Email obligatoire"
   },
   "signin": {
     "title_page_signin": "Authentification",
@@ -245,7 +247,16 @@
   "footer": {
     "label_about_us": "À propos de nous",
     "label_Who_are_we": "Qui somme nous",
-    "label_privacy_policy": "Politique de confidentialité"
+    "label_privacy_policy": "Politique de confidentialité",
+    "label_cookies_policy": "Politique des cookies",
+    "label_our_services": "Nos services",
+    "label_apps_mobile": "Apps Mobile",
+    "label_quick_delivery": "Livraison Rapide",
+    "label_means_payment": "Moyens de Paiement",
+    "label_easy_return": "Retour Facile",
+    "label_customer_service_technical_support": "Service client et Assistance Technique",
+    "label_official_brands": "Marques officiels",
+    "label_follow_us": "Suivez-nous"
   },
   "contact_us": {
     "title_contact_us": "Contactez nous",

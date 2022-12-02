@@ -205,6 +205,11 @@ export const App = () => {
 
   // const isDark = false;
   const ThemeApp = createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'NotoSansArabic',
+      }
+    },
     palette: {
       mode: darkMode === "dark" ? "dark" : "light",
       neutral: {

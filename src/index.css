@@ -1,3 +1,14 @@
+@font-face {
+    font-family: "NotoSansArabic";
+    src: local("NotoSansArabic"),
+    url("./font/NotoSansArabic/NotoSansArabic-Regular.ttf") format("truetype");
+    font-weight: bold;
+}
+
+/*body{*/
+/*    font-family: "NotoSansArabic", "Arial",sans-serif !important;*/
+/*}*/
+
 .loading-indicator:before {
     content: '';
     background: #000000cc;

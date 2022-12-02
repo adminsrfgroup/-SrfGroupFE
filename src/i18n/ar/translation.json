@@ -57,7 +57,7 @@
   },
   "header":{
     "label_add_offer": "أضف العرض",
-    "link_home": "ترحيب",
+    "link_home": "الإستقبال",
     "link_support": {
       "link_label_support": "الدعم",
       "link_contact_us": "اتصل بنا",
@@ -113,7 +113,6 @@
     "message_update_infos_succefully": "تحديث المعلومات بنجاح",
     "message_update_password_succefully": "تحديث كلمة المرور بنجاح",
     "message_update_avatar_succefully": "تم تغيير صورة ملفك الشخصي بنجاح",
-    "message_activation_account_succefully": "تم تفعيل الحساب بنجاح",
     "invalid_old_password": "كلمة المرور القديمة غير صحيحة",
     "title_charts": "مخطط المساحة للقيم المنفصلة"
   },
@@ -125,7 +124,10 @@
     "accept-cgu": "من خلال التحقق من صحة حسابك ، فإنك توافق على الشروط والأحكام الخاصة بنا.",
     "label-already-have-account": "هل لديك حساب؟ تسجيل الدخول",
     "label_email_already_used": "البريد الإلكتروني مستخدم بالفعل!",
-    "label_accept_cgu": "قبول"
+    "label_accept_cgu": "قبول",
+    "label_new_password": "كلمة المرور مطلوبة",
+    "label_second_password": "يجب أن تكون كلمة المرور متطابقة",
+    "label_email_required": "البريد الإلكتروني مطلوب"
   },
   "signin": {
     "title_page_signin": "المصادقة",
@@ -240,25 +242,33 @@
     "title_forgot_password_finish": "Modification mot de passe."
   },
   "footer": {
-    "label_about_us": "À propos de nous",
-    "label_Who_are_we": "Qui somme nous",
-    "label_privacy_policy": "Politique de confidentialité"
+    "label_about_us": "في ما يخصنا",
+    "label_Who_are_we": "من نحن",
+    "label_privacy_policy": "سياسة الخصوصية",
+    "label_cookies_policy": "اتفاقية ملفات تعريف الارتباط",
+    "label_our_services": "خدماتنا",
+    "label_apps_mobile": "تطبيقات الجوال",
+    "label_quick_delivery": "تسليم سريع",
+    "label_means_payment": "وسيلة دفع",
+    "label_easy_return": "عودة سهلة",
+    "label_customer_service_technical_support": "خدمة العملاء والدعم الفني",
+    "label_official_brands": "العلامات التجارية الرسمية",
+    "label_follow_us": "تابعنا"
   },
   "contact_us": {
-    "title_contact_us": "Contactez nous",
-    "label_write_us": "Ecrivez-nous",
-    "label_name": "Name",
-    "label_email": "Email",
-    "label_subject": "Objet",
-    "label_message": "Message",
-    "label_send_message": "Envoyer le message",
-    "name_is_required": "Nom obligatoire",
-    "email_is_required": "Email obligatoire",
-    "subject_is_required": "Objet obligatoire",
-    "message_is_required": "Message obligatoire",
-    "recaptcha_is_required": "Recaptcha obligatoire",
-    "label_at_your_service": "À votre écoute",
-    "message_add_successfully": "Votre message a été envoyé avec succèes"
+    "title_contact_us": "اتصل بنا",
+    "label_write_us": "اكتب لنا",
+    "label_name": "اسم",
+    "label_email": "البريد الإلكتروني",
+    "label_subject": "الموضوع",
+    "label_message": "رسالة",
+    "label_send_message": "أرسل الرسالة",
+    "name_is_required": "الاسم الإجباري",
+    "email_is_required": "البريد الإلكتروني الإلزامي",
+    "subject_is_required": "الموضوع اجباري",
+    "message_is_required": "الرسالة اجباري",
+    "recaptcha_is_required": "إجبارية",
+    "label_at_your_service": "في خدمتكم"
   },
   "favorite": {
     "user":{
