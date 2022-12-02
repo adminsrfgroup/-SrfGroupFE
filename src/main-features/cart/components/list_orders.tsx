@@ -131,6 +131,12 @@ function ItemPassedOrder({t, item}: { t: any,item: any}) {
         }, 300);
     };
 
+    const rediretTo = (offerId?: number) => {
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + offerId);
+        }, 300);
+    };
+
     return (
         <Grid item xs={12} md={6}>
             <Card
@@ -202,7 +208,7 @@ function ItemPassedOrder({t, item}: { t: any,item: any}) {
                 >
                     <Typography>List des produits</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{p: 0}}>
 
                     {
                         item.carts.map((cart: ICart, index: number) => (
@@ -235,7 +241,7 @@ function ItemPassedOrder({t, item}: { t: any,item: any}) {
                                         </React.Fragment>}
                                     />
 
-                                    <Box sx={{ display: { xs: "block", sm: "flex" } }}>
+                                    <Box sx={{ display: { xs: "block", sm: "flex" } }} onClick={() => rediretTo(cart?.sellOffer?.id)}>
                                         {
                                             cart?.sellOffer?.offerImages?.length ? (
                                                 <CardMedia
@@ -312,9 +318,14 @@ function ItemReceivedOrder({item}: { item: any }) {
         }, 300);
     };
 
+    const rediretTo = (offerId?: number) => {
+        setTimeout(() => {
+            navigate(ALL_APP_ROUTES.DETAILS_OFFER + "/" + offerId);
+        }, 300);
+    };
+
     return (
         <Grid item xs={12} md={6}>
-
             <Card>
                 <CardHeader
                     avatar={
@@ -392,8 +403,7 @@ function ItemReceivedOrder({item}: { item: any }) {
                 >
                     <Typography>List des produits</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-
+                <AccordionDetails sx={{p: 0}}>
                     {
                         item.carts.map((cart: ICart, index: number) => (
                             <Box key={index}>
@@ -425,7 +435,7 @@ function ItemReceivedOrder({item}: { item: any }) {
                                         </React.Fragment>}
                                     />
 
-                                    <Box sx={{ display: { xs: "block", sm: "flex" } }}>
+                                    <Box sx={{ display: { xs: "block", sm: "flex" } }}  onClick={() => rediretTo(cart?.sellOffer?.id)}>
                                         {
                                             cart?.sellOffer?.offerImages?.length ? (
                                                 <CardMedia

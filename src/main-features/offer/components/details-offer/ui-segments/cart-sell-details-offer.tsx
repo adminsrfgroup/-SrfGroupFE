@@ -17,13 +17,16 @@ import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import { useTranslation } from "react-i18next";
 import { InputQuantity } from "../../../../../shared/components/input-quantity/InputQuantity";
 import { getBaseImageUrl } from "../../../../../shared/utils/utils-functions";
+import {IOffer} from "../../../../../shared/model/offer.model";
 
 export default function CartSellDetailsOffer({
   parentCallbackAddCart,
   loadingAddCart,
+   offer
 }: {
   parentCallbackAddCart: (quantity: any) => void;
   loadingAddCart: boolean;
+  offer: IOffer
 }) {
 
   const [valueQuantity, setValueQuantity] = React.useState<number>(1);
@@ -108,17 +111,20 @@ export default function CartSellDetailsOffer({
           </List>
         </Grid>
       </Grid>
-      <Box sx={{ my: 2 }} display="flex" justifyContent="center">
-        <LoadingButton
-            loading={loadingAddCart}
-            fullWidth
-            variant="contained"
-            color="secondary"
-            onClick={addNewCart}
-        >
-          {t<string>("cart.label_add_cart")}
-        </LoadingButton>
-      </Box>
+      {
+        offer?.available ? <Box sx={{ my: 2 }} display="flex" justifyContent="center">
+          <LoadingButton
+              loading={loadingAddCart}
+              fullWidth
+              variant="contained"
+              color="secondary"
+              onClick={addNewCart}
+          >
+            {t<string>("cart.label_add_cart")}
+          </LoadingButton>
+        </Box> : null
+      }
+
 
     </Box>
   );

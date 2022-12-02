@@ -734,9 +734,10 @@ export default function DetailsOfffer() {
                   <CartSellDetailsOffer
                     parentCallbackAddCart={addNewCart}
                     loadingAddCart={loadingCartSelector}
+                    offer={entityPublicOfferSelector?.offer}
                   />
                 ) : entityPublicOfferSelector?.offer?.typeContactClient !== OfferTypeContact.direct &&
-                  entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Rent ? (
+                  entityPublicOfferSelector.offer?.typeOffer === TypeOfferEnum.Rent && entityPublicOfferSelector.offer?.available ? (
                     <AddRentDetailsOffer offer={entityPublicOfferSelector.offer} />
                 ) : null
               }
