@@ -22,6 +22,7 @@ import RadioGroup from "@mui/material/RadioGroup/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel/FormControlLabel";
 import {OfferTypeContact} from "../../../../../shared/enums/offer-type-contact.enum";
 import Radio from "@mui/material/Radio/Radio";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
 function valuetext(value: number) {
   return `${value}°C`;
@@ -67,7 +68,7 @@ export function FilterOffer({
           aria-labelledby="nested-list-subheader"
           subheader={
             <ListSubheader component="div" className="bg-yellow">
-              FILTRER PAR
+              Filtrer par
             </ListSubheader>
           }
         >
@@ -142,7 +143,6 @@ export function FilterOffer({
               />
             </FormControl>
           </ListItem>
-
           <ListItem sx={{mt: 3}}>
             <FormControl variant="standard" fullWidth >
               <FormLabel id="demo-radio-buttons-group-label">
@@ -170,7 +170,19 @@ export function FilterOffer({
               </RadioGroup>
             </FormControl>
           </ListItem>
-
+          <ListItem>
+            <LoadingButton
+                loading={false}
+                fullWidth
+                variant="outlined"
+                color="secondary"
+                type="submit"
+                data-testid="submit"
+                sx={{ mt: 3, mb: 2 }}
+            >
+              {t<string>("search.label_apply_filter")}
+            </LoadingButton>
+          </ListItem>
         </List>
       </form>
     </Box>

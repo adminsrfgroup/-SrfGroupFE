@@ -19,6 +19,7 @@ import {
   resetPasswordFinish,
   updatePasswordAccount,
   getNumberOfCarts,
+  fetchCgu
 } from "./slice";
 import {
   activationAccountHandler,
@@ -41,6 +42,7 @@ import {
 } from "./saga-handler/user.generator";
 import { fetchListConnectedUsersWSHandler } from "./saga-handler/websocket.generator";
 import { reportUserHandler } from "./saga-handler/report-user.generator";
+import {fetchCguHandler} from "./saga-handler/cgu.generator";
 
 export function* userSaga() {
   yield all([
@@ -65,6 +67,7 @@ export function* userSaga() {
     takeEvery(updateInfosAccount, updateInfosAccountHandler),
     takeEvery(updatePasswordAccount, updatePasswordAccountHandler),
     takeEvery(fetchListConnectedUsersWS, fetchListConnectedUsersWSHandler),
+    takeEvery(fetchCgu, fetchCguHandler),
     takeEvery(logout, logoutHandler),
   ]);
 }

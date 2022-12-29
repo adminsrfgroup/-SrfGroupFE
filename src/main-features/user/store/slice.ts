@@ -129,6 +129,11 @@ export const {
   reportUserSuccess,
   reportUserFailure,
 
+  //? ********************| FETCH CGU ACTIONS |*******************/
+  fetchCgu,
+  fetchCguSuccess,
+  fetchCguFailure,
+
   logout,
 } = userSlice.actions;
 
@@ -209,3 +214,10 @@ export const resetFinishSuccessPassword = (state: any) =>
 //? ********************| WEBSOCKET SELECTORS |*******************/
 export const listConnectedUsersWebsocket = (state: any) =>
   state[USER_KEY_IN_STORE].websocket.listConnectedUsers;
+
+
+//? ********************| CGU SELECTORS |*******************/
+export const entityCgu = (state: any) =>
+    state[USER_KEY_IN_STORE].cgu.entity;
+export const loadingCgu = (state: any) =>
+    state[USER_KEY_IN_STORE].cgu.loading;

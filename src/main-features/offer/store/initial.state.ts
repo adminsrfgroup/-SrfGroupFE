@@ -123,4 +123,8 @@ export const initialState = {
     loading: false,
     entity: {},
   },
+  advertisingOffer: {
+    loading: false,
+    entity: {}
+  }
 };

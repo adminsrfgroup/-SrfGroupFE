@@ -38,7 +38,7 @@ import {
   convertDateTimeToServer, getBaseImageUrl,
   getFullnameUser,
   getUserAvatar,
-  hasUserRole,
+  hasUserAuthority,
 } from "../../../../shared/utils/utils-functions";
 import { TransitionModal } from "../../../../shared/pages/transition-modal";
 import { ALL_APP_ROUTES } from "../../../../core/config/all-app-routes";
@@ -80,7 +80,7 @@ import {
   addEventGA,
   AllModulesEventGA,
 } from "../../../../shared/providers/google-anaylitics";
-import {ROLE_ADMIN, ROLE_SUPER_ADMIN} from "../../../../shared/constants/constants";
+import {EAuthority, ROLE_ADMIN, ROLE_SUPER_ADMIN} from "../../../../shared/constants/constants";
 import "./profile.scss";
 import StatisticOffers from "../../../../shared/components/statistic-offers/statistic-offers";
 import { showUnauthorizedModal } from "../../../../core/config/store/common/slice";
@@ -445,15 +445,15 @@ export default function Profile() {
                   </h4>
 
                   {
-                    hasUserRole(
+                    hasUserAuthority(
                         entityProfileSelector?.user?.authorities,
-                        ROLE_SUPER_ADMIN
+                        EAuthority.ROLE_MODERATOR
                     ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="error"/>}>
                           Super Admin
                         </Button> :
-                        hasUserRole(
+                        hasUserAuthority(
                             entityProfileSelector?.user?.authorities,
-                            ROLE_ADMIN
+                            EAuthority.ROLE_ADMIN
                         ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="success"/>}>
                           Admin
                         </Button> : null
@@ -514,9 +514,9 @@ export default function Profile() {
                       </Tooltip>
                     </CustomShare>
 
-                    {!hasUserRole(
+                    {!hasUserAuthority(
                       entityProfileSelector?.user?.authorities,
-                      ROLE_SUPER_ADMIN
+                        EAuthority.ROLE_MODERATOR
                     ) ? (
                       <IconButton
                         sx={{ marginLeft: "auto" }}

@@ -107,6 +107,8 @@ import { showUnauthorizedModal } from "../../../../core/config/store/common/slic
 import {toast} from "react-toastify";
 import i18n from "i18next";
 import AddRentDetailsOffer from "./ui-segments/add_rent_details_offer";
+import {Stack} from "@mui/material";
+import Chip from "@mui/material/Chip";
 
 export default function DetailsOfffer() {
   const [startAnimation, setStartAnimation] = React.useState(false);
@@ -530,30 +532,47 @@ export default function DetailsOfffer() {
                       </Typography>
                     ) : null}
 
-                    <Typography
-                      variant="h6"
-                      color="text.secondary"
-                      display="flex"
-                    >
-                      <InfoOutlinedIcon fontSize="small" sx={{ mr: 0.9 }} />
+                    <Button variant="text"
+                            startIcon={<InfoOutlinedIcon />}
+                            color="secondary">
                       {entityPublicOfferSelector?.offer?.typeOffer ===
                       TypeOfferEnum.Sell
-                        ? t<string>("common.for_sell")
-                        : entityPublicOfferSelector?.offer?.typeOffer ===
+                          ? t<string>("common.for_sell")
+                          : entityPublicOfferSelector?.offer?.typeOffer ===
                           TypeOfferEnum.Rent
-                        ? t<string>("common.for_rent")
-                        : entityPublicOfferSelector?.offer?.typeOffer ===
-                          TypeOfferEnum.Find
-                        ? t<string>("common.for_find")
-                        : null}
+                              ? t<string>("common.for_rent")
+                              : entityPublicOfferSelector?.offer?.typeOffer ===
+                              TypeOfferEnum.Find
+                                  ? t<string>("common.for_find")
+                                  : null}
                       {
                         entityPublicOfferSelector?.offer?.available ?
                             <span className="color-purple ml-05">{' '}{t<string>('details_offer.available')}</span> :
                             <span className="color-purple ml-05">{' '}{t<string>('details_offer.not_available')}</span>
                       }
-
-
-                    </Typography>
+                    </Button>
+                    {/*<Typography*/}
+                    {/*  variant="h6"*/}
+                    {/*  color="text.secondary"*/}
+                    {/*  display="flex"*/}
+                    {/*>*/}
+                    {/*  <InfoOutlinedIcon fontSize="small" sx={{ mr: 0.9 }} />*/}
+                    {/*  {entityPublicOfferSelector?.offer?.typeOffer ===*/}
+                    {/*  TypeOfferEnum.Sell*/}
+                    {/*    ? t<string>("common.for_sell")*/}
+                    {/*    : entityPublicOfferSelector?.offer?.typeOffer ===*/}
+                    {/*      TypeOfferEnum.Rent*/}
+                    {/*    ? t<string>("common.for_rent")*/}
+                    {/*    : entityPublicOfferSelector?.offer?.typeOffer ===*/}
+                    {/*      TypeOfferEnum.Find*/}
+                    {/*    ? t<string>("common.for_find")*/}
+                    {/*    : null}*/}
+                    {/*  {*/}
+                    {/*    entityPublicOfferSelector?.offer?.available ?*/}
+                    {/*        <span className="color-purple ml-05">{' '}{t<string>('details_offer.available')}</span> :*/}
+                    {/*        <span className="color-purple ml-05">{' '}{t<string>('details_offer.not_available')}</span>*/}
+                    {/*  }*/}
+                    {/*</Typography>*/}
 
                     {entityPublicOfferSelector?.offer?.startDate &&
                     entityPublicOfferSelector?.offer?.endDate ? (
@@ -606,41 +625,33 @@ export default function DetailsOfffer() {
                       {entityPublicOfferSelector?.offer?.title}
                     </Typography>
 
-                    <Typography
-                      sx={{ fontSize: "0.8rem", mt: 1 }}
-                      color="text.secondary"
-                      display="flex"
-                    >
-                      <AccessTimeIcon fontSize="small" sx={{ mr: 0.9 }} />{" "}
-                      <ConvertReactTimeAgo
-                        convertDate={
-                          entityPublicOfferSelector?.offer?.dateCreated
-                        }
-                      />
-                    </Typography>
-                    {entityPublicOfferSelector?.offer?.address ? (
-                      <Typography
-                        sx={{ mb: 1.8, fontSize: "0.8rem", mt: 1 }}
-                        color="text.secondary"
-                        display="flex"
-                      >
-                        <AddLocation fontSize="small" sx={{ mr: 0.9 }} />
-                        {entityPublicOfferSelector?.offer?.address?.city},{" "}
-                        {entityPublicOfferSelector?.offer?.address?.country}
-                      </Typography>
-                    ) : null}
+                    <Box sx={{mt: 2}}>
+                      <Chip icon={<AccessTimeIcon />}
+                            label={<ConvertReactTimeAgo
+                                      convertDate={
+                                        entityPublicOfferSelector?.offer?.dateCreated
+                                      }
+                                  />} variant="outlined"
+                      sx={{m: 1}}/>
+                      {
+                        entityPublicOfferSelector?.offer?.address ? (
+                            <Chip icon={<AddLocation />}
+                                  label={entityPublicOfferSelector?.offer?.address?.city+', '+entityPublicOfferSelector?.offer?.address?.country}
+                                  variant="outlined"
+                                  sx={{m: 1}}/>
+                        ) : null
+                      }
 
-                    {entityPublicOfferSelector?.offer?.category ? (
-                      <Typography
-                        sx={{ mb: 1.8, fontSize: "0.8rem", mt: 1 }}
-                        color="text.secondary"
-                        display="flex"
-                      >
-                        <EmojiObjectsIcon fontSize="small" sx={{ mr: 0.9 }} />
-                        {t<string>("details_offer.label_category")}{" "}
-                        {getNameCategory()}
-                      </Typography>
-                    ) : null}
+                      {
+                        entityPublicOfferSelector?.offer?.category ? (
+                          <Chip icon={<EmojiObjectsIcon />}
+                                label={t<string>("details_offer.label_category")+' '+getNameCategory()}
+                                variant="outlined"
+                                sx={{m: 1}}/>
+                        ) : null
+                      }
+
+                    </Box>
 
                     <Accordion
                       sx={{ mt: "40px !important" }}

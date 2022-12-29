@@ -172,6 +172,12 @@ export const {
   fetchDescriptionNewOffer,
   fetchDescriptionNewOfferSuccess,
   fetchDescriptionNewOfferFailure,
+
+  //? ********************| FETCH ADVERTISING ACTIONS |*******************/
+  fetchAdvertising,
+  fetchAdvertisingSuccess,
+  fetchAdvertisingFailure,
+
 } = offerSlice.actions;
 
 //? ********************| PUBLIC OFFER SELECTORS |*******************/
@@ -345,3 +351,7 @@ export const entityCountOffersByUser = (state: any) =>
 //? ********************| MOST REQUESTED OFFERS SELECTORS |*******************/
 export const entitiesMostRequested = (state: any) =>
     state[OFFER_KEY_IN_STORE].mostRequested.entities;
+
+//? ********************| ALL ADVERTISING SELECTORS |*******************/
+export const entityAdvertisingOffer = (state: any) =>
+    state[OFFER_KEY_IN_STORE].advertisingOffer.entity;

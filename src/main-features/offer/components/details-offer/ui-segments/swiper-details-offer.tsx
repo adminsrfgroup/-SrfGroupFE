@@ -144,6 +144,7 @@ export default function SwiperDetailsOffer(offerEntity: IOffer) {
                   );
                 }}
                 className="full-img-responsive"
+                onContextMenu={(e) => e.preventDefault()}
               />
             </SwiperSlide>
           ))}

@@ -156,6 +156,17 @@ const reducer = {
   fetchMostRequestedOffersFailure: (state: any, action: PayloadAction) => {
     state.mostRequested.loadingEntities = false;
   },
+
+  fetchAdvertising: (state: any) => {
+    state.advertisingOffer.loading = true;
+  },
+  fetchAdvertisingSuccess: (state: any, action: any) => {
+    state.advertisingOffer.loading = false;
+    state.advertisingOffer.entity = action.payload;
+  },
+  fetchAdvertisingFailure: (state: any, action: PayloadAction) => {
+    state.advertisingOffer.loading = false;
+  },
 };
 
 export default reducer;

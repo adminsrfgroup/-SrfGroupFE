@@ -5,10 +5,6 @@
     font-weight: bold;
 }
 
-/*body{*/
-/*    font-family: "NotoSansArabic", "Arial",sans-serif !important;*/
-/*}*/
-
 .loading-indicator:before {
     content: '';
     background: #000000cc;

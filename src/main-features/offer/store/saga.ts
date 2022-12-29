@@ -30,6 +30,7 @@ import {
   fetchRentDetailsOffers,
   fetchFindDetailsOffers,
   fetchCountAllOffersByUser,
+  fetchAdvertising
 } from "../../offer/store/slice";
 import {
   fetchCountAllOffersByUserHandler,
@@ -72,6 +73,7 @@ import { fetchImagesOfferHandler } from "./saga-handler/images-offer.generator";
 import { reportCommentOfferHandler } from "./saga-handler/report-comment-offer.generator";
 import { reportOffersHandler } from "./saga-handler/report-offer.generator";
 import { fetchDescriptionNewOfferHandler } from "./saga-handler/description-new-offer.generator";
+import {fetchAdvertisingHandler} from "./saga-handler/advertising.generator";
 
 export function* offerSaga() {
   yield all([
@@ -105,6 +107,7 @@ export function* offerSaga() {
     takeEvery(fetchImagesOffer, fetchImagesOfferHandler),
     takeEvery(fetchDescriptionNewOffer, fetchDescriptionNewOfferHandler),
     takeEvery(fetchCountAllOffersByUser, fetchCountAllOffersByUserHandler),
+    takeEvery(fetchAdvertising, fetchAdvertisingHandler),
   ]);
 }
 

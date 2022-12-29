@@ -88,7 +88,16 @@
     "label_category_cars": "Cars",
     "label_category_phones": "Phones",
     "label_category_services": "Services",
-    "label_category_search": "Search"
+    "label_category_search": "Search",
+    "label_recently_added": "Recently Added",
+    "label_primary_express_delivery": "Express Delivery 24/48H",
+    "label_secondary_express_delivery": "Fast delivery all over Tunisia",
+    "label_primary_satisfied_refunded": "Satisfied or refunded",
+    "label_second_satisfied_refunded": "Satisfied or refunded without asking questions! (5 days)",
+    "label_primary_cash_delivery": "Cash on delivery",
+    "label_second_cash_delivery": "Buy and pay on delivery",
+    "label_primary_service_client": "Service Client 24/7",
+    "label_second_service_client": "We are at your disposal to answer your questions"
   },
   "account": {
     "title": "Account",
@@ -120,7 +129,7 @@
     "label-already-have-account": "Already have an account? Sign in",
     "label_email_already_used": "Email is already in use!",
     "label_accept_cgu": "Accept",
-    "title_dialog_cgu": "Condition Générale d'Utilisation",
+    "title_dialog_cgu": "General Terms of Use",
     "label_second_password": "Password must be match",
     "label_new_password": "Password is required",
     "label_required_accept_cgu": "Required",
@@ -187,15 +196,14 @@
     "confirm_delete_image": "Delete image",
     "message_confirm_delete_image": "Are you sur to delete this image !"
   },
-  "message": {
-    "sent_succefully": "Message sent succefully"
-  },
   "notification": {
     "title_page": "Notifications",
     "not_found_result": "No Notifications found"
   },
   "search": {
-    "label_most_requested": "Most requested"
+    "label_most_requested": "Most requested",
+    "label_apply_filter": "Apply",
+    "not_found_result": "No result found"
   },
   "my_offers": {
     "title_page": "My offers",
@@ -248,7 +256,8 @@
     "label_easy_return": "Easy return",
     "label_customer_service_technical_support": "Customer Service and Technical Support",
     "label_official_brands": "Official brands",
-    "label_follow_us": "Follow us"
+    "label_follow_us": "Follow us",
+    "label_subscribe_newsletter": "Subscribe to the newsletter"
   },
   "contact_us": {
     "title_contact_us": "Contact us",
@@ -269,7 +278,6 @@
     "user":{
       "title_favorite_users": "Favorites users",
       "message_no_favorite_found": "No Favorite user found",
-      "message_add_favorite_user_succefully": "User added successfully",
       "message_remove_favorite_user": "User removed successfully",
       "title_remove_favrite_user": "DisFavorite user",
       "description_remove_favrite_user": "Remove this user to your favorite list"

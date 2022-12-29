@@ -29,6 +29,18 @@ const reducer = {
     state.register.loading = false;
     state.register.addSuccess = false;
   },
+
+  fetchCgu: (state: any) => {
+    state.cgu.loading = true;
+  },
+  fetchCguSuccess: (state: any, action: any) => {
+    state.cgu.loading = false;
+    state.cgu.entity = action.payload;
+  },
+  fetchCguFailure: (state: any, action: PayloadAction) => {
+    state.cgu.loading = false;
+    state.cgu.errorMessage = action.payload;
+  },
 };
 
 export default reducer;

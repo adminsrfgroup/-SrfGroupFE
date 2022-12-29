@@ -1,4 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+import {initialState} from "../initial.state";
 
 const reducer = {
   fetchAboutUs: (state: any) => {
@@ -10,6 +11,10 @@ const reducer = {
   },
   fetchAboutUsFailure: (state: any, action: PayloadAction) => {
     state.aboutus.loading = false;
+  },
+
+  resetAboutUs: (state: any) => {
+    state.aboutus = initialState.aboutus;
   },
 };
 

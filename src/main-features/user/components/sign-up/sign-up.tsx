@@ -37,7 +37,7 @@ import {decodeJwtResponse} from "../../../../shared/utils/utils-functions";
 import {
   addSuccessRegister,
   allLocaleSelector,
-  allSessionSelector,
+  allSessionSelector, entityCgu, fetchCgu, loadingCgu,
   loadingRegister,
   loginWithFacebook,
   loginWithGoogle,
@@ -58,6 +58,7 @@ import { IFacebook, IGooglePlus } from "../../../../shared/model/user.model";
 import { SourceProvider } from "../../../../shared/enums/source-provider";
 import "./sign-up.scss";
 import {GoogleSignin} from "../../../../shared/components/google-signin/google-signin";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 const initialValues = initialValuesSignUp;
 
@@ -87,6 +88,8 @@ export default function SignUp() {
 
   const loadingRegisterSelector = useSelector(loadingRegister) ?? false;
   const addSuccessRegisterSelector = useSelector(addSuccessRegister) ?? false;
+  const loadingCguSelector = useSelector(loadingCgu) ?? false;
+  const entityCguSelector = useSelector(entityCgu) ?? {};
 
   const { oneSignalId } = useSelector(allSessionSelector);
   // const { currentLocale } = useSelector(allLocaleSelector);
@@ -141,6 +144,7 @@ export default function SignUp() {
   const handleClickOpen = (scrollType: DialogProps['scroll']) => {
     setOpenCGU(true);
     setScrollCGU(scrollType);
+    dispatch(fetchCgu({}));
   };
 
   const handleCloseCGU = (response: boolean) => {
@@ -172,20 +176,20 @@ export default function SignUp() {
           >
             <DialogTitle id="scroll-dialog-title">{t<string>('signup.title_dialog_cgu')}</DialogTitle>
             <DialogContent dividers={scrollCGU === 'paper'}>
-              <DialogContentText
-                  id="scroll-dialog-description"
-                  ref={descriptionElementRef}
-                  tabIndex={-1}
-              >
-                {[...new Array(50)]
-                    .map(
-                        () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                    )
-                    .join('\n')}
-              </DialogContentText>
+              {
+                loadingCguSelector ? <Box sx={{ pt: 5, textAlign: "center" }}>
+                  <CircularProgress color="inherit" />
+                </Box> : null
+              }
+
+              <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                        entityCguSelector.contentFr ||
+                        "",
+                  }}
+              ></div>
+
             </DialogContent>
             <DialogActions>
               <Button color="neutral" onClick={() => handleCloseCGU(false)}>{t<string>('common.label_cancel')}</Button>

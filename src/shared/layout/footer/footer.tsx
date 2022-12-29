@@ -9,7 +9,7 @@ import Toolbar from "@mui/material/Toolbar/Toolbar";
 import Grid from "@mui/material/Grid/Grid";
 import Avatar from "@mui/material/Avatar/Avatar";
 import Stack from "@mui/material/Stack/Stack";
-import {dataUrlToFile, getBase64, getBaseImageUrl} from "../../utils/utils-functions";
+import {getBaseImageUrl} from "../../utils/utils-functions";
 import packageJson from "../../../../package.json";
 import { useFormik } from "formik";
 import {
@@ -27,10 +27,6 @@ import {
   loadingNewsLetter,
 } from "./store/slice";
 import './components/footer.scss';
-import loadImage from "blueimp-load-image";
-import * as Reactdom from 'react-dom';
-import {MutableRefObject, ReactInstance} from "react";
-import { Image } from "load-image-react";
 
 function Copyright() {
   return (
@@ -109,7 +105,8 @@ export default function Footer() {
             color="text.secondary"
             display="flex"
           >
-            <SendIcon sx={{ mr: 0.9 }} /> Inscrivez-vous à la newsletter
+            <SendIcon sx={{ mr: 0.9 }} />
+            {t<string>('footer.label_subscribe_newsletter')}
           </Typography>
           <Paper
             sx={{

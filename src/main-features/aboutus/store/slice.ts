@@ -17,6 +17,8 @@ export const {
   fetchAboutUs,
   fetchAboutUsSuccess,
   fetchAboutUsFailure,
+
+  resetAboutUs
 } = aboutUsSlice.actions;
 
 //? ********************| ABOUT US SELECTORS |*******************/

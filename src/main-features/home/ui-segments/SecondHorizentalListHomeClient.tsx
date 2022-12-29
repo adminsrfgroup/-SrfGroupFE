@@ -9,7 +9,8 @@ import Avatar from "@mui/material/Avatar/Avatar";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import { getBaseImageUrl } from "../../../shared/utils/utils-functions";
 import { List } from "@mui/material";
-import { ForRentHomeClient } from "./ForRentHomeClient";
+import {useTranslation} from "react-i18next";
+import {FunctionComponent} from "react";
 
 interface IService {
   img: string;
@@ -17,28 +18,29 @@ interface IService {
   secondTitle: string;
 }
 
-const SecondHorizentalListHomeClient = () => {
+const SecondHorizentalListHomeClient: FunctionComponent = () => {
+  const { t } = useTranslation();
+
   const listServices: IService[] = [
     {
       img: getBaseImageUrl("/assets/images/home/services/delivery.png"),
-      primaryTitle: "Livraison Express 24/48H",
-      secondTitle: "Livraison rapide sur toute la Tunisie",
+      primaryTitle: t('home.label_primary_express_delivery'),
+      secondTitle: t('home.label_secondary_express_delivery'),
     },
     {
       img: getBaseImageUrl("/assets/images/home/services/euro.png"),
-      primaryTitle: "Satisfait ou Remboursé",
-      secondTitle: "Satisfait ou remboursé sans poser de questions ! (5Jours)",
+      primaryTitle: t('home.label_primary_satisfied_refunded'),
+      secondTitle: t('home.label_second_satisfied_refunded'),
     },
     {
       img: getBaseImageUrl("/assets/images/home/services/money.png"),
-      primaryTitle: "Paiement à la livraison",
-      secondTitle: "Achetez et payez à la livraison",
+      primaryTitle: t('home.label_primary_cash_delivery'),
+      secondTitle: t('home.label_second_cash_delivery'),
     },
     {
       img: getBaseImageUrl("/assets/images/home/services/chat.png"),
-      primaryTitle: "Service Client 24/7",
-      secondTitle:
-        "Nous sommes à votre disposition pour répondre à vos questions",
+      primaryTitle: t('home.label_primary_service_client'),
+      secondTitle: t('home.label_second_service_client'),
     },
   ];
 

@@ -23,8 +23,9 @@ import {ConvertReactTimeAgo} from "../../../../../shared/pages/react-time-ago";
 import {ALL_APP_ROUTES} from "../../../../../core/config/all-app-routes";
 import {useNavigate} from "react-router-dom";
 import PubPerMonth from "./PubPerMonth";
+import {IOffer} from "../../../../../shared/model/offer.model";
 
-export default function RightSearch() {
+export default function RightSearch({advertising}: {advertising: IOffer}) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -124,7 +125,10 @@ export default function RightSearch() {
                 </CardContent>
             </Card>
 
-            <PubPerMonth />
+            {
+                advertising ? <PubPerMonth advertising={advertising}/> : null
+            }
+
 
             <ProblemeDeclaration/>
         </Box>

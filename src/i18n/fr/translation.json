@@ -93,7 +93,16 @@
     "label_category_cars": "Voitures",
     "label_category_phones": "Téléphones",
     "label_category_services": "Services",
-    "label_category_search": "Rechercher"
+    "label_category_search": "Rechercher",
+    "label_recently_added": "Récemment ajouté",
+    "label_primary_express_delivery": "Livraison Express 24/48H",
+    "label_secondary_express_delivery": "Livraison rapide sur toute la Tunisie",
+    "label_primary_satisfied_refunded": "Satisfait ou Remboursé",
+    "label_second_satisfied_refunded": "Satisfait ou remboursé sans poser de questions ! (5Jours)",
+    "label_primary_cash_delivery": "Paiement à la livraison",
+    "label_second_cash_delivery": "Achetez et payez à la livraison",
+    "label_primary_service_client": "Service Client 24/7",
+    "label_second_service_client": "Nous sommes à votre disposition pour répondre à vos questions"
   },
   "account": {
     "title": "Compte",
@@ -125,6 +134,7 @@
     "label-already-have-account": "Vous avez déjà un compte? S'identifier",
     "label_email_already_used": "Email déja utilisé!",
     "label_accept_cgu": "Accepter",
+    "title_dialog_cgu": "Condition Générale d'Utilisation",
     "label_second_password": "Le mot de passe doit correspondre",
     "label_new_password": "Mot de passe obligatoire",
     "label_required_accept_cgu": "Obligatoire ",
@@ -193,15 +203,14 @@
     "confirm_delete_image": "Supprimer l image",
     "message_confirm_delete_image": "Ete vous sur de supprimer cette image !"
   },
-  "message": {
-    "sent_succefully": "Message envoyé avec succès"
-  },
   "notification": {
     "title_page": "Notifications",
     "not_found_result": "Aucune notification trouvée"
   },
   "search": {
-    "label_most_requested": "Les plus demandées"
+    "label_most_requested": "Les plus demandées",
+    "label_apply_filter": "Appliquer",
+    "not_found_result": "Aucun résultat trouvé"
   },
   "my_offers": {
     "title_page": "Mes offres",
@@ -256,7 +265,8 @@
     "label_easy_return": "Retour Facile",
     "label_customer_service_technical_support": "Service client et Assistance Technique",
     "label_official_brands": "Marques officiels",
-    "label_follow_us": "Suivez-nous"
+    "label_follow_us": "Suivez-nous",
+    "label_subscribe_newsletter": "Inscrivez-vous à la newsletter"
   },
   "contact_us": {
     "title_contact_us": "Contactez nous",
@@ -278,7 +288,6 @@
     "user":{
       "title_favorite_users": "Utilisateurs favoris",
       "message_no_favorite_found": "Aucun utilisateur favori trouvé",
-      "message_add_favorite_user_succefully": "Utilisateur ajouté avec succès",
       "message_remove_favorite_user": "Utilisateur supprimé avec succès",
       "title_remove_favrite_user": "DisFavorite utilisateur",
       "description_remove_favrite_user": "Supprimer cet utilisateur de votre liste de favoris"

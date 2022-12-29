@@ -116,6 +116,7 @@ import { AllAppConfig } from "./core/config/all-config";
 
 // For Apm Server
 import { init as initApm } from '@elastic/apm-rum';
+import { resetAboutUs } from "./main-features/aboutus/store/slice";
 if( AllAppConfig.ENABLE_APM_SERVER === 'true' ){
   initApm({
 
@@ -683,6 +684,9 @@ export const App = () => {
     i18n.changeLanguage(locale);
     handleLAnguagesMenuClose();
     dispatch(changeLocale(locale));
+
+    // Reset store used multilangues
+    resetAboutUs({});
   };
   const handleLAnguagesMenuClose = () => {
     setLanguagesAnchorEl(null);

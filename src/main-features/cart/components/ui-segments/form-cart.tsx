@@ -21,6 +21,8 @@ import {
 } from "../../validation/cart-form-validation";
 import {ALL_APP_ROUTES} from "../../../../core/config/all-app-routes";
 import {Link} from "react-router-dom";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Divider from '@mui/material/Divider';
 
 const initialValues = initialValuesFormCart;
 
@@ -206,12 +208,13 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
           (formik.touched.lastName && Boolean(formik.errors.lastName)) ||
           (formik.touched.phone && Boolean(formik.errors.phone)) ||
           (formik.touched.address && Boolean(formik.errors.address)) ?
-              <Box>
-                <Typography color="error">
+              <Box sx={{mt: 2}}>
+                <Divider />
+                <Typography variant="h6" color="error">
                   {t<string>('cart.missing_account_informations')}
                 </Typography>
                 <Link color="inherit" to={ALL_APP_ROUTES.ACCOUNT}>
-                  Mon compte
+                  <ArrowForwardIcon/> Mon compte
                 </Link>
               </Box> : null
         }

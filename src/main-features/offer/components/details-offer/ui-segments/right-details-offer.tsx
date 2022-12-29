@@ -37,7 +37,7 @@ import {
   convertDateTimeToServer,
   getBaseImageUrl,
   getFullnameUser,
-  getUserAvatar, hasUserRole,
+  getUserAvatar, hasUserAuthority,
 } from "../../../../../shared/utils/utils-functions";
 import { ALL_APP_ROUTES } from "../../../../../core/config/all-app-routes";
 import { TransitionModal } from "../../../../../shared/pages/transition-modal";
@@ -49,7 +49,7 @@ import ProblemeDeclaration from "../../../../probleme-declaration/components/pro
 import { showUnauthorizedModal } from "../../../../../core/config/store/common/slice";
 import { useDispatch } from "react-redux";
 import VerifiedIcon from '@mui/icons-material/Verified';
-import {ROLE_ADMIN, ROLE_SUPER_ADMIN} from "../../../../../shared/constants/constants";
+import {EAuthority, ROLE_ADMIN, ROLE_SUPER_ADMIN} from "../../../../../shared/constants/constants";
 
 const initialValues = initialValuesAddMessageDetailsOffer;
 
@@ -293,15 +293,15 @@ export default function RightDetailsOffer({
               </IconButton>
             }
             title={
-              hasUserRole(
+              hasUserAuthority(
                   offerEntity?.user?.authorities,
-                  ROLE_SUPER_ADMIN
+                  EAuthority.ROLE_MODERATOR
               ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="error"/>}>
                 {getFullnameUser(offerEntity?.user)}
               </Button> :
-                  hasUserRole(
+                  hasUserAuthority(
                       offerEntity?.user?.authorities,
-                      ROLE_ADMIN
+                      EAuthority.ROLE_ADMIN
                   ) ? <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="success"/>}>
                     {getFullnameUser(offerEntity?.user)}
                   </Button> : <Button color="neutral" size="small">

@@ -7,7 +7,7 @@ import {
   loadingEntitiesPublicOffer,
   resetPublicOffers,
   totalItemsPublicOffer,
-  totalPagesPublicOffer, activePagePublicOffer, setActivePageOffers,
+  totalPagesPublicOffer, activePagePublicOffer, setActivePageOffers, entityPublicOffer, entityAdvertisingOffer, fetchAdvertising,
 } from "../../store/slice";
 import { TypeDisplaySearchOffers } from "../../../../shared/enums/type-offer.enum";
 import { AllAppConfig } from "../../../../core/config/all-config";
@@ -37,6 +37,7 @@ import {
 } from "../../../user/store/slice";
 import './search.scss';
 import HorizontalItems from "./ui-segments/horizontal-items";
+import isEmpty from 'lodash/isEmpty';
 
 export default function Search() {
 
@@ -65,20 +66,27 @@ export default function Search() {
   const listConnectedUsersWebsocketSelector =
     useSelector(listConnectedUsersWebsocket) ?? [];
 
+  const entityAdvertisingOfferSelector = useSelector(entityAdvertisingOffer) ?? {};
+
   const resetAll = () => {
     dispatch(resetPublicOffers({}));
     dispatch(setActivePageOffers(0));
   };
 
   React.useEffect(() => {
-
     if(isFirstTime && entitiesPublicOfferSelector.length === 0){
       setIsFirstTime(false);
       dispatch(setActivePageOffers(-1));
       resetAll();
     }
-
   }, [isFirstTime]);
+
+  React.useEffect(() => {
+    console.log('entityAdvertisingOfferSelector ', entityAdvertisingOfferSelector);
+    if( isEmpty(entityAdvertisingOfferSelector) ){
+      dispatch(fetchAdvertising({}))
+    }
+  }, [])
 
   React.useEffect(() => {
     if (activePagePublicOfferSelector >= 0 && !isFirstTime) {
@@ -215,7 +223,7 @@ export default function Search() {
             {loadingEntitiesPublicOfferSelector ? (
               <LoadingSearchOffers typeDisplay={typeDisplayOffers} />
             ) : totalItemsPublicOfferSelector === 0 ? (
-              <Alert severity="warning">No Offers found</Alert>
+              <Alert severity="warning">{t<string>('search.not_found_result')}</Alert>
             ) : null}
           </InfiniteScroll>
         </Grid>
@@ -227,7 +235,7 @@ export default function Search() {
           md={2}
           sx={{ display: { xs: "none", md: "block" } }}
         >
-          <RightSearch />
+          <RightSearch advertising={entityAdvertisingOfferSelector}/>
         </Grid>
       </Grid>
     </Box>

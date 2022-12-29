@@ -32,6 +32,7 @@ import { ConvertReactTimeAgo } from "../../../shared/pages/react-time-ago";
 import { AllAppConfig } from "../../../core/config/all-config";
 import { entitiesRecentlyOffers } from "../../offer/store/slice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import {useTranslation} from "react-i18next";
 
 function RecentlyAddedHome({
   offer,
@@ -146,6 +147,7 @@ const ExpandMore = styled((props: any) => {
 
 const RecentlyAddedHomeClient: FunctionComponent = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const entitiesRecentlyOffersSelector =
     useSelector(entitiesRecentlyOffers) ?? [];
@@ -163,7 +165,7 @@ const RecentlyAddedHomeClient: FunctionComponent = () => {
       className="container-recently-added-home"
     >
       <h3>
-        <u>Récemment ajoutés</u>
+        <u>{t<string>('home.label_recently_added')}</u>
       </h3>
       <Grid container spacing={4} sx={{ display: { xs: "none", md: "flex" } }}>
         {entitiesRecentlyOffersSelector.map((offer: any, index: number) => (

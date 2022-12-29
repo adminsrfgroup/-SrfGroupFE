@@ -195,7 +195,7 @@ export const isOnLine = (
  * @param authorities
  * @param role
  */
-export const hasUserRole = (authorities: any[] | undefined, role: string) => {
+export const hasUserAuthority = (authorities: any[] | undefined, role: string) => {
   return authorities && authorities.find((item: any) => item.name === role);
 };
 

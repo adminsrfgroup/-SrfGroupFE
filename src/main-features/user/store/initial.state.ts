@@ -67,4 +67,8 @@ export const initialState = {
   websocket: {
     listConnectedUsers: [],
   },
+  cgu: {
+    loading: false,
+    entity: {},
+  }
 };
