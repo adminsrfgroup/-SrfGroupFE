@@ -1,62 +1,62 @@
-import React from "react";
-import Chatbot, { createChatBotMessage } from "react-chatbot-kit";
-import "react-chatbot-kit/build/main.css";
+import React from 'react';
+import Chatbot, { createChatBotMessage } from 'react-chatbot-kit';
+import 'react-chatbot-kit/build/main.css';
 
 const config = {
-  initialMessages: [createChatBotMessage(`Welcome in platform SrfGroup`, {})],
+	initialMessages: [createChatBotMessage(`Welcome in platform SrfGroup`, {})],
 };
 
 const MessageParser = ({
-  children,
-  actions,
+	children,
+	actions,
 }: {
-  children: any;
-  actions: any;
+	children: any;
+	actions: any;
 }) => {
-  const parse = (message: any) => {
-    console.log("message ", message);
-  };
+	const parse = (message: any) => {
+		console.log('message ', message);
+	};
 
-  return (
-    <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          parse: parse,
-          actions: {},
-        });
-      })}
-    </div>
-  );
+	return (
+		<div>
+			{React.Children.map(children, (child) => {
+				return React.cloneElement(child, {
+					parse: parse,
+					actions: {},
+				});
+			})}
+		</div>
+	);
 };
 
 const ActionProvider = ({
-  createChatBotMessage,
-  setState,
-  children,
+	createChatBotMessage,
+	setState,
+	children,
 }: {
-  createChatBotMessage: any;
-  setState: any;
-  children: any;
+	createChatBotMessage: any;
+	setState: any;
+	children: any;
 }) => {
-  return (
-    <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          actions: {},
-        });
-      })}
-    </div>
-  );
+	return (
+		<div>
+			{React.Children.map(children, (child) => {
+				return React.cloneElement(child, {
+					actions: {},
+				});
+			})}
+		</div>
+	);
 };
 
 export const AccountChatBot = () => {
-  return (
-    <div>
-      <Chatbot
-        config={config}
-        messageParser={MessageParser}
-        actionProvider={ActionProvider}
-      />
-    </div>
-  );
+	return (
+		<div>
+			<Chatbot
+				config={config}
+				messageParser={MessageParser}
+				actionProvider={ActionProvider}
+			/>
+		</div>
+	);
 };

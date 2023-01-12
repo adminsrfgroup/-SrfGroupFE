@@ -1,5 +1,5 @@
 export const initialState = {
-  unauthorized: {
-    showUnauthorized: false,
-  },
+	unauthorized: {
+		showUnauthorized: false,
+	},
 };

@@ -1,6 +1,6 @@
 export const enum StorageType {
-  SESSION,
-  LOCAL,
+	SESSION,
+	LOCAL,
 }
 
 /**
@@ -8,10 +8,10 @@ export const enum StorageType {
  * @param type storage type
  */
 export const getStorage: any = (type: StorageType) => {
-  if (type === StorageType.SESSION) {
-    return window.sessionStorage;
-  }
-  return window.localStorage;
+	if (type === StorageType.SESSION) {
+		return window.sessionStorage;
+	}
+	return window.localStorage;
 };
 
 /**
@@ -21,7 +21,7 @@ export const getStorage: any = (type: StorageType) => {
  * @param value value to set
  */
 const setItem = (type: StorageType) => (key: string, value: any) => {
-  getStorage(type).setItem(key, JSON.stringify(value));
+	getStorage(type).setItem(key, JSON.stringify(value));
 };
 
 /**
@@ -31,13 +31,13 @@ const setItem = (type: StorageType) => (key: string, value: any) => {
  * @param defaultVal value to return if key doesnt exist
  */
 const getItem = (type: StorageType) => (key: string, defaultVal?: any) => {
-  const val = getStorage(type).getItem(key);
-  if (!val || val === "undefined") return defaultVal;
-  try {
-    return JSON.parse(val);
-  } catch (e) {
-    return val;
-  }
+	const val = getStorage(type).getItem(key);
+	if (!val || val === 'undefined') return defaultVal;
+	try {
+		return JSON.parse(val);
+	} catch (e) {
+		return val;
+	}
 };
 
 /**
@@ -46,7 +46,7 @@ const getItem = (type: StorageType) => (key: string, defaultVal?: any) => {
  * @param key key to remove
  */
 const removeItem = (type: StorageType) => (key: string) => {
-  getStorage(type).removeItem(key);
+	getStorage(type).removeItem(key);
 };
 
 export type getItemType = (key: string, defaultVal?: any) => any;
@@ -54,25 +54,25 @@ export type setItemType = (key: string, value: any) => void;
 export type removeItemType = (key: string) => void;
 
 export interface IStorageAPI {
-  get: getItemType;
-  set: setItemType;
-  remove: removeItemType;
+	get: getItemType;
+	set: setItemType;
+	remove: removeItemType;
 }
 
 export interface IStorageService {
-  session: IStorageAPI;
-  local: IStorageAPI;
+	session: IStorageAPI;
+	local: IStorageAPI;
 }
 
 export const StorageService: IStorageService = {
-  session: {
-    get: getItem(StorageType.SESSION),
-    set: setItem(StorageType.SESSION),
-    remove: removeItem(StorageType.SESSION),
-  },
-  local: {
-    get: getItem(StorageType.LOCAL),
-    set: setItem(StorageType.LOCAL),
-    remove: removeItem(StorageType.LOCAL),
-  },
+	session: {
+		get: getItem(StorageType.SESSION),
+		set: setItem(StorageType.SESSION),
+		remove: removeItem(StorageType.SESSION),
+	},
+	local: {
+		get: getItem(StorageType.LOCAL),
+		set: setItem(StorageType.LOCAL),
+		remove: removeItem(StorageType.LOCAL),
+	},
 };

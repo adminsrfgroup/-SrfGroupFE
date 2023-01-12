@@ -1,5 +1,5 @@
 export enum StatusRentRequest {
-    STANDBY= 'StandBy',
-    ACCEPTED = 'Accepted',
-    REFUSED = 'Refused'
+	STANDBY = 'StandBy',
+	ACCEPTED = 'Accepted',
+	REFUSED = 'Refused',
 }

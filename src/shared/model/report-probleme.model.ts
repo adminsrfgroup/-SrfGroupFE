@@ -1,6 +1,6 @@
 export interface IReportProbleme {
-  id?: number;
-  content?: string | null;
+	id?: number;
+	content?: string | null;
 }
 
 export const defaultValue: Readonly<IReportProbleme> = {};
