@@ -6,75 +6,75 @@ import messageReducer from './reducers/message.reducer';
 export const CHAT_KEY_IN_STORE = 'chat';
 
 export const chatSlice: Slice = createSlice({
-	name: CHAT_KEY_IN_STORE,
-	initialState: initialState,
-	reducers: {
-		...conversationReducer,
-		...messageReducer,
-	},
+  name: CHAT_KEY_IN_STORE,
+  initialState: initialState,
+  reducers: {
+    ...conversationReducer,
+    ...messageReducer,
+  },
 });
 
 export const {
-	//? ********************| FETCH CONVERSATION ACTIONS |*******************/
-	fetchConversation,
-	fetchConversationSuccess,
-	fetchConversationFailure,
+  //? ********************| FETCH CONVERSATION ACTIONS |*******************/
+  fetchConversation,
+  fetchConversationSuccess,
+  fetchConversationFailure,
 
-	//? ********************| ADD CONVERSATION ACTIONS |*******************/
-	addConversation,
-	addConversationSuccess,
-	addConversationFailure,
+  //? ********************| ADD CONVERSATION ACTIONS |*******************/
+  addConversation,
+  addConversationSuccess,
+  addConversationFailure,
 
-	//? ********************| DELETE CONVERSATION ACTIONS |*******************/
-	deleteConversation,
-	deleteConversationSuccess,
-	deleteConversationFailure,
+  //? ********************| DELETE CONVERSATION ACTIONS |*******************/
+  deleteConversation,
+  deleteConversationSuccess,
+  deleteConversationFailure,
 
-	resetConversation,
+  resetConversation,
 
-	//? ********************| ADD MESSAGE ACTIONS |*******************/
-	addMessage,
-	addMessageSuccess,
-	addMessageFailure,
+  //? ********************| ADD MESSAGE ACTIONS |*******************/
+  addMessage,
+  addMessageSuccess,
+  addMessageFailure,
 
-	//? ********************| FETCH MESSAGES ACTIONS |*******************/
-	fetchMessages,
-	fetchMessagesSuccess,
-	fetchMessagesFailure,
+  //? ********************| FETCH MESSAGES ACTIONS |*******************/
+  fetchMessages,
+  fetchMessagesSuccess,
+  fetchMessagesFailure,
 
-	resetMessage,
+  resetMessage,
 } = chatSlice.actions;
 
 //? ********************| CONVERSATION SELECTORS |*******************/
 export const loadingConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.loading;
+  state[CHAT_KEY_IN_STORE].conversation.loading;
 export const entityConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.entity;
+  state[CHAT_KEY_IN_STORE].conversation.entity;
 export const loadingEntitiesConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.loadingEntities;
+  state[CHAT_KEY_IN_STORE].conversation.loadingEntities;
 export const entitiesConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.entities;
+  state[CHAT_KEY_IN_STORE].conversation.entities;
 export const totalItemsConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.totalItems;
+  state[CHAT_KEY_IN_STORE].conversation.totalItems;
 export const totalPagesConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.totalPages;
+  state[CHAT_KEY_IN_STORE].conversation.totalPages;
 export const deleteSuccessConversation = (state: any) =>
-	state[CHAT_KEY_IN_STORE].conversation.deleteSuccess;
+  state[CHAT_KEY_IN_STORE].conversation.deleteSuccess;
 
 //? ********************| MESSAGES SELECTORS |*******************/
 export const loadingMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.loading;
+  state[CHAT_KEY_IN_STORE].message.loading;
 export const entityMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.entity;
+  state[CHAT_KEY_IN_STORE].message.entity;
 export const addSuccessMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.addSuccess;
+  state[CHAT_KEY_IN_STORE].message.addSuccess;
 export const loadingEntitiesMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.loadingEntities;
+  state[CHAT_KEY_IN_STORE].message.loadingEntities;
 export const entitiesMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.entities;
+  state[CHAT_KEY_IN_STORE].message.entities;
 export const totalItemsMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.totalItems;
+  state[CHAT_KEY_IN_STORE].message.totalItems;
 export const totalPagesMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.totalPages;
+  state[CHAT_KEY_IN_STORE].message.totalPages;
 export const deleteSuccessMessage = (state: any) =>
-	state[CHAT_KEY_IN_STORE].message.deleteSuccess;
+  state[CHAT_KEY_IN_STORE].message.deleteSuccess;

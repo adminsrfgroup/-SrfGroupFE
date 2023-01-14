@@ -5,22 +5,22 @@ import categoryReducer from '../../category/store/reducers/category.reducer';
 export const CATEGORY_KEY_IN_STORE = 'category';
 
 export const categorySlice: Slice = createSlice({
-	name: CATEGORY_KEY_IN_STORE,
-	initialState: initialState,
-	reducers: {
-		...categoryReducer,
-	},
+  name: CATEGORY_KEY_IN_STORE,
+  initialState: initialState,
+  reducers: {
+    ...categoryReducer,
+  },
 });
 
 export const {
-	//? ********************| LOGIN ACTIONS |*******************/
-	fetchCategories,
-	fetchCategoriesSuccess,
-	fetchCategoriesFailure,
+  //? ********************| LOGIN ACTIONS |*******************/
+  fetchCategories,
+  fetchCategoriesSuccess,
+  fetchCategoriesFailure,
 } = categorySlice.actions;
 
 //? ********************| LOGIN SELECTORS |*******************/
 export const allCategorySelector = (state: any) =>
-	state[CATEGORY_KEY_IN_STORE].category;
+  state[CATEGORY_KEY_IN_STORE].category;
 export const entitiesCategory = (state: any) =>
-	state[CATEGORY_KEY_IN_STORE].category.entities;
+  state[CATEGORY_KEY_IN_STORE].category.entities;

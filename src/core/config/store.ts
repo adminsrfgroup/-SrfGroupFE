@@ -10,16 +10,16 @@ const sagaMiddleware = createSagaMiddleware();
 const defaultMiddlewares = [sagaMiddleware, websocketMiddleware];
 
 if (process.env.NODE_ENV === 'development') {
-	defaultMiddlewares.push(logger);
+  defaultMiddlewares.push(logger);
 }
 
 export const store = configureStore({
-	reducer: rootReducer,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({
-			serializableCheck: false,
-		}).concat(defaultMiddlewares),
-	devTools: process.env.NODE_ENV !== 'production',
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(defaultMiddlewares),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 // then run the saga

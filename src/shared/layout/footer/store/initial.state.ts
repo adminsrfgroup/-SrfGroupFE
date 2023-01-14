@@ -1,8 +1,8 @@
 export const initialState = {
-	newsLetter: {
-		loading: false,
-		entity: {},
-		addSuccess: false,
-		errorMessage: null,
-	},
+  newsLetter: {
+    loading: false,
+    entity: {},
+    addSuccess: false,
+    errorMessage: null,
+  },
 };

@@ -17,22 +17,22 @@ import { newsLetterSlice } from '../../../shared/layout/footer/store/slice';
 import { commonSlice } from './common/slice';
 
 const rootReducer = combineReducers({
-	user: userSlice.reducer,
-	category: categorySlice.reducer,
-	address: addressSlice.reducer,
-	home: homeSlice.reducer,
-	offer: offerSlice.reducer,
-	contactus: contactUsSlice.reducer,
-	faq: faqSlice.reducer,
-	aboutus: aboutUsSlice.reducer,
-	notification: notificationSlice.reducer,
-	chat: chatSlice.reducer,
-	favorite: favoriteSlice.reducer,
-	cart: cartSlice.reducer,
-	problemeDeclaration: problemeDeclarationSlice.reducer,
-	newsLetter: newsLetterSlice.reducer,
-	common: commonSlice.reducer,
-	rentRequest: rentRequestSlice.reducer,
+  user: userSlice.reducer,
+  category: categorySlice.reducer,
+  address: addressSlice.reducer,
+  home: homeSlice.reducer,
+  offer: offerSlice.reducer,
+  contactus: contactUsSlice.reducer,
+  faq: faqSlice.reducer,
+  aboutus: aboutUsSlice.reducer,
+  notification: notificationSlice.reducer,
+  chat: chatSlice.reducer,
+  favorite: favoriteSlice.reducer,
+  cart: cartSlice.reducer,
+  problemeDeclaration: problemeDeclarationSlice.reducer,
+  newsLetter: newsLetterSlice.reducer,
+  common: commonSlice.reducer,
+  rentRequest: rentRequestSlice.reducer,
 });
 
 export default rootReducer;

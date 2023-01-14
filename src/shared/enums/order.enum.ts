@@ -1,5 +1,5 @@
 export enum StatusOrder {
-	PASSED = 'Passed',
-	RECEIVED = 'Received',
-	FAILURE = 'Failure',
+  PASSED = 'Passed',
+  RECEIVED = 'Received',
+  FAILURE = 'Failure',
 }

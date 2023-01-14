@@ -16,21 +16,21 @@ import problemeDeclarationSaga from '../../../main-features/probleme-declaration
 import newsLetterSaga from '../../../shared/layout/footer/store/saga';
 import rentRequestSaga from '../../../main-features/rent-request/store/saga';
 export default function* rootSaga() {
-	yield all([
-		fork(userSaga),
-		fork(categorySaga),
-		fork(addressSaga),
-		fork(topHomeSlidesImagesSaga),
-		fork(offerSaga),
-		fork(contactUsSaga),
-		fork(faqSaga),
-		fork(aboutUsSaga),
-		fork(notificationSaga),
-		fork(chatSaga),
-		fork(favoriteSaga),
-		fork(cartSaga),
-		fork(problemeDeclarationSaga),
-		fork(newsLetterSaga),
-		fork(rentRequestSaga),
-	]);
+  yield all([
+    fork(userSaga),
+    fork(categorySaga),
+    fork(addressSaga),
+    fork(topHomeSlidesImagesSaga),
+    fork(offerSaga),
+    fork(contactUsSaga),
+    fork(faqSaga),
+    fork(aboutUsSaga),
+    fork(notificationSaga),
+    fork(chatSaga),
+    fork(favoriteSaga),
+    fork(cartSaga),
+    fork(problemeDeclarationSaga),
+    fork(newsLetterSaga),
+    fork(rentRequestSaga),
+  ]);
 }

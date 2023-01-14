@@ -5,24 +5,24 @@ import newsLetterReducer from './reducers/news-letter.reducer';
 export const NEWS_LETTER_KEY_IN_STORE = 'newsLetter';
 
 export const newsLetterSlice: Slice = createSlice({
-	name: NEWS_LETTER_KEY_IN_STORE,
-	initialState: initialState,
-	reducers: {
-		...newsLetterReducer,
-	},
+  name: NEWS_LETTER_KEY_IN_STORE,
+  initialState: initialState,
+  reducers: {
+    ...newsLetterReducer,
+  },
 });
 
 export const {
-	//? ********************| ADD NEWS LETTER ACTIONS |*******************/
-	addNewsLetter,
-	addNewsLetterSuccess,
-	addNewsLetterFailure,
+  //? ********************| ADD NEWS LETTER ACTIONS |*******************/
+  addNewsLetter,
+  addNewsLetterSuccess,
+  addNewsLetterFailure,
 } = newsLetterSlice.actions;
 
 //? ********************| NEWS LETTER SELECTORS |*******************/
 export const loadingNewsLetter = (state: any) =>
-	state[NEWS_LETTER_KEY_IN_STORE].newsLetter.loading;
+  state[NEWS_LETTER_KEY_IN_STORE].newsLetter.loading;
 export const entityNewsLetter = (state: any) =>
-	state[NEWS_LETTER_KEY_IN_STORE].newsLetter.entity;
+  state[NEWS_LETTER_KEY_IN_STORE].newsLetter.entity;
 export const addSuccessNewsLetter = (state: any) =>
-	state[NEWS_LETTER_KEY_IN_STORE].newsLetter.addSuccess;
+  state[NEWS_LETTER_KEY_IN_STORE].newsLetter.addSuccess;

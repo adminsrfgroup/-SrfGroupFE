@@ -3,7 +3,7 @@ import { fetchCategories } from '../../category/store/slice';
 import { fetchCategoriesHandler } from './saga-handler/category.generator';
 
 export function* categorySaga() {
-	yield all([takeEvery(fetchCategories, fetchCategoriesHandler)]);
+  yield all([takeEvery(fetchCategories, fetchCategoriesHandler)]);
 }
 
 export default categorySaga;

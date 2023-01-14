@@ -18,91 +18,91 @@ const mockStore = configureMockStore(middlewares);
 
 //
 test('renders App', () => {
-	const store: any = mockStore({
-		user: {
-			login: {
-				token: '',
-				loading: false,
-				loginWithGoogleOneTapSuccess: false,
-			},
-			session: {
-				isAuthenticated: false,
-				token: '',
-				currentUser: {},
-				nbeNotificationsNotRead: 0,
-				nbeMessagesNotRead: 0,
-				nbeCarts: 0,
-				oneSignalId: '',
-				loading: false,
-			},
-			register: {
-				loading: false,
-				addSuccess: false,
-				errorMessage: null,
-			},
-			activationAccount: {
-				loading: false,
-				activation: false,
-			},
-			locale: {
-				currentLocale: 'fr',
-			},
-			account: {
-				loadingPassword: false,
-				updateSuccessPassword: false,
-				entityUpdateInfos: {} as IUser,
-				loadingUpdateInfos: false,
-				updateSuccessInfos: false,
-				loadingUpdateAvatar: false,
-				updateSuccessAvatar: false,
-				entityUpdateAvatar: {},
-			},
-			profile: {
-				loading: false,
-				entity: {} as IUser,
-				loadingReport: false,
-				reportSuccess: false,
-			},
-			password: {
-				loadingResetInit: false,
-				resetInitSuccess: false,
-				loadingResetFinish: false,
-				resetFinishSuccess: false,
-			},
-			websocket: {
-				listConnectedUsers: [],
-			},
-		},
-		newsLetter: {
-			newsLetter: {
-				loading: false,
-				entity: {},
-				addSuccess: false,
-				errorMessage: null,
-			},
-		},
-		common: {
-			unauthorized: {
-				showUnauthorized: false,
-			},
-		},
-	});
+  const store: any = mockStore({
+    user: {
+      login: {
+        token: '',
+        loading: false,
+        loginWithGoogleOneTapSuccess: false,
+      },
+      session: {
+        isAuthenticated: false,
+        token: '',
+        currentUser: {},
+        nbeNotificationsNotRead: 0,
+        nbeMessagesNotRead: 0,
+        nbeCarts: 0,
+        oneSignalId: '',
+        loading: false,
+      },
+      register: {
+        loading: false,
+        addSuccess: false,
+        errorMessage: null,
+      },
+      activationAccount: {
+        loading: false,
+        activation: false,
+      },
+      locale: {
+        currentLocale: 'fr',
+      },
+      account: {
+        loadingPassword: false,
+        updateSuccessPassword: false,
+        entityUpdateInfos: {} as IUser,
+        loadingUpdateInfos: false,
+        updateSuccessInfos: false,
+        loadingUpdateAvatar: false,
+        updateSuccessAvatar: false,
+        entityUpdateAvatar: {},
+      },
+      profile: {
+        loading: false,
+        entity: {} as IUser,
+        loadingReport: false,
+        reportSuccess: false,
+      },
+      password: {
+        loadingResetInit: false,
+        resetInitSuccess: false,
+        loadingResetFinish: false,
+        resetFinishSuccess: false,
+      },
+      websocket: {
+        listConnectedUsers: [],
+      },
+    },
+    newsLetter: {
+      newsLetter: {
+        loading: false,
+        entity: {},
+        addSuccess: false,
+        errorMessage: null,
+      },
+    },
+    common: {
+      unauthorized: {
+        showUnauthorized: false,
+      },
+    },
+  });
 
-	const component = render(
-		<Provider store={store}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</Provider>
-	);
+  const component = render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  );
 
-	// const textProject = screen.getAllByText("SRF");
-	// expect(textProject).toBeTruthy();
-	// expect(textProject.length).toBeGreaterThan(0); // Array of  HTMLElement
-	//
-	// // const scrollToTopRouters = component.getByTestId('scroll-to-top-routers');
-	// // expect(scrollToTopRouters).toBeInTheDocument();
-	//
-	const divScrollTop = component.getByTestId('back-to-top-anchor');
-	expect(divScrollTop).toBeInTheDocument();
+  // const textProject = screen.getAllByText("SRF");
+  // expect(textProject).toBeTruthy();
+  // expect(textProject.length).toBeGreaterThan(0); // Array of  HTMLElement
+  //
+  // // const scrollToTopRouters = component.getByTestId('scroll-to-top-routers');
+  // // expect(scrollToTopRouters).toBeInTheDocument();
+  //
+  const divScrollTop = component.getByTestId('back-to-top-anchor');
+  expect(divScrollTop).toBeInTheDocument();
 });

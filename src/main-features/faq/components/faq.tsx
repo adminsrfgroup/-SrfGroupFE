@@ -22,116 +22,116 @@ import { IFaq } from '../../../shared/model/faq.model';
 import isEmpty from 'lodash/isEmpty';
 
 export const GetCardList = (props: any) => {
-	const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
-	const { faq, currentLocale } = props;
+  const { faq, currentLocale } = props;
 
-	const handleExpandClick = () => {
-		setExpanded(!expanded);
-	};
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
-	const getQuestion = () => {
-		if (currentLocale === 'ar-ly') {
-			return faq.questionAr;
-		} else if (currentLocale === 'fr') {
-			return faq.questionFr;
-		} else if (currentLocale === 'en') {
-			return faq.questionEn;
-		}
-	};
+  const getQuestion = () => {
+    if (currentLocale === 'ar-ly') {
+      return faq.questionAr;
+    } else if (currentLocale === 'fr') {
+      return faq.questionFr;
+    } else if (currentLocale === 'en') {
+      return faq.questionEn;
+    }
+  };
 
-	const getResponse = () => {
-		if (currentLocale === 'ar-ly') {
-			return faq.responseAr;
-		} else if (currentLocale === 'fr') {
-			return faq.responseFr;
-		} else if (currentLocale === 'en') {
-			return faq.responseEn;
-		}
-	};
+  const getResponse = () => {
+    if (currentLocale === 'ar-ly') {
+      return faq.responseAr;
+    } else if (currentLocale === 'fr') {
+      return faq.responseFr;
+    } else if (currentLocale === 'en') {
+      return faq.responseEn;
+    }
+  };
 
-	return (
-		<Card>
-			<CardActions disableSpacing>
-				<IconButton
-					sx={{ p: '10px', flex: 1 }}
-					aria-label="menu"
-					onClick={handleExpandClick}
-				>
-					{getQuestion()}
-				</IconButton>
-				<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-				<IconButton
-					sx={{ p: '10px' }}
-					aria-label="directions"
-					onClick={handleExpandClick}
-				>
-					<ExpandMoreIcon />
-				</IconButton>
-			</CardActions>
-			<Collapse in={expanded} timeout="auto" unmountOnExit>
-				<CardContent>
-					<Typography paragraph>{getResponse()}</Typography>
-				</CardContent>
-			</Collapse>
-		</Card>
-	);
+  return (
+    <Card>
+      <CardActions disableSpacing>
+        <IconButton
+          sx={{ p: '10px', flex: 1 }}
+          aria-label="menu"
+          onClick={handleExpandClick}
+        >
+          {getQuestion()}
+        </IconButton>
+        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+        <IconButton
+          sx={{ p: '10px' }}
+          aria-label="directions"
+          onClick={handleExpandClick}
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>{getResponse()}</Typography>
+        </CardContent>
+      </Collapse>
+    </Card>
+  );
 };
 
 export default function Faq() {
-	const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
-	const dispatch = useDispatch();
-	const { entities, loadingEntities } = useSelector(allFaqSelector);
+  const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
+  const dispatch = useDispatch();
+  const { entities, loadingEntities } = useSelector(allFaqSelector);
 
-	React.useEffect(() => {
-		i18n.on('languageChanged', (lang: any) => {
-			setDefaultLanguage(lang);
-		});
+  React.useEffect(() => {
+    i18n.on('languageChanged', (lang: any) => {
+      setDefaultLanguage(lang);
+    });
 
-		if (isEmpty(entities)) {
-			dispatch(fetchFaq({}));
-		}
-	}, []);
+    if (isEmpty(entities)) {
+      dispatch(fetchFaq({}));
+    }
+  }, []);
 
-	return (
-		<Container maxWidth="xl">
-			<Grid
-				container
-				style={{
-					paddingTop: 10,
-				}}
-			>
-				<Grid item xs={12} md={6}>
-					<Breadcrumbs aria-label="breadcrumb">
-						<Link color="inherit" to={ALL_APP_ROUTES.HOME}>
-							SRF
-						</Link>
-						<Typography color="text.primary">FAQ</Typography>
-					</Breadcrumbs>
-				</Grid>
-			</Grid>
+  return (
+    <Container maxWidth="xl">
+      <Grid
+        container
+        style={{
+          paddingTop: 10,
+        }}
+      >
+        <Grid item xs={12} md={6}>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
+              SRF
+            </Link>
+            <Typography color="text.primary">FAQ</Typography>
+          </Breadcrumbs>
+        </Grid>
+      </Grid>
 
-			<Grid container spacing={4} sx={{ mt: 3 }}>
-				{loadingEntities ? (
-					<Grid item xs={12}>
-						<Box sx={{ paddingTop: 10, textAlign: 'center' }}>
-							<CircularProgress color="inherit" />
-						</Box>
-					</Grid>
-				) : null}
+      <Grid container spacing={4} sx={{ mt: 3 }}>
+        {loadingEntities ? (
+          <Grid item xs={12}>
+            <Box sx={{ paddingTop: 10, textAlign: 'center' }}>
+              <CircularProgress color="inherit" />
+            </Box>
+          </Grid>
+        ) : null}
 
-				{entities && entities.length > 0
-					? entities.map((faq: IFaq, i: number) => (
-							<Grid item xs={12} md={6} key={`entity-${i}`}>
-								<GetCardList faq={faq} currentLocale={defaultLanguage} />
-							</Grid>
-					  ))
-					: !loadingEntities && (
-							<Grid item xs={12} md={6}>
-								<Alert severity="warning">No Faqs found</Alert>
-							</Grid>
-					  )}
-			</Grid>
-		</Container>
-	);
+        {entities && entities.length > 0
+          ? entities.map((faq: IFaq, i: number) => (
+              <Grid item xs={12} md={6} key={`entity-${i}`}>
+                <GetCardList faq={faq} currentLocale={defaultLanguage} />
+              </Grid>
+            ))
+          : !loadingEntities && (
+              <Grid item xs={12} md={6}>
+                <Alert severity="warning">No Faqs found</Alert>
+              </Grid>
+            )}
+      </Grid>
+    </Container>
+  );
 }

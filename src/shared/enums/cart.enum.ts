@@ -1,4 +1,4 @@
 export enum StatusCart {
-	STANDBY = 'StandBy',
-	PASSED = 'Passed',
+  STANDBY = 'StandBy',
+  PASSED = 'Passed',
 }

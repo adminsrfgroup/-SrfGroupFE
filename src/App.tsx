@@ -40,21 +40,21 @@ import { SourceProvider } from './shared/enums/source-provider';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CookieConsent from 'react-cookie-consent';
 import {
-	allLocaleSelector,
-	loginWithGoogleOneTap,
-	changeLocale,
-	connectedUserWS,
-	logout,
-	allLoginSelector,
-	sessionUser,
-	setUserIdOS,
-	currentUserSession,
-	getNumberOfCarts,
+  allLocaleSelector,
+  loginWithGoogleOneTap,
+  changeLocale,
+  connectedUserWS,
+  logout,
+  allLoginSelector,
+  sessionUser,
+  setUserIdOS,
+  currentUserSession,
+  getNumberOfCarts,
 } from './main-features/user/store/slice';
 import { oneSignalProviders } from './shared/providers/onesignal.provider';
 import {
-	loadScriptGoogleAnalytics,
-	trackPagesGA,
+  loadScriptGoogleAnalytics,
+  trackPagesGA,
 } from './shared/providers/google-anaylitics';
 import { loadScriptFacebook } from './shared/providers/facebook.provider';
 import { StorageService } from './shared/services/storage.service';
@@ -64,10 +64,10 @@ import ListItem from '@mui/material/ListItem';
 import Avatar from '@mui/material/Avatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import {
-	decodeJwtResponse,
-	getBaseImageUrl,
-	getFullnameUser,
-	getUserAvatar,
+  decodeJwtResponse,
+  getBaseImageUrl,
+  getFullnameUser,
+  getUserAvatar,
 } from './shared/utils/utils-functions';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
@@ -80,24 +80,24 @@ import { allSessionSelector } from './main-features/user/store/slice';
 import { fetchCategories } from './main-features/category/store/slice';
 import { fetchAddress } from './main-features/address/store/slice';
 import {
-	fetchHomeFeatures,
-	fetchTopHomeSlidesImages,
+  fetchHomeFeatures,
+  fetchTopHomeSlidesImages,
 } from './main-features/home/store/slice';
 import Drawer from '@mui/material/Drawer';
 import {
-	getNumberOfNotificationsNotSee,
-	getNumberOfMessagesNotSee,
+  getNumberOfNotificationsNotSee,
+  getNumberOfMessagesNotSee,
 } from './main-features/user/store/slice';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {
-	fetchFindOffer,
-	fetchImagesOffer,
-	fetchRecentlyOffer,
-	fetchRentOffer,
-	fetchSellerOffer,
-	resetMyOffers,
-	resetPublicOffers,
+  fetchFindOffer,
+  fetchImagesOffer,
+  fetchRecentlyOffer,
+  fetchRentOffer,
+  fetchSellerOffer,
+  resetMyOffers,
+  resetPublicOffers,
 } from './main-features/offer/store/slice';
 import isEmpty from 'lodash/isEmpty';
 import { languages, locales } from './main-features/user/store/initial.state';
@@ -116,736 +116,737 @@ import { AllAppConfig } from './core/config/all-config';
 // For Apm Server
 import { init as initApm } from '@elastic/apm-rum';
 import { resetAboutUs } from './main-features/aboutus/store/slice';
-if (AllAppConfig.ENABLE_APM_SERVER === 'true') {
-	initApm({
-		// Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-		serviceName: 'ServerApmSrfGroup',
+if (AllAppConfig.ENABLE_APM_SERVER !== 'true') {
+  initApm({
+    // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+    serviceName: 'ServerApmSrfGroup',
 
-		// Set custom APM Server URL (default: http://localhost:8200)
-		serverUrl: AllAppConfig.SERVER_APM_SERVER,
+    // Set custom APM Server URL (default: http://localhost:8200)
+    serverUrl: AllAppConfig.SERVER_APM_SERVER,
 
-		// Set service version (required for sourcemap feature)
-		serviceVersion: '1.0',
+    // Set service version (required for sourcemap feature)
+    serviceVersion: '1.0',
 
-		logLevel: 'debug',
-	});
+    logLevel: 'debug',
+  });
 }
 
 function ScrollToTopRouters() {
-	const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-	useEffect(() => {
-		window?.scrollTo(0, 0);
-	}, [pathname]);
+  useEffect(() => {
+    console.log('cs');
+    window?.scrollTo(0, 0);
+  }, [pathname]);
 
-	return null;
+  return null;
 }
 
 function ScrollTop(props: any) {
-	const { children, window } = props;
-	const trigger = useScrollTrigger({
-		target: window ? window() : undefined,
-		disableHysteresis: true,
-		threshold: 100,
-	});
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
 
-	const handleClick = (event: any) => {
-		const anchor = (event.target.ownerDocument || document).querySelector(
-			'#back-to-top-anchor'
-		);
+  const handleClick = (event: any) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      '#back-to-top-anchor'
+    );
 
-		if (anchor) {
-			anchor.scrollIntoView({
-				behavior: 'smooth',
-				block: 'center',
-			});
-		}
-	};
+    if (anchor) {
+      anchor.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
 
-	return (
-		<Zoom in={trigger}>
-			<Box
-				onClick={handleClick}
-				role="presentation"
-				sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 9 }}
-			>
-				{children}
-			</Box>
-		</Zoom>
-	);
+  return (
+    <Zoom in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 9 }}
+      >
+        {children}
+      </Box>
+    </Zoom>
+  );
 }
 
 export const App = () => {
-	const [openAnchorDrawer, setOpenAnchorDrawer] = React.useState(false);
-	const [openAnchorDrawerRight, setOpenAnchorDrawerRight] =
-		React.useState(false);
-	const [openSubMenuSupport, setOpenSubMenuSupport] = React.useState(false);
-	const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
-	const isLanguagesMenuOpen = Boolean(languagesAnchorEl);
-	const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>(
-		StorageService.local.get(AllAppConfig.DARK_MODE) ?? 'light'
-	);
-	const [defaultChecked, setDefaultChecked] = React.useState<boolean>(
-		darkMode == 'light' ?? false
-	);
-	const [isGoogleAnalytics, setIsGoogleAnalytics] =
-		React.useState<boolean>(false);
-	const { token } = useSelector(allLoginSelector);
+  const [openAnchorDrawer, setOpenAnchorDrawer] = React.useState(false);
+  const [openAnchorDrawerRight, setOpenAnchorDrawerRight] =
+    React.useState(false);
+  const [openSubMenuSupport, setOpenSubMenuSupport] = React.useState(false);
+  const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
+  const isLanguagesMenuOpen = Boolean(languagesAnchorEl);
+  const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>(
+    StorageService.local.get(AllAppConfig.DARK_MODE) ?? 'light'
+  );
+  const [defaultChecked, setDefaultChecked] = React.useState<boolean>(
+    darkMode == 'light' ?? false
+  );
+  const [isGoogleAnalytics, setIsGoogleAnalytics] =
+    React.useState<boolean>(false);
+  const { token } = useSelector(allLoginSelector);
 
-	const { t, i18n } = useTranslation();
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const {
-		isAuthenticated,
-		nbeMessagesNotRead,
-		nbeNotificationsNotRead,
-		nbeCarts,
-		oneSignalId,
-	} = useSelector(allSessionSelector);
-	const currentUser = useSelector(currentUserSession);
-	const { currentLocale } = useSelector(allLocaleSelector);
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    isAuthenticated,
+    nbeMessagesNotRead,
+    nbeNotificationsNotRead,
+    nbeCarts,
+    oneSignalId,
+  } = useSelector(allSessionSelector);
+  const currentUser = useSelector(currentUserSession);
+  const { currentLocale } = useSelector(allLocaleSelector);
 
-	// const isDark = false;
-	const ThemeApp = createTheme({
-		typography: {
-			allVariants: {
-				fontFamily: 'NotoSansArabic',
-			},
-		},
-		palette: {
-			mode: darkMode === 'dark' ? 'dark' : 'light',
-			neutral: {
-				main: 'rgb(63 63 64)',
-				contrastText: '#fff',
-			},
-		},
-	});
+  // const isDark = false;
+  const ThemeApp = createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: 'NotoSansArabic',
+      },
+    },
+    palette: {
+      mode: darkMode === 'dark' ? 'dark' : 'light',
+      neutral: {
+        main: 'rgb(63 63 64)',
+        contrastText: '#fff',
+      },
+    },
+  });
 
-	React.useEffect(() => {
-		if (darkMode === 'dark') {
-			document.body.classList.add('dark-mode');
-			setDefaultChecked(false);
-		} else {
-			document.body.classList.remove('dark-mode');
-			setDefaultChecked(true);
-		}
-	}, [darkMode]);
-	const toggleDarkMode = (event: any, checked: boolean) => {
-		StorageService.local.set(
-			AllAppConfig.DARK_MODE,
-			checked ? 'light' : 'dark'
-		);
-		setDarkMode(checked ? 'light' : 'dark');
-	};
+  React.useEffect(() => {
+    if (darkMode === 'dark') {
+      document.body.classList.add('dark-mode');
+      setDefaultChecked(false);
+    } else {
+      document.body.classList.remove('dark-mode');
+      setDefaultChecked(true);
+    }
+  }, [darkMode]);
+  const toggleDarkMode = (event: any, checked: boolean) => {
+    StorageService.local.set(
+      AllAppConfig.DARK_MODE,
+      checked ? 'light' : 'dark'
+    );
+    setDarkMode(checked ? 'light' : 'dark');
+  };
 
-	React.useEffect(() => {
-		if (token) {
-			google.accounts.id.cancel();
-			dispatch(sessionUser({}));
-			dispatch(getNumberOfNotificationsNotSee({}));
-			dispatch(getNumberOfMessagesNotSee({}));
-			dispatch(getNumberOfCarts({}));
-		}
-	}, [token]);
+  React.useEffect(() => {
+    if (token) {
+      google.accounts.id.cancel();
+      dispatch(sessionUser({}));
+      dispatch(getNumberOfNotificationsNotSee({}));
+      dispatch(getNumberOfMessagesNotSee({}));
+      dispatch(getNumberOfCarts({}));
+    }
+  }, [token]);
 
-	const location = useLocation();
-	React.useEffect(() => {
-		if (isGoogleAnalytics) {
-			// Add track page Google Analytics
-			trackPagesGA(location.pathname, location.pathname).then(
-				(result: boolean) => {
-					// console.log('Success track pages ', location.pathname, location.pathname);
-				},
-				(error: any) => {
-					console.log('Error track pages ', error);
-				}
-			);
-		}
-	}, [location]);
+  const location = useLocation();
+  React.useEffect(() => {
+    if (isGoogleAnalytics) {
+      // Add track page Google Analytics
+      trackPagesGA(location.pathname, location.pathname).then(
+        (result: boolean) => {
+          // console.log('Success track pages ', location.pathname, location.pathname);
+        }
+        // (error: any) => {
+        // 	console.log('Error track pages ', error);
+        // }
+      );
+    }
+  }, [location]);
 
-	React.useEffect(() => {
-		if (process.env.NODE_ENV === 'production') {
-			// OneSignal Platform
-			oneSignalProviders().then(
-				(userId) => {
-					// console.log("oneSignalProviders userId", userId);
-					dispatch(setUserIdOS(userId));
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      // OneSignal Platform
+      oneSignalProviders().then(
+        (userId) => {
+          // console.log("oneSignalProviders userId", userId);
+          dispatch(setUserIdOS(userId));
 
-					if (isAuthenticated && !oneSignalId && userId) {
-						// console.log("update oneSignal");
-					}
-				},
-				(error) => {
-					console.log('Error oneSignalProviders ', error);
-				}
-			);
-		}
+          if (isAuthenticated && !oneSignalId && userId) {
+            // console.log("update oneSignal");
+          }
+        }
+        // (error) => {
+        // 	console.log('Error oneSignalProviders ', error);
+        // }
+      );
+    }
 
-		// Init Google Analytics
-		loadScriptGoogleAnalytics().then(
-			(resultLoad: boolean) => {
-				if (resultLoad) {
-					// console.log("Success init Google Analytics");
-					setIsGoogleAnalytics(true);
-				}
-			},
-			(errorLoad: boolean) => {
-				console.log('Error to load script Google Analytics ', errorLoad);
-			}
-		);
+    // Init Google Analytics
+    loadScriptGoogleAnalytics().then(
+      (resultLoad: boolean) => {
+        if (resultLoad) {
+          // console.log("Success init Google Analytics");
+          setIsGoogleAnalytics(true);
+        }
+      }
+      // (errorLoad: boolean) => {
+      // 	console.log('Error to load script Google Analytics ', errorLoad);
+      // }
+    );
 
-		// Load Facebook SDK
-		loadScriptFacebook().then(
-			(resultLoad: boolean) => {
-				// console.log("Success init Facebook");
-			},
-			(errorLoad: boolean) => {
-				console.log('Error to load script Facebook ', errorLoad);
-			}
-		);
+    // Load Facebook SDK
+    loadScriptFacebook().then(
+      (resultLoad: boolean) => {
+        // console.log("Success init Facebook");
+      }
+      // (errorLoad: boolean) => {
+      // 	console.log('Error to load script Facebook ', errorLoad);
+      // }
+    );
 
-		// Set Default configs local
-		i18n.changeLanguage(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr');
-		dispatch(
-			changeLocale(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr')
-		);
+    // Set Default configs local
+    i18n.changeLanguage(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr');
+    dispatch(
+      changeLocale(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr')
+    );
 
-		dispatch(
-			fetchCategories({
-				sort: '',
-				page: 0,
-				size: 1,
-			})
-		);
-		dispatch(
-			fetchAddress({
-				sort: '',
-				page: 0,
-				size: 40,
-			})
-		);
-		dispatch(fetchTopHomeSlidesImages({}));
-		dispatch(fetchHomeFeatures({}));
-		dispatch(
-			fetchRecentlyOffer({
-				page: 0,
-				size: 9,
-				queryParams: '',
-			})
-		);
-		dispatch(
-			fetchImagesOffer({
-				page: 0,
-				size: 5,
-			})
-		);
-		dispatch(
-			fetchSellerOffer({
-				page: 0,
-				size: 4,
-				queryParams: '',
-			})
-		);
-		dispatch(
-			fetchFindOffer({
-				page: 0,
-				size: 4,
-				queryParams: '',
-			})
-		);
-		dispatch(
-			fetchRentOffer({
-				page: 0,
-				size: 4,
-				queryParams: '',
-			})
-		);
+    dispatch(
+      fetchCategories({
+        sort: '',
+        page: 0,
+        size: 1,
+      })
+    );
+    dispatch(
+      fetchAddress({
+        sort: '',
+        page: 0,
+        size: 40,
+      })
+    );
+    dispatch(fetchTopHomeSlidesImages({}));
+    dispatch(fetchHomeFeatures({}));
+    dispatch(
+      fetchRecentlyOffer({
+        page: 0,
+        size: 9,
+        queryParams: '',
+      })
+    );
+    dispatch(
+      fetchImagesOffer({
+        page: 0,
+        size: 5,
+      })
+    );
+    dispatch(
+      fetchSellerOffer({
+        page: 0,
+        size: 4,
+        queryParams: '',
+      })
+    );
+    dispatch(
+      fetchFindOffer({
+        page: 0,
+        size: 4,
+        queryParams: '',
+      })
+    );
+    dispatch(
+      fetchRentOffer({
+        page: 0,
+        size: 4,
+        queryParams: '',
+      })
+    );
 
-		if (isAuthenticated) {
-			dispatch(getNumberOfNotificationsNotSee({}));
-			dispatch(getNumberOfMessagesNotSee({}));
-			dispatch(getNumberOfCarts({}));
-		}
-	}, []);
+    if (isAuthenticated) {
+      dispatch(getNumberOfNotificationsNotSee({}));
+      dispatch(getNumberOfMessagesNotSee({}));
+      dispatch(getNumberOfCarts({}));
+    }
+  }, []);
 
-	// For WS: Refresh + Login
-	React.useEffect(() => {
-		if (!isEmpty(currentUser)) {
-			dispatch(connectedUserWS({}));
-		}
-	}, [currentUser]);
+  // For WS: Refresh + Login
+  React.useEffect(() => {
+    if (!isEmpty(currentUser)) {
+      dispatch(connectedUserWS({}));
+    }
+  }, [currentUser]);
 
-	// Callback From header and menu mobile
-	const handleLogout = () => {
-		handleDrawerToggleRight(false);
-		dispatch(resetRentRequests({}));
-		dispatch(resetCart({}));
-		dispatch(resetMyOffers({}));
-		dispatch(resetPublicOffers({}));
-		dispatch(resetMyNotifications({}));
-		dispatch(resetFavoriteUsers({}));
-		dispatch(resetOrder({}));
-		dispatch(logout({}));
-		navigate(ALL_APP_ROUTES.HOME);
-	};
+  // Callback From header and menu mobile
+  const handleLogout = () => {
+    handleDrawerToggleRight(false);
+    dispatch(resetRentRequests({}));
+    dispatch(resetCart({}));
+    dispatch(resetMyOffers({}));
+    dispatch(resetPublicOffers({}));
+    dispatch(resetMyNotifications({}));
+    dispatch(resetFavoriteUsers({}));
+    dispatch(resetOrder({}));
+    dispatch(logout({}));
+    navigate(ALL_APP_ROUTES.HOME);
+  };
 
-	const handleDrawerToggleRight = (isOpen: boolean) => {
-		setOpenAnchorDrawerRight(isOpen);
-	};
+  const handleDrawerToggleRight = (isOpen: boolean) => {
+    setOpenAnchorDrawerRight(isOpen);
+  };
 
-	const handleDrawerToggle = (isOpen: boolean) => {
-		setOpenAnchorDrawer(isOpen);
-	};
+  const handleDrawerToggle = (isOpen: boolean) => {
+    setOpenAnchorDrawer(isOpen);
+  };
 
-	const handleClickSupport = () => {
-		setOpenSubMenuSupport(!openSubMenuSupport);
-	};
+  const handleClickSupport = () => {
+    setOpenSubMenuSupport(!openSubMenuSupport);
+  };
 
-	const listMenuMobile = () => (
-		<Box sx={{ width: 250 }} role="presentation">
-			<List>
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.HOME}
-					onClick={() => handleDrawerToggle(false)}
-				>
-					<ListItemIcon>
-						<Avatar
-							alt="Logo"
-							src={getBaseImageUrl('/assets/images/logo-svg.svg')}
-							sx={{ width: 150, height: 100 }}
-						/>
-					</ListItemIcon>
-					<ListItemText primary="" />
-				</ListItem>
+  const listMenuMobile = () => (
+    <Box sx={{ width: 250 }} role="presentation">
+      <List>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.HOME}
+          onClick={() => handleDrawerToggle(false)}
+        >
+          <ListItemIcon>
+            <Avatar
+              alt="Logo"
+              src={getBaseImageUrl('/assets/images/logo-svg.svg')}
+              sx={{ width: 150, height: 100 }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="" />
+        </ListItem>
 
-				<ListItem button onClick={handleLAnguagesMenuOpen}>
-					<Button
-						variant="outlined"
-						color="neutral"
-						startIcon={<LanguageIcon />}
-						endIcon={<ExpandMore />}
-						size="small"
-					>
-						{currentLocale ? languages[currentLocale].name : undefined}
-					</Button>
-				</ListItem>
-				<Divider />
+        <ListItem button onClick={handleLAnguagesMenuOpen}>
+          <Button
+            variant="outlined"
+            color="neutral"
+            startIcon={<LanguageIcon />}
+            endIcon={<ExpandMore />}
+            size="small"
+          >
+            {currentLocale ? languages[currentLocale].name : undefined}
+          </Button>
+        </ListItem>
+        <Divider />
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.HOME}
-					onClick={() => handleDrawerToggle(false)}
-				>
-					<ListItemIcon>
-						<HomeIcon />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.link_home')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.HOME}
+          onClick={() => handleDrawerToggle(false)}
+        >
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.link_home')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.OFFER.LIST}
-					onClick={() => handleDrawerToggle(false)}
-				>
-					<ListItemIcon>
-						<SearchIcon />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('common.label_search')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.OFFER.LIST}
+          onClick={() => handleDrawerToggle(false)}
+        >
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('common.label_search')} />
+        </ListItem>
 
-				<ListItemButton onClick={handleClickSupport}>
-					<ListItemIcon>
-						<InboxIcon />
-					</ListItemIcon>
-					<ListItemText
-						primary={t<string>('header.link_support.link_label_support')}
-					/>
-					{openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
-				</ListItemButton>
-				<Collapse in={openSubMenuSupport} timeout="auto" unmountOnExit>
-					<List component="div" disablePadding>
-						<ListItemButton
-							sx={{ pl: 4 }}
-							component={Link}
-							to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}
-							onClick={() => handleDrawerToggle(false)}
-						>
-							<ListItemIcon>
-								<StarBorder />
-							</ListItemIcon>
-							<ListItemText
-								primary={t<string>('header.link_support.link_contact_us')}
-							/>
-						</ListItemButton>
+        <ListItemButton onClick={handleClickSupport}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary={t<string>('header.link_support.link_label_support')}
+          />
+          {openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openSubMenuSupport} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              sx={{ pl: 4 }}
+              component={Link}
+              to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}
+              onClick={() => handleDrawerToggle(false)}
+            >
+              <ListItemIcon>
+                <StarBorder />
+              </ListItemIcon>
+              <ListItemText
+                primary={t<string>('header.link_support.link_contact_us')}
+              />
+            </ListItemButton>
 
-						<ListItemButton
-							sx={{ pl: 4 }}
-							component={Link}
-							to={ALL_APP_ROUTES.SUPPORT.ABOUT_US}
-							onClick={() => handleDrawerToggle(false)}
-						>
-							<ListItemIcon>
-								<InfoIcon />
-							</ListItemIcon>
-							<ListItemText
-								primary={t<string>('header.link_support.link_about')}
-							/>
-						</ListItemButton>
+            <ListItemButton
+              sx={{ pl: 4 }}
+              component={Link}
+              to={ALL_APP_ROUTES.SUPPORT.ABOUT_US}
+              onClick={() => handleDrawerToggle(false)}
+            >
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={t<string>('header.link_support.link_about')}
+              />
+            </ListItemButton>
 
-						<ListItemButton
-							sx={{ pl: 4 }}
-							component={Link}
-							to={ALL_APP_ROUTES.SUPPORT.FAQ}
-							onClick={() => handleDrawerToggle(false)}
-						>
-							<ListItemIcon>
-								<InfoIcon />
-							</ListItemIcon>
-							<ListItemText
-								primary={t<string>('header.link_support.link_faq')}
-							/>
-						</ListItemButton>
-					</List>
-				</Collapse>
-			</List>
-			<Divider />
-			<List>
-				<ListItem button>
-					<ListItemIcon>
-						<PhoneAndroidIcon />
-					</ListItemIcon>
-					<ListItemText primary="App Mobile" />
-				</ListItem>
+            <ListItemButton
+              sx={{ pl: 4 }}
+              component={Link}
+              to={ALL_APP_ROUTES.SUPPORT.FAQ}
+              onClick={() => handleDrawerToggle(false)}
+            >
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={t<string>('header.link_support.link_faq')}
+              />
+            </ListItemButton>
+          </List>
+        </Collapse>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <PhoneAndroidIcon />
+          </ListItemIcon>
+          <ListItemText primary="App Mobile" />
+        </ListItem>
 
-				<ListItem>
-					<FormGroup>
-						<FormControlLabel
-							control={
-								<MaterialUISwitch
-									sx={{ m: 1 }}
-									defaultChecked={defaultChecked}
-								/>
-							}
-							onChange={toggleDarkMode}
-							label=""
-						/>
-					</FormGroup>
-				</ListItem>
-			</List>
-		</Box>
-	);
+        <ListItem>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <MaterialUISwitch
+                  sx={{ m: 1 }}
+                  defaultChecked={defaultChecked}
+                />
+              }
+              onChange={toggleDarkMode}
+              label=""
+            />
+          </FormGroup>
+        </ListItem>
+      </List>
+    </Box>
+  );
 
-	const rightMenuMobile = () => (
-		<Box sx={{ width: 250 }} role="presentation">
-			<List>
-				<ListItem
-					alignItems="flex-start"
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.ACCOUNT}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemAvatar>
-						<Avatar
-							alt="Avatar"
-							src={getUserAvatar(
-								currentUser?.id,
-								currentUser?.imageUrl,
-								currentUser?.sourceConnectedDevice
-							)}
-						>
-							{getFullnameUser(currentUser)?.charAt(0)}
-						</Avatar>
-					</ListItemAvatar>
-					<ListItemText
-						className="list-item-text-user"
-						primary={getFullnameUser(currentUser)}
-						secondary={
-							<React.Fragment>
-								<Typography
-									component="span"
-									variant="body2"
-									color="text.primary"
-								>
-									{currentUser.email}
-								</Typography>
-								{currentUser?.address?.city
-									? '— ' + currentUser?.address?.city
-									: null}
-							</React.Fragment>
-						}
-					/>
-				</ListItem>
-				<Divider />
+  const rightMenuMobile = () => (
+    <Box sx={{ width: 250 }} role="presentation">
+      <List>
+        <ListItem
+          alignItems="flex-start"
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.ACCOUNT}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemAvatar>
+            <Avatar
+              alt="Avatar"
+              src={getUserAvatar(
+                currentUser?.id,
+                currentUser?.imageUrl,
+                currentUser?.sourceConnectedDevice
+              )}
+            >
+              {getFullnameUser(currentUser)?.charAt(0)}
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            className="list-item-text-user"
+            primary={getFullnameUser(currentUser)}
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {currentUser.email}
+                </Typography>
+                {currentUser?.address?.city
+                  ? '— ' + currentUser?.address?.city
+                  : null}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+        <Divider />
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.CART.LIST}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<Badge color="error" badgeContent={nbeCarts}>
-							<ShoppingCartIcon />
-						</Badge>
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.label_cart')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.CART.LIST}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <Badge color="error" badgeContent={nbeCarts}>
+              <ShoppingCartIcon />
+            </Badge>
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.label_cart')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.ORDER.LIST}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<FilterFramesIcon />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.label_order')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.ORDER.LIST}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <FilterFramesIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.label_order')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.CHAT.LIST}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<Badge
-							badgeContent={nbeMessagesNotRead > 0 ? nbeMessagesNotRead : null}
-							color="error"
-						>
-							<MailIcon />
-						</Badge>
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.chat')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.CHAT.LIST}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <Badge
+              badgeContent={nbeMessagesNotRead > 0 ? nbeMessagesNotRead : null}
+              color="error"
+            >
+              <MailIcon />
+            </Badge>
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.chat')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.RENT_REQUEST.LIST}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<AddBusinessIcon />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.label_location')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.RENT_REQUEST.LIST}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <AddBusinessIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.label_location')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.OFFER.MY_OFFERS}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<PostAddIcon />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.my_offers')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.OFFER.MY_OFFERS}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <PostAddIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.my_offers')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.FAVORITE.USER}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<FavoriteIcon />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.my_favorite_users')} />
-				</ListItem>
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.FAVORITE.USER}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <FavoriteIcon />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.my_favorite_users')} />
+        </ListItem>
 
-				<ListItem
-					button
-					component={Link}
-					to={ALL_APP_ROUTES.NOTIFICATION.LIST}
-					onClick={() => handleDrawerToggleRight(false)}
-				>
-					<ListItemIcon>
-						<Badge badgeContent={nbeNotificationsNotRead} color="error">
-							<NotificationsIcon />
-						</Badge>
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.notifications')} />
-				</ListItem>
-			</List>
-			<Divider />
-			<List>
-				<ListItem button onClick={() => handleLogout()}>
-					<ListItemIcon>
-						<Logout />
-					</ListItemIcon>
-					<ListItemText primary={t<string>('header.logout')} />
-				</ListItem>
-			</List>
-		</Box>
-	);
+        <ListItem
+          button
+          component={Link}
+          to={ALL_APP_ROUTES.NOTIFICATION.LIST}
+          onClick={() => handleDrawerToggleRight(false)}
+        >
+          <ListItemIcon>
+            <Badge badgeContent={nbeNotificationsNotRead} color="error">
+              <NotificationsIcon />
+            </Badge>
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.notifications')} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button onClick={() => handleLogout()}>
+          <ListItemIcon>
+            <Logout />
+          </ListItemIcon>
+          <ListItemText primary={t<string>('header.logout')} />
+        </ListItem>
+      </List>
+    </Box>
+  );
 
-	const handleLocaleChange = (locale: string) => {
-		StorageService.local.set(AllAppConfig.LOCALE, locale);
-		i18n.changeLanguage(locale);
-		handleLAnguagesMenuClose();
-		dispatch(changeLocale(locale));
+  const handleLocaleChange = (locale: string) => {
+    StorageService.local.set(AllAppConfig.LOCALE, locale);
+    i18n.changeLanguage(locale);
+    handleLAnguagesMenuClose();
+    dispatch(changeLocale(locale));
 
-		// Reset store used multilangues
-		resetAboutUs({});
-	};
-	const handleLAnguagesMenuClose = () => {
-		setLanguagesAnchorEl(null);
-	};
-	const handleLAnguagesMenuOpen = (event: any) => {
-		setLanguagesAnchorEl(event.currentTarget);
-	};
-	const menuIdLanguages = 'languages-menu-mobile';
-	const renderMenuLanguages = (
-		<Menu
-			anchorEl={languagesAnchorEl}
-			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'left',
-			}}
-			id={menuIdLanguages}
-			keepMounted
-			transformOrigin={{
-				vertical: 'top',
-				horizontal: 'left',
-			}}
-			open={isLanguagesMenuOpen}
-			onClose={handleLAnguagesMenuClose}
-		>
-			{Object.keys(languages).length > 1
-				? locales.map((locale) => (
-						<MenuItem key={locale} onClick={() => handleLocaleChange(locale)}>
-							{languages[locale].name}
-						</MenuItem>
-				  ))
-				: null}
-		</Menu>
-	);
+    // Reset store used multilangues
+    resetAboutUs({});
+  };
+  const handleLAnguagesMenuClose = () => {
+    setLanguagesAnchorEl(null);
+  };
+  const handleLAnguagesMenuOpen = (event: any) => {
+    setLanguagesAnchorEl(event.currentTarget);
+  };
+  const menuIdLanguages = 'languages-menu-mobile';
+  const renderMenuLanguages = (
+    <Menu
+      anchorEl={languagesAnchorEl}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      id={menuIdLanguages}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+      open={isLanguagesMenuOpen}
+      onClose={handleLAnguagesMenuClose}
+    >
+      {Object.keys(languages).length > 1
+        ? locales.map((locale) => (
+            <MenuItem key={locale} onClick={() => handleLocaleChange(locale)}>
+              {languages[locale].name}
+            </MenuItem>
+          ))
+        : null}
+    </Menu>
+  );
 
-	const responseGoogle = (response: any) => {
-		if (response?.credential) {
-			const user = JSON.parse(decodeJwtResponse(response.credential));
-			const requestData: IGooglePlus = {
-				Ba: '',
-				tokenId: response.credential,
-				googleId: response.clientId,
-				profileObj: {
-					email: user.email,
-					familyName: user.family_name,
-					givenName: user.given_name,
-					imageUrl: user.picture,
-					name: user.name,
-				},
-				idOneSignal: oneSignalId,
-				sourceConnectedDevice: SourceProvider.GOOGLE_ONE_TAP_LOGIN,
-			};
-			dispatch(loginWithGoogleOneTap({ ...requestData }));
-		}
-	};
+  const responseGoogle = (response: any) => {
+    if (response?.credential) {
+      const user = JSON.parse(decodeJwtResponse(response.credential));
+      const requestData: IGooglePlus = {
+        Ba: '',
+        tokenId: response.credential,
+        googleId: response.clientId,
+        profileObj: {
+          email: user.email,
+          familyName: user.family_name,
+          givenName: user.given_name,
+          imageUrl: user.picture,
+          name: user.name,
+        },
+        idOneSignal: oneSignalId,
+        sourceConnectedDevice: SourceProvider.GOOGLE_ONE_TAP_LOGIN,
+      };
+      dispatch(loginWithGoogleOneTap({ ...requestData }));
+    }
+  };
 
-	return (
-		<>
-			<ScrollToTopRouters data-testid="scroll-to-top-routers" />
-			<ThemeProvider theme={ThemeApp}>
-				<CssBaseline />
-				<ToastContainer
-					position={toast.POSITION.TOP_LEFT}
-					className="toastify-container"
-					toastClassName="toastify-toast"
-					autoClose={5000}
-				/>
-				<React.Fragment>
-					<Drawer
-						anchor="left"
-						open={openAnchorDrawer}
-						onClose={() => handleDrawerToggle(false)}
-					>
-						{listMenuMobile()}
-					</Drawer>
-				</React.Fragment>
-				<React.Fragment>
-					<Drawer
-						anchor="right"
-						open={openAnchorDrawerRight}
-						onClose={() => handleDrawerToggleRight(false)}
-					>
-						{rightMenuMobile()}
-					</Drawer>
-				</React.Fragment>
-				<div id="back-to-top-anchor" data-testid="back-to-top-anchor"></div>
-				<Header
-					isAuthenticated={isAuthenticated}
-					currentUser={currentUser}
-					parentCallbackLogout={(event: any) => handleLogout()}
-					parentCallbackRightMenuMobile={(event: any) =>
-						handleDrawerToggleRight(event)
-					}
-					parentCallbackMenuMobile={(event: any) => handleDrawerToggle(event)}
-					currentLocale={currentLocale}
-					onLocaleChange={handleLocaleChange}
-					nbeNotificationsNotSee={nbeNotificationsNotRead}
-					parentCallbackDarkMode={(event: any, checked: boolean) =>
-						toggleDarkMode(event, checked)
-					}
-					nbeMessagesNotRead={nbeMessagesNotRead}
-					nbeCarts={nbeCarts}
-				/>
-				<main
-					style={{
-						paddingBottom: 50,
-						position: 'relative',
-					}}
-				>
-					<AllRoutes />
+  return (
+    <>
+      <ScrollToTopRouters data-testid="scroll-to-top-routers" />
+      <ThemeProvider theme={ThemeApp}>
+        <CssBaseline />
+        <ToastContainer
+          position={toast.POSITION.TOP_LEFT}
+          className="toastify-container"
+          toastClassName="toastify-toast"
+          autoClose={5000}
+        />
+        <React.Fragment>
+          <Drawer
+            anchor="left"
+            open={openAnchorDrawer}
+            onClose={() => handleDrawerToggle(false)}
+          >
+            {listMenuMobile()}
+          </Drawer>
+        </React.Fragment>
+        <React.Fragment>
+          <Drawer
+            anchor="right"
+            open={openAnchorDrawerRight}
+            onClose={() => handleDrawerToggleRight(false)}
+          >
+            {rightMenuMobile()}
+          </Drawer>
+        </React.Fragment>
+        <div id="back-to-top-anchor" data-testid="back-to-top-anchor"></div>
+        <Header
+          isAuthenticated={isAuthenticated}
+          currentUser={currentUser}
+          parentCallbackLogout={(event: any) => handleLogout()}
+          parentCallbackRightMenuMobile={(event: any) =>
+            handleDrawerToggleRight(event)
+          }
+          parentCallbackMenuMobile={(event: any) => handleDrawerToggle(event)}
+          currentLocale={currentLocale}
+          onLocaleChange={handleLocaleChange}
+          nbeNotificationsNotSee={nbeNotificationsNotRead}
+          parentCallbackDarkMode={(event: any, checked: boolean) =>
+            toggleDarkMode(event, checked)
+          }
+          nbeMessagesNotRead={nbeMessagesNotRead}
+          nbeCarts={nbeCarts}
+        />
+        <main
+          style={{
+            paddingBottom: 50,
+            position: 'relative',
+          }}
+        >
+          <AllRoutes />
 
-					<ScrollTop>
-						<Fab
-							sx={{ backgroundColor: '#3f3f40', color: '#fff' }}
-							size="small"
-							aria-label="scroll back to top"
-						>
-							<KeyboardArrowUpIcon />
-						</Fab>
-					</ScrollTop>
+          <ScrollTop>
+            <Fab
+              sx={{ backgroundColor: '#3f3f40', color: '#fff' }}
+              size="small"
+              aria-label="scroll back to top"
+            >
+              <KeyboardArrowUpIcon />
+            </Fab>
+          </ScrollTop>
 
-					{/*<MessengerCustomerChat pageId={AllAppConfig.PAGE_ID} appId={AllAppConfig.APP_ID_FACEBOOK} />*/}
-				</main>
-				<Footer />
+          {/*<MessengerCustomerChat pageId={AllAppConfig.PAGE_ID} appId={AllAppConfig.APP_ID_FACEBOOK} />*/}
+        </main>
+        <Footer />
 
-				{!isAuthenticated ? (
-					<GoogleSignin
-						isOneTap={true}
-						handleCredentialResponse={responseGoogle}
-					/>
-				) : null}
+        {!isAuthenticated ? (
+          <GoogleSignin
+            isOneTap={true}
+            handleCredentialResponse={responseGoogle}
+          />
+        ) : null}
 
-				{renderMenuLanguages}
+        {renderMenuLanguages}
 
-				<CookieConsent
-					location="bottom"
-					buttonText={t<string>('cookie.accept')}
-					cookieName="cookieSrfGroup"
-					style={{ background: '#3f3f40' }}
-					buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
-					expires={150}
-				>
-					{t<string>('cookie.first_description')}{' '}
-					<span style={{ fontSize: '10px' }}>
-						{t<string>('cookie.second_description')}
-					</span>
-				</CookieConsent>
+        <CookieConsent
+          location="bottom"
+          buttonText={t<string>('cookie.accept')}
+          cookieName="cookieSrfGroup"
+          style={{ background: '#3f3f40' }}
+          buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+          expires={150}
+        >
+          {t<string>('cookie.first_description')}{' '}
+          <span style={{ fontSize: '10px' }}>
+            {t<string>('cookie.second_description')}
+          </span>
+        </CookieConsent>
 
-				{/*<GoogleAdsense />*/}
+        {/*<GoogleAdsense />*/}
 
-				<UnauthorizeContentModal />
-			</ThemeProvider>
-		</>
-	);
+        <UnauthorizeContentModal />
+      </ThemeProvider>
+    </>
+  );
 };
