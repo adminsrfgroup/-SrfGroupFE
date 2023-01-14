@@ -109,13 +109,14 @@ import { resetRentRequests } from './main-features/rent-request/store/slice';
 import { resetCart, resetOrder } from './main-features/cart/store/slice';
 import { resetMyNotifications } from './main-features/notification/store/slice';
 import { resetFavoriteUsers } from './main-features/favorite/store/slice';
+import { resetAboutUs } from './main-features/aboutus/store/slice';
 import './App.css';
 import { GoogleSignin } from './shared/components/google-signin/google-signin';
 import { AllAppConfig } from './core/config/all-config';
 
 // For Apm Server
 import { init as initApm } from '@elastic/apm-rum';
-import { resetAboutUs } from './main-features/aboutus/store/slice';
+
 if (AllAppConfig.ENABLE_APM_SERVER !== 'true') {
   initApm({
     // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
@@ -135,7 +136,6 @@ function ScrollToTopRouters() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log('cs');
     window?.scrollTo(0, 0);
   }, [pathname]);
 
