@@ -53,19 +53,19 @@ export function* loginCustomerHandler(data: any): Generator<any, any, any> {
         idOneSignal: data?.payload?.oneSignalId,
       }
     );
+    const bearerToken = result?.data?.token;
+    const refreshToken = result?.data?.refreshToken;
 
-    const bearerToken = result?.headers?.authorization;
-
-    if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-      const jwt = bearerToken.slice(7, bearerToken.length);
+    if (bearerToken && refreshToken) {
       if (data?.payload?.rememberMe) {
-        StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
+        StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
       } else {
-        StorageService.session.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
+        StorageService.session.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
       }
+      StorageService.local.set(AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER, refreshToken );
     }
 
-    yield put(loginUserSuccess(bearerToken));
+    yield put(loginUserSuccess(result?.data));
   } catch (e) {
     yield put(loginUserFailure(e));
   }

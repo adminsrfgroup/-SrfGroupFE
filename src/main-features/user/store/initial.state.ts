@@ -17,6 +17,7 @@ const CURRENT_USER = StorageService.local.get(AllAppConfig.VALUE_CURRENT_USER)
 export const initialState = {
   login: {
     token: '',
+    refreshToken: '',
     loading: false,
     loginWithGoogleOneTapSuccess: false,
   },

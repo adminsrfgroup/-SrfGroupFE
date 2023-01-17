@@ -4,9 +4,10 @@ const reducer = {
   loginUser: (state: any) => {
     state.login.loading = true;
   },
-  loginUserSuccess: (state: any, action: PayloadAction) => {
+  loginUserSuccess: (state: any, action: any) => {
     state.login.loading = false;
-    state.login.token = action.payload;
+    state.login.token = action.payload?.token;
+    state.login.refreshToken = action.payload?.refreshToken;
   },
   loginUserFailure: (state: any, action: PayloadAction) => {
     state.login.loading = false;

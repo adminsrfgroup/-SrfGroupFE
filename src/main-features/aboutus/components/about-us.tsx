@@ -10,37 +10,28 @@ import i18n from 'i18next';
 import { ALL_APP_ROUTES } from '../../../core/config/all-app-routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { allAboutUsSelector, fetchAboutUs } from '../store/slice';
-import isEmpty from 'lodash/isEmpty';
 
 export default function AboutUs() {
   const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
   const dispatch = useDispatch();
   const { entity, loading } = useSelector(allAboutUsSelector);
 
-  React.useEffect(() => {
-    i18n.on('languageChanged', (lang: any) => {
-      setDefaultLanguage(lang);
-    });
-
-    if (isEmpty(entity)) {
-      dispatch(fetchAboutUs({}));
-    }
+  const handleLanguageChanged = React.useCallback(() => {
+    dispatch(fetchAboutUs({}));
   }, []);
 
   React.useEffect(() => {
-    if (entity) {
-      getContentByLang();
-    }
-  }, [entity]);
+    i18n.on('languageChanged', handleLanguageChanged);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, [handleLanguageChanged]);
 
-  const getContentByLang = (): string => {
-    if (defaultLanguage === 'en') {
-      return entity.contentEn || '';
-    } else if (defaultLanguage === 'fr') {
-      return entity.contentFr || '';
+  React.useEffect(() => {
+    if (!entity) {
+      dispatch(fetchAboutUs({}));
     }
-    return entity.contentAr || '';
-  };
+  }, []);
 
   return (
     <Container maxWidth="xl">
@@ -72,11 +63,10 @@ export default function AboutUs() {
               <CircularProgress color="inherit" />
             </Box>
           </Grid>
-        ) : null}
+        ) : <Grid item xs={12}>
+          <Box dangerouslySetInnerHTML={{__html: entity}}></Box>
+        </Grid>}
 
-        <Grid item xs={12}>
-          <Box dangerouslySetInnerHTML={{ __html: getContentByLang() }}></Box>
-        </Grid>
       </Grid>
     </Container>
   );

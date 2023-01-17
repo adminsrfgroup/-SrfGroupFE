@@ -1,7 +1,7 @@
 export const initialState = {
   aboutus: {
     loading: false,
-    entity: {},
+    entity: '',
     loadingEntities: false,
     entities: [],
     updateSuccess: false,

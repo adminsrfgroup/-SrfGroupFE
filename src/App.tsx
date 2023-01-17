@@ -240,6 +240,7 @@ export const App = () => {
   };
 
   React.useEffect(() => {
+    console.log('token ', token)
     if (token) {
       google.accounts.id.cancel();
       dispatch(sessionUser({}));

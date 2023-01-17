@@ -78,8 +78,8 @@ const callWS = (
         resolve(response);
       },
       (error: any) => {
+        console.log('Error call api ', error)
         document.body.classList.remove('loading-indicator');
-
         showNotification(false, error);
         reject(error);
       }

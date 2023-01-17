@@ -18,7 +18,7 @@ module.exports = {
         "@typescript-eslint", "react", "prettier"
     ],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": "warn",
         "no-console": process.env.NODE_ENV === 'development' ? "off" : "error",
         "no-debugger": process.env.NODE_ENV === 'development' ? "off" : "error"
     }
