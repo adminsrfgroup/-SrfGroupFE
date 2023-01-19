@@ -8,15 +8,15 @@ import '@testing-library/jest-dom';
 // upgrade to 16.9. See also: https://github.com/facebook/react/pull/14853
 const originalError = console.error;
 beforeAll(() => {
-  console.error = (...args) => {
-    if (/ react-i18next/.test(args[0])) {
-      return;
-    }
-    // originalError.call(console, ...args)
-  };
+    console.error = (...args) => {
+        if (/ react-i18next/.test(args[0])) {
+            return;
+        }
+        // originalError.call(console, ...args)
+    };
 });
 
 afterAll(() => {
-  console.error = originalError;
-  window.scrollTo = jest.fn();
+    console.error = originalError;
+    window.scrollTo = jest.fn();
 });

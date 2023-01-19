@@ -25,11 +25,11 @@ setupAxiosInterceptors(() => storeApp.dispatch(logout({})));
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOM.createRoot(container);
 root.render(
-  <Provider store={storeApp}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+    <Provider store={storeApp}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
 );
 
 // If you want your app to work offline and load faster, you can change

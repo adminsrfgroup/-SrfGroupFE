@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
 
 export const initialValuesSubscribeNewsLetter = {
-  email: '',
+    email: '',
 };
 
 export const validationSchemaSubscribeNewsLetter = Yup.object({
-  email: Yup.string().email().required('Email is required'),
+    email: Yup.string().email().required('Email is required'),
 });

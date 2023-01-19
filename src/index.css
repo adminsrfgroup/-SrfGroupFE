@@ -1,7 +1,8 @@
 @font-face {
-    font-family: "NotoSansArabic";
-    src: local("NotoSansArabic"),
-    url("./font/NotoSansArabic/NotoSansArabic-Regular.ttf") format("truetype");
+    font-family: 'NotoSansArabic';
+    src: local('NotoSansArabic'),
+        url('./font/NotoSansArabic/NotoSansArabic-Regular.ttf')
+            format('truetype');
     font-weight: bold;
 }
 
@@ -23,10 +24,10 @@
     top: 50%;
     left: 0;
     z-index: 1001;
-    color:white;
-    text-align:center;
-    font-weight:bold;
-    font-size:1.5rem;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 /************* MUI *********************/
@@ -39,13 +40,13 @@
     width: 100%;
 }
 
-.full-img-responsive{
+.full-img-responsive {
     width: 100%;
     height: auto;
     max-width: 100%;
 }
 
-.lazy-load-image-background{
+.lazy-load-image-background {
     width: 100%;
     height: 100%;
     max-width: 100%;
@@ -60,7 +61,7 @@
     object-fit: cover;
 }
 
-.bg-yellow{
+.bg-yellow {
     background-color: #fc3 !important;
 }
 
@@ -68,23 +69,23 @@
     background-color: #e2c498 !important;
 }
 
-.color-yellow{
+.color-yellow {
     color: #fc3 !important;
 }
 
-.color-purple{
+.color-purple {
     color: #9c27b0 !important;
 }
 
-.ml-05{
+.ml-05 {
     margin-left: 0.5rem;
 }
 
-.bg-grey{
+.bg-grey {
     background-color: #94908f !important;
 }
 
-.color-grey{
+.color-grey {
     color: #94908f !important;
 }
 
@@ -92,7 +93,7 @@
     float: right;
 }
 
-.truncate-text{
+.truncate-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -107,7 +108,7 @@
     white-space: normal;
 }
 
-.uppercase{
+.uppercase {
     text-transform: uppercase !important;
 }
 
@@ -117,6 +118,6 @@
     opacity: 0;
 }
 
-.h-100{
+.h-100 {
     height: 100%;
 }

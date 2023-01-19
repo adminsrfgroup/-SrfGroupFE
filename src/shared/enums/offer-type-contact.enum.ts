@@ -1,4 +1,4 @@
 export enum OfferTypeContact {
-  direct = 'ContactDirect',
-  perCommmande = 'PerCommande',
+    direct = 'ContactDirect',
+    perCommmande = 'PerCommande',
 }

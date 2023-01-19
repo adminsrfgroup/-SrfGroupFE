@@ -11,33 +11,33 @@ import React from 'react';
  * @constructor
  */
 export function PublicRoute({
-  children,
-  isAuthenticated,
-  path,
-  ...rest
+    children,
+    isAuthenticated,
+    path,
+    ...rest
 }: {
-  children: any;
-  isAuthenticated: boolean;
-  path: string;
+    children: any;
+    isAuthenticated: boolean;
+    path: string;
 }) {
-  return isAuthenticated ? (
-    <Navigate to={ALL_APP_ROUTES.HOME} replace />
-  ) : (
-    children
-  );
-  // <Route
-  //     path={path}
-  //     render={({ location }) => {
-  //         return isAuthenticated === false ? (
-  //             children
-  //         ) : (
-  //             <Redirect
-  //                 to={{
-  //                     pathname: ALL_APP_ROUTES.HOME,
-  //                     state: { from: location },
-  //                 }}
-  //             />
-  //         );
-  //     }}
-  // />
+    return isAuthenticated ? (
+        <Navigate to={ALL_APP_ROUTES.HOME} replace />
+    ) : (
+        children
+    );
+    // <Route
+    //     path={path}
+    //     render={({ location }) => {
+    //         return isAuthenticated === false ? (
+    //             children
+    //         ) : (
+    //             <Redirect
+    //                 to={{
+    //                     pathname: ALL_APP_ROUTES.HOME,
+    //                     state: { from: location },
+    //                 }}
+    //             />
+    //         );
+    //     }}
+    // />
 }

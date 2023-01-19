@@ -3,28 +3,30 @@ import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 export function CustomSunEditor({
-  defaultValue,
-  callbcakHandleChange,
-  placeholder,
+    defaultValue,
+    callbcakHandleChange,
+    placeholder,
 }: {
-  defaultValue: string;
-  callbcakHandleChange: any;
-  placeholder: string;
+    defaultValue: string;
+    callbcakHandleChange: any;
+    placeholder: string;
 }) {
-  const handleChange = (content: any) => {
-    callbcakHandleChange(content);
-  };
+    const handleChange = (content: any) => {
+        callbcakHandleChange(content);
+    };
 
-  return (
-    <SunEditor
-      lang="en"
-      setContents={defaultValue}
-      placeholder={placeholder}
-      setOptions={{
-        height: '200',
-        buttonList: [['undo', 'redo', 'font', 'fontSize', 'formatBlock']],
-      }}
-      onChange={handleChange}
-    />
-  );
+    return (
+        <SunEditor
+            lang="en"
+            setContents={defaultValue}
+            placeholder={placeholder}
+            setOptions={{
+                height: '200',
+                buttonList: [
+                    ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
+                ],
+            }}
+            onChange={handleChange}
+        />
+    );
 }

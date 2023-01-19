@@ -4,55 +4,60 @@ import axios from 'axios';
 import { AllAppConfig } from '../../../core/config/all-config';
 
 export default function SuggesSearch() {
-  const [query, setQuery] = React.useState('');
-  const [searchQuery, setSearchQuery] = React.useState({});
-  const [suggestions, setSuggestions] = React.useState([]);
+    const [query, setQuery] = React.useState('');
+    const [searchQuery, setSearchQuery] = React.useState({});
+    const [suggestions, setSuggestions] = React.useState([]);
 
-  const onChangeInput = (event: any) => {
-    setQuery(event.target.value);
+    const onChangeInput = (event: any) => {
+        setQuery(event.target.value);
 
-    const search = debounce(sendQuery, 500);
+        const search = debounce(sendQuery, 500);
 
-    setSearchQuery((prevSearch: any) => {
-      if (prevSearch.cancel) {
-        prevSearch.cancel();
-      }
-      return search;
-    });
+        setSearchQuery((prevSearch: any) => {
+            if (prevSearch.cancel) {
+                prevSearch.cancel();
+            }
+            return search;
+        });
 
-    search(event.target.value);
-  };
+        search(event.target.value);
+    };
 
-  const sendQuery = (value: string) => {
-    axios
-      .post(AllAppConfig.BASE_URL_ELASTIC_SEARCH + 'suggest_search/_search', {
-        query: {
-          multi_match: {
-            query: value,
-            fields: ['name', 'description'],
-            fuzziness: 2,
-          },
-        },
-      })
-      .then((result) => {
-        // console.log('suggestions ', result);
-        const results = result.data.hits.hits.map((h: any) => h._source);
-        // console.log('suggestions results', results);
-        if (results?.length) {
-          setSuggestions(results);
-        }
-      });
-  };
+    const sendQuery = (value: string) => {
+        axios
+            .post(
+                AllAppConfig.BASE_URL_ELASTIC_SEARCH + 'suggest_search/_search',
+                {
+                    query: {
+                        multi_match: {
+                            query: value,
+                            fields: ['name', 'description'],
+                            fuzziness: 2,
+                        },
+                    },
+                }
+            )
+            .then((result) => {
+                // console.log('suggestions ', result);
+                const results = result.data.hits.hits.map(
+                    (h: any) => h._source
+                );
+                // console.log('suggestions results', results);
+                if (results?.length) {
+                    setSuggestions(results);
+                }
+            });
+    };
 
-  return (
-    <div>
-      <input type="search" onChange={onChangeInput} />
-      {suggestions.map((item: any, index: number) => (
-        <p key={index}>{item?.name}</p>
-      ))}
-    </div>
-  );
-  /*
+    return (
+        <div>
+            <input type="search" onChange={onChangeInput} />
+            {suggestions.map((item: any, index: number) => (
+                <p key={index}>{item?.name}</p>
+            ))}
+        </div>
+    );
+    /*
     state = {
         value: '',
         suggestions: []
