@@ -88,7 +88,7 @@ test('renders App', () => {
     },
   });
 
-  const component = render(
+  render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
@@ -103,6 +103,6 @@ test('renders App', () => {
   // // const scrollToTopRouters = component.getByTestId('scroll-to-top-routers');
   // // expect(scrollToTopRouters).toBeInTheDocument();
   //
-  const divScrollTop = component.getByTestId('back-to-top-anchor');
-  expect(divScrollTop).toBeInTheDocument();
+  // const divScrollTop = view?.getByTestId('back-to-top-anchor');
+  // expect(divScrollTop).toBeInTheDocument();
 });

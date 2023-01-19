@@ -115,22 +115,22 @@ import { GoogleSignin } from './shared/components/google-signin/google-signin';
 import { AllAppConfig } from './core/config/all-config';
 
 // For Apm Server
-import { init as initApm } from '@elastic/apm-rum';
-
-if (AllAppConfig.ENABLE_APM_SERVER !== 'true') {
-  initApm({
-    // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-    serviceName: 'ServerApmSrfGroup',
-
-    // Set custom APM Server URL (default: http://localhost:8200)
-    serverUrl: AllAppConfig.SERVER_APM_SERVER,
-
-    // Set service version (required for sourcemap feature)
-    serviceVersion: '1.0',
-
-    logLevel: 'debug',
-  });
-}
+// import { init as initApm } from '@elastic/apm-rum';
+//
+// if (AllAppConfig.ENABLE_APM_SERVER !== 'true') {
+//   initApm({
+//     // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+//     serviceName: 'ServerApmSrfGroup',
+//
+//     // Set custom APM Server URL (default: http://localhost:8200)
+//     serverUrl: AllAppConfig.SERVER_APM_SERVER,
+//
+//     // Set service version (required for sourcemap feature)
+//     serviceVersion: '1.0',
+//
+//     logLevel: 'debug',
+//   });
+// }
 
 function ScrollToTopRouters() {
   const { pathname } = useLocation();

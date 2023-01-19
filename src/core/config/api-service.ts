@@ -67,7 +67,7 @@ const callWS = (
     );
 
     if (invokeOptions?.textPlain) {
-      axios.defaults.headers.post = { ['Content-Type']: 'text/plain' };
+      axios.defaults.headers.post = { 'Content-Type': 'text/plain' };
     }
 
     axios.request(invokeParams).then(

@@ -344,7 +344,7 @@ export default function Profile() {
     if (isAuthenticated) {
       setOpenReportUserModal(true);
     } else {
-      open();
+      dispatch(showUnauthorizedModal({}));
     }
   };
   const handleClickReportUserModal = () => {

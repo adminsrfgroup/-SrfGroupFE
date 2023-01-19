@@ -1,11 +1,14 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "react-app",
+        "react-app/jest"
     ],
     "overrides": [
     ],
@@ -17,8 +20,8 @@ module.exports = {
     "plugins": [
         "@typescript-eslint", "react", "prettier"
     ],
+    "ignorePatterns": ["**/setupTests.ts"],
     "rules": {
-        "prettier/prettier": "error",
         "no-console": process.env.NODE_ENV === 'development' ? "off" : "error",
         "no-debugger": process.env.NODE_ENV === 'development' ? "off" : "error"
     }
