@@ -46,7 +46,6 @@ const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
       if( checkOneCall ){
         checkOneCall = false;
         refreshToken().then((resultRefreshToken) => {
-
           if(resultRefreshToken){
             StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, resultRefreshToken?.data?.token);
             checkOneCall = true;
