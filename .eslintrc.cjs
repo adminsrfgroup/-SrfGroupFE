@@ -22,7 +22,7 @@ module.exports = {
     ],
     "ignorePatterns": ["**/setupTests.ts"],
     "rules": {
-        "no-console": process.env.NODE_ENV === 'development' ? "off" : "error",
+        "no-console": "error",
         "no-debugger": process.env.NODE_ENV === 'development' ? "off" : "error"
     }
 }
