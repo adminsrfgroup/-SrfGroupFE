@@ -136,6 +136,7 @@ function ScrollToTopRouters() {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    console.log('Just for Test')
     window?.scrollTo(0, 0);
   }, [pathname]);
 
