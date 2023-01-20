@@ -170,7 +170,8 @@
         "send_message": "Envoyer un message",
         "report_user": "Signaler l utilisateur",
         "description_report_user": "Ete vous sur de signaler cet utilisateur",
-        "message_report_successfully": "L utilisateur a été signalé avec succès"
+        "message_report_successfully": "L utilisateur a été signalé avec succès",
+        "personal_details": "Détails personnels"
     },
     "add_offer": {
         "title_page": "Créer une nouvelle offre",

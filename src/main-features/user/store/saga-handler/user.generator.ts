@@ -58,20 +58,11 @@ export function* loginCustomerHandler(data: any): Generator<any, any, any> {
 
         if (bearerToken && refreshToken) {
             if (data?.payload?.rememberMe) {
-                StorageService.local.set(
-                    AllAppConfig.NAME_TOKEN_CURRENT_USER,
-                    bearerToken
-                );
+                StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
             } else {
-                StorageService.session.set(
-                    AllAppConfig.NAME_TOKEN_CURRENT_USER,
-                    bearerToken
-                );
+                StorageService.session.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
             }
-            StorageService.local.set(
-                AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER,
-                refreshToken
-            );
+            StorageService.local.set(AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER, refreshToken);
         }
 
         yield put(loginUserSuccess(result?.data));
@@ -90,18 +81,12 @@ export function* loginWithFacebookHandler(data: any): Generator<any, any, any> {
             { ...data?.payload }
         );
 
-        const bearerToken = result?.headers?.authorization;
+        const bearerToken = result?.data?.token;
+        const refreshToken = result?.data?.refreshToken;
 
-        if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-            const jwt = bearerToken.slice(7, bearerToken.length);
-            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            /*
-            if (data?.payload?.rememberMe) {
-                StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            } else {
-                StorageService.session.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            }
-            */
+        if (bearerToken && refreshToken) {
+            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
+            StorageService.local.set(AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER, refreshToken);
         }
 
         yield put(loginWithFacebookSuccess(bearerToken));
@@ -120,18 +105,12 @@ export function* loginWithGoogleHandler(data: any): Generator<any, any, any> {
             { ...data?.payload }
         );
 
-        const bearerToken = result?.headers?.authorization;
+        const bearerToken = result?.data?.token;
+        const refreshToken = result?.data?.refreshToken;
 
-        if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-            const jwt = bearerToken.slice(7, bearerToken.length);
-            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            /*
-            if (data?.payload?.rememberMe) {
-                StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            } else {
-                StorageService.session.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            }
-            */
+        if (bearerToken && refreshToken) {
+            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
+            StorageService.local.set(AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER, refreshToken);
         }
 
         yield put(loginWithGoogleSuccess(bearerToken));
@@ -144,9 +123,7 @@ export function* loginWithGoogleHandler(data: any): Generator<any, any, any> {
  *
  * @param data
  */
-export function* loginWithGoogleOneTapHandler(
-    data: any
-): Generator<any, any, any> {
+export function* loginWithGoogleOneTapHandler(data: any): Generator<any, any, any> {
     try {
         const result = yield invokeWS(
             {
@@ -156,18 +133,12 @@ export function* loginWithGoogleOneTapHandler(
             { ...data?.payload }
         );
 
-        const bearerToken = result?.headers?.authorization;
+        const bearerToken = result?.data?.token;
+        const refreshToken = result?.data?.refreshToken;
 
-        if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-            const jwt = bearerToken.slice(7, bearerToken.length);
-            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            /*
-            if (data?.payload?.rememberMe) {
-                StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            } else {
-                StorageService.session.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, jwt);
-            }
-            */
+        if (bearerToken && refreshToken) {
+            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, bearerToken);
+            StorageService.local.set(AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER, refreshToken);
         }
 
         yield put(loginWithGoogleOneTapSuccess(bearerToken));
@@ -184,10 +155,7 @@ export function* sessionUserHandler(): Generator<any, any, any> {
         });
         const account = result?.data;
         if (account) {
-            StorageService.local.set(
-                AllAppConfig.VALUE_CURRENT_USER,
-                JSON.stringify(account)
-            );
+            StorageService.local.set(AllAppConfig.VALUE_CURRENT_USER, JSON.stringify(account));
         }
         yield put(sessionUserSuccess(result?.data));
     } catch (e) {
@@ -198,11 +166,7 @@ export function* sessionUserHandler(): Generator<any, any, any> {
 /**
  *
  */
-export function* getNumberOfNotificationsNotSeeHandler(): Generator<
-    any,
-    any,
-    any
-> {
+export function* getNumberOfNotificationsNotSeeHandler(): Generator<any, any, any> {
     try {
         const result = yield invokeWS({
             url: `${apiUrl}count-not-see-notifications`,
@@ -314,9 +278,7 @@ export function* resetPasswordInitHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* resetPasswordFinishHandler(
-    data: any
-): Generator<any, any, any> {
+export function* resetPasswordFinishHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}public/forgot-password/finish`;
         const result = yield invokeWS(
@@ -332,9 +294,7 @@ export function* resetPasswordFinishHandler(
     }
 }
 
-export function* updateInfosAccountHandler(
-    data: any
-): Generator<any, any, any> {
+export function* updateInfosAccountHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}update-current-user`;
         const result = yield invokeWS(
@@ -350,9 +310,7 @@ export function* updateInfosAccountHandler(
     }
 }
 
-export function* updatePasswordAccountHandler(
-    data: any
-): Generator<any, any, any> {
+export function* updatePasswordAccountHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}update-password-current-user`;
         const result = yield invokeWS(
@@ -368,9 +326,7 @@ export function* updatePasswordAccountHandler(
     }
 }
 
-export function* updateAvatarAccountHandler(
-    data: any
-): Generator<any, any, any> {
+export function* updateAvatarAccountHandler(data: any): Generator<any, any, any> {
     try {
         const result = yield invokeWS(
             {
@@ -381,10 +337,7 @@ export function* updateAvatarAccountHandler(
         );
         const account = result?.data;
         if (account) {
-            StorageService.local.set(
-                AllAppConfig.VALUE_CURRENT_USER,
-                JSON.stringify(account)
-            );
+            StorageService.local.set(AllAppConfig.VALUE_CURRENT_USER, JSON.stringify(account));
         }
 
         yield put(updateAvatarSuccess(result?.data));

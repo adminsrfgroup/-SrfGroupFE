@@ -7,7 +7,7 @@ const reducer = {
     },
     fetchCommentsOfferSuccess: (state: any, action: any) => {
         state.commentsOffer.loadingEntities = false;
-        state.commentsOffer.entities = action.payload.content;
+        state.commentsOffer.entities = action.payload?.content;
         state.commentsOffer.totalItems = action.payload?.totalElements;
         state.commentsOffer.totalPages = action.payload?.totalPages;
     },

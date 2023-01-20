@@ -169,7 +169,8 @@
         "send_message": "إبعث رسالة",
         "report_user": "أبلغ عن مستخدم",
         "description_report_user": "هل أنت متأكد من الإبلاغ عن هذا المستخدم",
-        "message_report_successfully": "تم الإبلاغ عن المستخدم بنجاح"
+        "message_report_successfully": "تم الإبلاغ عن المستخدم بنجاح",
+        "personal_details": "تفاصيل شخصية"
     },
     "add_offer": {
         "title_page": "قم بإنشاء عرض جديد",

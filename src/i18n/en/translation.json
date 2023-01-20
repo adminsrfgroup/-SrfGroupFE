@@ -163,7 +163,8 @@
         "favorite_user": "Favorite user",
         "send_message": "Send a message",
         "report_user": "Report user",
-        "message_report_successfully": "User reported successfully"
+        "message_report_successfully": "User reported successfully",
+        "personal_details": "Personal Details"
     },
     "add_offer": {
         "title_page": "Create new Offer",

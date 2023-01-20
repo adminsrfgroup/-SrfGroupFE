@@ -22,7 +22,7 @@ module.exports = {
     ],
     "ignorePatterns": ["**/setupTests.ts"],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": process.env.NODE_ENV === 'development' ? "off" : "error",
         "no-console": process.env.NODE_ENV === 'development' ? "off" : "error",
         "no-debugger": process.env.NODE_ENV === 'development' ? "off" : "error",
         "no-duplicate-imports": "error"
