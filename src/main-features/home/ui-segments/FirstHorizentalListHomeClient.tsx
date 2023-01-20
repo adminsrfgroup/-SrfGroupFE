@@ -18,43 +18,23 @@ const FirstHorizentalListHomeClient: FunctionComponent = () => {
     const listCategories = [
         {
             img: getBaseImageUrl('/assets/images/home/categories/home.png'),
-            title: (
-                <Translation>
-                    {(t, { i18n }) => <>{t('home.label_category_immovable')}</>}
-                </Translation>
-            ),
+            title: <Translation>{(t, { i18n }) => <>{t('home.label_category_immovable')}</>}</Translation>,
         },
         {
             img: getBaseImageUrl('/assets/images/home/categories/cars.png'),
-            title: (
-                <Translation>
-                    {(t, { i18n }) => <>{t('home.label_category_cars')}</>}
-                </Translation>
-            ),
+            title: <Translation>{(t, { i18n }) => <>{t('home.label_category_cars')}</>}</Translation>,
         },
         {
             img: getBaseImageUrl('/assets/images/home/categories/phones.png'),
-            title: (
-                <Translation>
-                    {(t, { i18n }) => <>{t('home.label_category_phones')}</>}
-                </Translation>
-            ),
+            title: <Translation>{(t, { i18n }) => <>{t('home.label_category_phones')}</>}</Translation>,
         },
         {
             img: getBaseImageUrl('/assets/images/home/categories/services.png'),
-            title: (
-                <Translation>
-                    {(t, { i18n }) => <>{t('home.label_category_services')}</>}
-                </Translation>
-            ),
+            title: <Translation>{(t, { i18n }) => <>{t('home.label_category_services')}</>}</Translation>,
         },
         {
             img: getBaseImageUrl('/assets/images/home/categories/search.png'),
-            title: (
-                <Translation>
-                    {(t, { i18n }) => <>{t('home.label_category_search')}</>}
-                </Translation>
-            ),
+            title: <Translation>{(t, { i18n }) => <>{t('home.label_category_search')}</>}</Translation>,
         },
     ];
 

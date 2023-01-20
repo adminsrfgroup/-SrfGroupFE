@@ -8,10 +8,7 @@ import CardContent from '@mui/material/CardContent/CardContent';
 import Typography from '@mui/material/Typography/Typography';
 import Box from '@mui/material/Box/Box';
 import { AllAppConfig } from '../../../core/config/all-config';
-import {
-    getBaseImageUrl,
-    getImageForOffer,
-} from '../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getImageForOffer } from '../../../shared/utils/utils-functions';
 import { ALL_APP_ROUTES } from '../../../core/config/all-app-routes';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,15 +25,7 @@ import { useSelector } from 'react-redux';
 import { entitiesSellerOffer } from '../../offer/store/slice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-function ItemForSell({
-    offer,
-    index,
-    rediretTo,
-}: {
-    offer: IOffer;
-    index: number;
-    rediretTo: any;
-}) {
+function ItemForSell({ offer, index, rediretTo }: { offer: IOffer; index: number; rediretTo: any }) {
     return (
         <CardActionArea component="a" onClick={() => rediretTo(offer.id)}>
             {/*For Desktop*/}
@@ -51,27 +40,12 @@ function ItemForSell({
                         >
                             <LazyLoadImage
                                 alt="Image offer"
-                                src={getImageForOffer(
-                                    offer.id,
-                                    offer.offerImages[0].path
-                                )}
-                                placeholder={
-                                    <img
-                                        src={getBaseImageUrl(
-                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                        )}
-                                        className="img-lazy-loading"
-                                        alt="image srfgroup"
-                                    />
-                                }
-                                placeholderSrc={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                )}
+                                src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                 onError={(e: any) => {
                                     e.target.onerror = null;
-                                    e.target.src = getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    );
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                 }}
                                 className="img-lazy-loading"
                             />
@@ -83,13 +57,7 @@ function ItemForSell({
                                 height: { xs: '100%', sm: 200 },
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </CardMedia>
                     )
                 ) : null}
@@ -100,10 +68,7 @@ function ItemForSell({
                     <Typography variant="subtitle1" color="text.secondary">
                         <ConvertReactTimeAgo convertDate={offer.dateCreated} />
                     </Typography>
-                    <Box
-                        className="truncate-string-two-lines"
-                        style={{ maxWidth: 400 }}
-                    >
+                    <Box className="truncate-string-two-lines" style={{ maxWidth: 400 }}>
                         <div
                             dangerouslySetInnerHTML={{
                                 __html: offer.description || '',
@@ -121,27 +86,12 @@ function ItemForSell({
                         >
                             <LazyLoadImage
                                 alt="Image offer"
-                                src={getImageForOffer(
-                                    offer.id,
-                                    offer.offerImages[0].path
-                                )}
-                                placeholder={
-                                    <img
-                                        src={getBaseImageUrl(
-                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                        )}
-                                        className="img-lazy-loading"
-                                        alt="image srfgroup"
-                                    />
-                                }
-                                placeholderSrc={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                )}
+                                src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                 onError={(e: any) => {
                                     e.target.onerror = null;
-                                    e.target.src = getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    );
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                 }}
                                 className="img-lazy-loading"
                             />
@@ -153,13 +103,7 @@ function ItemForSell({
                                 height: { xs: '100%', sm: 200 },
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </CardMedia>
                     )
                 ) : null}
@@ -176,27 +120,12 @@ function ItemForSell({
                     >
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                offer.id,
-                                offer.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
@@ -208,13 +137,7 @@ function ItemForSell({
                             height: { xs: '100%', sm: 200 },
                         }}
                     >
-                        <img
-                            src={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE
-                            )}
-                            className="img-lazy-loading"
-                            alt="image not found"
-                        />
+                        <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                     </CardMedia>
                 )}
                 <CardContent sx={{ flex: 1 }}>
@@ -224,10 +147,7 @@ function ItemForSell({
                     <Typography variant="subtitle1" color="text.secondary">
                         <ConvertReactTimeAgo convertDate={offer.dateCreated} />
                     </Typography>
-                    <Box
-                        className="truncate-string-two-lines"
-                        style={{ maxWidth: 400 }}
-                    >
+                    <Box className="truncate-string-two-lines" style={{ maxWidth: 400 }}>
                         <div
                             dangerouslySetInnerHTML={{
                                 __html: offer.description || '',
@@ -253,35 +173,16 @@ const ForSellHomeClient: FunctionComponent = () => {
     };
 
     return (
-        <Container
-            maxWidth="xl"
-            sx={{ my: 20 }}
-            className="container-for-sell-home"
-        >
+        <Container maxWidth="xl" sx={{ my: 20 }} className="container-for-sell-home">
             <h3>
-                <Link
-                    to={`${ALL_APP_ROUTES.OFFER.LIST}?typeOffer=${TypeOfferEnum.Sell}`}
-                >
-                    {t<string>('common.for_sell')}
-                </Link>
+                <Link to={`${ALL_APP_ROUTES.OFFER.LIST}?typeOffer=${TypeOfferEnum.Sell}`}>{t<string>('common.for_sell')}</Link>
             </h3>
-            <Grid
-                container
-                rowSpacing={2}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                sx={{ display: { xs: 'none', md: 'flex' } }}
-            >
-                {entitiesSellerOfferSelector.map(
-                    (offer: any, index: number) => (
-                        <Grid item xs={12} md={6} key={`offer-${index}`}>
-                            <ItemForSell
-                                offer={offer}
-                                index={index}
-                                rediretTo={rediretTo}
-                            />
-                        </Grid>
-                    )
-                )}
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ display: { xs: 'none', md: 'flex' } }}>
+                {entitiesSellerOfferSelector.map((offer: any, index: number) => (
+                    <Grid item xs={12} md={6} key={`offer-${index}`}>
+                        <ItemForSell offer={offer} index={index} rediretTo={rediretTo} />
+                    </Grid>
+                ))}
             </Grid>
             <Box sx={{ display: { md: 'none' } }} className="box-swiper">
                 <Swiper
@@ -294,17 +195,11 @@ const ForSellHomeClient: FunctionComponent = () => {
                     modules={[Pagination]}
                     className="mySwiper"
                 >
-                    {entitiesSellerOfferSelector.map(
-                        (offer: any, index: number) => (
-                            <SwiperSlide key={`offer-${index}`}>
-                                <ItemForSell
-                                    offer={offer}
-                                    index={index}
-                                    rediretTo={rediretTo}
-                                />
-                            </SwiperSlide>
-                        )
-                    )}
+                    {entitiesSellerOfferSelector.map((offer: any, index: number) => (
+                        <SwiperSlide key={`offer-${index}`}>
+                            <ItemForSell offer={offer} index={index} rediretTo={rediretTo} />
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </Box>
         </Container>

@@ -52,37 +52,20 @@ export const {
 } = rentRequestSlice.actions;
 
 //? ********************| RENTREQUEST SELECTORS |*******************/
-export const loadingRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loading;
-export const entityRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.entity;
-export const loadingEntitiesSentRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loadingEntitiesSent;
-export const entitiesSentRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.entitiesSent;
-export const totalItemsSentRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalItemsSent;
-export const totalPagesSentRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalPagesSent;
-export const activePageSentRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.activePageSent;
-export const loadingEntitiesReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loadingEntitiesReceived;
-export const entitiesReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.entitiesReceived;
-export const totalItemsReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalItemsReceived;
-export const activePageReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.activePageReceived;
-export const totalPagesReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalPagesReceived;
-export const refusedSuccessReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.refusedSuccessReceived;
-export const acceptedSuccessReceivedRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.acceptedSuccessReceived;
-export const addSuccessRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.addSuccess;
-export const deleteSuccessRentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.deleteSuccess;
-export const deleteSuccessSentRequest = (state: any) =>
-    state[RENT_REQUEST_KEY_IN_STORE].rentRequest.deleteSuccessSent;
+export const loadingRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loading;
+export const entityRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.entity;
+export const loadingEntitiesSentRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loadingEntitiesSent;
+export const entitiesSentRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.entitiesSent;
+export const totalItemsSentRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalItemsSent;
+export const totalPagesSentRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalPagesSent;
+export const activePageSentRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.activePageSent;
+export const loadingEntitiesReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.loadingEntitiesReceived;
+export const entitiesReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.entitiesReceived;
+export const totalItemsReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalItemsReceived;
+export const activePageReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.activePageReceived;
+export const totalPagesReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.totalPagesReceived;
+export const refusedSuccessReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.refusedSuccessReceived;
+export const acceptedSuccessReceivedRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.acceptedSuccessReceived;
+export const addSuccessRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.addSuccess;
+export const deleteSuccessRentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.deleteSuccess;
+export const deleteSuccessSentRequest = (state: any) => state[RENT_REQUEST_KEY_IN_STORE].rentRequest.deleteSuccessSent;

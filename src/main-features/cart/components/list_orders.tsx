@@ -27,13 +27,7 @@ import {
 } from '../store/slice';
 import Card from '@mui/material/Card/Card';
 import CardMedia from '@mui/material/CardMedia/CardMedia';
-import {
-    getBaseImageUrl,
-    getFullnameUser,
-    getFullUrlWithParams,
-    getImageForOffer,
-    getUserAvatar,
-} from '../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getFullnameUser, getFullUrlWithParams, getImageForOffer, getUserAvatar } from '../../../shared/utils/utils-functions';
 import { AllAppConfig } from '../../../core/config/all-config';
 import CardContent from '@mui/material/CardContent/CardContent';
 import Skeleton from '@mui/material/Skeleton/Skeleton';
@@ -67,13 +61,7 @@ function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
     return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
+        <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
             {value === index && (
                 <Box sx={{ pt: 3 }}>
                     <Box>{children}</Box>
@@ -94,10 +82,7 @@ function LoadingOrders() {
     return (
         <Grid item xs={12} md={6}>
             {[0, 1, 2].map((key) => (
-                <Card
-                    sx={{ display: { xs: 'block', sm: 'flex' }, my: 2 }}
-                    key={key}
-                >
+                <Card sx={{ display: { xs: 'block', sm: 'flex' }, my: 2 }} key={key}>
                     <CardMedia
                         sx={{
                             width: { xs: '100%', sm: 250 },
@@ -110,13 +95,7 @@ function LoadingOrders() {
                                 height: '100%',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </Box>
                     </CardMedia>
                     <CardContent sx={{ flex: 1 }}>
@@ -126,12 +105,7 @@ function LoadingOrders() {
 
                                 <Skeleton animation="wave" height={24} />
 
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={'100%'}
-                                    height={100}
-                                    sx={{ my: 3 }}
-                                />
+                                <Skeleton variant="rectangular" width={'100%'} height={100} sx={{ my: 3 }} />
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -163,48 +137,26 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
                 <CardContent sx={{ flex: 1 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={8}>
-                            <Typography
-                                component="h4"
-                                variant="h4"
-                                sx={{ fontSize: '1.2rem' }}
-                            >
-                                <ConvertReactTimeAgo
-                                    convertDate={item?.passedDate}
-                                />
+                            <Typography component="h4" variant="h4" sx={{ fontSize: '1.2rem' }}>
+                                <ConvertReactTimeAgo convertDate={item?.passedDate} />
                             </Typography>
 
-                            <Typography
-                                component="h5"
-                                variant="h5"
-                                display="flex"
-                            >
+                            <Typography component="h5" variant="h5" display="flex">
                                 {item.paymentMode}
                             </Typography>
 
-                            <Typography
-                                variant="subtitle2"
-                                color="text.secondary"
-                                display="flex"
-                            >
+                            <Typography variant="subtitle2" color="text.secondary" display="flex">
                                 Nombres des produits: {item.numberOfProducts}
                             </Typography>
 
                             <Typography variant="subtitle2" display="flex">
-                                Total du commande ={' '}
-                                {item.totalCarts.toLocaleString('tn-TN')} TND
+                                Total du commande = {item.totalCarts.toLocaleString('tn-TN')} TND
                             </Typography>
                         </Grid>
 
                         <Grid item xs={4}>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: 'end' }}
-                            >
-                                {item.status === StatusOrder.PASSED
-                                    ? t('order.label_passed')
-                                    : item.status}
+                            <Typography variant="subtitle1" color="secondary" display="flex" sx={{ justifyContent: 'end' }}>
+                                {item.status === StatusOrder.PASSED ? t('order.label_passed') : item.status}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -212,12 +164,7 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
             </Card>
 
             <Accordion sx={{ mt: '0 !important' }}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    className="bg-brown"
-                >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header" className="bg-brown">
                     <Typography>List des produits</Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0 }}>
@@ -229,23 +176,11 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
                                         <Avatar
                                             role="img"
                                             aria-label="Image avatar"
-                                            src={getUserAvatar(
-                                                cart?.sellOffer?.user?.id,
-                                                cart?.sellOffer?.user?.imageUrl,
-                                                cart?.sellOffer?.user
-                                                    ?.sourceConnectedDevice
-                                            )}
+                                            src={getUserAvatar(cart?.sellOffer?.user?.id, cart?.sellOffer?.user?.imageUrl, cart?.sellOffer?.user?.sourceConnectedDevice)}
                                             alt="image not found"
-                                            onClick={(event: any) =>
-                                                redirectToPorfile(
-                                                    event,
-                                                    cart?.sellOffer?.user?.id
-                                                )
-                                            }
+                                            onClick={(event: any) => redirectToPorfile(event, cart?.sellOffer?.user?.id)}
                                         >
-                                            {getFullnameUser(
-                                                cart?.sellOffer?.user
-                                            )?.charAt(0)}
+                                            {getFullnameUser(cart?.sellOffer?.user)?.charAt(0)}
                                         </Avatar>
                                     }
                                     action={
@@ -253,18 +188,11 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
                                             <ExpandMoreIcon />
                                         </IconButton>
                                     }
-                                    title={getFullnameUser(
-                                        cart?.sellOffer?.user
-                                    )}
+                                    title={getFullnameUser(cart?.sellOffer?.user)}
                                     subheader={
                                         <React.Fragment>
                                             <Typography>
-                                                <ConvertReactTimeAgo
-                                                    convertDate={
-                                                        cart?.sellOffer
-                                                            ?.dateCreated
-                                                    }
-                                                />
+                                                <ConvertReactTimeAgo convertDate={cart?.sellOffer?.dateCreated} />
                                             </Typography>
                                         </React.Fragment>
                                     }
@@ -274,9 +202,7 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
                                     sx={{
                                         display: { xs: 'block', sm: 'flex' },
                                     }}
-                                    onClick={() =>
-                                        rediretTo(cart?.sellOffer?.id)
-                                    }
+                                    onClick={() => rediretTo(cart?.sellOffer?.id)}
                                 >
                                     {cart?.sellOffer?.offerImages?.length ? (
                                         <CardMedia
@@ -287,65 +213,29 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
                                         >
                                             <LazyLoadImage
                                                 alt="Image offer"
-                                                src={getImageForOffer(
-                                                    cart?.sellOffer?.id,
-                                                    cart?.sellOffer
-                                                        ?.offerImages[0].path
-                                                )}
-                                                placeholder={
-                                                    <img
-                                                        src={getBaseImageUrl(
-                                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                        )}
-                                                        className="img-lazy-loading"
-                                                        alt="image srfgroup"
-                                                    />
-                                                }
-                                                placeholderSrc={getBaseImageUrl(
-                                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                )}
+                                                src={getImageForOffer(cart?.sellOffer?.id, cart?.sellOffer?.offerImages[0].path)}
+                                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                                 onError={(e: any) => {
                                                     e.target.onerror = null;
-                                                    e.target.src =
-                                                        getBaseImageUrl(
-                                                            AllAppConfig.DEFAULT_LAZY_IMAGE
-                                                        );
+                                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                                 }}
                                                 className="img-lazy-loading"
                                             />
                                         </CardMedia>
                                     ) : null}
                                     <CardContent>
-                                        <Typography variant="h6">
-                                            {cart?.sellOffer?.title}
+                                        <Typography variant="h6">{cart?.sellOffer?.title}</Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Montant {cart?.sellOffer?.amount?.toLocaleString('tn-TN')} TND
                                         </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            Montant{' '}
-                                            {cart?.sellOffer?.amount?.toLocaleString(
-                                                'tn-TN'
-                                            )}{' '}
-                                            TND
-                                        </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
+                                        <Typography variant="body2" color="text.secondary">
                                             Quantité {cart?.quantity}
                                         </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            Frais de livraison{' '}
-                                            {cart?.sellOffer?.shippingCost} TND
+                                        <Typography variant="body2" color="text.secondary">
+                                            Frais de livraison {cart?.sellOffer?.shippingCost} TND
                                         </Typography>
-                                        <Typography
-                                            variant="h5"
-                                            color="text.secondary"
-                                        >
+                                        <Typography variant="h5" color="text.secondary">
                                             Total {cart?.total} TND
                                         </Typography>
                                     </CardContent>
@@ -384,15 +274,9 @@ function ItemReceivedOrder({ item }: { item: any }) {
                         <Avatar
                             role="img"
                             aria-label="Image avatar"
-                            src={getUserAvatar(
-                                item?.user?.id,
-                                item?.user?.imageUrl,
-                                item?.user?.sourceConnectedDevice
-                            )}
+                            src={getUserAvatar(item?.user?.id, item?.user?.imageUrl, item?.user?.sourceConnectedDevice)}
                             alt="image not found"
-                            onClick={(event: any) =>
-                                redirectToPorfile(event, item?.user?.id)
-                            }
+                            onClick={(event: any) => redirectToPorfile(event, item?.user?.id)}
                         >
                             {getFullnameUser(item?.user)?.charAt(0)}
                         </Avatar>
@@ -409,35 +293,18 @@ function ItemReceivedOrder({ item }: { item: any }) {
                 <CardContent className="card-content">
                     <Grid container spacing={2}>
                         <Grid item xs={8}>
-                            <Typography
-                                component="h4"
-                                variant="h4"
-                                sx={{ fontSize: '1.2rem' }}
-                            >
-                                <ConvertReactTimeAgo
-                                    convertDate={item?.passedDate}
-                                />
+                            <Typography component="h4" variant="h4" sx={{ fontSize: '1.2rem' }}>
+                                <ConvertReactTimeAgo convertDate={item?.passedDate} />
                             </Typography>
 
-                            <Typography
-                                component="h5"
-                                variant="h5"
-                                display="flex"
-                            >
+                            <Typography component="h5" variant="h5" display="flex">
                                 {item.paymentMode}
                             </Typography>
                         </Grid>
 
                         <Grid item xs={4}>
-                            <Typography
-                                variant="subtitle1"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: 'end' }}
-                            >
-                                {item.status === StatusOrder.PASSED
-                                    ? item.status
-                                    : item.status}
+                            <Typography variant="subtitle1" color="secondary" display="flex" sx={{ justifyContent: 'end' }}>
+                                {item.status === StatusOrder.PASSED ? item.status : item.status}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -445,12 +312,7 @@ function ItemReceivedOrder({ item }: { item: any }) {
             </Card>
 
             <Accordion sx={{ mt: '0 !important' }}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    className="bg-brown"
-                >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header" className="bg-brown">
                     <Typography>List des produits</Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0 }}>
@@ -462,23 +324,11 @@ function ItemReceivedOrder({ item }: { item: any }) {
                                         <Avatar
                                             role="img"
                                             aria-label="Image avatar"
-                                            src={getUserAvatar(
-                                                cart?.sellOffer?.user?.id,
-                                                cart?.sellOffer?.user?.imageUrl,
-                                                cart?.sellOffer?.user
-                                                    ?.sourceConnectedDevice
-                                            )}
+                                            src={getUserAvatar(cart?.sellOffer?.user?.id, cart?.sellOffer?.user?.imageUrl, cart?.sellOffer?.user?.sourceConnectedDevice)}
                                             alt="image not found"
-                                            onClick={(event: any) =>
-                                                redirectToPorfile(
-                                                    event,
-                                                    cart?.sellOffer?.user?.id
-                                                )
-                                            }
+                                            onClick={(event: any) => redirectToPorfile(event, cart?.sellOffer?.user?.id)}
                                         >
-                                            {getFullnameUser(
-                                                cart?.sellOffer?.user
-                                            )?.charAt(0)}
+                                            {getFullnameUser(cart?.sellOffer?.user)?.charAt(0)}
                                         </Avatar>
                                     }
                                     action={
@@ -490,12 +340,7 @@ function ItemReceivedOrder({ item }: { item: any }) {
                                     subheader={
                                         <React.Fragment>
                                             <Typography>
-                                                <ConvertReactTimeAgo
-                                                    convertDate={
-                                                        cart?.sellOffer
-                                                            ?.dateCreated
-                                                    }
-                                                />
+                                                <ConvertReactTimeAgo convertDate={cart?.sellOffer?.dateCreated} />
                                             </Typography>
                                         </React.Fragment>
                                     }
@@ -505,9 +350,7 @@ function ItemReceivedOrder({ item }: { item: any }) {
                                     sx={{
                                         display: { xs: 'block', sm: 'flex' },
                                     }}
-                                    onClick={() =>
-                                        rediretTo(cart?.sellOffer?.id)
-                                    }
+                                    onClick={() => rediretTo(cart?.sellOffer?.id)}
                                 >
                                     {cart?.sellOffer?.offerImages?.length ? (
                                         <CardMedia
@@ -518,62 +361,28 @@ function ItemReceivedOrder({ item }: { item: any }) {
                                         >
                                             <LazyLoadImage
                                                 alt="Image offer"
-                                                src={getImageForOffer(
-                                                    cart?.sellOffer?.id,
-                                                    cart?.sellOffer
-                                                        ?.offerImages[0].path
-                                                )}
-                                                placeholder={
-                                                    <img
-                                                        src={getBaseImageUrl(
-                                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                        )}
-                                                        className="img-lazy-loading"
-                                                        alt="image srfgroup"
-                                                    />
-                                                }
-                                                placeholderSrc={getBaseImageUrl(
-                                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                )}
+                                                src={getImageForOffer(cart?.sellOffer?.id, cart?.sellOffer?.offerImages[0].path)}
+                                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                                 onError={(e: any) => {
                                                     e.target.onerror = null;
-                                                    e.target.src =
-                                                        getBaseImageUrl(
-                                                            AllAppConfig.DEFAULT_LAZY_IMAGE
-                                                        );
+                                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                                 }}
                                                 className="img-lazy-loading"
                                             />
                                         </CardMedia>
                                     ) : null}
                                     <CardContent>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            Montant{' '}
-                                            {cart?.sellOffer?.amount?.toLocaleString(
-                                                'tn-TN'
-                                            )}{' '}
-                                            TND
+                                        <Typography variant="body2" color="text.secondary">
+                                            Montant {cart?.sellOffer?.amount?.toLocaleString('tn-TN')} TND
                                         </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
+                                        <Typography variant="body2" color="text.secondary">
                                             Quantité {cart?.quantity}
                                         </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                        >
-                                            Frais de livraison{' '}
-                                            {cart?.sellOffer?.shippingCost} TND
+                                        <Typography variant="body2" color="text.secondary">
+                                            Frais de livraison {cart?.sellOffer?.shippingCost} TND
                                         </Typography>
-                                        <Typography
-                                            variant="h5"
-                                            color="text.secondary"
-                                        >
+                                        <Typography variant="h5" color="text.secondary">
                                             Total {cart?.total} TND
                                         </Typography>
                                     </CardContent>
@@ -610,22 +419,14 @@ export default function ListOrders() {
                         <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                             SRF
                         </Link>
-                        <Typography color="text.primary">
-                            {t<string>('order.title_order')}
-                        </Typography>
+                        <Typography color="text.primary">{t<string>('order.title_order')}</Typography>
                     </Breadcrumbs>
                 </Grid>
             </Grid>
 
             <Box sx={{ mt: 5 }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs
-                        value={value}
-                        onChange={handleChange}
-                        aria-label="basic tabs example"
-                        textColor="secondary"
-                        indicatorColor="secondary"
-                    >
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary" indicatorColor="secondary">
                         <Tab label="Commande reçu" {...a11yProps(0)} />
                         <Tab label="Commande passée" {...a11yProps(1)} />
                     </Tabs>
@@ -644,14 +445,10 @@ export default function ListOrders() {
 function ListReceivedORders() {
     const [isFirstTime, setIsFirstTime] = React.useState(true);
 
-    const loadingEntitiesOrderReceivedSelector =
-        useSelector(loadingEntitiesOrderReceived) ?? false;
-    const entitiesOrderReceivedSelector =
-        useSelector(entitiesOrderReceived) ?? [];
-    const totalPagesOrderReceivedSelector =
-        useSelector(totalPagesOrderReceived) ?? 0;
-    const activePageOrderReceivedSelector =
-        useSelector(activePageOrderReceived) ?? -1;
+    const loadingEntitiesOrderReceivedSelector = useSelector(loadingEntitiesOrderReceived) ?? false;
+    const entitiesOrderReceivedSelector = useSelector(entitiesOrderReceived) ?? [];
+    const totalPagesOrderReceivedSelector = useSelector(totalPagesOrderReceived) ?? 0;
+    const activePageOrderReceivedSelector = useSelector(activePageOrderReceived) ?? -1;
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -682,40 +479,28 @@ function ListReceivedORders() {
 
     const loadMore = () => {
         setIsFirstTime(false);
-        dispatch(
-            setActivePageReceivedOrder(activePageOrderReceivedSelector + 1)
-        );
+        dispatch(setActivePageReceivedOrder(activePageOrderReceivedSelector + 1));
     };
 
     return (
         <InfiniteScroll
             pageStart={activePageOrderReceivedSelector}
             loadMore={loadMore}
-            hasMore={
-                totalPagesOrderReceivedSelector - 1 >
-                activePageOrderReceivedSelector
-            }
+            hasMore={totalPagesOrderReceivedSelector - 1 > activePageOrderReceivedSelector}
             loader={<div className="loader" key={0}></div>}
             threshold={0}
             initialLoad={false}
         >
             <Grid container spacing={4} sx={{ mt: 3 }}>
-                {entitiesOrderReceivedSelector?.map(
-                    (item: any, index: number) => (
-                        <ItemReceivedOrder item={item} key={index} />
-                    )
-                )}
+                {entitiesOrderReceivedSelector?.map((item: any, index: number) => (
+                    <ItemReceivedOrder item={item} key={index} />
+                ))}
 
-                {loadingEntitiesOrderReceivedSelector ? (
-                    <LoadingOrders />
-                ) : null}
+                {loadingEntitiesOrderReceivedSelector ? <LoadingOrders /> : null}
 
-                {!loadingEntitiesOrderReceivedSelector &&
-                entitiesOrderReceivedSelector?.length == 0 ? (
+                {!loadingEntitiesOrderReceivedSelector && entitiesOrderReceivedSelector?.length == 0 ? (
                     <Grid item xs={12}>
-                        <Alert severity="warning">
-                            {t<string>('order.no_commandes_founds')}
-                        </Alert>
+                        <Alert severity="warning">{t<string>('order.no_commandes_founds')}</Alert>
                     </Grid>
                 ) : null}
             </Grid>
@@ -726,8 +511,7 @@ function ListReceivedORders() {
 function ListPassedORders() {
     const [isFirstTime, setIsFirstTime] = React.useState(true);
 
-    const loadingEntitiesOrderSelector =
-        useSelector(loadingEntitiesOrder) ?? false;
+    const loadingEntitiesOrderSelector = useSelector(loadingEntitiesOrder) ?? false;
     const entitiesOrderSelector = useSelector(entitiesOrder) ?? [];
     const totalPagesOrderSelector = useSelector(totalPagesOrder) ?? 0;
     const activePageOrderSelector = useSelector(activePageOrder) ?? -1;
@@ -780,12 +564,9 @@ function ListPassedORders() {
 
                 {loadingEntitiesOrderSelector ? <LoadingOrders /> : null}
 
-                {!loadingEntitiesOrderSelector &&
-                entitiesOrderSelector?.length == 0 ? (
+                {!loadingEntitiesOrderSelector && entitiesOrderSelector?.length == 0 ? (
                     <Grid item xs={12}>
-                        <Alert severity="warning">
-                            {t<string>('order.no_commandes_founds')}
-                        </Alert>
+                        <Alert severity="warning">{t<string>('order.no_commandes_founds')}</Alert>
                     </Grid>
                 ) : null}
             </Grid>

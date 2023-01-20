@@ -7,12 +7,7 @@ import { FreeMode, Pagination } from 'swiper';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader/CardHeader';
 import Avatar from '@mui/material/Avatar/Avatar';
-import {
-    getBaseImageUrl,
-    getFullnameUser,
-    getImageForOffer,
-    getUserAvatar,
-} from '../../../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar } from '../../../../../shared/utils/utils-functions';
 import IconButton from '@mui/material/IconButton/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ConvertReactTimeAgo } from '../../../../../shared/pages/react-time-ago';
@@ -42,11 +37,7 @@ const ExpandMore = styled((props: any) => {
     }),
 }));
 
-export default function ListRelatedDetailsOffer({
-    listOffers,
-}: {
-    listOffers: any;
-}) {
+export default function ListRelatedDetailsOffer({ listOffers }: { listOffers: any }) {
     const navigate = useNavigate();
 
     const rediretTo = (offerId: string) => {
@@ -78,11 +69,7 @@ export default function ListRelatedDetailsOffer({
             >
                 {listOffers.map((offer: any, index: number) => (
                     <SwiperSlide key={`offer-${index}`}>
-                        <CardActionArea
-                            component="a"
-                            onClick={() => rediretTo(offer.id)}
-                            key={`entity-${index}`}
-                        >
+                        <CardActionArea component="a" onClick={() => rediretTo(offer.id)} key={`entity-${index}`}>
                             <Card
                                 sx={{
                                     display: 'flex',
@@ -92,20 +79,8 @@ export default function ListRelatedDetailsOffer({
                                 <CardHeader
                                     className="bg-yellow"
                                     avatar={
-                                        <Avatar
-                                            role="img"
-                                            aria-label="Image avatar"
-                                            src={getUserAvatar(
-                                                offer.user?.id,
-                                                offer.user?.imageUrl,
-                                                offer.user
-                                                    ?.sourceConnectedDevice
-                                            )}
-                                            alt="image not found"
-                                        >
-                                            {getFullnameUser(
-                                                offer.user
-                                            )?.charAt(0)}
+                                        <Avatar role="img" aria-label="Image avatar" src={getUserAvatar(offer.user?.id, offer.user?.imageUrl, offer.user?.sourceConnectedDevice)} alt="image not found">
+                                            {getFullnameUser(offer.user)?.charAt(0)}
                                         </Avatar>
                                     }
                                     action={
@@ -114,60 +89,29 @@ export default function ListRelatedDetailsOffer({
                                         </IconButton>
                                     }
                                     title={getFullnameUser(offer?.user)}
-                                    subheader={
-                                        <ConvertReactTimeAgo
-                                            convertDate={offer.dateCreated}
-                                        />
-                                    }
+                                    subheader={<ConvertReactTimeAgo convertDate={offer.dateCreated} />}
                                 />
 
-                                {offer.offerImages &&
-                                offer.offerImages.length ? (
+                                {offer.offerImages && offer.offerImages.length ? (
                                     <CardMedia sx={{ height: 200 }}>
                                         <LazyLoadImage
                                             alt="Image offer"
-                                            src={getImageForOffer(
-                                                offer.id,
-                                                offer.offerImages[0].path
-                                            )}
-                                            placeholder={
-                                                <img
-                                                    src={getBaseImageUrl(
-                                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                    )}
-                                                    className="img-lazy-loading"
-                                                    alt="image srfgroup"
-                                                />
-                                            }
-                                            placeholderSrc={getBaseImageUrl(
-                                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                            )}
+                                            src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                             onError={(e: any) => {
                                                 e.target.onerror = null;
-                                                e.target.src = getBaseImageUrl(
-                                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                                );
+                                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                             }}
                                             className="img-lazy-loading"
                                         />
                                     </CardMedia>
                                 ) : (
-                                    <CardMedia
-                                        component="img"
-                                        height="200"
-                                        image={getBaseImageUrl(
-                                            AllAppConfig.DEFAULT_LAZY_IMAGE
-                                        )}
-                                        alt="image not found"
-                                    />
+                                    <CardMedia component="img" height="200" image={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} alt="image not found" />
                                 )}
 
                                 <CardContent className="card-content-offer">
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        className="truncate-string-two-lines"
-                                    >
+                                    <Typography variant="body2" color="text.secondary" className="truncate-string-two-lines">
                                         <span
                                             dangerouslySetInnerHTML={{
                                                 __html: offer.description || '',

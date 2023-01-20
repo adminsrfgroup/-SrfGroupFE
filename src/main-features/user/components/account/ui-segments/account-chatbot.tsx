@@ -6,13 +6,7 @@ const config = {
     initialMessages: [createChatBotMessage(`Welcome in platform SrfGroup`, {})],
 };
 
-const MessageParser = ({
-    children,
-    actions,
-}: {
-    children: any;
-    actions: any;
-}) => {
+const MessageParser = ({ children, actions }: { children: any; actions: any }) => {
     // const parse = (message: any) => {
     // 	console.log('message ', message);
     // };
@@ -29,15 +23,7 @@ const MessageParser = ({
     );
 };
 
-const ActionProvider = ({
-    createChatBotMessage,
-    setState,
-    children,
-}: {
-    createChatBotMessage: any;
-    setState: any;
-    children: any;
-}) => {
+const ActionProvider = ({ createChatBotMessage, setState, children }: { createChatBotMessage: any; setState: any; children: any }) => {
     return (
         <div>
             {React.Children.map(children, (child) => {
@@ -52,11 +38,7 @@ const ActionProvider = ({
 export const AccountChatBot = () => {
     return (
         <div>
-            <Chatbot
-                config={config}
-                messageParser={MessageParser}
-                actionProvider={ActionProvider}
-            />
+            <Chatbot config={config} messageParser={MessageParser} actionProvider={ActionProvider} />
         </div>
     );
 };

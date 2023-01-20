@@ -38,16 +38,11 @@ export default function FavoriteUsers() {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
-    const loadingEntitiesFavoriteUserSelector =
-        useSelector(loadingEntitiesFavoriteUser) ?? false;
-    const entitiesFavoriteUserSelector =
-        useSelector(entitiesFavoriteUser) ?? [];
-    const totalPagesFavoriteUserSelector =
-        useSelector(totalPagesFavoriteUser) ?? 0;
-    const activePageFavoriteUserSelector =
-        useSelector(activePageFavoriteUser) ?? -1;
-    const deleteSuccessFavoriteUserSelector =
-        useSelector(deleteSuccessFavoriteUser) ?? false;
+    const loadingEntitiesFavoriteUserSelector = useSelector(loadingEntitiesFavoriteUser) ?? false;
+    const entitiesFavoriteUserSelector = useSelector(entitiesFavoriteUser) ?? [];
+    const totalPagesFavoriteUserSelector = useSelector(totalPagesFavoriteUser) ?? 0;
+    const activePageFavoriteUserSelector = useSelector(activePageFavoriteUser) ?? -1;
+    const deleteSuccessFavoriteUserSelector = useSelector(deleteSuccessFavoriteUser) ?? false;
 
     const resetAll = () => {
         dispatch(resetFavoriteUsers({}));
@@ -97,9 +92,7 @@ export default function FavoriteUsers() {
 
     const loadMore = () => {
         setIsFirstTime(false);
-        dispatch(
-            setActivePageFavoriteUsers(activePageFavoriteUserSelector + 1)
-        );
+        dispatch(setActivePageFavoriteUsers(activePageFavoriteUserSelector + 1));
     };
 
     return (
@@ -115,9 +108,7 @@ export default function FavoriteUsers() {
                         <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                             SRF
                         </Link>
-                        <Typography color="text.primary">
-                            Favorites users
-                        </Typography>
+                        <Typography color="text.primary">Favorites users</Typography>
                     </Breadcrumbs>
                 </Grid>
             </Grid>
@@ -126,37 +117,21 @@ export default function FavoriteUsers() {
                 <InfiniteScroll
                     pageStart={activePageFavoriteUserSelector}
                     loadMore={loadMore}
-                    hasMore={
-                        totalPagesFavoriteUserSelector - 1 >
-                        activePageFavoriteUserSelector
-                    }
+                    hasMore={totalPagesFavoriteUserSelector - 1 > activePageFavoriteUserSelector}
                     loader={<div className="loader" key={0}></div>}
                     threshold={0}
                     initialLoad={false}
                 >
                     <Grid container spacing={{ xs: 0, md: 4 }}>
-                        {entitiesFavoriteUserSelector.map(
-                            (favorite: IFavoriteUser, index: number) => (
-                                <ListFavoriteUsers
-                                    key={favorite.id}
-                                    favorite={favorite}
-                                    parentCallback={deleteFavoriteUser}
-                                />
-                            )
-                        )}
+                        {entitiesFavoriteUserSelector.map((favorite: IFavoriteUser, index: number) => (
+                            <ListFavoriteUsers key={favorite.id} favorite={favorite} parentCallback={deleteFavoriteUser} />
+                        ))}
 
-                        {loadingEntitiesFavoriteUserSelector ? (
-                            <LoadingFavoriteUsers />
-                        ) : null}
+                        {loadingEntitiesFavoriteUserSelector ? <LoadingFavoriteUsers /> : null}
 
-                        {!loadingEntitiesFavoriteUserSelector &&
-                        entitiesFavoriteUserSelector?.length == 0 ? (
+                        {!loadingEntitiesFavoriteUserSelector && entitiesFavoriteUserSelector?.length == 0 ? (
                             <Grid item xs={12}>
-                                <Alert severity="warning">
-                                    {t<string>(
-                                        'favorite.user.message_no_favorite_found'
-                                    )}
-                                </Alert>
+                                <Alert severity="warning">{t<string>('favorite.user.message_no_favorite_found')}</Alert>
                             </Grid>
                         ) : null}
                     </Grid>
@@ -178,20 +153,9 @@ function LoadingFavoriteUsers() {
                     >
                         <ListItem button>
                             <ListItemAvatar>
-                                <Skeleton
-                                    variant="circular"
-                                    width={40}
-                                    height={40}
-                                />
+                                <Skeleton variant="circular" width={40} height={40} />
                             </ListItemAvatar>
-                            <ListItemText
-                                primary={
-                                    <Skeleton variant="text" height={40} />
-                                }
-                                secondary={
-                                    <Skeleton variant="text" height={20} />
-                                }
-                            />
+                            <ListItemText primary={<Skeleton variant="text" height={40} />} secondary={<Skeleton variant="text" height={20} />} />
                         </ListItem>
                         <Divider variant="inset" component="li" />
                     </List>

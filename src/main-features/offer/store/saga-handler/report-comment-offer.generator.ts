@@ -4,9 +4,7 @@ import { reportCommentOfferFailure, reportCommentOfferSuccess } from '../slice';
 
 const apiUrl = 'api/reportcommentoffer';
 
-export function* reportCommentOfferHandler(
-    data: any
-): Generator<any, any, any> {
+export function* reportCommentOfferHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/create`;
         const result = yield invokeWS(

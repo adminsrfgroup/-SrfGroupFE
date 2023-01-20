@@ -40,29 +40,18 @@ import { useDispatch } from 'react-redux';
 import QuizIcon from '@mui/icons-material/Quiz';
 import FilterFramesIcon from '@mui/icons-material/FilterFrames';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import {
-    languages,
-    locales,
-} from '../../../main-features/user/store/initial.state';
+import { languages, locales } from '../../../main-features/user/store/initial.state';
 import { StorageService } from '../../services/storage.service';
 import { AllAppConfig } from '../../../core/config/all-config';
 
 const sections = [
     {
-        title: (
-            <Translation>
-                {(t, { i18n }) => <>{t('header.link_home')}</>}
-            </Translation>
-        ),
+        title: <Translation>{(t, { i18n }) => <>{t('header.link_home')}</>}</Translation>,
         url: ALL_APP_ROUTES.HOME,
         icon: <HomeIcon sx={{ marginRight: 1 }} />,
     },
     {
-        title: (
-            <Translation>
-                {(t, { i18n }) => <>{t('common.label_search')}</>}
-            </Translation>
-        ),
+        title: <Translation>{(t, { i18n }) => <>{t('common.label_search')}</>}</Translation>,
         url: ALL_APP_ROUTES.OFFER.LIST,
         icon: <SearchIcon sx={{ marginRight: 1 }} />,
     },
@@ -71,27 +60,16 @@ const sections = [
 export default function Header(props: any) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
-    const [anchorElSupport, setAnchorElSupport] =
-        React.useState<HTMLElement | null>(null);
-    const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>(
-        StorageService.local.get(AllAppConfig.DARK_MODE) ?? 'light'
-    );
-    const [defaultChecked, setDefaultChecked] = React.useState<boolean>(
-        darkMode == 'light' ? true : false
-    );
+    const [anchorElSupport, setAnchorElSupport] = React.useState<HTMLElement | null>(null);
+    const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>(StorageService.local.get(AllAppConfig.DARK_MODE) ?? 'light');
+    const [defaultChecked, setDefaultChecked] = React.useState<boolean>(darkMode == 'light' ? true : false);
 
     const navigate = useNavigate();
 
     const { t } = useTranslation();
     // const dispatch = useDispatch();
 
-    const {
-        onLocaleChange,
-        currentUser,
-        isAuthenticated,
-        nbeNotificationsNotSee,
-        nbeCarts,
-    } = props;
+    const { onLocaleChange, currentUser, isAuthenticated, nbeNotificationsNotSee, nbeCarts } = props;
 
     const isMenuOpen = Boolean(anchorEl);
     const isLanguagesMenuOpen = Boolean(languagesAnchorEl);
@@ -151,10 +129,7 @@ export default function Header(props: any) {
         >
             {Object.keys(languages).length > 1
                 ? locales.map((locale) => (
-                      <MenuItem
-                          key={locale}
-                          onClick={() => handleLocaleChange(locale)}
-                      >
+                      <MenuItem key={locale} onClick={() => handleLocaleChange(locale)}>
                           {languages[locale].name}
                       </MenuItem>
                   ))
@@ -230,9 +205,7 @@ export default function Header(props: any) {
                 <ListItemIcon>
                     <AddBusinessIcon />
                 </ListItemIcon>
-                <ListItemText>
-                    {t<string>('header.label_location')}
-                </ListItemText>
+                <ListItemText>{t<string>('header.label_location')}</ListItemText>
             </MenuItem>
 
             <MenuItem
@@ -259,9 +232,7 @@ export default function Header(props: any) {
                 <ListItemIcon>
                     <PostAddIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText>
-                    {t<string>('header.label_my_offers')}
-                </ListItemText>
+                <ListItemText>{t<string>('header.label_my_offers')}</ListItemText>
             </MenuItem>
 
             <MenuItem
@@ -274,9 +245,7 @@ export default function Header(props: any) {
                 <ListItemIcon>
                     <FavoriteIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText>
-                    {t<string>('header.lable_favorties_users')}
-                </ListItemText>
+                <ListItemText>{t<string>('header.lable_favorties_users')}</ListItemText>
             </MenuItem>
 
             <MenuItem
@@ -387,19 +356,9 @@ export default function Header(props: any) {
                             display: { xs: 'none', sm: 'flex' },
                         }}
                     >
-                        <LanguageIcon sx={{ mr: 0.5 }} />{' '}
-                        {props.currentLocale
-                            ? languages[props.currentLocale].name
-                            : undefined}
+                        <LanguageIcon sx={{ mr: 0.5 }} /> {props.currentLocale ? languages[props.currentLocale].name : undefined}
                     </IconButton>
-                    <Typography
-                        align="center"
-                        variant="h6"
-                        noWrap
-                        component="h2"
-                        sx={{ flex: { sm: 1 }, display: 'block' }}
-                        onClick={() => navigate(ALL_APP_ROUTES.HOME)}
-                    >
+                    <Typography align="center" variant="h6" noWrap component="h2" sx={{ flex: { sm: 1 }, display: 'block' }} onClick={() => navigate(ALL_APP_ROUTES.HOME)}>
                         SrfGroup
                     </Typography>
 
@@ -408,56 +367,19 @@ export default function Header(props: any) {
                             <div>
                                 <Button size="small" aria-label="Switch">
                                     <FormGroup>
-                                        <FormControlLabel
-                                            control={
-                                                <MaterialUISwitch
-                                                    sx={{ m: 0 }}
-                                                    defaultChecked={
-                                                        defaultChecked
-                                                    }
-                                                />
-                                            }
-                                            onChange={toggleDarkMode}
-                                            label=""
-                                        />
+                                        <FormControlLabel control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked={defaultChecked} />} onChange={toggleDarkMode} label="" />
                                     </FormGroup>
                                 </Button>
                                 <Tooltip title="Messages">
-                                    <IconButton
-                                        size="large"
-                                        aria-label="show 4 new mails"
-                                        color="inherit"
-                                        component={Link}
-                                        to={ALL_APP_ROUTES.CHAT.LIST}
-                                    >
-                                        <Badge
-                                            badgeContent={
-                                                props.nbeMessagesNotRead > 0
-                                                    ? props.nbeMessagesNotRead
-                                                    : null
-                                            }
-                                            color="error"
-                                        >
+                                    <IconButton size="large" aria-label="show 4 new mails" color="inherit" component={Link} to={ALL_APP_ROUTES.CHAT.LIST}>
+                                        <Badge badgeContent={props.nbeMessagesNotRead > 0 ? props.nbeMessagesNotRead : null} color="error">
                                             <MailIcon />
                                         </Badge>
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Notifications">
-                                    <IconButton
-                                        size="large"
-                                        aria-label="show 17 new notifications"
-                                        color="inherit"
-                                        component={Link}
-                                        to={ALL_APP_ROUTES.NOTIFICATION.LIST}
-                                    >
-                                        <Badge
-                                            badgeContent={
-                                                nbeNotificationsNotSee > 0
-                                                    ? nbeNotificationsNotSee
-                                                    : null
-                                            }
-                                            color="error"
-                                        >
+                                    <IconButton size="large" aria-label="show 17 new notifications" color="inherit" component={Link} to={ALL_APP_ROUTES.NOTIFICATION.LIST}>
+                                        <Badge badgeContent={nbeNotificationsNotSee > 0 ? nbeNotificationsNotSee : null} color="error">
                                             <NotificationsIcon />
                                         </Badge>
                                     </IconButton>
@@ -473,11 +395,7 @@ export default function Header(props: any) {
                                 >
                                     <Avatar
                                         alt="Avatar"
-                                        src={getUserAvatar(
-                                            currentUser.id,
-                                            currentUser.imageUrl,
-                                            currentUser.sourceConnectedDevice
-                                        )}
+                                        src={getUserAvatar(currentUser.id, currentUser.imageUrl, currentUser.sourceConnectedDevice)}
                                         sx={{
                                             width: 24,
                                             height: 24,
@@ -485,15 +403,9 @@ export default function Header(props: any) {
                                             border: '1px solid #b9b9b9',
                                         }}
                                     >
-                                        {getFullnameUser(currentUser)?.charAt(
-                                            0
-                                        )}
+                                        {getFullnameUser(currentUser)?.charAt(0)}
                                     </Avatar>
-                                    <Typography
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
+                                    <Typography component="span" variant="body2" color="text.primary">
                                         {getFullnameUser(currentUser)}
                                     </Typography>
                                     <ArrowDropDownIcon />
@@ -503,42 +415,16 @@ export default function Header(props: any) {
                             <div>
                                 <Button size="small" aria-label="Switch">
                                     <FormGroup>
-                                        <FormControlLabel
-                                            control={
-                                                <MaterialUISwitch
-                                                    sx={{ m: 0 }}
-                                                    defaultChecked
-                                                />
-                                            }
-                                            onChange={toggleDarkMode}
-                                            label=""
-                                        />
+                                        <FormControlLabel control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked />} onChange={toggleDarkMode} label="" />
                                     </FormGroup>
                                 </Button>
-                                <Link
-                                    to={ALL_APP_ROUTES.LOGIN}
-                                    style={{ color: 'transparent' }}
-                                >
-                                    <IconButton
-                                        size="large"
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        aria-controls=""
-                                        aria-haspopup="true"
-                                    >
+                                <Link to={ALL_APP_ROUTES.LOGIN} style={{ color: 'transparent' }}>
+                                    <IconButton size="large" edge="end" aria-label="account of current user" aria-controls="" aria-haspopup="true">
                                         <AccountCircle />
                                     </IconButton>
                                 </Link>
-                                <Link
-                                    to={ALL_APP_ROUTES.REGISTER}
-                                    style={{ textDecoration: 'none' }}
-                                >
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        color="neutral"
-                                        sx={{ ml: 1 }}
-                                    >
+                                <Link to={ALL_APP_ROUTES.REGISTER} style={{ textDecoration: 'none' }}>
+                                    <Button variant="outlined" size="small" color="neutral" sx={{ ml: 1 }}>
                                         {t<string>('header.signup')}
                                     </Button>
                                 </Link>
@@ -547,33 +433,15 @@ export default function Header(props: any) {
                     </Box>
 
                     <Box sx={{ display: { md: 'none' }, marginLeft: 'auto' }}>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls=""
-                            aria-haspopup="true"
-                            component={Link}
-                            to={ALL_APP_ROUTES.OFFER.ADD_UPDATE_OFFER}
-                        >
+                        <IconButton size="large" edge="end" aria-label="account of current user" aria-controls="" aria-haspopup="true" component={Link} to={ALL_APP_ROUTES.OFFER.ADD_UPDATE_OFFER}>
                             <AddCircleIcon sx={{ width: 30, height: 30 }} />
                         </IconButton>
 
                         {isAuthenticated ? (
-                            <IconButton
-                                size="large"
-                                aria-label="show more"
-                                aria-haspopup="true"
-                                onClick={() => handleRightMenuMobile(true)}
-                                color="inherit"
-                            >
+                            <IconButton size="large" aria-label="show more" aria-haspopup="true" onClick={() => handleRightMenuMobile(true)} color="inherit">
                                 <Avatar
                                     alt={currentUser?.imageUrl}
-                                    src={getUserAvatar(
-                                        currentUser.id,
-                                        currentUser.imageUrl,
-                                        currentUser.sourceConnectedDevice
-                                    )}
+                                    src={getUserAvatar(currentUser.id, currentUser.imageUrl, currentUser.sourceConnectedDevice)}
                                     sx={{
                                         width: 30,
                                         height: 30,
@@ -585,20 +453,9 @@ export default function Header(props: any) {
                                 </Avatar>
                             </IconButton>
                         ) : (
-                            <Link
-                                to={ALL_APP_ROUTES.LOGIN}
-                                style={{ color: 'transparent' }}
-                            >
-                                <IconButton
-                                    size="large"
-                                    edge="end"
-                                    aria-label="account of current user"
-                                    aria-controls=""
-                                    aria-haspopup="true"
-                                >
-                                    <AccountCircle
-                                        sx={{ width: 30, height: 30 }}
-                                    />
+                            <Link to={ALL_APP_ROUTES.LOGIN} style={{ color: 'transparent' }}>
+                                <IconButton size="large" edge="end" aria-label="account of current user" aria-controls="" aria-haspopup="true">
+                                    <AccountCircle sx={{ width: 30, height: 30 }} />
                                 </IconButton>
                             </Link>
                         )}
@@ -645,14 +502,10 @@ export default function Header(props: any) {
                             onMouseEnter={handlePopoverOpenSupport}
                             onMouseLeave={handlePopoverLeaveSupport}
                             onClick={handlePopoverOpenSupport}
-                            aria-owns={
-                                anchorElSupport ? 'simple-menu' : undefined
-                            }
+                            aria-owns={anchorElSupport ? 'simple-menu' : undefined}
                         >
                             <ExpandMoreIcon sx={{ marginRight: 1 }} />
-                            {t<string>(
-                                'header.link_support.link_label_support'
-                            )}
+                            {t<string>('header.link_support.link_label_support')}
                         </Link>
                         <Menu
                             id="simple-menu"
@@ -663,49 +516,23 @@ export default function Header(props: any) {
                                 onMouseLeave: handlePopoverCloseSupport,
                             }}
                         >
-                            <MenuItem
-                                onClick={(event) =>
-                                    redirectSupport(
-                                        ALL_APP_ROUTES.SUPPORT.CONTACT_US
-                                    )
-                                }
-                            >
+                            <MenuItem onClick={(event) => redirectSupport(ALL_APP_ROUTES.SUPPORT.CONTACT_US)}>
                                 <ListItemIcon>
                                     <MarkunreadIcon fontSize="small" />
                                 </ListItemIcon>
-                                <ListItemText>
-                                    {t<string>(
-                                        'header.link_support.link_contact_us'
-                                    )}
-                                </ListItemText>
+                                <ListItemText>{t<string>('header.link_support.link_contact_us')}</ListItemText>
                             </MenuItem>
-                            <MenuItem
-                                onClick={(event) =>
-                                    redirectSupport(
-                                        ALL_APP_ROUTES.SUPPORT.ABOUT_US
-                                    )
-                                }
-                            >
+                            <MenuItem onClick={(event) => redirectSupport(ALL_APP_ROUTES.SUPPORT.ABOUT_US)}>
                                 <ListItemIcon>
                                     <InfoIcon fontSize="small" />
                                 </ListItemIcon>
-                                <ListItemText>
-                                    {t<string>(
-                                        'header.link_support.link_about'
-                                    )}
-                                </ListItemText>
+                                <ListItemText>{t<string>('header.link_support.link_about')}</ListItemText>
                             </MenuItem>
-                            <MenuItem
-                                onClick={(event) =>
-                                    redirectSupport(ALL_APP_ROUTES.SUPPORT.FAQ)
-                                }
-                            >
+                            <MenuItem onClick={(event) => redirectSupport(ALL_APP_ROUTES.SUPPORT.FAQ)}>
                                 <ListItemIcon>
                                     <QuizIcon fontSize="small" />
                                 </ListItemIcon>
-                                <ListItemText>
-                                    {t<string>('header.link_support.link_faq')}
-                                </ListItemText>
+                                <ListItemText>{t<string>('header.link_support.link_faq')}</ListItemText>
                             </MenuItem>
                         </Menu>
                     </div>

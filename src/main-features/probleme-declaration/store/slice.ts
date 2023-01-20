@@ -20,9 +20,6 @@ export const {
 } = problemeDeclarationSlice.actions;
 
 //? ********************| COMMENTS OFFER SELECTORS |*******************/
-export const loadingProblemeDeclaration = (state: any) =>
-    state[PROBLEME_DECLARATION_KEY_IN_STORE].problemeDeclaration.loading;
-export const entityProblemeDeclaration = (state: any) =>
-    state[PROBLEME_DECLARATION_KEY_IN_STORE].problemeDeclaration.entity;
-export const addSuccessProblemeDeclaration = (state: any) =>
-    state[PROBLEME_DECLARATION_KEY_IN_STORE].problemeDeclaration.addSuccess;
+export const loadingProblemeDeclaration = (state: any) => state[PROBLEME_DECLARATION_KEY_IN_STORE].problemeDeclaration.loading;
+export const entityProblemeDeclaration = (state: any) => state[PROBLEME_DECLARATION_KEY_IN_STORE].problemeDeclaration.entity;
+export const addSuccessProblemeDeclaration = (state: any) => state[PROBLEME_DECLARATION_KEY_IN_STORE].problemeDeclaration.addSuccess;

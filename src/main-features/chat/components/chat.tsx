@@ -28,45 +28,29 @@ import {
     deleteConversation,
     totalPagesMessage,
 } from '../store/slice';
-import {
-    allSessionSelector,
-    listConnectedUsersWebsocket,
-} from '../../user/store/slice';
+import { allSessionSelector, listConnectedUsersWebsocket } from '../../user/store/slice';
 import { Conversation } from './ui-segments/Conversation';
 import { MessageConversation } from './ui-segments/MessageConversation';
-import {
-    getBaseImageUrl,
-    getFullUrlWithParams,
-    isOnLine,
-} from '../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getFullUrlWithParams, isOnLine } from '../../../shared/utils/utils-functions';
 
 export default function Chat() {
-    const [currentConversation, setCurrentConversation] =
-        React.useState<IConversation>({});
-    const [listCurrentMessages, setListCurrentMessages] = React.useState<
-        IMessage[]
-    >([]);
+    const [currentConversation, setCurrentConversation] = React.useState<IConversation>({});
+    const [listCurrentMessages, setListCurrentMessages] = React.useState<IMessage[]>([]);
     const [activePageMessages, setActivePageMessages] = React.useState(-1);
-    const [openCntainerMessagesMobile, setOpenCntainerMessagesMobile] =
-        React.useState<boolean>(false);
+    const [openCntainerMessagesMobile, setOpenCntainerMessagesMobile] = React.useState<boolean>(false);
 
     const dispatch = useDispatch();
 
-    const loadingEntitiesConversationSelector =
-        useSelector(loadingEntitiesConversation) ?? false;
-    const entitiesConversationSelector =
-        useSelector(entitiesConversation) ?? [];
-    const deleteSuccessConversationSelector =
-        useSelector(deleteSuccessConversation) ?? 0;
+    const loadingEntitiesConversationSelector = useSelector(loadingEntitiesConversation) ?? false;
+    const entitiesConversationSelector = useSelector(entitiesConversation) ?? [];
+    const deleteSuccessConversationSelector = useSelector(deleteSuccessConversation) ?? 0;
 
     const loadingMessageSelector = useSelector(loadingMessage) ?? [];
-    const loadingEntitiesMessageSelector =
-        useSelector(loadingEntitiesMessage) ?? [];
+    const loadingEntitiesMessageSelector = useSelector(loadingEntitiesMessage) ?? [];
     const entitiesMessageSelector = useSelector(entitiesMessage) ?? [];
     const totalPagesMessageSelector = useSelector(totalPagesMessage) ?? [];
 
-    const listConnectedUsersWebsocketSelector =
-        useSelector(listConnectedUsersWebsocket) ?? [];
+    const listConnectedUsersWebsocketSelector = useSelector(listConnectedUsersWebsocket) ?? [];
 
     const { currentUser } = useSelector(allSessionSelector);
 
@@ -102,16 +86,11 @@ export default function Chat() {
     React.useEffect(() => {
         if (entitiesMessageSelector) {
             const tmpListCurrentMessages: IMessage[] = [];
-            entitiesMessageSelector.forEach(
-                (message: IMessage, index: number) => {
-                    tmpListCurrentMessages.unshift(message);
-                }
-            );
+            entitiesMessageSelector.forEach((message: IMessage, index: number) => {
+                tmpListCurrentMessages.unshift(message);
+            });
 
-            setListCurrentMessages([
-                ...tmpListCurrentMessages,
-                ...listCurrentMessages,
-            ]);
+            setListCurrentMessages([...tmpListCurrentMessages, ...listCurrentMessages]);
         }
     }, [entitiesMessageSelector]);
 
@@ -137,11 +116,7 @@ export default function Chat() {
     };
 
     const isUserOnline = (email: string) => {
-        return isOnLine(
-            listConnectedUsersWebsocketSelector.slice(),
-            email,
-            currentUser?.email
-        );
+        return isOnLine(listConnectedUsersWebsocketSelector.slice(), email, currentUser?.email);
     };
 
     const actionDeleteConversation = (conversation?: IConversation) => {
@@ -212,21 +187,9 @@ export default function Chat() {
                 }}
                 className="container-chat"
             >
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={2}
-                    sx={{ display: { xs: 'none', md: 'flex' } }}
-                ></Grid>
+                <Grid item xs={12} sm={6} md={2} sx={{ display: { xs: 'none', md: 'flex' } }}></Grid>
 
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={3}
-                    className="container-chat-conversation"
-                >
+                <Grid item xs={12} sm={6} md={3} className="container-chat-conversation">
                     <Conversation
                         loading={loadingEntitiesConversationSelector}
                         list={entitiesConversationSelector.slice()}
@@ -240,26 +203,14 @@ export default function Chat() {
                     <Box sx={{ mt: 3, display: { xs: 'none', md: 'block' } }}>
                         <img
                             className="full-img-responsive"
-                            src={getBaseImageUrl(
-                                '/assets/images/offer/details-offer/online_shoping_digital.jpg'
-                            )}
+                            src={getBaseImageUrl('/assets/images/offer/details-offer/online_shoping_digital.jpg')}
                             alt="desktop-time-of-travel-address"
                             style={{ borderRadius: 4 }}
                         />
                     </Box>
                 </Grid>
 
-                <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={5}
-                    className={
-                        openCntainerMessagesMobile
-                            ? 'container-chat-message open'
-                            : 'container-chat-message'
-                    }
-                >
+                <Grid item xs={12} sm={12} md={5} className={openCntainerMessagesMobile ? 'container-chat-message open' : 'container-chat-message'}>
                     {!isEmpty(currentConversation) ? (
                         <MessageConversation
                             account={currentUser}
@@ -275,9 +226,7 @@ export default function Chat() {
                         />
                     ) : (
                         <Box>
-                            <Alert severity="warning">
-                                Please select a conversation
-                            </Alert>
+                            <Alert severity="warning">Please select a conversation</Alert>
                         </Box>
                     )}
                 </Grid>

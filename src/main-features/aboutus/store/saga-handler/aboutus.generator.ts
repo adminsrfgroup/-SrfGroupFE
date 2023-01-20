@@ -1,9 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchAboutUsSuccess,
-    fetchAboutUsFailure,
-} from '../../../aboutus/store/slice';
+import { fetchAboutUsSuccess, fetchAboutUsFailure } from '../../../aboutus/store/slice';
 
 const apiUrl = 'api/aboutus';
 

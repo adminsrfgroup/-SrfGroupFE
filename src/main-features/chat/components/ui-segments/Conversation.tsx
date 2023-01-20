@@ -26,10 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { IConversationMessage } from '../../../../shared/model/conversation-message.model';
 import { IUser } from '../../../../shared/model/user.model';
 import { IConversation } from '../../../../shared/model/conversation.model';
-import {
-    getFullnameUser,
-    getUserAvatar,
-} from '../../../../shared/utils/utils-functions';
+import { getFullnameUser, getUserAvatar } from '../../../../shared/utils/utils-functions';
 import { TransitionModal } from '../../../../shared/pages/transition-modal';
 import { StyledBadge } from '../../../../shared/pages/styled-badge';
 import { ConvertReactTimeAgo } from '../../../../shared/pages/react-time-ago';
@@ -52,9 +49,7 @@ export function Conversation({
     searchCallback: any;
 }) {
     const [openDeleteConvModal, setOpenDeleteConvModal] = React.useState(false);
-    const [conversationDel, setConversationDel] = React.useState<
-        IConversation | undefined
-    >(undefined);
+    const [conversationDel, setConversationDel] = React.useState<IConversation | undefined>(undefined);
     const [valueSearch, setValueSearch] = React.useState('');
 
     const { t } = useTranslation();
@@ -64,41 +59,31 @@ export function Conversation({
             return getUserAvatar(
                 conversatioinMessage?.conversation?.receiverUser?.id,
                 conversatioinMessage?.conversation?.receiverUser?.imageUrl,
-                conversatioinMessage?.conversation?.receiverUser
-                    ?.sourceConnectedDevice
+                conversatioinMessage?.conversation?.receiverUser?.sourceConnectedDevice
             );
         } else {
             return getUserAvatar(
                 conversatioinMessage?.conversation?.senderUser?.id,
                 conversatioinMessage?.conversation?.senderUser?.imageUrl,
-                conversatioinMessage?.conversation?.senderUser
-                    ?.sourceConnectedDevice
+                conversatioinMessage?.conversation?.senderUser?.sourceConnectedDevice
             );
         }
     };
 
     const isUserOnLine = (conversatioinMessage: IConversationMessage) => {
         if (conversatioinMessage?.conversation?.senderUser?.id === account.id) {
-            return isOnLine(
-                conversatioinMessage?.conversation?.receiverUser?.email || ''
-            );
+            return isOnLine(conversatioinMessage?.conversation?.receiverUser?.email || '');
         } else {
-            return isOnLine(
-                conversatioinMessage?.conversation?.senderUser?.email || ''
-            );
+            return isOnLine(conversatioinMessage?.conversation?.senderUser?.email || '');
         }
         return false;
     };
 
     const getFullname = (conversatioinMessage: IConversationMessage) => {
         if (conversatioinMessage?.conversation?.senderUser?.id === account.id) {
-            return getFullnameUser(
-                conversatioinMessage?.conversation?.receiverUser
-            );
+            return getFullnameUser(conversatioinMessage?.conversation?.receiverUser);
         } else {
-            return getFullnameUser(
-                conversatioinMessage?.conversation?.senderUser
-            );
+            return getFullnameUser(conversatioinMessage?.conversation?.senderUser);
         }
     };
 
@@ -123,26 +108,13 @@ export function Conversation({
 
     const renderDialogFavoriteUser = () => {
         return (
-            <Dialog
-                open={openDeleteConvModal}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                onClose={handleCloseDeleteConvModal}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>
-                    {t<string>('chat.title_delete_conversation')}
-                </DialogTitle>
+            <Dialog open={openDeleteConvModal} TransitionComponent={TransitionModal} keepMounted onClose={handleCloseDeleteConvModal} aria-describedby="alert-dialog-slide-description">
+                <DialogTitle>{t<string>('chat.title_delete_conversation')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>('chat.description_delete_conversation')}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('chat.description_delete_conversation')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        onClick={handleCloseDeleteConvModal}
-                        color="neutral"
-                    >
+                    <Button onClick={handleCloseDeleteConvModal} color="neutral">
                         {t<string>('common.label_cancel')}
                     </Button>
                     <Button onClick={handleDeleteConvModal} color="success">
@@ -156,9 +128,7 @@ export function Conversation({
     return (
         <Box>
             <form>
-                <Paper
-                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}
-                >
+                <Paper sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}>
                     <IconButton sx={{ p: '10px' }} aria-label="menu">
                         <MenuIcon />
                     </IconButton>
@@ -170,11 +140,7 @@ export function Conversation({
                         value={valueSearch}
                         onChange={(e) => setValueSearch(e.target.value)}
                     />
-                    <IconButton
-                        sx={{ p: '10px' }}
-                        aria-label="search"
-                        onClick={() => searchCallback(valueSearch)}
-                    >
+                    <IconButton sx={{ p: '10px' }} aria-label="search" onClick={() => searchCallback(valueSearch)}>
                         <SearchIcon />
                     </IconButton>
                 </Paper>
@@ -185,93 +151,49 @@ export function Conversation({
                 <ConversationLoading />
             ) : (
                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                    {list.map(
-                        (
-                            conversatioinMessage: IConversationMessage,
-                            index: number
-                        ) => (
-                            <Box key={`conversation-${index}`}>
-                                <ListItem
-                                    button
-                                    alignItems="flex-start"
-                                    onClick={() =>
-                                        openListMessages(
-                                            conversatioinMessage.conversation
-                                        )
+                    {list.map((conversatioinMessage: IConversationMessage, index: number) => (
+                        <Box key={`conversation-${index}`}>
+                            <ListItem
+                                button
+                                alignItems="flex-start"
+                                onClick={() => openListMessages(conversatioinMessage.conversation)}
+                                secondaryAction={
+                                    <IconButton edge="end" aria-label="delete" onClick={(event: any) => deleteConv(event, conversatioinMessage.conversation)}>
+                                        <DeleteIcon color="error" />
+                                    </IconButton>
+                                }
+                            >
+                                <ListItemAvatar>
+                                    <StyledBadge
+                                        overlap="circular"
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'right',
+                                        }}
+                                        variant="dot"
+                                        color={isUserOnLine(conversatioinMessage) ? 'success' : 'error'}
+                                    >
+                                        <Avatar alt="User avatar" src={getAvatar(conversatioinMessage)}></Avatar>
+                                    </StyledBadge>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    className="item-conversation-infos"
+                                    primary={getFullname(conversatioinMessage)}
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                                                <ConvertReactTimeAgo convertDate={conversatioinMessage?.conversation?.dateCreated} />
+                                            </Typography>
+                                            {` — ${conversatioinMessage?.message?.content}`}
+                                        </React.Fragment>
                                     }
-                                    secondaryAction={
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="delete"
-                                            onClick={(event: any) =>
-                                                deleteConv(
-                                                    event,
-                                                    conversatioinMessage.conversation
-                                                )
-                                            }
-                                        >
-                                            <DeleteIcon color="error" />
-                                        </IconButton>
-                                    }
-                                >
-                                    <ListItemAvatar>
-                                        <StyledBadge
-                                            overlap="circular"
-                                            anchorOrigin={{
-                                                vertical: 'bottom',
-                                                horizontal: 'right',
-                                            }}
-                                            variant="dot"
-                                            color={
-                                                isUserOnLine(
-                                                    conversatioinMessage
-                                                )
-                                                    ? 'success'
-                                                    : 'error'
-                                            }
-                                        >
-                                            <Avatar
-                                                alt="User avatar"
-                                                src={getAvatar(
-                                                    conversatioinMessage
-                                                )}
-                                            ></Avatar>
-                                        </StyledBadge>
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        className="item-conversation-infos"
-                                        primary={getFullname(
-                                            conversatioinMessage
-                                        )}
-                                        secondary={
-                                            <React.Fragment>
-                                                <Typography
-                                                    sx={{ display: 'inline' }}
-                                                    component="span"
-                                                    variant="body2"
-                                                    color="text.primary"
-                                                >
-                                                    <ConvertReactTimeAgo
-                                                        convertDate={
-                                                            conversatioinMessage
-                                                                ?.conversation
-                                                                ?.dateCreated
-                                                        }
-                                                    />
-                                                </Typography>
-                                                {` — ${conversatioinMessage?.message?.content}`}
-                                            </React.Fragment>
-                                        }
-                                    />
-                                </ListItem>
-                                <Divider variant="inset" component="li" />
-                            </Box>
-                        )
-                    )}
+                                />
+                            </ListItem>
+                            <Divider variant="inset" component="li" />
+                        </Box>
+                    ))}
 
-                    {!loading && list.length === 0 ? (
-                        <Alert severity="warning">No Conversations found</Alert>
-                    ) : null}
+                    {!loading && list.length === 0 ? <Alert severity="warning">No Conversations found</Alert> : null}
                 </List>
             )}
             <div>{renderDialogFavoriteUser()}</div>

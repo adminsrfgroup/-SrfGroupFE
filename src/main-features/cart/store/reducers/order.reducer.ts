@@ -20,10 +20,7 @@ const reducer = {
     },
     fetchPassedOrderSuccess: (state: any, action: any) => {
         state.order.loadingEntities = false;
-        state.order.entities = [
-            ...state.order.entities,
-            ...action.payload.content,
-        ];
+        state.order.entities = [...state.order.entities, ...action.payload.content];
         state.order.totalItems = action.payload?.totalElements;
         state.order.totalPages = action.payload?.totalPages;
     },
@@ -36,10 +33,7 @@ const reducer = {
     },
     fetchReceivedOrderSuccess: (state: any, action: any) => {
         state.orderReceived.loadingEntities = false;
-        state.orderReceived.entities = [
-            ...state.orderReceived.entities,
-            ...action.payload.content,
-        ];
+        state.orderReceived.entities = [...state.orderReceived.entities, ...action.payload.content];
         state.orderReceived.totalItems = action.payload?.totalElements;
         state.orderReceived.totalPages = action.payload?.totalPages;
     },

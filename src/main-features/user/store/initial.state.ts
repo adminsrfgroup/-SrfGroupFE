@@ -10,9 +10,7 @@ export const languages: any = {
 };
 export const locales = Object.keys(languages).sort();
 
-const CURRENT_USER = StorageService.local.get(AllAppConfig.VALUE_CURRENT_USER)
-    ? JSON.parse(StorageService.local.get(AllAppConfig.VALUE_CURRENT_USER))
-    : null;
+const CURRENT_USER = StorageService.local.get(AllAppConfig.VALUE_CURRENT_USER) ? JSON.parse(StorageService.local.get(AllAppConfig.VALUE_CURRENT_USER)) : null;
 
 export const initialState = {
     login: {

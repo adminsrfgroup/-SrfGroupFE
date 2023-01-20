@@ -139,81 +139,54 @@ export const {
 
 //? ********************| LOGIN SELECTORS |*******************/
 export const allLoginSelector = (state: any) => state[USER_KEY_IN_STORE].login;
-export const loginWithGoogleOneTapSuccessLogin = (state: any) =>
-    state[USER_KEY_IN_STORE].login.loginWithGoogleOneTapSuccess;
+export const loginWithGoogleOneTapSuccessLogin = (state: any) => state[USER_KEY_IN_STORE].login.loginWithGoogleOneTapSuccess;
 
 // export const allLoginSelector = '';
 
 //? ********************| LOCALE SELECTORS |*******************/
-export const allLocaleSelector = (state: any) =>
-    state[USER_KEY_IN_STORE].locale;
+export const allLocaleSelector = (state: any) => state[USER_KEY_IN_STORE].locale;
 // export const allLocaleSelector = '';
 
 //? ********************| SESSION SELECTORS |*******************/
-export const allSessionSelector = (state: any) =>
-    state[USER_KEY_IN_STORE].session;
-export const loadingSession = (state: any) =>
-    state[USER_KEY_IN_STORE].session.loading;
-export const currentUserSession = (state: any) =>
-    state[USER_KEY_IN_STORE].session.currentUser;
+export const allSessionSelector = (state: any) => state[USER_KEY_IN_STORE].session;
+export const loadingSession = (state: any) => state[USER_KEY_IN_STORE].session.loading;
+export const currentUserSession = (state: any) => state[USER_KEY_IN_STORE].session.currentUser;
 
 //? ********************| ACCOUNT SELECTORS |*******************/
-export const loadingUpdateInfosAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].account.loadingUpdateInfos;
-export const updateSuccessInfosAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].account.updateSuccessInfos;
-export const loadingPasswordAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].account.loadingPassword;
-export const updateSuccessPasswordAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].account.updateSuccessPassword;
-export const entityUpdateInfosAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].account.entityUpdateInfos;
+export const loadingUpdateInfosAccount = (state: any) => state[USER_KEY_IN_STORE].account.loadingUpdateInfos;
+export const updateSuccessInfosAccount = (state: any) => state[USER_KEY_IN_STORE].account.updateSuccessInfos;
+export const loadingPasswordAccount = (state: any) => state[USER_KEY_IN_STORE].account.loadingPassword;
+export const updateSuccessPasswordAccount = (state: any) => state[USER_KEY_IN_STORE].account.updateSuccessPassword;
+export const entityUpdateInfosAccount = (state: any) => state[USER_KEY_IN_STORE].account.entityUpdateInfos;
 
 //? ********************| PROFILE SELECTORS |*******************/
-export const loadingProfile = (state: any) =>
-    state[USER_KEY_IN_STORE].profile.loading;
-export const entityProfile = (state: any) =>
-    state[USER_KEY_IN_STORE].profile.entity;
-export const loadingReportProfile = (state: any) =>
-    state[USER_KEY_IN_STORE].profile.loadingReport;
-export const reportSuccessProfile = (state: any) =>
-    state[USER_KEY_IN_STORE].profile.reportSuccess;
+export const loadingProfile = (state: any) => state[USER_KEY_IN_STORE].profile.loading;
+export const entityProfile = (state: any) => state[USER_KEY_IN_STORE].profile.entity;
+export const loadingReportProfile = (state: any) => state[USER_KEY_IN_STORE].profile.loadingReport;
+export const reportSuccessProfile = (state: any) => state[USER_KEY_IN_STORE].profile.reportSuccess;
 
 //? ********************| REGISTER SELECTORS |*******************/
-export const loadingRegister = (state: any) =>
-    state[USER_KEY_IN_STORE].register.loading;
-export const addSuccessRegister = (state: any) =>
-    state[USER_KEY_IN_STORE].register.addSuccess;
-export const errorMessageRegister = (state: any) =>
-    state[USER_KEY_IN_STORE].register.errorMessage;
+export const loadingRegister = (state: any) => state[USER_KEY_IN_STORE].register.loading;
+export const addSuccessRegister = (state: any) => state[USER_KEY_IN_STORE].register.addSuccess;
+export const errorMessageRegister = (state: any) => state[USER_KEY_IN_STORE].register.errorMessage;
 
 //? ********************| ACTIVATION ACCOUNT SELECTORS |*******************/
-export const loadingActivationAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].activationAccount.loading;
-export const activationActivationAccount = (state: any) =>
-    state[USER_KEY_IN_STORE].activationAccount.activation;
+export const loadingActivationAccount = (state: any) => state[USER_KEY_IN_STORE].activationAccount.loading;
+export const activationActivationAccount = (state: any) => state[USER_KEY_IN_STORE].activationAccount.activation;
 
 //? ********************| AVATAR SELECTORS |*******************/
-export const loadingUpdateAvatar = (state: any) =>
-    state[USER_KEY_IN_STORE].account.loadingUpdateAvatar;
-export const updateSuccessAvatar = (state: any) =>
-    state[USER_KEY_IN_STORE].account.updateSuccessAvatar;
-export const entityUpdateAvatar = (state: any) =>
-    state[USER_KEY_IN_STORE].account.entityUpdateAvatar;
+export const loadingUpdateAvatar = (state: any) => state[USER_KEY_IN_STORE].account.loadingUpdateAvatar;
+export const updateSuccessAvatar = (state: any) => state[USER_KEY_IN_STORE].account.updateSuccessAvatar;
+export const entityUpdateAvatar = (state: any) => state[USER_KEY_IN_STORE].account.entityUpdateAvatar;
 
 //? ********************| PASSWORD SELECTORS |*******************/
-export const loadingResetInitPassword = (state: any) =>
-    state[USER_KEY_IN_STORE].password.loadingResetInit;
-export const resetInitSuccessPassword = (state: any) =>
-    state[USER_KEY_IN_STORE].password.resetInitSuccess;
-export const loadingResetFinishPassword = (state: any) =>
-    state[USER_KEY_IN_STORE].password.loadingResetFinish;
-export const resetFinishSuccessPassword = (state: any) =>
-    state[USER_KEY_IN_STORE].password.resetFinishSuccess;
+export const loadingResetInitPassword = (state: any) => state[USER_KEY_IN_STORE].password.loadingResetInit;
+export const resetInitSuccessPassword = (state: any) => state[USER_KEY_IN_STORE].password.resetInitSuccess;
+export const loadingResetFinishPassword = (state: any) => state[USER_KEY_IN_STORE].password.loadingResetFinish;
+export const resetFinishSuccessPassword = (state: any) => state[USER_KEY_IN_STORE].password.resetFinishSuccess;
 
 //? ********************| WEBSOCKET SELECTORS |*******************/
-export const listConnectedUsersWebsocket = (state: any) =>
-    state[USER_KEY_IN_STORE].websocket.listConnectedUsers;
+export const listConnectedUsersWebsocket = (state: any) => state[USER_KEY_IN_STORE].websocket.listConnectedUsers;
 
 //? ********************| CGU SELECTORS |*******************/
 export const entityCgu = (state: any) => state[USER_KEY_IN_STORE].cgu.entity;

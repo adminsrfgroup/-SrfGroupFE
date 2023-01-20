@@ -13,10 +13,7 @@ export function ConversationLoading() {
                     <ListItemAvatar>
                         <Skeleton variant="circular" width={40} height={40} />
                     </ListItemAvatar>
-                    <ListItemText
-                        primary={<Skeleton variant="text" />}
-                        secondary={<Skeleton variant="text" />}
-                    />
+                    <ListItemText primary={<Skeleton variant="text" />} secondary={<Skeleton variant="text" />} />
                 </ListItemButton>
             ))}
         </List>

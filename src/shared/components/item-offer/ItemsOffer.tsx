@@ -12,16 +12,8 @@ import Typography from '@mui/material/Typography/Typography';
 import CardActions from '@mui/material/CardActions/CardActions';
 import AddLocationAltIcon from '@mui/icons-material/AddLocation';
 import CardActionArea from '@mui/material/CardActionArea/CardActionArea';
-import {
-    TypeDisplaySearchOffers,
-    TypeOfferEnum,
-} from '../../enums/type-offer.enum';
-import {
-    getBaseImageUrl,
-    getFullnameUser,
-    getImageForOffer,
-    getUserAvatar,
-} from '../../utils/utils-functions';
+import { TypeDisplaySearchOffers, TypeOfferEnum } from '../../enums/type-offer.enum';
+import { getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar } from '../../utils/utils-functions';
 import List from '@mui/material/List/List';
 import ListItem from '@mui/material/ListItem/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar/ListItemAvatar';
@@ -66,38 +58,11 @@ export default function ItemOffer({
         <Box>
             <Grid container spacing={{ xs: 2, md: 6 }}>
                 {listOffers.map((offer: IOffer, index) => (
-                    <Grid
-                        item
-                        xs={
-                            typeDisplay === TypeDisplaySearchOffers.Grid
-                                ? 6
-                                : 12
-                        }
-                        sm={
-                            typeDisplay === TypeDisplaySearchOffers.Grid
-                                ? 4
-                                : 12
-                        }
-                        key={`entity-${index}`}
-                    >
+                    <Grid item xs={typeDisplay === TypeDisplaySearchOffers.Grid ? 6 : 12} sm={typeDisplay === TypeDisplaySearchOffers.Grid ? 4 : 12} key={`entity-${index}`}>
                         {typeDisplay === TypeDisplaySearchOffers.Grid ? (
-                            <CardGrid
-                                offer={offer}
-                                rediretToCallback={rediretTo}
-                                isOnLine={isOnLine}
-                                forMe={forMe}
-                                callbackEditOffer={callbackEditOffer}
-                                callbackDeleteOffer={callbackDeleteOffer}
-                            />
+                            <CardGrid offer={offer} rediretToCallback={rediretTo} isOnLine={isOnLine} forMe={forMe} callbackEditOffer={callbackEditOffer} callbackDeleteOffer={callbackDeleteOffer} />
                         ) : (
-                            <CardList
-                                offer={offer}
-                                rediretToCallback={rediretTo}
-                                isOnLine={isOnLine}
-                                forMe={forMe}
-                                callbackEditOffer={callbackEditOffer}
-                                callbackDeleteOffer={callbackDeleteOffer}
-                            />
+                            <CardList offer={offer} rediretToCallback={rediretTo} isOnLine={isOnLine} forMe={forMe} callbackEditOffer={callbackEditOffer} callbackDeleteOffer={callbackDeleteOffer} />
                         )}
                     </Grid>
                 ))}
@@ -134,10 +99,7 @@ function CardList({
     };
 
     return (
-        <CardActionArea
-            component="a"
-            onClick={() => rediretToCallback(offer.id)}
-        >
+        <CardActionArea component="a" onClick={() => rediretToCallback(offer.id)}>
             <Card sx={{ display: { xs: 'block', sm: 'flex' } }}>
                 <CardMedia
                     sx={{
@@ -148,27 +110,12 @@ function CardList({
                     {offer?.offerImages?.length ? (
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                offer.id,
-                                offer.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
@@ -179,13 +126,7 @@ function CardList({
                                 height: '100%',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </Box>
                     )}
                 </CardMedia>
@@ -204,38 +145,17 @@ function CardList({
                                 <React.Fragment>
                                     {forMe && offer?.available ? (
                                         <CardActions>
-                                            <IconButton
-                                                aria-label="amount"
-                                                size="small"
-                                                color="success"
-                                                onClick={(event) =>
-                                                    editOffer(event)
-                                                }
-                                            >
+                                            <IconButton aria-label="amount" size="small" color="success" onClick={(event) => editOffer(event)}>
                                                 <EditIcon />
                                             </IconButton>
 
-                                            <IconButton
-                                                aria-label="report"
-                                                size="small"
-                                                sx={{ ml: 'auto !important' }}
-                                                color="error"
-                                                onClick={(event) =>
-                                                    deleteOffer(event)
-                                                }
-                                            >
+                                            <IconButton aria-label="report" size="small" sx={{ ml: 'auto !important' }} color="error" onClick={(event) => deleteOffer(event)}>
                                                 <DeleteIcon />
                                             </IconButton>
                                         </CardActions>
                                     ) : (
-                                        <Typography
-                                            variant="subtitle1"
-                                            color="error"
-                                            sx={{ mx: 1 }}
-                                        >
-                                            {t<string>(
-                                                'details_offer.not_available'
-                                            )}
+                                        <Typography variant="subtitle1" color="error" sx={{ mx: 1 }}>
+                                            {t<string>('details_offer.not_available')}
                                         </Typography>
                                     )}
                                 </React.Fragment>
@@ -249,19 +169,11 @@ function CardList({
                                         horizontal: 'right',
                                     }}
                                     variant="dot"
-                                    color={
-                                        isOnLine(offer.user?.email)
-                                            ? 'success'
-                                            : 'error'
-                                    }
+                                    color={isOnLine(offer.user?.email) ? 'success' : 'error'}
                                 >
                                     <Avatar
                                         alt={offer.user?.imageUrl}
-                                        src={getUserAvatar(
-                                            offer.user?.id,
-                                            offer.user?.imageUrl,
-                                            offer.user?.sourceConnectedDevice
-                                        )}
+                                        src={getUserAvatar(offer.user?.id, offer.user?.imageUrl, offer.user?.sourceConnectedDevice)}
                                         sx={{ border: '1px solid #b9b9b9' }}
                                     >
                                         {getFullnameUser(offer.user)?.charAt(0)}
@@ -271,18 +183,9 @@ function CardList({
                             <ListItemText
                                 primary={getFullnameUser(offer?.user)}
                                 secondary={
-                                    <Typography
-                                        variant="subtitle2"
-                                        color="text.secondary"
-                                        display="flex"
-                                    >
-                                        <AccessTimeFilledIcon
-                                            fontSize="small"
-                                            sx={{ mr: 0.9 }}
-                                        />
-                                        <ConvertReactTimeAgo
-                                            convertDate={offer.dateCreated}
-                                        />
+                                    <Typography variant="subtitle2" color="text.secondary" display="flex">
+                                        <AccessTimeFilledIcon fontSize="small" sx={{ mr: 0.9 }} />
+                                        <ConvertReactTimeAgo convertDate={offer.dateCreated} />
                                     </Typography>
                                 }
                             />
@@ -291,19 +194,11 @@ function CardList({
 
                     <Grid container spacing={2}>
                         <Grid item xs={8}>
-                            <Typography
-                                component="h5"
-                                variant="h5"
-                                sx={{ fontSize: '1.2rem' }}
-                            >
+                            <Typography component="h5" variant="h5" sx={{ fontSize: '1.2rem' }}>
                                 {offer.title}
                             </Typography>
 
-                            <Typography
-                                variant="subtitle2"
-                                color="text.secondary"
-                                display="flex"
-                            >
+                            <Typography variant="subtitle2" color="text.secondary" display="flex">
                                 <CheckIcon fontSize="small" sx={{ mr: 0.9 }} />
                                 {offer.typeOffer === TypeOfferEnum.Sell
                                     ? t<string>('common.for_sell')
@@ -317,12 +212,7 @@ function CardList({
 
                         {offer.amount ? (
                             <Grid item xs={4}>
-                                <Typography
-                                    variant="subtitle1"
-                                    display="flex"
-                                    sx={{ justifyContent: 'end' }}
-                                    color="secondary"
-                                >
+                                <Typography variant="subtitle1" display="flex" sx={{ justifyContent: 'end' }} color="secondary">
                                     {offer.amount?.toLocaleString('tn-TN')} TND
                                 </Typography>
                             </Grid>
@@ -362,10 +252,7 @@ function CardGrid({
     };
 
     return (
-        <CardActionArea
-            component="a"
-            onClick={() => rediretToCallback(offer.id)}
-        >
+        <CardActionArea component="a" onClick={() => rediretToCallback(offer.id)}>
             <Card className="card-item-offer">
                 <CardHeader
                     avatar={
@@ -376,38 +263,17 @@ function CardGrid({
                                 horizontal: 'right',
                             }}
                             variant="dot"
-                            color={
-                                isOnLine(offer.user?.email)
-                                    ? 'success'
-                                    : 'error'
-                            }
+                            color={isOnLine(offer.user?.email) ? 'success' : 'error'}
                         >
-                            <Avatar
-                                alt={offer.user?.imageUrl}
-                                src={getUserAvatar(
-                                    offer.user?.id,
-                                    offer.user?.imageUrl,
-                                    offer.user?.sourceConnectedDevice
-                                )}
-                                sx={{ border: '1px solid #b9b9b9' }}
-                            >
+                            <Avatar alt={offer.user?.imageUrl} src={getUserAvatar(offer.user?.id, offer.user?.imageUrl, offer.user?.sourceConnectedDevice)} sx={{ border: '1px solid #b9b9b9' }}>
                                 {getFullnameUser(offer.user)?.charAt(0)}
                             </Avatar>
                         </StyledBadge>
                     }
                     action={''}
-                    title={
-                        <Typography className="truncate-text">
-                            {getFullnameUser(offer?.user)}
-                        </Typography>
-                    }
+                    title={<Typography className="truncate-text">{getFullnameUser(offer?.user)}</Typography>}
                     subheader={
-                        <Typography
-                            variant="subtitle2"
-                            color="text.secondary"
-                            display="flex"
-                            sx={{ fontSize: { xs: '0.6rem', md: '0.875rem' } }}
-                        >
+                        <Typography variant="subtitle2" color="text.secondary" display="flex" sx={{ fontSize: { xs: '0.6rem', md: '0.875rem' } }}>
                             <AccessTimeFilledIcon
                                 fontSize="small"
                                 sx={{
@@ -415,9 +281,7 @@ function CardGrid({
                                     fontSize: { xs: '0.9rem', md: '1.25rem;' },
                                 }}
                             />
-                            <ConvertReactTimeAgo
-                                convertDate={offer.dateCreated}
-                            />
+                            <ConvertReactTimeAgo convertDate={offer.dateCreated} />
                         </Typography>
                     }
                 />
@@ -425,48 +289,22 @@ function CardGrid({
                     {offer.offerImages && offer.offerImages.length ? (
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                offer.id,
-                                offer.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
                     ) : (
-                        <img
-                            src={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE
-                            )}
-                            className="img-lazy-loading"
-                            alt="image not found"
-                        />
+                        <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                     )}
                 </CardMedia>
                 <Box className="card-actions-content">
                     <CardContent className="card-content">
-                        <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}
-                        >
+                        <Typography gutterBottom variant="h5" component="div" sx={{ fontSize: { xs: '1rem', md: '1.5rem' } }}>
                             <CheckIcon
                                 fontSize="small"
                                 sx={{
@@ -483,12 +321,7 @@ function CardGrid({
                                 : null}
                         </Typography>
 
-                        <Typography
-                            component="h5"
-                            variant="h5"
-                            sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }}
-                            className="truncate-text"
-                        >
+                        <Typography component="h5" variant="h5" sx={{ fontSize: { xs: '1rem', md: '1.2rem' } }} className="truncate-text">
                             {offer.title}
                         </Typography>
                     </CardContent>
@@ -510,31 +343,16 @@ function CardGrid({
                 {forMe ? (
                     offer?.available ? (
                         <CardActions>
-                            <IconButton
-                                aria-label="amount"
-                                size="small"
-                                color="success"
-                                onClick={(event) => editOffer(event)}
-                            >
+                            <IconButton aria-label="amount" size="small" color="success" onClick={(event) => editOffer(event)}>
                                 <EditIcon />
                             </IconButton>
 
-                            <IconButton
-                                aria-label="report"
-                                size="small"
-                                sx={{ ml: 'auto !important' }}
-                                color="error"
-                                onClick={(event) => deleteOffer(event)}
-                            >
+                            <IconButton aria-label="report" size="small" sx={{ ml: 'auto !important' }} color="error" onClick={(event) => deleteOffer(event)}>
                                 <DeleteIcon />
                             </IconButton>
                         </CardActions>
                     ) : (
-                        <Typography
-                            variant="subtitle1"
-                            color="error"
-                            sx={{ mx: 1 }}
-                        >
+                        <Typography variant="subtitle1" color="error" sx={{ mx: 1 }}>
                             {t<string>('details_offer.not_available')}
                         </Typography>
                     )

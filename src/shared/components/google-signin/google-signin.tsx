@@ -39,10 +39,7 @@ export class GoogleSignin extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <div
-                    ref={this.googleSignInButton}
-                    className={!this.props.isOneTap ? 'customGPlusSignIn' : ''}
-                ></div>
+                <div ref={this.googleSignInButton} className={!this.props.isOneTap ? 'customGPlusSignIn' : ''}></div>
             </div>
         );
     }

@@ -25,12 +25,7 @@ import DialogActions from '@mui/material/DialogActions/DialogActions';
 // import Divider from "@mui/material/Divider";
 import Skeleton from '@mui/material/Skeleton/Skeleton';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import {
-    getBaseImageUrl,
-    getFullnameUser,
-    getImageForOffer,
-    getUserAvatar,
-} from '../../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar } from '../../../../shared/utils/utils-functions';
 import { AllAppConfig } from '../../../../core/config/all-config';
 import { ICart } from '../../../../shared/model/cart.model';
 import { ALL_APP_ROUTES } from '../../../../core/config/all-app-routes';
@@ -46,10 +41,7 @@ function LoadingCarts() {
     return (
         <Box>
             {[0, 1, 2].map((key) => (
-                <Card
-                    sx={{ display: { xs: 'block', sm: 'flex' }, my: 2 }}
-                    key={key}
-                >
+                <Card sx={{ display: { xs: 'block', sm: 'flex' }, my: 2 }} key={key}>
                     <CardMedia
                         sx={{
                             width: { xs: '100%', sm: 250 },
@@ -62,13 +54,7 @@ function LoadingCarts() {
                                 height: '100%',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </Box>
                     </CardMedia>
                     <CardContent sx={{ flex: 1 }}>
@@ -78,12 +64,7 @@ function LoadingCarts() {
 
                                 <Skeleton animation="wave" height={24} />
 
-                                <Skeleton
-                                    variant="rectangular"
-                                    width={'100%'}
-                                    height={100}
-                                    sx={{ my: 3 }}
-                                />
+                                <Skeleton variant="rectangular" width={'100%'} height={100} sx={{ my: 3 }} />
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -105,9 +86,7 @@ function ItemCart({
     parentCallbackUpdateQuantity: (cartUpdate: any) => void;
 }) {
     const [openDeleteCartModal, setOpenDeleteCartModal] = React.useState(false);
-    const [cartDeleteId, setCartDeleteId] = React.useState<number | undefined>(
-        -1
-    );
+    const [cartDeleteId, setCartDeleteId] = React.useState<number | undefined>(-1);
     const navigate = useNavigate();
 
     const rediretTo = () => {
@@ -148,30 +127,16 @@ function ItemCart({
 
     const renderDialogDeleteCart = () => {
         return (
-            <Dialog
-                open={openDeleteCartModal}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                onClose={handleClickCancelDeleteCartModal}
-                aria-describedby="alert-dialog-slide-description"
-            >
+            <Dialog open={openDeleteCartModal} TransitionComponent={TransitionModal} keepMounted onClose={handleClickCancelDeleteCartModal} aria-describedby="alert-dialog-slide-description">
                 <DialogTitle>{t('cart.title_dialog_delete_cart')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t('cart.description_dialog_delete_cart')}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t('cart.description_dialog_delete_cart')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        onClick={handleClickCancelDeleteCartModal}
-                        color="neutral"
-                    >
+                    <Button onClick={handleClickCancelDeleteCartModal} color="neutral">
                         {t('common.label_cancel')}
                     </Button>
-                    <Button
-                        onClick={handleClickDeleteDeleteCartModal}
-                        color="error"
-                    >
+                    <Button onClick={handleClickDeleteDeleteCartModal} color="error">
                         {t('common.label_delete')}
                     </Button>
                 </DialogActions>
@@ -181,10 +146,7 @@ function ItemCart({
 
     return (
         <Box>
-            <Card
-                sx={{ display: { xs: 'block', sm: 'flex' } }}
-                onClick={() => rediretTo()}
-            >
+            <Card sx={{ display: { xs: 'block', sm: 'flex' } }} onClick={() => rediretTo()}>
                 <CardMedia
                     sx={{
                         width: { xs: '100%', sm: 250 },
@@ -194,27 +156,12 @@ function ItemCart({
                     {cart?.sellOffer?.offerImages?.length ? (
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                cart?.sellOffer?.id,
-                                cart?.sellOffer?.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(cart?.sellOffer?.id, cart?.sellOffer?.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
@@ -225,13 +172,7 @@ function ItemCart({
                                 height: '100%',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </Box>
                     )}
                 </CardMedia>
@@ -244,32 +185,18 @@ function ItemCart({
                                     <Avatar
                                         role="img"
                                         aria-label="Image avatar"
-                                        src={getUserAvatar(
-                                            cart?.sellOffer?.user?.id,
-                                            cart?.sellOffer?.user?.imageUrl,
-                                            cart?.sellOffer?.user
-                                                ?.sourceConnectedDevice
-                                        )}
+                                        src={getUserAvatar(cart?.sellOffer?.user?.id, cart?.sellOffer?.user?.imageUrl, cart?.sellOffer?.user?.sourceConnectedDevice)}
                                         alt="image not found"
-                                        onClick={(event: any) =>
-                                            redirectToPorfile(
-                                                event,
-                                                cart?.sellOffer?.user?.id
-                                            )
-                                        }
+                                        onClick={(event: any) => redirectToPorfile(event, cart?.sellOffer?.user?.id)}
                                     >
-                                        {getFullnameUser(
-                                            cart?.sellOffer?.user
-                                        )?.charAt(0)}
+                                        {getFullnameUser(cart?.sellOffer?.user)?.charAt(0)}
                                     </Avatar>
                                 }
                                 title={getFullnameUser(cart?.sellOffer?.user)}
                                 subheader={
                                     <React.Fragment>
                                         <Typography>
-                                            <ConvertReactTimeAgo
-                                                convertDate={cart?.passedDate}
-                                            />
+                                            <ConvertReactTimeAgo convertDate={cart?.passedDate} />
                                         </Typography>
                                     </React.Fragment>
                                 }
@@ -278,12 +205,7 @@ function ItemCart({
 
                         {cart?.sellOffer?.amount ? (
                             <Grid item xs={4}>
-                                <Typography
-                                    variant="subtitle1"
-                                    color="secondary"
-                                    display="flex"
-                                    sx={{ justifyContent: 'end' }}
-                                >
+                                <Typography variant="subtitle1" color="secondary" display="flex" sx={{ justifyContent: 'end' }}>
                                     {cart?.total?.toLocaleString('tn-TN')} TND
                                 </Typography>
                             </Grid>
@@ -293,37 +215,22 @@ function ItemCart({
                     <CardContent>
                         <Typography>{cart?.sellOffer?.title}</Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Montant{' '}
-                            {cart?.sellOffer?.amount?.toLocaleString('tn-TN')}{' '}
-                            TND
+                            Montant {cart?.sellOffer?.amount?.toLocaleString('tn-TN')} TND
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             Quantité {cart?.quantity}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Frais de livraison {cart?.sellOffer?.shippingCost}{' '}
-                            TND
+                            Frais de livraison {cart?.sellOffer?.shippingCost} TND
                         </Typography>
                     </CardContent>
 
                     <Box sx={{ my: 1 }}>
                         <Box sx={{ float: 'left' }}>
-                            <InputQuantity
-                                parentCallChangeQuantity={changeQuantity}
-                                defaultValue={cart?.quantity}
-                            />
+                            <InputQuantity parentCallChangeQuantity={changeQuantity} defaultValue={cart?.quantity} />
                         </Box>
 
-                        <Button
-                            color="error"
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}
-                            sx={{ ml: 'auto', float: 'right' }}
-                            size="small"
-                            onClick={(event) =>
-                                handleClickOpenDeleteCartModal(event)
-                            }
-                        >
+                        <Button color="error" variant="outlined" startIcon={<DeleteIcon />} sx={{ ml: 'auto', float: 'right' }} size="small" onClick={(event) => handleClickOpenDeleteCartModal(event)}>
                             {t('common.label_delete')}
                         </Button>
                         <Box style={{ clear: 'both' }}></Box>
@@ -383,12 +290,7 @@ export function OrderCart({
                 >
                     {entitiesCart.map((item: ICart, index: number) => (
                         <Box key={`index-${index}`} sx={{ my: 2 }}>
-                            <ItemCart
-                                cart={item}
-                                t={t}
-                                parentCallbackDeleteCart={deleteDetailsCart}
-                                parentCallbackUpdateQuantity={updateByQuantity}
-                            />
+                            <ItemCart cart={item} t={t} parentCallbackDeleteCart={deleteDetailsCart} parentCallbackUpdateQuantity={updateByQuantity} />
                         </Box>
                     ))}
 
@@ -397,18 +299,11 @@ export function OrderCart({
 
                 {!loadingEntitiesCart && entitiesCart?.length == 0 ? (
                     <Grid item xs={12} md={6}>
-                        <Alert severity="warning">
-                            {t<string>('order.no_commandes_founds')}
-                        </Alert>
+                        <Alert severity="warning">{t<string>('order.no_commandes_founds')}</Alert>
                     </Grid>
                 ) : null}
 
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    fullWidth
-                    onClick={submitHandler}
-                >
+                <Button variant="contained" color="secondary" fullWidth onClick={submitHandler}>
                     {t<string>('cart.label_validate_order')}
                 </Button>
             </Box>

@@ -13,9 +13,7 @@ function refreshToken() {
         url: '/api/user/public/refreshtoken',
         method: 'POST',
         data: {
-            refreshToken: StorageService.local.get(
-                AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER
-            ),
+            refreshToken: StorageService.local.get(AllAppConfig.NAME_REFRESH_TOKEN_CURRENT_USER),
         },
     };
     return axios.request(config);
@@ -23,9 +21,7 @@ function refreshToken() {
 
 const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
     const onRequestSuccess = (config: any) => {
-        const token =
-            StorageService.local.get(AllAppConfig.NAME_TOKEN_CURRENT_USER) ||
-            StorageService.session.get(AllAppConfig.NAME_TOKEN_CURRENT_USER);
+        const token = StorageService.local.get(AllAppConfig.NAME_TOKEN_CURRENT_USER) || StorageService.session.get(AllAppConfig.NAME_TOKEN_CURRENT_USER);
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -50,10 +46,7 @@ const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
                 refreshToken().then(
                     (resultRefreshToken) => {
                         if (resultRefreshToken) {
-                            StorageService.local.set(
-                                AllAppConfig.NAME_TOKEN_CURRENT_USER,
-                                resultRefreshToken?.data?.token
-                            );
+                            StorageService.local.set(AllAppConfig.NAME_TOKEN_CURRENT_USER, resultRefreshToken?.data?.token);
                             checkOneCall = true;
                             return Promise.resolve(resultRefreshToken);
                         } else {

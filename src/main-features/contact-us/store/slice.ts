@@ -20,5 +20,4 @@ export const {
 } = contactUsSlice.actions;
 
 //? ********************| LOGIN SELECTORS |*******************/
-export const allContactUsSelector = (state: any) =>
-    state[CONTACT_US_KEY_IN_STORE].contactus;
+export const allContactUsSelector = (state: any) => state[CONTACT_US_KEY_IN_STORE].contactus;

@@ -43,20 +43,14 @@ import DialogActions from '@mui/material/DialogActions/DialogActions';
 import { getNumberOfCarts } from '../../user/store/slice';
 import { AllAppConfig } from '../../../core/config/all-config';
 
-const steps = [
-    'Valider la commande',
-    'Confirmer la commande',
-    'Passer la commande',
-];
+const steps = ['Valider la commande', 'Confirmer la commande', 'Passer la commande'];
 export default function Cart() {
     const [isFirstTime, setIsFirstTime] = React.useState(true);
 
     const [activeStep, setActiveStep] = React.useState(0);
-    const [openModalSuccessSaveOrder, setOpenModalSuccessSaveOrder] =
-        React.useState(false);
+    const [openModalSuccessSaveOrder, setOpenModalSuccessSaveOrder] = React.useState(false);
 
-    const loadingEntitiesCartSelector =
-        useSelector(loadingEntitiesCart) ?? false;
+    const loadingEntitiesCartSelector = useSelector(loadingEntitiesCart) ?? false;
     const entitiesCartSelector = useSelector(entitiesCart) ?? [];
     const totalPagesCartSelector = useSelector(totalPagesCart) ?? 0;
     const deleteSuccessCartSelector = useSelector(deleteSuccessCart) ?? false;
@@ -152,25 +146,13 @@ export default function Cart() {
 
     const renderDialogSuccessSaveOrder = () => {
         return (
-            <Dialog
-                open={openModalSuccessSaveOrder}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>
-                    {t<string>('order.title_dialog_add_order')}
-                </DialogTitle>
+            <Dialog open={openModalSuccessSaveOrder} TransitionComponent={TransitionModal} keepMounted aria-describedby="alert-dialog-slide-description">
+                <DialogTitle>{t<string>('order.title_dialog_add_order')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>('order.description_dialog_add_order')}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('order.description_dialog_add_order')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        color="success"
-                        onClick={handleModalSuccessSaveOrder}
-                    >
+                    <Button color="success" onClick={handleModalSuccessSaveOrder}>
                         Ok
                     </Button>
                 </DialogActions>
@@ -191,21 +173,16 @@ export default function Cart() {
                         <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                             SRF
                         </Link>
-                        <Typography color="text.primary">
-                            {t<string>('header.label_cart')}
-                        </Typography>
+                        <Typography color="text.primary">{t<string>('header.label_cart')}</Typography>
                     </Breadcrumbs>
                 </Grid>
             </Grid>
 
-            {entitiesCartSelector.length === 0 &&
-            !loadingEntitiesCartSelector ? (
+            {entitiesCartSelector.length === 0 && !loadingEntitiesCartSelector ? (
                 <Grid container spacing={4} sx={{ mt: 3 }}>
                     <Grid item xs={12} md={1}></Grid>
                     <Grid item xs={12} md={6}>
-                        <Alert severity="error">
-                            {t<string>('cart.list_not_found')}
-                        </Alert>
+                        <Alert severity="error">{t<string>('cart.list_not_found')}</Alert>
                     </Grid>
                 </Grid>
             ) : (
@@ -215,16 +192,13 @@ export default function Cart() {
                         <Box>
                             <Stepper activeStep={activeStep}>
                                 {steps.map((label, index) => {
-                                    const stepProps: { completed?: boolean } =
-                                        {};
+                                    const stepProps: { completed?: boolean } = {};
                                     const labelProps: {
                                         optional?: React.ReactNode;
                                     } = {};
                                     return (
                                         <Step key={label} {...stepProps}>
-                                            <StepLabel {...labelProps}>
-                                                {label}
-                                            </StepLabel>
+                                            <StepLabel {...labelProps}>{label}</StepLabel>
                                         </Step>
                                     );
                                 })}
@@ -233,9 +207,7 @@ export default function Cart() {
                                 <OrderCart
                                     nextStepHandler={handleNext}
                                     entitiesCart={entitiesCartSelector}
-                                    loadingEntitiesCart={
-                                        loadingEntitiesCartSelector
-                                    }
+                                    loadingEntitiesCart={loadingEntitiesCartSelector}
                                     totalPagesCart={totalPagesCartSelector}
                                     loadMoreCartCallback={loadMoreCart}
                                     activePageCart={activePageCartSelector}
@@ -244,10 +216,7 @@ export default function Cart() {
                             ) : activeStep === 1 ? (
                                 <FormCart submitHandler={actionDetailsCart} />
                             ) : (
-                                <PassOrder
-                                    callbackAddOrder={addNewOrder}
-                                    loadingOrder={loadingOrderSelector}
-                                />
+                                <PassOrder callbackAddOrder={addNewOrder} loadingOrder={loadingOrderSelector} />
                             )}
                             <React.Fragment>
                                 <Box
@@ -257,13 +226,7 @@ export default function Cart() {
                                         pt: 2,
                                     }}
                                 >
-                                    <Button
-                                        variant="contained"
-                                        color="neutral"
-                                        disabled={activeStep === 0}
-                                        onClick={handleBack}
-                                        sx={{ mr: 1 }}
-                                    >
+                                    <Button variant="contained" color="neutral" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
                                         {t<string>('cart.label_back_order')}
                                     </Button>
                                 </Box>
@@ -274,10 +237,7 @@ export default function Cart() {
                         <Typography variant="h4" color="text.secondary">
                             Votre commande
                         </Typography>
-                        <DetailsCart
-                            activeStep={activeStep}
-                            submitHandler={actionDetailsCart}
-                        />
+                        <DetailsCart activeStep={activeStep} submitHandler={actionDetailsCart} />
                     </Grid>
                 </Grid>
             )}

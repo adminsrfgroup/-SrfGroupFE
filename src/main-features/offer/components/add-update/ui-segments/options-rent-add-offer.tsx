@@ -23,49 +23,18 @@ export default function OptionsRentAddOffer(props: any) {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Grid container spacing={2} sx={{ my: 2 }}>
                 <Grid item xs={12} md={6}>
-                    <FormControl
-                        fullWidth
-                        error={
-                            formik.touched.amount &&
-                            Boolean(formik.errors.amount)
-                        }
-                        size="small"
-                    >
-                        <InputLabel
-                            htmlFor="outlined-adornment-amount"
-                            color="secondary"
-                        >
+                    <FormControl fullWidth error={formik.touched.amount && Boolean(formik.errors.amount)} size="small">
+                        <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
                             {t<string>('common.label_amount')}
                         </InputLabel>
-                        <OutlinedInput
-                            id="amount"
-                            type="number"
-                            color="secondary"
-                            value={formik.values.amount}
-                            onChange={formik.handleChange}
-                            label={t<string>('common.label_amount')}
-                        />
-                        <FormHelperText id="component-helper-text">
-                            {formik.touched.amount && formik.errors.amount}
-                        </FormHelperText>
+                        <OutlinedInput id="amount" type="number" color="secondary" value={formik.values.amount} onChange={formik.handleChange} label={t<string>('common.label_amount')} />
+                        <FormHelperText id="component-helper-text">{formik.touched.amount && formik.errors.amount}</FormHelperText>
                     </FormControl>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    <FormControl
-                        fullWidth
-                        error={
-                            formik.touched.typePeriodRent &&
-                            Boolean(formik.errors.typePeriodRent)
-                        }
-                        className="form-control-type-offer"
-                        size="small"
-                    >
-                        <InputLabel
-                            id="demo-simple-select-label"
-                            className="type-offer-select"
-                            color="secondary"
-                        >
+                    <FormControl fullWidth error={formik.touched.typePeriodRent && Boolean(formik.errors.typePeriodRent)} className="form-control-type-offer" size="small">
+                        <InputLabel id="demo-simple-select-label" className="type-offer-select" color="secondary">
                             {t<string>('add_offer.per_periode')}
                         </InputLabel>
                         <Select
@@ -77,20 +46,11 @@ export default function OptionsRentAddOffer(props: any) {
                             value={formik.values.typePeriodRent}
                             onChange={formik.handleChange}
                         >
-                            <MenuItem value={PeriodeRent.PerMonth}>
-                                {t<string>('add_offer.per_month')}
-                            </MenuItem>
-                            <MenuItem value={PeriodeRent.PerDay}>
-                                {t<string>('add_offer.per_day')}
-                            </MenuItem>
-                            <MenuItem value={PeriodeRent.PerYear}>
-                                {t<string>('add_offer.per_year')}
-                            </MenuItem>
+                            <MenuItem value={PeriodeRent.PerMonth}>{t<string>('add_offer.per_month')}</MenuItem>
+                            <MenuItem value={PeriodeRent.PerDay}>{t<string>('add_offer.per_day')}</MenuItem>
+                            <MenuItem value={PeriodeRent.PerYear}>{t<string>('add_offer.per_year')}</MenuItem>
                         </Select>
-                        <FormHelperText id="component-helper-text">
-                            {formik.touched.typePeriodRent &&
-                                formik.errors.typePeriodRent}
-                        </FormHelperText>
+                        <FormHelperText id="component-helper-text">{formik.touched.typePeriodRent && formik.errors.typePeriodRent}</FormHelperText>
                     </FormControl>
                 </Grid>
             </Grid>
@@ -100,18 +60,8 @@ export default function OptionsRentAddOffer(props: any) {
                     <DatePicker
                         label={t<string>('common.label_start_date')}
                         value={formik.values.startDate}
-                        onChange={(newValue) =>
-                            formik.setFieldValue('startDate', newValue)
-                        }
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                size="small"
-                                fullWidth
-                                error={false}
-                                color="secondary"
-                            />
-                        )}
+                        onChange={(newValue) => formik.setFieldValue('startDate', newValue)}
+                        renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                     />
                 </Grid>
 
@@ -119,18 +69,8 @@ export default function OptionsRentAddOffer(props: any) {
                     <DatePicker
                         label={t<string>('common.label_end_date')}
                         value={formik.values.endDate}
-                        onChange={(newValue) =>
-                            formik.setFieldValue('endDate', newValue)
-                        }
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                size="small"
-                                fullWidth
-                                error={false}
-                                color="secondary"
-                            />
-                        )}
+                        onChange={(newValue) => formik.setFieldValue('endDate', newValue)}
+                        renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                     />
                 </Grid>
             </Grid>

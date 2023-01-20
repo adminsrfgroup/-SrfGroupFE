@@ -38,33 +38,17 @@ import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import './add-update.scss';
-import {
-    initialValuesAddOffer,
-    setDefaultsValues,
-    validationSchemaAddOffer,
-} from './validation/init-value-add-offer';
+import { initialValuesAddOffer, setDefaultsValues, validationSchemaAddOffer } from './validation/init-value-add-offer';
 import { ALL_APP_ROUTES } from '../../../../core/config/all-app-routes';
 import { allSessionSelector } from '../../../user/store/slice';
 import { IOfferImages } from '../../../../shared/model/offer-images.model';
 import { entitiesCategory } from '../../../category/store/slice';
-import {
-    allAddressSelector,
-    entitiesAddress,
-} from '../../../address/store/slice';
-import {
-    convertDateTimeToServer,
-    dataUrlToFile,
-    getBase64,
-    getBaseImageUrl,
-    getImageForOffer,
-} from '../../../../shared/utils/utils-functions';
+import { allAddressSelector, entitiesAddress } from '../../../address/store/slice';
+import { convertDateTimeToServer, dataUrlToFile, getBase64, getBaseImageUrl, getImageForOffer } from '../../../../shared/utils/utils-functions';
 import { TypeOfferEnum } from '../../../../shared/enums/type-offer.enum';
 import { AllAppConfig } from '../../../../core/config/all-config';
 import { TransitionModal } from '../../../../shared/pages/transition-modal';
-import {
-    addEventGA,
-    AllModulesEventGA,
-} from '../../../../shared/providers/google-anaylitics';
+import { addEventGA, AllModulesEventGA } from '../../../../shared/providers/google-anaylitics';
 import {
     addFindOffer,
     addRentOffer,
@@ -126,13 +110,9 @@ const initialValues = initialValuesAddOffer;
 export default function AddUpdate() {
     const [startAnimation, setStartAnimation] = React.useState(false);
     const [fileState, setFileState] = React.useState(defaultValueFiles);
-    const [originalListFiles, setOriginalListFiles] = React.useState(
-        defaultValueOriginalListFiles
-    );
-    const [openDeleteImageOfferModal, setOpenDeleteImageOfferModal] =
-        React.useState(false);
-    const [indexDeleteImageOffer, setIndexDeleteImageOffer] =
-        React.useState(-1);
+    const [originalListFiles, setOriginalListFiles] = React.useState(defaultValueOriginalListFiles);
+    const [openDeleteImageOfferModal, setOpenDeleteImageOfferModal] = React.useState(false);
+    const [indexDeleteImageOffer, setIndexDeleteImageOffer] = React.useState(-1);
     const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
     const [expanded, setExpanded] = React.useState(false);
 
@@ -149,31 +129,23 @@ export default function AddUpdate() {
 
     const loadingSellerOfferSelector = useSelector(loadingSellerOffer) ?? false;
     const entitySellerOfferSelector = useSelector(entitySellerOffer) ?? {};
-    const updateSuccessSellerOfferSelector =
-        useSelector(updateSuccessSellerOffer) ?? false;
-    const addSuccessSellerOfferSelector =
-        useSelector(addSuccessSellerOffer) ?? false;
+    const updateSuccessSellerOfferSelector = useSelector(updateSuccessSellerOffer) ?? false;
+    const addSuccessSellerOfferSelector = useSelector(addSuccessSellerOffer) ?? false;
 
     const loadingRentOfferSelector = useSelector(loadingRentOffer) ?? false;
     const entityRentOfferSelector = useSelector(entityRentOffer) ?? {};
-    const addSuccessRentOfferSelector =
-        useSelector(addSuccessRentOffer) ?? false;
-    const updateSuccessRentOfferSelector =
-        useSelector(updateSuccessRentOffer) ?? false;
+    const addSuccessRentOfferSelector = useSelector(addSuccessRentOffer) ?? false;
+    const updateSuccessRentOfferSelector = useSelector(updateSuccessRentOffer) ?? false;
 
     const loadingFindOfferSelector = useSelector(loadingFindOffer) ?? false;
     const entityFindOfferSelector = useSelector(entityFindOffer) ?? {};
-    const aaddSuccessFindOfferSelector =
-        useSelector(addSuccessFindOffer) ?? false;
-    const updateSuccessFindOfferSelector =
-        useSelector(updateSuccessFindOffer) ?? false;
+    const aaddSuccessFindOfferSelector = useSelector(addSuccessFindOffer) ?? false;
+    const updateSuccessFindOfferSelector = useSelector(updateSuccessFindOffer) ?? false;
 
     const entityMyOffersSelector = useSelector(entityMyOffers) ?? {};
 
-    const loadingImagesDescriptionNewOfferSelector =
-        useSelector(loadingImagesDescriptionNewOffer) ?? false;
-    const entityDescriptionNewOfferSelector =
-        useSelector(entityDescriptionNewOffer) ?? {};
+    const loadingImagesDescriptionNewOfferSelector = useSelector(loadingImagesDescriptionNewOffer) ?? false;
+    const entityDescriptionNewOfferSelector = useSelector(entityDescriptionNewOffer) ?? {};
 
     const formik = useFormik({
         initialValues,
@@ -213,16 +185,10 @@ export default function AddUpdate() {
             setFileState({
                 ...fileState,
                 selectedFiles:
-                    entityMyOffersSelector?.offerImages &&
-                    entityMyOffersSelector?.offerImages.length > 0
-                        ? entityMyOffersSelector?.offerImages.map(
-                              (imgOffer: IOfferImages) => {
-                                  return (imgOffer.path = getImageForOffer(
-                                      entityMyOffersSelector?.id,
-                                      imgOffer?.path
-                                  ));
-                              }
-                          )
+                    entityMyOffersSelector?.offerImages && entityMyOffersSelector?.offerImages.length > 0
+                        ? entityMyOffersSelector?.offerImages.map((imgOffer: IOfferImages) => {
+                              return (imgOffer.path = getImageForOffer(entityMyOffersSelector?.id, imgOffer?.path));
+                          })
                         : [], // event.target.files
             });
         }
@@ -254,16 +220,10 @@ export default function AddUpdate() {
             setFileState({
                 ...fileState,
                 selectedFiles:
-                    entityPublicOfferSelector?.offerImages &&
-                    entityPublicOfferSelector?.offerImages.length > 0
-                        ? entityPublicOfferSelector?.offerImages.map(
-                              (imgOffer: IOfferImages) => {
-                                  return (imgOffer.path = getImageForOffer(
-                                      entityPublicOfferSelector?.id,
-                                      imgOffer?.path
-                                  ));
-                              }
-                          )
+                    entityPublicOfferSelector?.offerImages && entityPublicOfferSelector?.offerImages.length > 0
+                        ? entityPublicOfferSelector?.offerImages.map((imgOffer: IOfferImages) => {
+                              return (imgOffer.path = getImageForOffer(entityPublicOfferSelector?.id, imgOffer?.path));
+                          })
                         : [], // event.target.files
             });
         }
@@ -277,20 +237,14 @@ export default function AddUpdate() {
             dispatch(resetMyOffers({}));
             dispatch(resetPublicOffers({}));
             navigate(ALL_APP_ROUTES.OFFER.MY_OFFERS);
-        } else if (
-            addSuccessRentOfferSelector ||
-            updateSuccessRentOfferSelector
-        ) {
+        } else if (addSuccessRentOfferSelector || updateSuccessRentOfferSelector) {
             const offerId: number = entityRentOfferSelector?.id || -1;
             upladAllFiles(offerId);
             dispatch(resetRentOffer({}));
             dispatch(resetMyOffers({}));
             dispatch(resetPublicOffers({}));
             navigate(ALL_APP_ROUTES.OFFER.MY_OFFERS);
-        } else if (
-            aaddSuccessFindOfferSelector ||
-            updateSuccessFindOfferSelector
-        ) {
+        } else if (aaddSuccessFindOfferSelector || updateSuccessFindOfferSelector) {
             const offerId: number = entityFindOfferSelector?.id || -1;
             upladAllFiles(offerId);
             dispatch(resetFindOffer({}));
@@ -298,14 +252,7 @@ export default function AddUpdate() {
             dispatch(resetPublicOffers({}));
             navigate(ALL_APP_ROUTES.OFFER.MY_OFFERS);
         }
-    }, [
-        addSuccessSellerOfferSelector,
-        updateSuccessSellerOfferSelector,
-        addSuccessRentOfferSelector,
-        updateSuccessRentOfferSelector,
-        aaddSuccessFindOfferSelector,
-        updateSuccessFindOfferSelector,
-    ]);
+    }, [addSuccessSellerOfferSelector, updateSuccessSellerOfferSelector, addSuccessRentOfferSelector, updateSuccessRentOfferSelector, aaddSuccessFindOfferSelector, updateSuccessFindOfferSelector]);
 
     const saveEntity = (values: any) => {
         const tempOfferImages: any[] = [];
@@ -367,21 +314,16 @@ export default function AddUpdate() {
     };
 
     const selectFile = (event: any) => {
-        if (
-            event.target.files &&
-            event.target.files.length <= AllAppConfig.MaxNbeImagePerOffer
-        ) {
+        if (event.target.files && event.target.files.length <= AllAppConfig.MaxNbeImagePerOffer) {
             const newSelectedFiles: string[] = [];
             const newOrigSelectedFiles: File[] = [];
 
             Array.from(event.target.files).forEach((file: any) => {
                 // getImageUrl(file, 5000)
                 getBase64(file).then((resultBase64: any) => {
-                    dataUrlToFile(resultBase64, file.name).then(
-                        (valueFile: any) => {
-                            newOrigSelectedFiles.push(valueFile);
-                        }
-                    );
+                    dataUrlToFile(resultBase64, file.name).then((valueFile: any) => {
+                        newOrigSelectedFiles.push(valueFile);
+                    });
                     newSelectedFiles.push(resultBase64);
 
                     setFileState({
@@ -436,18 +378,12 @@ export default function AddUpdate() {
                 onClose={handleClickCancelDeleteImageOfferModal}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>
-                    {t<string>('add_offer.confirm_delete_image')}
-                </DialogTitle>
+                <DialogTitle>{t<string>('add_offer.confirm_delete_image')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>('add_offer.message_confirm_delete_image')}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('add_offer.message_confirm_delete_image')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClickCancelDeleteImageOfferModal}>
-                        {t<string>('common.label_cancel')}
-                    </Button>
+                    <Button onClick={handleClickCancelDeleteImageOfferModal}>{t<string>('common.label_cancel')}</Button>
                     <Button onClick={handleClickDeleteImageOffer} color="error">
                         {t<string>('common.label_delete')}
                     </Button>
@@ -461,11 +397,7 @@ export default function AddUpdate() {
     };
 
     const addNewEventGA = () => {
-        addEventGA(
-            AllModulesEventGA.EventOffer.ShowMoreOption.eventName,
-            AllModulesEventGA.EventOffer.ShowMoreOption.eventCategory,
-            AllModulesEventGA.EventOffer.ShowMoreOption.eventLabel
-        );
+        addEventGA(AllModulesEventGA.EventOffer.ShowMoreOption.eventName, AllModulesEventGA.EventOffer.ShowMoreOption.eventCategory, AllModulesEventGA.EventOffer.ShowMoreOption.eventLabel);
     };
 
     const getContentDescriptionAddOffer = () => {
@@ -495,9 +427,7 @@ export default function AddUpdate() {
                             <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                                 SRF
                             </Link>
-                            <Typography color="text.primary">
-                                {t<string>('add_offer.title_page')}
-                            </Typography>
+                            <Typography color="text.primary">{t<string>('add_offer.title_page')}</Typography>
                         </Breadcrumbs>
                     </Grid>
                 </Grid>
@@ -506,180 +436,65 @@ export default function AddUpdate() {
                     <Grid item xs={12} sm={6}>
                         <Paper elevation={3} sx={{ p: 2, mt: 6 }}>
                             {loadingPublicOfferSelector ? (
-                                <Box
-                                    sx={{ pt: 10, pb: 10, textAlign: 'center' }}
-                                >
+                                <Box sx={{ pt: 10, pb: 10, textAlign: 'center' }}>
                                     <CircularProgress color="inherit" />
                                 </Box>
                             ) : (
                                 <Box>
-                                    <h3 className="mb-3">
-                                        {t<string>(
-                                            'add_offer.label_publish_new_offer'
-                                        )}
-                                    </h3>
+                                    <h3 className="mb-3">{t<string>('add_offer.label_publish_new_offer')}</h3>
                                     <form onSubmit={formik.handleSubmit}>
                                         <Grid container spacing={1}>
                                             <Grid item xs={12} md={6}>
-                                                <FormControl
-                                                    fullWidth
-                                                    size="small"
-                                                    error={
-                                                        formik.touched
-                                                            .typeOffer &&
-                                                        Boolean(
-                                                            formik.errors
-                                                                .typeOffer
-                                                        )
-                                                    }
-                                                    className="form-control-type-offer"
-                                                >
-                                                    <InputLabel
-                                                        id="label-component-helper-typeOffer"
-                                                        className="type-offer-select"
-                                                        color="secondary"
-                                                    >
-                                                        {t<string>(
-                                                            'add_offer.label_type_offer'
-                                                        )}
+                                                <FormControl fullWidth size="small" error={formik.touched.typeOffer && Boolean(formik.errors.typeOffer)} className="form-control-type-offer">
+                                                    <InputLabel id="label-component-helper-typeOffer" className="type-offer-select" color="secondary">
+                                                        {t<string>('add_offer.label_type_offer')}
                                                     </InputLabel>
                                                     <Select
                                                         id="typeOffer"
                                                         name="typeOffer"
                                                         color="secondary"
-                                                        label={t<string>(
-                                                            'add_offer.label_type_offer'
-                                                        )}
+                                                        label={t<string>('add_offer.label_type_offer')}
                                                         labelId="add_offer.label_type_offer"
-                                                        value={
-                                                            formik.values
-                                                                .typeOffer
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        value={formik.values.typeOffer}
+                                                        onChange={formik.handleChange}
                                                     >
-                                                        <MenuItem
-                                                            value={
-                                                                TypeOfferEnum.Sell
-                                                            }
-                                                        >
-                                                            {t<string>(
-                                                                'common.for_sell'
-                                                            )}
-                                                        </MenuItem>
-                                                        <MenuItem
-                                                            value={
-                                                                TypeOfferEnum.Rent
-                                                            }
-                                                        >
-                                                            {t<string>(
-                                                                'common.for_rent'
-                                                            )}
-                                                        </MenuItem>
-                                                        <MenuItem
-                                                            value={
-                                                                TypeOfferEnum.Find
-                                                            }
-                                                        >
-                                                            {t<string>(
-                                                                'common.for_find'
-                                                            )}
-                                                        </MenuItem>
+                                                        <MenuItem value={TypeOfferEnum.Sell}>{t<string>('common.for_sell')}</MenuItem>
+                                                        <MenuItem value={TypeOfferEnum.Rent}>{t<string>('common.for_rent')}</MenuItem>
+                                                        <MenuItem value={TypeOfferEnum.Find}>{t<string>('common.for_find')}</MenuItem>
                                                     </Select>
-                                                    {formik.touched.typeOffer &&
-                                                    formik.errors.typeOffer ? (
-                                                        <FormHelperText id="component-helper-text-typeOffer">
-                                                            {t<string>(
-                                                                formik.errors
-                                                                    .typeOffer
-                                                            )}
-                                                        </FormHelperText>
+                                                    {formik.touched.typeOffer && formik.errors.typeOffer ? (
+                                                        <FormHelperText id="component-helper-text-typeOffer">{t<string>(formik.errors.typeOffer)}</FormHelperText>
                                                     ) : null}
                                                 </FormControl>
                                             </Grid>
 
                                             <Grid item xs={12} md={6}>
-                                                <FormControl
-                                                    fullWidth
-                                                    size="small"
-                                                    error={
-                                                        formik.touched.title &&
-                                                        Boolean(
-                                                            formik.errors.title
-                                                        )
-                                                    }
-                                                >
-                                                    <InputLabel
-                                                        htmlFor="outlined-adornment-title"
-                                                        color="secondary"
-                                                    >
-                                                        {t<string>(
-                                                            'add_offer.label_title_offer'
-                                                        )}
+                                                <FormControl fullWidth size="small" error={formik.touched.title && Boolean(formik.errors.title)}>
+                                                    <InputLabel htmlFor="outlined-adornment-title" color="secondary">
+                                                        {t<string>('add_offer.label_title_offer')}
                                                     </InputLabel>
                                                     <OutlinedInput
                                                         id="title"
                                                         name="title"
                                                         color="secondary"
-                                                        label={t<string>(
-                                                            'add_offer.label_title_offer'
-                                                        )}
-                                                        value={
-                                                            formik.values.title
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        label={t<string>('add_offer.label_title_offer')}
+                                                        value={formik.values.title}
+                                                        onChange={formik.handleChange}
                                                         autoComplete="off"
                                                     />
-                                                    {formik.touched.title &&
-                                                    formik.errors.title ? (
-                                                        <FormHelperText id="component-helper-text">
-                                                            {t<string>(
-                                                                formik.errors
-                                                                    .title
-                                                            )}
-                                                        </FormHelperText>
-                                                    ) : null}
+                                                    {formik.touched.title && formik.errors.title ? <FormHelperText id="component-helper-text">{t<string>(formik.errors.title)}</FormHelperText> : null}
                                                 </FormControl>
                                             </Grid>
 
                                             <Grid item xs={12} md={12}>
-                                                <FormControl
-                                                    fullWidth
-                                                    sx={{ mt: 3 }}
-                                                    error={
-                                                        formik.touched
-                                                            .description &&
-                                                        Boolean(
-                                                            formik.errors
-                                                                .description
-                                                        )
-                                                    }
-                                                >
+                                                <FormControl fullWidth sx={{ mt: 3 }} error={formik.touched.description && Boolean(formik.errors.description)}>
                                                     <CustomSunEditor
-                                                        defaultValue={
-                                                            entityMyOffersSelector?.description ||
-                                                            ''
-                                                        }
-                                                        callbcakHandleChange={
-                                                            onChangeValue
-                                                        }
-                                                        placeholder={t<string>(
-                                                            'add_offer.placeholder_description'
-                                                        )}
+                                                        defaultValue={entityMyOffersSelector?.description || ''}
+                                                        callbcakHandleChange={onChangeValue}
+                                                        placeholder={t<string>('add_offer.placeholder_description')}
                                                     />
-                                                    {formik.touched
-                                                        .description &&
-                                                    formik.errors
-                                                        .description ? (
-                                                        <FormHelperText id="component-helper-text">
-                                                            {t<string>(
-                                                                formik.errors
-                                                                    .description
-                                                            )}
-                                                        </FormHelperText>
+                                                    {formik.touched.description && formik.errors.description ? (
+                                                        <FormHelperText id="component-helper-text">{t<string>(formik.errors.description)}</FormHelperText>
                                                     ) : null}
                                                 </FormControl>
                                             </Grid>
@@ -693,84 +508,55 @@ export default function AddUpdate() {
                                                     }}
                                                     cols={5}
                                                 >
-                                                    {fileState?.selectedFiles.map(
-                                                        (file, index) => (
-                                                            <ImageListItem
-                                                                key={index}
+                                                    {fileState?.selectedFiles.map((file, index) => (
+                                                        <ImageListItem
+                                                            key={index}
+                                                            style={{
+                                                                marginRight: 4,
+                                                                borderRadius: 4,
+                                                                height: 80,
+                                                                width: 80,
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={file}
+                                                                srcSet={file}
+                                                                alt={'desc_' + index}
+                                                                loading="lazy"
                                                                 style={{
-                                                                    marginRight: 4,
                                                                     borderRadius: 4,
-                                                                    height: 80,
-                                                                    width: 80,
+                                                                    border: '1px solid #b7b1b1',
+                                                                    maxHeight: '100%',
+                                                                    objectFit: 'unset',
                                                                 }}
+                                                            />
+                                                            <IconButton
+                                                                size="small"
+                                                                aria-label="delete"
+                                                                color="error"
+                                                                sx={{
+                                                                    position: 'absolute',
+                                                                    top: 0,
+                                                                    right: 0,
+                                                                    backgroundColor: '#fff',
+                                                                }}
+                                                                onClick={() => handleClickOpenDeleteOffertModal(index)}
                                                             >
-                                                                <img
-                                                                    src={file}
-                                                                    srcSet={
-                                                                        file
-                                                                    }
-                                                                    alt={
-                                                                        'desc_' +
-                                                                        index
-                                                                    }
-                                                                    loading="lazy"
-                                                                    style={{
-                                                                        borderRadius: 4,
-                                                                        border: '1px solid #b7b1b1',
-                                                                        maxHeight:
-                                                                            '100%',
-                                                                        objectFit:
-                                                                            'unset',
-                                                                    }}
-                                                                />
-                                                                <IconButton
-                                                                    size="small"
-                                                                    aria-label="delete"
-                                                                    color="error"
-                                                                    sx={{
-                                                                        position:
-                                                                            'absolute',
-                                                                        top: 0,
-                                                                        right: 0,
-                                                                        backgroundColor:
-                                                                            '#fff',
-                                                                    }}
-                                                                    onClick={() =>
-                                                                        handleClickOpenDeleteOffertModal(
-                                                                            index
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <ClearIcon />
-                                                                </IconButton>
-                                                            </ImageListItem>
-                                                        )
-                                                    )}
+                                                                <ClearIcon />
+                                                            </IconButton>
+                                                        </ImageListItem>
+                                                    ))}
                                                 </ImageList>
                                             </Grid>
-                                            <Grid
-                                                item
-                                                xs={12}
-                                                md={12}
-                                                sx={{ mb: 3 }}
-                                            >
-                                                <Button
-                                                    variant="outlined"
-                                                    color={'neutral'}
-                                                    fullWidth
-                                                    startIcon={
-                                                        <CameraEnhanceIcon />
-                                                    }
-                                                    className="submit-add-form"
-                                                >
+                                            <Grid item xs={12} md={12} sx={{ mb: 3 }}>
+                                                <Button variant="outlined" color={'neutral'} fullWidth startIcon={<CameraEnhanceIcon />} className="submit-add-form">
                                                     <input
                                                         id="offer-addFiles"
                                                         data-cy="files"
                                                         type="file"
                                                         name="files"
                                                         style={{
-                                                            position:
-                                                                'absolute',
+                                                            position: 'absolute',
                                                             maxWidth: '100%',
                                                             top: 0,
                                                             bottom: 0,
@@ -785,87 +571,44 @@ export default function AddUpdate() {
                                             </Grid>
 
                                             <Grid item xs={12} md={12}>
-                                                <Accordion
-                                                    sx={{ width: '100%' }}
-                                                    expanded={expanded}
-                                                    onChange={changeExpanded}
-                                                >
+                                                <Accordion sx={{ width: '100%' }} expanded={expanded} onChange={changeExpanded}>
                                                     <AccordionSummary
                                                         expandIcon={
                                                             <ExpandMoreIcon
                                                                 sx={{
-                                                                    backgroundColor:
-                                                                        'secondary',
-                                                                    borderRadius:
-                                                                        '50%',
+                                                                    backgroundColor: 'secondary',
+                                                                    borderRadius: '50%',
                                                                 }}
                                                             />
                                                         }
                                                         aria-controls="panel1a-content"
                                                         id="panel1a-header"
                                                         className="bg-yellow"
-                                                        onClick={() =>
-                                                            addNewEventGA()
-                                                        }
+                                                        onClick={() => addNewEventGA()}
                                                     >
-                                                        <ArrowCircleRightIcon
-                                                            className="zoom-in-out-box"
-                                                            color="secondary"
-                                                            sx={{ mr: 1 }}
-                                                        />
+                                                        <ArrowCircleRightIcon className="zoom-in-out-box" color="secondary" sx={{ mr: 1 }} />
                                                         <Typography
                                                             sx={{
-                                                                textDecoration:
-                                                                    'underline',
+                                                                textDecoration: 'underline',
                                                             }}
                                                         >
-                                                            {t<string>(
-                                                                'add_offer.label_more_options'
-                                                            )}
+                                                            {t<string>('add_offer.label_more_options')}
                                                         </Typography>
                                                     </AccordionSummary>
-                                                    <AccordionDetails
-                                                        sx={{ pt: 4 }}
-                                                    >
-                                                        {formik.values
-                                                            .typeOffer ? (
-                                                            <OptionsCommonAddOffer
-                                                                formik={formik}
-                                                                cities={
-                                                                    entitiesAddressSelector
-                                                                }
-                                                                listCategories={
-                                                                    entitiesCategorySelector
-                                                                }
-                                                            />
+                                                    <AccordionDetails sx={{ pt: 4 }}>
+                                                        {formik.values.typeOffer ? (
+                                                            <OptionsCommonAddOffer formik={formik} cities={entitiesAddressSelector} listCategories={entitiesCategorySelector} />
                                                         ) : null}
 
-                                                        {formik.values
-                                                            .typeOffer ===
-                                                        TypeOfferEnum.Sell ? (
-                                                            <OptionsSellAddOffer
-                                                                formik={formik}
-                                                            />
-                                                        ) : formik.values
-                                                              .typeOffer ===
-                                                          TypeOfferEnum.Rent ? (
-                                                            <OptionsRentAddOffer
-                                                                formik={formik}
-                                                            />
-                                                        ) : formik.values
-                                                              .typeOffer ===
-                                                          TypeOfferEnum.Find ? (
-                                                            <OptionsFindAddOffer
-                                                                formik={formik}
-                                                            />
+                                                        {formik.values.typeOffer === TypeOfferEnum.Sell ? (
+                                                            <OptionsSellAddOffer formik={formik} />
+                                                        ) : formik.values.typeOffer === TypeOfferEnum.Rent ? (
+                                                            <OptionsRentAddOffer formik={formik} />
+                                                        ) : formik.values.typeOffer === TypeOfferEnum.Find ? (
+                                                            <OptionsFindAddOffer formik={formik} />
                                                         ) : (
-                                                            <Typography
-                                                                variant="subtitle2"
-                                                                color="text.secondary"
-                                                            >
-                                                                {t<string>(
-                                                                    'add_offer.label_select_offer_plz'
-                                                                )}
+                                                            <Typography variant="subtitle2" color="text.secondary">
+                                                                {t<string>('add_offer.label_select_offer_plz')}
                                                             </Typography>
                                                         )}
                                                     </AccordionDetails>
@@ -874,27 +617,14 @@ export default function AddUpdate() {
 
                                             <Grid item xs={12} md={12}>
                                                 <LoadingButton
-                                                    loading={
-                                                        loadingSellerOfferSelector ===
-                                                            true ||
-                                                        loadingRentOfferSelector ===
-                                                            true ||
-                                                        loadingFindOfferSelector ===
-                                                            true
-                                                    }
+                                                    loading={loadingSellerOfferSelector === true || loadingRentOfferSelector === true || loadingFindOfferSelector === true}
                                                     fullWidth
                                                     variant="contained"
                                                     color="secondary"
                                                     type="submit"
                                                     sx={{ mt: 3, mb: 2 }}
                                                 >
-                                                    {id
-                                                        ? t<string>(
-                                                              'add_offer.label_update_offer'
-                                                          )
-                                                        : t<string>(
-                                                              'add_offer.label_add_offer'
-                                                          )}
+                                                    {id ? t<string>('add_offer.label_update_offer') : t<string>('add_offer.label_add_offer')}
                                                 </LoadingButton>
                                             </Grid>
 
@@ -906,11 +636,7 @@ export default function AddUpdate() {
                                                     width: '100%',
                                                 }}
                                             >
-                                                {!formik.isValid
-                                                    ? t<string>(
-                                                          'add_offer.check_required_fileds'
-                                                      )
-                                                    : null}
+                                                {!formik.isValid ? t<string>('add_offer.check_required_fileds') : null}
                                             </Typography>
                                         </Grid>
                                     </form>

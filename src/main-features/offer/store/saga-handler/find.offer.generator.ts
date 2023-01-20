@@ -1,13 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchFindOfferSuccess,
-    fetchFindOfferFailure,
-    addFindOfferSuccess,
-    addFindOfferFailure,
-    updateFindOfferSuccess,
-    updateFindOfferFailure,
-} from '../slice';
+import { fetchFindOfferSuccess, fetchFindOfferFailure, addFindOfferSuccess, addFindOfferFailure, updateFindOfferSuccess, updateFindOfferFailure } from '../slice';
 
 const apiUrl = 'api/find-offer';
 

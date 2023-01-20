@@ -30,25 +30,16 @@ const ReadMoreText: React.FC<ReadMoreTextProps> = (props) => {
         setExpanded(!expanded);
     };
 
-    const formatText = (text: string) =>
-        text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    const formatText = (text: string) => text.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
-    const {
-        type = 'plainText',
-        text = '',
-        readMoreText = 'More',
-        readLessText = 'Less',
-        onAction = toggleExpand,
-    } = props;
+    const { type = 'plainText', text = '', readMoreText = 'More', readLessText = 'Less', onAction = toggleExpand } = props;
 
     const _html = formatText(text);
 
     return (
         <span className="rm-container">
             <span ref={containerRef} className="rm-text-wrapper">
-                {expanded
-                    ? _html
-                    : _html.substring(0, AllAppConfig.NBE_WORD_SHOW_MORE_LESS)}
+                {expanded ? _html : _html.substring(0, AllAppConfig.NBE_WORD_SHOW_MORE_LESS)}
             </span>
             {_html.length > AllAppConfig.NBE_WORD_SHOW_MORE_LESS ? (
                 <span className="rm-action-button-container">

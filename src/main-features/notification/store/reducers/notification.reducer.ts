@@ -7,10 +7,7 @@ const reducer = {
     },
     fetchMyNotificationsSuccess: (state: any, action: any) => {
         state.mynotifications.loadingEntities = false;
-        state.mynotifications.entities = [
-            ...state.mynotifications.entities,
-            ...action.payload.content,
-        ];
+        state.mynotifications.entities = [...state.mynotifications.entities, ...action.payload.content];
         state.mynotifications.totalItems = action.payload?.totalElements;
         state.mynotifications.totalPages = action.payload?.totalPages;
     },

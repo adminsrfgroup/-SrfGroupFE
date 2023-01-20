@@ -9,83 +9,28 @@ import { allSessionSelector } from '../../main-features/user/store/slice';
 import { PrivateRoute } from './private-route';
 
 const LazyHome = React.lazy(() => import('../../main-features/home/home'));
-const LazySignUp = React.lazy(
-    () => import('../../main-features/user/components/sign-up/sign-up')
-);
-const LazySignIn = React.lazy(
-    () => import('../../main-features/user/components/sign-in/sign-in')
-);
-const LazySearch = React.lazy(
-    () => import('../../main-features/offer/components/search/search')
-);
-const LazyContactUs = React.lazy(
-    () => import('../../main-features/contact-us/components/contact-us')
-);
-const LazyFaq = React.lazy(
-    () => import('../../main-features/faq/components/faq')
-);
-const LazyAboutUs = React.lazy(
-    () => import('../../main-features/aboutus/components/about-us')
-);
-const LazyAddUpdateOffer = React.lazy(
-    () => import('../../main-features/offer/components/add-update/add-update')
-);
-const LazyMyOffers = React.lazy(
-    () => import('../../main-features/offer/components/my-offers/my-offers')
-);
-const LazyDetailsOffer = React.lazy(
-    () =>
-        import(
-            '../../main-features/offer/components/details-offer/details-offer'
-        )
-);
-const LazyAccount = React.lazy(
-    () => import('../../main-features/user/components/account/account')
-);
-const LazyNotification = React.lazy(
-    () => import('../../main-features/notification/components/notification')
-);
-const LazyChat = React.lazy(
-    () => import('../../main-features/chat/components/chat')
-);
-const LazyFavoriteUser = React.lazy(
-    () =>
-        import(
-            '../../main-features/favorite/components/favorite-users/favorite-users'
-        )
-);
-const LazyCart = React.lazy(
-    () => import('../../main-features/cart/components/cart')
-);
-const LazyOrder = React.lazy(
-    () => import('../../main-features/cart/components/list_orders')
-);
+const LazySignUp = React.lazy(() => import('../../main-features/user/components/sign-up/sign-up'));
+const LazySignIn = React.lazy(() => import('../../main-features/user/components/sign-in/sign-in'));
+const LazySearch = React.lazy(() => import('../../main-features/offer/components/search/search'));
+const LazyContactUs = React.lazy(() => import('../../main-features/contact-us/components/contact-us'));
+const LazyFaq = React.lazy(() => import('../../main-features/faq/components/faq'));
+const LazyAboutUs = React.lazy(() => import('../../main-features/aboutus/components/about-us'));
+const LazyAddUpdateOffer = React.lazy(() => import('../../main-features/offer/components/add-update/add-update'));
+const LazyMyOffers = React.lazy(() => import('../../main-features/offer/components/my-offers/my-offers'));
+const LazyDetailsOffer = React.lazy(() => import('../../main-features/offer/components/details-offer/details-offer'));
+const LazyAccount = React.lazy(() => import('../../main-features/user/components/account/account'));
+const LazyNotification = React.lazy(() => import('../../main-features/notification/components/notification'));
+const LazyChat = React.lazy(() => import('../../main-features/chat/components/chat'));
+const LazyFavoriteUser = React.lazy(() => import('../../main-features/favorite/components/favorite-users/favorite-users'));
+const LazyCart = React.lazy(() => import('../../main-features/cart/components/cart'));
+const LazyOrder = React.lazy(() => import('../../main-features/cart/components/list_orders'));
 
-const LazyRentRequest = React.lazy(
-    () => import('../../main-features/rent-request/components/rent_request')
-);
+const LazyRentRequest = React.lazy(() => import('../../main-features/rent-request/components/rent_request'));
 
-const LazyProfile = React.lazy(
-    () => import('../../main-features/user/components/profile/profile')
-);
-const LazyForgotPasswordInit = React.lazy(
-    () =>
-        import(
-            '../../main-features/user/components/forgot-password/forgot-password-init'
-        )
-);
-const LazyForgotPasswordFinish = React.lazy(
-    () =>
-        import(
-            '../../main-features/user/components/forgot-password/forgot-password-finish'
-        )
-);
-const LazyActivationAccount = React.lazy(
-    () =>
-        import(
-            '../../main-features/user/components/activation-account/activation-account'
-        )
-);
+const LazyProfile = React.lazy(() => import('../../main-features/user/components/profile/profile'));
+const LazyForgotPasswordInit = React.lazy(() => import('../../main-features/user/components/forgot-password/forgot-password-init'));
+const LazyForgotPasswordFinish = React.lazy(() => import('../../main-features/user/components/forgot-password/forgot-password-finish'));
+const LazyActivationAccount = React.lazy(() => import('../../main-features/user/components/activation-account/activation-account'));
 
 export default function AllRoutes() {
     const { isAuthenticated } = useSelector(allSessionSelector);
@@ -114,10 +59,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.REGISTER}
                     element={
-                        <PublicRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.REGISTER}
-                        >
+                        <PublicRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.REGISTER}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazySignUp />
                             </React.Suspense>
@@ -128,10 +70,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.LOGIN}
                     element={
-                        <PublicRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PublicRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazySignIn />
                             </React.Suspense>
@@ -142,10 +81,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.FORGOT_PASSWORD_INIT}
                     element={
-                        <PublicRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.FORGOT_PASSWORD_INIT}
-                        >
+                        <PublicRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.FORGOT_PASSWORD_INIT}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyForgotPasswordInit />
                             </React.Suspense>
@@ -156,10 +92,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.FORGOT_PASSWORD_FINISH}
                     element={
-                        <PublicRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.FORGOT_PASSWORD_FINISH}
-                        >
+                        <PublicRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.FORGOT_PASSWORD_FINISH}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyForgotPasswordFinish />
                             </React.Suspense>
@@ -224,10 +157,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.OFFER.MY_OFFERS}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyMyOffers />
                             </React.Suspense>
@@ -247,10 +177,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.ACCOUNT}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyAccount />
                             </React.Suspense>
@@ -261,10 +188,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.NOTIFICATION.LIST}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyNotification />
                             </React.Suspense>
@@ -275,10 +199,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.CHAT.LIST}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyChat />
                             </React.Suspense>
@@ -289,10 +210,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.FAVORITE.USER}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyFavoriteUser />
                             </React.Suspense>
@@ -303,10 +221,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.CART.LIST}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={ALL_APP_ROUTES.LOGIN}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={ALL_APP_ROUTES.LOGIN}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyCart />
                             </React.Suspense>
@@ -317,10 +232,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.ORDER.LIST}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={''}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={''}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyOrder />
                             </React.Suspense>
@@ -331,10 +243,7 @@ export default function AllRoutes() {
                 <Route
                     path={ALL_APP_ROUTES.RENT_REQUEST.LIST}
                     element={
-                        <PrivateRoute
-                            isAuthenticated={isAuthenticated}
-                            path={''}
-                        >
+                        <PrivateRoute isAuthenticated={isAuthenticated} path={''}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyRentRequest />
                             </React.Suspense>
@@ -354,10 +263,7 @@ export default function AllRoutes() {
                 <Route
                     path={`${ALL_APP_ROUTES.ACTIVATION_ACCOUNT}`}
                     element={
-                        <PublicRoute
-                            isAuthenticated={isAuthenticated}
-                            path={`${ALL_APP_ROUTES.ACTIVATION_ACCOUNT}/:key`}
-                        >
+                        <PublicRoute isAuthenticated={isAuthenticated} path={`${ALL_APP_ROUTES.ACTIVATION_ACCOUNT}/:key`}>
                             <React.Suspense fallback={<>...</>}>
                                 <LazyActivationAccount />
                             </React.Suspense>

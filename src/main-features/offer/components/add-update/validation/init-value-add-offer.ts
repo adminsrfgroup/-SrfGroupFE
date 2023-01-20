@@ -18,10 +18,7 @@ export const initialValuesAddOffer = {
 
 export const validationSchemaAddOffer = Yup.object({
     typeOffer: Yup.string().required('add_offer.type_offer_require'),
-    title: Yup.string()
-        .required('add_offer.title_required')
-        .min(5, 'add_offer.title_min_length')
-        .max(200, 'add_offer.title_max_length'),
+    title: Yup.string().required('add_offer.title_required').min(5, 'add_offer.title_min_length').max(200, 'add_offer.title_max_length'),
     description: Yup.string().required('add_offer.description_required'),
     amount: Yup.number().nullable().notRequired(),
     shippingCost: Yup.number().nullable().notRequired(),
@@ -35,54 +32,24 @@ export const validationSchemaAddOffer = Yup.object({
 });
 
 export const setDefaultsValues = (formik: any, offerEntity: any) => {
-    formik.setFieldValue(
-        'typeOffer',
-        offerEntity.typeOffer ? offerEntity.typeOffer : ''
-    );
+    formik.setFieldValue('typeOffer', offerEntity.typeOffer ? offerEntity.typeOffer : '');
     formik.setFieldValue('title', offerEntity.title ? offerEntity.title : '');
-    formik.setFieldValue(
-        'description',
-        offerEntity.description ? offerEntity.description : ''
-    );
+    formik.setFieldValue('description', offerEntity.description ? offerEntity.description : '');
 
     if (offerEntity.typeOffer === TypeOfferEnum.Sell) {
-        formik.setFieldValue(
-            'amount',
-            offerEntity.amount ? offerEntity.amount : null
-        );
-        formik.setFieldValue(
-            'shippingCost',
-            offerEntity.shippingCost ? offerEntity.shippingCost : 0
-        );
-        formik.setFieldValue(
-            'typeContactClient',
-            offerEntity.typeContactClient ? offerEntity.typeContactClient : ''
-        );
+        formik.setFieldValue('amount', offerEntity.amount ? offerEntity.amount : null);
+        formik.setFieldValue('shippingCost', offerEntity.shippingCost ? offerEntity.shippingCost : 0);
+        formik.setFieldValue('typeContactClient', offerEntity.typeContactClient ? offerEntity.typeContactClient : '');
     } else if (offerEntity.typeOffer === TypeOfferEnum.Rent) {
-        formik.setFieldValue(
-            'amount',
-            offerEntity.amount ? offerEntity.amount : null
-        );
-        formik.setFieldValue(
-            'startDate',
-            offerEntity.title ? offerEntity.startDate : null
-        );
-        formik.setFieldValue(
-            'endDate',
-            offerEntity.title ? offerEntity.endDate : null
-        );
+        formik.setFieldValue('amount', offerEntity.amount ? offerEntity.amount : null);
+        formik.setFieldValue('startDate', offerEntity.title ? offerEntity.startDate : null);
+        formik.setFieldValue('endDate', offerEntity.title ? offerEntity.endDate : null);
     }
     // else if (offerEntity.typeOffer === TypeOfferEnum.Find) {
     //   formik.setFieldValue('amount', offerEntity.title ? offerEntity.amount : null);
     // }
 
-    formik.setFieldValue(
-        'address',
-        offerEntity.address ? offerEntity.address : null
-    );
-    formik.setFieldValue(
-        'category',
-        offerEntity.category ? offerEntity.category : null
-    );
+    formik.setFieldValue('address', offerEntity.address ? offerEntity.address : null);
+    formik.setFieldValue('category', offerEntity.category ? offerEntity.category : null);
     return formik;
 };

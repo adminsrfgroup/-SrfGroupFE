@@ -2,10 +2,7 @@ import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { AllAppConfig } from '../../../../core/config/all-config';
 import { put } from 'redux-saga/effects';
-import {
-    fetchAddressSuccess,
-    fetchAddressFailure,
-} from '../../../address/store/slice';
+import { fetchAddressSuccess, fetchAddressFailure } from '../../../address/store/slice';
 
 const apiUrl = 'api/address';
 

@@ -46,9 +46,7 @@ export function* addCartHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* updateByQuantityCartHandler(
-    data: any
-): Generator<any, any, any> {
+export function* updateByQuantityCartHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/update-quantity`;
         const result = yield invokeWS(

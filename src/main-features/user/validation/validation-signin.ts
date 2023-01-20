@@ -8,10 +8,7 @@ export const initialValuesSignIn = {
 
 export const validationSchemaSignIn = Yup.object({
     email: Yup.string().email().required('Email is required'),
-    password: Yup.string()
-        .required('Password is required')
-        .min(5, 'Min 5 digits')
-        .max(200, 'Max 200 digits'),
+    password: Yup.string().required('Password is required').min(5, 'Min 5 digits').max(200, 'Max 200 digits'),
     rememberMe: Yup.boolean().nullable().notRequired(),
 });
 
@@ -29,10 +26,7 @@ export const initialValuesForgotPasswordFinish = {
 };
 
 export const validationSchemaForgotPasswordFinish = Yup.object({
-    password: Yup.string()
-        .required('Password is required')
-        .min(5, 'Min 5 digits')
-        .max(200, 'Max 200 digits'),
+    password: Yup.string().required('Password is required').min(5, 'Min 5 digits').max(200, 'Max 200 digits'),
     confPassword: Yup.string()
         .required('Password is required')
         .oneOf([Yup.ref('password'), null], 'Passwords must match')

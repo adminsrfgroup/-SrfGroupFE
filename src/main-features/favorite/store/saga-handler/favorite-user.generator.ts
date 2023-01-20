@@ -1,19 +1,10 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchFavoriteUsersSuccess,
-    fetchFavoriteUsersFailure,
-    addFavoriteUsersSuccess,
-    addFavoriteUsersFailure,
-    deleteFavoriteUsersSuccess,
-    deleteFavoriteUsersFailure,
-} from '../slice';
+import { fetchFavoriteUsersSuccess, fetchFavoriteUsersFailure, addFavoriteUsersSuccess, addFavoriteUsersFailure, deleteFavoriteUsersSuccess, deleteFavoriteUsersFailure } from '../slice';
 
 const apiUrl = 'api/favoriteuser';
 
-export function* fetchFavoriteUsersHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchFavoriteUsersHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/current-user?page=${data.payload?.page}&size=${data.payload?.size}${data.payload?.queryParams}`;
         const result = yield invokeWS({
@@ -44,9 +35,7 @@ export function* addFavoriteUsersHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* deleteFavoriteUsersHandler(
-    data: any
-): Generator<any, any, any> {
+export function* deleteFavoriteUsersHandler(data: any): Generator<any, any, any> {
     try {
         const result = yield invokeWS({
             url: `${apiUrl}/${data.payload.id}`,

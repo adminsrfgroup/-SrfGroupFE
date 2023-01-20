@@ -8,11 +8,7 @@ import CardContent from '@mui/material/CardContent/CardContent';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { allSessionSelector } from '../../user/store/slice';
-import {
-    addProblemeDecalration,
-    addSuccessProblemeDeclaration,
-    loadingProblemeDeclaration,
-} from '../store/slice';
+import { addProblemeDecalration, addSuccessProblemeDeclaration, loadingProblemeDeclaration } from '../store/slice';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { useTranslation } from 'react-i18next';
 import { showUnauthorizedModal } from '../../../core/config/store/common/slice';
@@ -22,10 +18,7 @@ const initialValuesAddMessage = {
 };
 
 const validationSchemaAddMessage = Yup.object({
-    content: Yup.string()
-        .required('Message is required')
-        .min(5, 'Min 5 digits')
-        .max(2000, 'Max 2000 digits'),
+    content: Yup.string().required('Message is required').min(5, 'Min 5 digits').max(2000, 'Max 2000 digits'),
 });
 
 const initialValues = initialValuesAddMessage;
@@ -36,10 +29,8 @@ export default function ProblemeDeclaration() {
 
     const { isAuthenticated } = useSelector(allSessionSelector);
 
-    const loadingProblemeDeclarationSelector =
-        useSelector(loadingProblemeDeclaration) ?? false;
-    const addSuccessProblemeDeclarationSelector =
-        useSelector(addSuccessProblemeDeclaration) ?? false;
+    const loadingProblemeDeclarationSelector = useSelector(loadingProblemeDeclaration) ?? false;
+    const addSuccessProblemeDeclarationSelector = useSelector(addSuccessProblemeDeclaration) ?? false;
 
     const formik = useFormik({
         initialValues,
@@ -66,10 +57,7 @@ export default function ProblemeDeclaration() {
                 <Card>
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                            <MessageIcon
-                                sx={{ mr: 1, my: 0.5 }}
-                                color="secondary"
-                            />
+                            <MessageIcon sx={{ mr: 1, my: 0.5 }} color="secondary" />
                             <TextField
                                 id="content"
                                 name="content"
@@ -80,27 +68,13 @@ export default function ProblemeDeclaration() {
                                 multiline
                                 value={formik.values.content}
                                 onChange={formik.handleChange}
-                                error={
-                                    formik.touched.content &&
-                                    Boolean(formik.errors.content)
-                                }
+                                error={formik.touched.content && Boolean(formik.errors.content)}
                                 rows={4}
                             />
                         </Box>
-                        {formik.touched.content &&
-                        Boolean(formik.errors.content) ? (
-                            <Box color="error">{formik.errors.content}</Box>
-                        ) : null}
+                        {formik.touched.content && Boolean(formik.errors.content) ? <Box color="error">{formik.errors.content}</Box> : null}
                         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                            <LoadingButton
-                                loading={loadingProblemeDeclarationSelector}
-                                variant="outlined"
-                                size="small"
-                                fullWidth
-                                sx={{ mt: 2 }}
-                                color="secondary"
-                                type="submit"
-                            >
+                            <LoadingButton loading={loadingProblemeDeclarationSelector} variant="outlined" size="small" fullWidth sx={{ mt: 2 }} color="secondary" type="submit">
                                 Declarer
                             </LoadingButton>
                         </Box>

@@ -9,10 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterIcon from '@mui/icons-material/FilterListSharp';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
-import {
-    initialValuesSearchAppBar,
-    validationSchemSearchAppBar,
-} from '../../../shared/layout/menus/validation/inti-value-search-app-bar';
+import { initialValuesSearchAppBar, validationSchemSearchAppBar } from '../../../shared/layout/menus/validation/inti-value-search-app-bar';
 import { useFormik } from 'formik';
 import { useLocation } from 'react-router-dom';
 import { TypeOfferEnum } from '../../../shared/enums/type-offer.enum';
@@ -38,11 +35,7 @@ import axios from 'axios';
 import { AllAppConfig } from '../../../core/config/all-config';
 import { SuggestionAutocompleteOption } from '../../suggestions.interface';
 
-const listTypeOffers: string[] = [
-    TypeOfferEnum.Sell,
-    TypeOfferEnum.Rent,
-    TypeOfferEnum.Find,
-];
+const listTypeOffers: string[] = [TypeOfferEnum.Sell, TypeOfferEnum.Rent, TypeOfferEnum.Find];
 
 const initialValues = initialValuesSearchAppBar;
 
@@ -59,17 +52,13 @@ export function SearchAppBar({
     listAddress: IAddress[];
     hideFilter?: boolean;
 }) {
-    const [typeDisplayOffers, setTypeDisplayOffers] =
-        React.useState<TypeDisplaySearchOffers>(TypeDisplaySearchOffers.Grid);
+    const [typeDisplayOffers, setTypeDisplayOffers] = React.useState<TypeDisplaySearchOffers>(TypeDisplaySearchOffers.Grid);
     const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
-    const [openFilterOfferModal, setOpenFilterOfferModal] =
-        React.useState(false);
+    const [openFilterOfferModal, setOpenFilterOfferModal] = React.useState(false);
     const [valuesSearch, setValuesSearch] = React.useState(null);
     const [query, setQuery] = React.useState('');
     const [searchQuery, setSearchQuery] = React.useState({});
-    const [suggestions, setSuggestions] = React.useState<
-        SuggestionAutocompleteOption[]
-    >([]);
+    const [suggestions, setSuggestions] = React.useState<SuggestionAutocompleteOption[]>([]);
 
     const { search } = useLocation();
 
@@ -99,27 +88,14 @@ export function SearchAppBar({
         const values: any = queryString.parse(search);
         Object.keys(values).forEach((key) => {
             if (key === 'category.id') {
-                formik.setFieldValue(
-                    'category',
-                    entitiesCategories.find(
-                        (add) => add?.id?.toString() === values[key]?.toString()
-                    ) || null
-                );
+                formik.setFieldValue('category', entitiesCategories.find((add) => add?.id?.toString() === values[key]?.toString()) || null);
             }
         });
     }, [entitiesCategories]);
 
     const changeTypeDisplayOffers = () => {
-        setTypeDisplayOffers(
-            typeDisplayOffers === TypeDisplaySearchOffers.Grid
-                ? TypeDisplaySearchOffers.List
-                : TypeDisplaySearchOffers.Grid
-        );
-        typeDisplayCallback(
-            typeDisplayOffers === TypeDisplaySearchOffers.Grid
-                ? TypeDisplaySearchOffers.List
-                : TypeDisplaySearchOffers.Grid
-        );
+        setTypeDisplayOffers(typeDisplayOffers === TypeDisplaySearchOffers.Grid ? TypeDisplaySearchOffers.List : TypeDisplaySearchOffers.Grid);
+        typeDisplayCallback(typeDisplayOffers === TypeDisplaySearchOffers.Grid ? TypeDisplaySearchOffers.List : TypeDisplaySearchOffers.Grid);
     };
 
     const getOptionLabelCat = (option: ICategory) => {
@@ -157,46 +133,23 @@ export function SearchAppBar({
 
     const renderDialogFilterOffer = () => {
         return (
-            <Dialog
-                fullScreen
-                open={openFilterOfferModal}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                onClose={handleCloseFilterOfferModal}
-                aria-describedby="alert-dialog-slide-description"
-            >
+            <Dialog fullScreen open={openFilterOfferModal} TransitionComponent={TransitionModal} keepMounted onClose={handleCloseFilterOfferModal} aria-describedby="alert-dialog-slide-description">
                 <AppBar sx={{ position: 'relative' }}>
                     <Toolbar className="bg-brown">
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            onClick={handleCloseFilterOfferModal}
-                            aria-label="close"
-                        >
+                        <IconButton edge="start" color="inherit" onClick={handleCloseFilterOfferModal} aria-label="close">
                             <CloseIcon />
                         </IconButton>
-                        <Typography
-                            sx={{ ml: 2, flex: 1 }}
-                            variant="h6"
-                            component="div"
-                        >
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             {t<string>('common.label_cancel')}
                         </Typography>
-                        <Button
-                            autoFocus
-                            color="inherit"
-                            onClick={handleSearchFilterOfferModal}
-                        >
+                        <Button autoFocus color="inherit" onClick={handleSearchFilterOfferModal}>
                             {t<string>('common.label_search')}
                         </Button>
                     </Toolbar>
                 </AppBar>
                 <DialogTitle>Filter offers</DialogTitle>
                 <DialogContent>
-                    <FilterOffer
-                        listAddress={listAddress}
-                        handelChange={onChange}
-                    />
+                    <FilterOffer listAddress={listAddress} handelChange={onChange} />
                 </DialogContent>
                 {/*<DialogActions>*/}
                 {/*  <Button onClick={handleCloseFilterOfferModal}>Cancel</Button>*/}
@@ -225,22 +178,17 @@ export function SearchAppBar({
 
     const sendQuery = (value: string) => {
         axios
-            .post(
-                AllAppConfig.BASE_URL_ELASTIC_SEARCH + 'suggest_search/_search',
-                {
-                    query: {
-                        multi_match: {
-                            query: value,
-                            fields: ['name', 'description'],
-                            fuzziness: 2,
-                        },
+            .post(AllAppConfig.BASE_URL_ELASTIC_SEARCH + 'suggest_search/_search', {
+                query: {
+                    multi_match: {
+                        query: value,
+                        fields: ['name', 'description'],
+                        fuzziness: 2,
                     },
-                }
-            )
+                },
+            })
             .then((result) => {
-                const results = result.data.hits.hits.map(
-                    (h: any) => h._source
-                );
+                const results = result.data.hits.hits.map((h: any) => h._source);
                 // console.log('suggestions results', results);
                 setSuggestions(results);
             });
@@ -250,11 +198,7 @@ export function SearchAppBar({
         <Box>
             <form onSubmit={formik.handleSubmit}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <AppBar
-                        position="static"
-                        color="default"
-                        sx={{ backgroundColor: '#fff' }}
-                    >
+                    <AppBar position="static" color="default" sx={{ backgroundColor: '#fff' }}>
                         <Toolbar
                             sx={{
                                 display: { xs: 'block', sm: 'flex' },
@@ -277,12 +221,7 @@ export function SearchAppBar({
                                     }}
                                     onClick={() => changeTypeDisplayOffers()}
                                 >
-                                    {typeDisplayOffers ===
-                                    TypeDisplaySearchOffers.Grid ? (
-                                        <FormatListBulletedIcon />
-                                    ) : (
-                                        <GridOnIcon />
-                                    )}
+                                    {typeDisplayOffers === TypeDisplaySearchOffers.Grid ? <FormatListBulletedIcon /> : <GridOnIcon />}
                                 </IconButton>
                             ) : null}
                             <FormControl
@@ -302,15 +241,10 @@ export function SearchAppBar({
                                     // value={formik.values.title}
                                     onChange={(e, value: any) => {
                                         // handleChangeTitle(value);
-                                        formik.setFieldValue(
-                                            'title',
-                                            value?.name || null
-                                        );
+                                        formik.setFieldValue('title', value?.name || null);
                                     }}
                                     autoHighlight
-                                    getOptionLabel={(option: any) =>
-                                        option.name
-                                    }
+                                    getOptionLabel={(option: any) => option.name}
                                     renderOption={(propsRender, option) => (
                                         <Box component="li" {...propsRender}>
                                             {option.name}
@@ -319,9 +253,7 @@ export function SearchAppBar({
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            label={t<string>(
-                                                'common.label_search'
-                                            )}
+                                            label={t<string>('common.label_search')}
                                             variant="standard"
                                             color="secondary"
                                             inputProps={{
@@ -351,16 +283,9 @@ export function SearchAppBar({
                                     id="typeOffer"
                                     options={listTypeOffers}
                                     value={formik.values.typeOffer}
-                                    onChange={(e, value) =>
-                                        formik.setFieldValue(
-                                            'typeOffer',
-                                            value || null
-                                        )
-                                    }
+                                    onChange={(e, value) => formik.setFieldValue('typeOffer', value || null)}
                                     autoHighlight
-                                    getOptionLabel={(option) =>
-                                        getOptionTranslateLabel(option)
-                                    }
+                                    getOptionLabel={(option) => getOptionTranslateLabel(option)}
                                     renderOption={(propsRender, option) => (
                                         <Box component="li" {...propsRender}>
                                             {getOptionTranslateLabel(option)}
@@ -369,9 +294,7 @@ export function SearchAppBar({
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            label={t<string>(
-                                                'common.type_offer'
-                                            )}
+                                            label={t<string>('common.type_offer')}
                                             variant="standard"
                                             color="secondary"
                                             inputProps={{
@@ -400,16 +323,9 @@ export function SearchAppBar({
                                     id="category-select"
                                     options={entitiesCategories}
                                     value={formik.values.category}
-                                    onChange={(e, value) =>
-                                        formik.setFieldValue(
-                                            'category',
-                                            value || ''
-                                        )
-                                    }
+                                    onChange={(e, value) => formik.setFieldValue('category', value || '')}
                                     autoHighlight
-                                    getOptionLabel={(option) =>
-                                        getOptionLabelCat(option)
-                                    }
+                                    getOptionLabel={(option) => getOptionLabelCat(option)}
                                     renderOption={(propsRender, option) => (
                                         <Box component="li" {...propsRender}>
                                             {getOptionLabelCat(option)}
@@ -418,9 +334,7 @@ export function SearchAppBar({
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
-                                            label={t<string>(
-                                                'common.label_category'
-                                            )}
+                                            label={t<string>('common.label_category')}
                                             variant="standard"
                                             color="secondary"
                                             inputProps={{
@@ -450,16 +364,9 @@ export function SearchAppBar({
                                                 md: 'none',
                                             },
                                         }}
-                                        onClick={() =>
-                                            changeTypeDisplayOffers()
-                                        }
+                                        onClick={() => changeTypeDisplayOffers()}
                                     >
-                                        {typeDisplayOffers ===
-                                        TypeDisplaySearchOffers.Grid ? (
-                                            <FormatListBulletedIcon />
-                                        ) : (
-                                            <GridOnIcon />
-                                        )}
+                                        {typeDisplayOffers === TypeDisplaySearchOffers.Grid ? <FormatListBulletedIcon /> : <GridOnIcon />}
                                     </IconButton>
                                 ) : null}
 
@@ -477,9 +384,7 @@ export function SearchAppBar({
                                         },
                                     }}
                                     color="secondary"
-                                    onClick={() =>
-                                        setOpenFilterOfferModal(true)
-                                    }
+                                    onClick={() => setOpenFilterOfferModal(true)}
                                 >
                                     <FilterIcon />
                                 </Button>

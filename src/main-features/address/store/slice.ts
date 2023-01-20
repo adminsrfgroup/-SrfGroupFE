@@ -20,7 +20,5 @@ export const {
 } = addressSlice.actions;
 
 //? ********************| LOGIN SELECTORS |*******************/
-export const allAddressSelector = (state: any) =>
-    state[ADDRESS_KEY_IN_STORE].address;
-export const entitiesAddress = (state: any) =>
-    state[ADDRESS_KEY_IN_STORE].address.entities;
+export const allAddressSelector = (state: any) => state[ADDRESS_KEY_IN_STORE].address;
+export const entitiesAddress = (state: any) => state[ADDRESS_KEY_IN_STORE].address.entities;

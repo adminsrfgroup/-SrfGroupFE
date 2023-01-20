@@ -1,9 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchHomeFeaturesSuccess,
-    fetchHomeFeaturesFailure,
-} from '../../../home/store/slice';
+import { fetchHomeFeaturesSuccess, fetchHomeFeaturesFailure } from '../../../home/store/slice';
 
 const apiUrl = 'api/post-home-feature';
 

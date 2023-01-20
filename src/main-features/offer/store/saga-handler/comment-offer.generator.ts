@@ -15,9 +15,7 @@ import {
 
 const apiUrl = 'api/comment-offer';
 
-export function* fetchCommentsOfferHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchCommentsOfferHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/by-offer/${data.payload?.offerId}?page=${data.payload?.page}&size=${data.payload?.size}${data.payload?.queryParams}`;
         const result = yield invokeWS({
@@ -48,9 +46,7 @@ export function* addCommentOfferHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* updateCommentOfferHandler(
-    data: any
-): Generator<any, any, any> {
+export function* updateCommentOfferHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/${data.payload.id}`;
         const result = yield invokeWS(
@@ -68,9 +64,7 @@ export function* updateCommentOfferHandler(
     }
 }
 
-export function* deleteCommentOfferHandler(
-    data: any
-): Generator<any, any, any> {
+export function* deleteCommentOfferHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/${data.payload.id}`;
         const result = yield invokeWS({

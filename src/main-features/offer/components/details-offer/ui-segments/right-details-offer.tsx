@@ -25,21 +25,12 @@ import DialogTitle from '@mui/material/DialogTitle/DialogTitle';
 import DialogContent from '@mui/material/DialogContent/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText/DialogContentText';
 import { useFormik } from 'formik';
-import {
-    initialValuesAddMessageDetailsOffer,
-    validationSchemaAddMessageDetailsOffer,
-} from '../validation/initial-values-add-comment-offer';
+import { initialValuesAddMessageDetailsOffer, validationSchemaAddMessageDetailsOffer } from '../validation/initial-values-add-comment-offer';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash/isEmpty';
 import { IOffer } from '../../../../../shared/model/offer.model';
 import { IUser } from '../../../../../shared/model/user.model';
-import {
-    convertDateTimeToServer,
-    getBaseImageUrl,
-    getFullnameUser,
-    getUserAvatar,
-    hasUserAuthority,
-} from '../../../../../shared/utils/utils-functions';
+import { convertDateTimeToServer, getBaseImageUrl, getFullnameUser, getUserAvatar, hasUserAuthority } from '../../../../../shared/utils/utils-functions';
 import { ALL_APP_ROUTES } from '../../../../../core/config/all-app-routes';
 import { TransitionModal } from '../../../../../shared/pages/transition-modal';
 import { ListItemButton } from '@mui/material';
@@ -50,11 +41,7 @@ import ProblemeDeclaration from '../../../../probleme-declaration/components/pro
 import { showUnauthorizedModal } from '../../../../../core/config/store/common/slice';
 import { useDispatch } from 'react-redux';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import {
-    EAuthority,
-    ROLE_ADMIN,
-    ROLE_SUPER_ADMIN,
-} from '../../../../../shared/constants/constants';
+import { EAuthority, ROLE_ADMIN, ROLE_SUPER_ADMIN } from '../../../../../shared/constants/constants';
 
 const initialValues = initialValuesAddMessageDetailsOffer;
 
@@ -161,22 +148,10 @@ export default function RightDetailsOffer({
 
     const renderDialogFavoriteUser = () => {
         return (
-            <Dialog
-                open={openFavoriteModal}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                onClose={handleCloseFavoriteModal}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>
-                    {t<string>('details_offer.title_add_favrite_user')}
-                </DialogTitle>
+            <Dialog open={openFavoriteModal} TransitionComponent={TransitionModal} keepMounted onClose={handleCloseFavoriteModal} aria-describedby="alert-dialog-slide-description">
+                <DialogTitle>{t<string>('details_offer.title_add_favrite_user')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>(
-                            'details_offer.description_add_favrite_user'
-                        )}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('details_offer.description_add_favrite_user')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseFavoriteModal} color="neutral">
@@ -195,10 +170,7 @@ export default function RightDetailsOffer({
             setMessageAlert(t('details_offer.not_address_found_itenarary'));
             setOpenAlert(true);
         } else {
-            window.open(
-                'https://www.google.com/maps/@35.8235978,10.6309176,15z',
-                '_new'
-            );
+            window.open('https://www.google.com/maps/@35.8235978,10.6309176,15z', '_new');
         }
     };
 
@@ -211,15 +183,7 @@ export default function RightDetailsOffer({
             setOpenAlert(true);
         } else {
             window.open(
-                'https://www.google.com/maps/dir/' +
-                    currentUser?.address?.lng +
-                    ',' +
-                    currentUser?.address?.lng +
-                    '/' +
-                    offerEntity?.address?.lng +
-                    ',' +
-                    offerEntity?.address?.lng +
-                    '',
+                'https://www.google.com/maps/dir/' + currentUser?.address?.lng + ',' + currentUser?.address?.lng + '/' + offerEntity?.address?.lng + ',' + offerEntity?.address?.lng + '',
                 '_new'
             );
         }
@@ -231,9 +195,7 @@ export default function RightDetailsOffer({
 
     const contactWithFacebookcontactWithFacebook = () => {
         if (!offerEntity?.user?.linkProfileFacebook) {
-            setMessageAlert(
-                t('details_offer.message_not_link_profile_facebook_exist')
-            );
+            setMessageAlert(t('details_offer.message_not_link_profile_facebook_exist'));
             setOpenAlert(true);
         } else {
             window.open(offerEntity?.user?.linkProfileFacebook, '_new');
@@ -242,9 +204,7 @@ export default function RightDetailsOffer({
 
     const contactWithPhoneCheck = () => {
         if (!offerEntity?.user?.phone) {
-            setMessageAlert(
-                t('details_offer.message_not_link_profile_phone_exist')
-            );
+            setMessageAlert(t('details_offer.message_not_link_profile_phone_exist'));
             setOpenAlert(true);
         } else {
             setContactWithPhone(!contactWithPhone);
@@ -257,10 +217,7 @@ export default function RightDetailsOffer({
                 <Typography paragraph sx={{ m: 2 }}>
                     {t<string>('details_offer.about_seller')}
                 </Typography>
-                <ListItemButton
-                    onClick={() => redirectToPorfile(offerEntity?.user?.id)}
-                    sx={{ display: 'block' }}
-                >
+                <ListItemButton onClick={() => redirectToPorfile(offerEntity?.user?.id)} sx={{ display: 'block' }}>
                     <CardHeader
                         avatar={
                             offerEntity ? (
@@ -271,26 +228,15 @@ export default function RightDetailsOffer({
                                         horizontal: 'right',
                                     }}
                                     variant="dot"
-                                    color={
-                                        isOnLine(offerEntity.user?.email)
-                                            ? 'success'
-                                            : 'error'
-                                    }
+                                    color={isOnLine(offerEntity.user?.email) ? 'success' : 'error'}
                                 >
                                     <Avatar
                                         aria-label="recipe"
                                         alt={offerEntity.user?.imageUrl}
-                                        src={getUserAvatar(
-                                            offerEntity.user?.id,
-                                            offerEntity.user?.imageUrl,
-                                            offerEntity.user
-                                                ?.sourceConnectedDevice
-                                        )}
+                                        src={getUserAvatar(offerEntity.user?.id, offerEntity.user?.imageUrl, offerEntity.user?.sourceConnectedDevice)}
                                         sx={{ border: '1px solid #b9b9b9' }}
                                     >
-                                        {getFullnameUser(
-                                            offerEntity?.user
-                                        )?.charAt(0)}
+                                        {getFullnameUser(offerEntity?.user)?.charAt(0)}
                                     </Avatar>
                                 </StyledBadge>
                             ) : null
@@ -299,47 +245,19 @@ export default function RightDetailsOffer({
                             <IconButton
                                 aria-label="settings"
                                 sx={{ color: getFavoriteUserColor() }}
-                                onClick={(event: any) =>
-                                    handleClickOpenFavoriteModal(event)
-                                }
-                                disabled={
-                                    offerEntity?.user?.id === currentUser?.id
-                                }
+                                onClick={(event: any) => handleClickOpenFavoriteModal(event)}
+                                disabled={offerEntity?.user?.id === currentUser?.id}
                             >
                                 <FavoriteIcon />
                             </IconButton>
                         }
                         title={
-                            hasUserAuthority(
-                                offerEntity?.user?.authorities,
-                                EAuthority.ROLE_MODERATOR
-                            ) ? (
-                                <Button
-                                    color="neutral"
-                                    size="small"
-                                    endIcon={
-                                        <VerifiedIcon
-                                            fontSize="small"
-                                            color="error"
-                                        />
-                                    }
-                                >
+                            hasUserAuthority(offerEntity?.user?.authorities, EAuthority.ROLE_MODERATOR) ? (
+                                <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="error" />}>
                                     {getFullnameUser(offerEntity?.user)}
                                 </Button>
-                            ) : hasUserAuthority(
-                                  offerEntity?.user?.authorities,
-                                  EAuthority.ROLE_ADMIN
-                              ) ? (
-                                <Button
-                                    color="neutral"
-                                    size="small"
-                                    endIcon={
-                                        <VerifiedIcon
-                                            fontSize="small"
-                                            color="success"
-                                        />
-                                    }
-                                >
+                            ) : hasUserAuthority(offerEntity?.user?.authorities, EAuthority.ROLE_ADMIN) ? (
+                                <Button color="neutral" size="small" endIcon={<VerifiedIcon fontSize="small" color="success" />}>
                                     {getFullnameUser(offerEntity?.user)}
                                 </Button>
                             ) : (
@@ -357,22 +275,13 @@ export default function RightDetailsOffer({
                 {offerEntity?.user?.address ? (
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
-                            {offerEntity?.user?.address.city},{' '}
-                            {offerEntity?.user?.address.country}
+                            {offerEntity?.user?.address.city}, {offerEntity?.user?.address.country}
                         </Typography>
                     </CardContent>
                 ) : null}
 
-                <CardActions
-                    disableSpacing
-                    sx={{ backgroundColor: 'rgba(0, 0, 0, 0.74);' }}
-                >
-                    <IconButton
-                        aria-label="add to favorites"
-                        sx={{ color: getFavoriteUserColor() }}
-                        onClick={handleClickOpenFavoriteModal}
-                        disabled={offerEntity?.user?.id === currentUser?.id}
-                    >
+                <CardActions disableSpacing sx={{ backgroundColor: 'rgba(0, 0, 0, 0.74);' }}>
+                    <IconButton aria-label="add to favorites" sx={{ color: getFavoriteUserColor() }} onClick={handleClickOpenFavoriteModal} disabled={offerEntity?.user?.id === currentUser?.id}>
                         <FavoriteIcon />
                     </IconButton>
 
@@ -414,18 +323,10 @@ export default function RightDetailsOffer({
                                         label={t<string>('common.label_name')}
                                         variant="standard"
                                         fullWidth
-                                        disabled={
-                                            !(
-                                                formik.touched.fullName &&
-                                                Boolean(formik.errors.fullName)
-                                            )
-                                        }
+                                        disabled={!(formik.touched.fullName && Boolean(formik.errors.fullName))}
                                         value={formik.values.fullName}
                                         onChange={formik.handleChange}
-                                        error={
-                                            formik.touched.fullName &&
-                                            Boolean(formik.errors.fullName)
-                                        }
+                                        error={formik.touched.fullName && Boolean(formik.errors.fullName)}
                                     />
                                 </Box>
                                 <Box
@@ -449,18 +350,10 @@ export default function RightDetailsOffer({
                                         label={t<string>('common.label_email')}
                                         variant="standard"
                                         fullWidth
-                                        disabled={
-                                            !(
-                                                formik.touched.email &&
-                                                Boolean(formik.errors.email)
-                                            )
-                                        }
+                                        disabled={!(formik.touched.email && Boolean(formik.errors.email))}
                                         value={formik.values.email}
                                         onChange={formik.handleChange}
-                                        error={
-                                            formik.touched.email &&
-                                            Boolean(formik.errors.email)
-                                        }
+                                        error={formik.touched.email && Boolean(formik.errors.email)}
                                     />
                                 </Box>
                                 <Box
@@ -487,10 +380,7 @@ export default function RightDetailsOffer({
                                         rows={4}
                                         value={formik.values.content}
                                         onChange={formik.handleChange}
-                                        error={
-                                            formik.touched.content &&
-                                            Boolean(formik.errors.content)
-                                        }
+                                        error={formik.touched.content && Boolean(formik.errors.content)}
                                     />
                                 </Box>
                                 <Box
@@ -499,18 +389,7 @@ export default function RightDetailsOffer({
                                         alignItems: 'flex-end',
                                     }}
                                 >
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        fullWidth
-                                        sx={{ mt: 2, mb: 2 }}
-                                        color="secondary"
-                                        type="submit"
-                                        disabled={
-                                            currentUser.id ===
-                                            offerEntity?.user?.id
-                                        }
-                                    >
+                                    <Button variant="outlined" size="small" fullWidth sx={{ mt: 2, mb: 2 }} color="secondary" type="submit" disabled={currentUser.id === offerEntity?.user?.id}>
                                         {t<string>('common.label_send')}
                                     </Button>
                                 </Box>
@@ -518,53 +397,21 @@ export default function RightDetailsOffer({
                         </Box>
                     </Grid>
 
-                    <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        sx={{ p: 2, borderLeft: '1px solid #cfcbcb;' }}
-                    >
+                    <Grid item xs={12} sm={6} sx={{ p: 2, borderLeft: '1px solid #cfcbcb;' }}>
                         <Typography paragraph className="text-center">
                             {t<string>('details_offer.contact_with')}
                         </Typography>
 
-                        <Button
-                            color="secondary"
-                            variant="outlined"
-                            startIcon={<FacebookIcon />}
-                            fullWidth
-                            sx={{ mt: 3 }}
-                            onClick={() =>
-                                contactWithFacebookcontactWithFacebook()
-                            }
-                        >
+                        <Button color="secondary" variant="outlined" startIcon={<FacebookIcon />} fullWidth sx={{ mt: 3 }} onClick={() => contactWithFacebookcontactWithFacebook()}>
                             Facebook
                         </Button>
 
-                        <Button
-                            color="secondary"
-                            variant="outlined"
-                            startIcon={<PhoneIcon />}
-                            fullWidth
-                            sx={{ mt: 3 }}
-                            onClick={() => contactWithPhoneCheck()}
-                        >
-                            {contactWithPhone
-                                ? offerEntity?.user?.phone
-                                : t<string>('details_offer.show_number')}
+                        <Button color="secondary" variant="outlined" startIcon={<PhoneIcon />} fullWidth sx={{ mt: 3 }} onClick={() => contactWithPhoneCheck()}>
+                            {contactWithPhone ? offerEntity?.user?.phone : t<string>('details_offer.show_number')}
                         </Button>
 
-                        <a
-                            href={`mailto:${offerEntity?.user?.email}`}
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <Button
-                                color="secondary"
-                                variant="outlined"
-                                startIcon={<EmailIcon />}
-                                fullWidth
-                                sx={{ mt: 3 }}
-                            >
+                        <a href={`mailto:${offerEntity?.user?.email}`} style={{ textDecoration: 'none' }}>
+                            <Button color="secondary" variant="outlined" startIcon={<EmailIcon />} fullWidth sx={{ mt: 3 }}>
                                 {t<string>('details_offer.send_email')}
                             </Button>
                         </a>
@@ -576,21 +423,11 @@ export default function RightDetailsOffer({
                 <Grid item xs={12} sm={6}>
                     <Card onClick={openPositionInGoogleMap}>
                         <CardContent>
-                            <Typography
-                                sx={{ fontSize: 14 }}
-                                color="text.secondary"
-                                gutterBottom
-                            >
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                 Découvrir le quartier
                             </Typography>
                             <div style={{ maxHeight: 400, marginTop: 30 }}>
-                                <img
-                                    className="img-fluid"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/offer/details-offer/desktop-map-neighbourhood.ext.svg'
-                                    )}
-                                    alt="desktop-map-neighbourhood"
-                                />
+                                <img className="img-fluid" src={getBaseImageUrl('/assets/images/offer/details-offer/desktop-map-neighbourhood.ext.svg')} alt="desktop-map-neighbourhood" />
                             </div>
                         </CardContent>
                     </Card>
@@ -599,21 +436,11 @@ export default function RightDetailsOffer({
                 <Grid item xs={12} sm={6}>
                     <Card onClick={openItenraireGoogleMap}>
                         <CardContent>
-                            <Typography
-                                sx={{ fontSize: 14 }}
-                                color="text.secondary"
-                                gutterBottom
-                            >
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                 Découvrir le quartier
                             </Typography>
                             <div style={{ maxHeight: 400, marginTop: 30 }}>
-                                <img
-                                    className="img-fluid"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/offer/details-offer/desktop-time-of-travel-address.ext.svg'
-                                    )}
-                                    alt="desktop-time-of-travel-address"
-                                />
+                                <img className="img-fluid" src={getBaseImageUrl('/assets/images/offer/details-offer/desktop-time-of-travel-address.ext.svg')} alt="desktop-time-of-travel-address" />
                             </div>
                         </CardContent>
                     </Card>
@@ -628,9 +455,7 @@ export default function RightDetailsOffer({
                 <Grid item xs={12} sm={6}>
                     <img
                         className="full-img-responsive"
-                        src={getBaseImageUrl(
-                            '/assets/images/offer/details-offer/online_shoping_delivery.jpg'
-                        )}
+                        src={getBaseImageUrl('/assets/images/offer/details-offer/online_shoping_delivery.jpg')}
                         alt="desktop-time-of-travel-address"
                         style={{ borderRadius: 4 }}
                     />
@@ -639,12 +464,7 @@ export default function RightDetailsOffer({
 
             <div>{renderDialogFavoriteUser()}</div>
             <div>
-                <Snackbar
-                    open={openAlert}
-                    autoHideDuration={5000}
-                    onClose={handleCloseAlert}
-                    message={messageAlert}
-                />
+                <Snackbar open={openAlert} autoHideDuration={5000} onClose={handleCloseAlert} message={messageAlert} />
             </div>
 
             {/*<UnauthorizeContentModal*/}

@@ -55,10 +55,7 @@ import {
     allSessionSelector,
 } from './main-features/user/store/slice';
 import { oneSignalProviders } from './shared/providers/onesignal.provider';
-import {
-    loadScriptGoogleAnalytics,
-    trackPagesGA,
-} from './shared/providers/google-anaylitics';
+import { loadScriptGoogleAnalytics, trackPagesGA } from './shared/providers/google-anaylitics';
 import { loadScriptFacebook } from './shared/providers/facebook.provider';
 import { StorageService } from './shared/services/storage.service';
 import { List } from '@mui/material';
@@ -66,12 +63,7 @@ import { ALL_APP_ROUTES } from './core/config/all-app-routes';
 import ListItem from '@mui/material/ListItem';
 import Avatar from '@mui/material/Avatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import {
-    decodeJwtResponse,
-    getBaseImageUrl,
-    getFullnameUser,
-    getUserAvatar,
-} from './shared/utils/utils-functions';
+import { decodeJwtResponse, getBaseImageUrl, getFullnameUser, getUserAvatar } from './shared/utils/utils-functions';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -81,22 +73,11 @@ import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import { fetchCategories } from './main-features/category/store/slice';
 import { fetchAddress } from './main-features/address/store/slice';
-import {
-    fetchHomeFeatures,
-    fetchTopHomeSlidesImages,
-} from './main-features/home/store/slice';
+import { fetchHomeFeatures, fetchTopHomeSlidesImages } from './main-features/home/store/slice';
 import Drawer from '@mui/material/Drawer';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {
-    fetchFindOffer,
-    fetchImagesOffer,
-    fetchRecentlyOffer,
-    fetchRentOffer,
-    fetchSellerOffer,
-    resetMyOffers,
-    resetPublicOffers,
-} from './main-features/offer/store/slice';
+import { fetchFindOffer, fetchImagesOffer, fetchRecentlyOffer, fetchRentOffer, fetchSellerOffer, resetMyOffers, resetPublicOffers } from './main-features/offer/store/slice';
 import isEmpty from 'lodash/isEmpty';
 import { languages, locales } from './main-features/user/store/initial.state';
 import UnauthorizeContentModal from './shared/hooks/unauthorize-modal/unauthorized-content-modal';
@@ -149,9 +130,7 @@ function ScrollTop(props: any) {
     });
 
     const handleClick = (event: any) => {
-        const anchor = (event.target.ownerDocument || document).querySelector(
-            '#back-to-top-anchor'
-        );
+        const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
 
         if (anchor) {
             anchor.scrollIntoView({
@@ -163,11 +142,7 @@ function ScrollTop(props: any) {
 
     return (
         <Zoom in={trigger}>
-            <Box
-                onClick={handleClick}
-                role="presentation"
-                sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 9 }}
-            >
+            <Box onClick={handleClick} role="presentation" sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 9 }}>
                 {children}
             </Box>
         </Zoom>
@@ -176,31 +151,19 @@ function ScrollTop(props: any) {
 
 export const App = () => {
     const [openAnchorDrawer, setOpenAnchorDrawer] = React.useState(false);
-    const [openAnchorDrawerRight, setOpenAnchorDrawerRight] =
-        React.useState(false);
+    const [openAnchorDrawerRight, setOpenAnchorDrawerRight] = React.useState(false);
     const [openSubMenuSupport, setOpenSubMenuSupport] = React.useState(false);
     const [languagesAnchorEl, setLanguagesAnchorEl] = React.useState(null);
     const isLanguagesMenuOpen = Boolean(languagesAnchorEl);
-    const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>(
-        StorageService.local.get(AllAppConfig.DARK_MODE) ?? 'light'
-    );
-    const [defaultChecked, setDefaultChecked] = React.useState<boolean>(
-        darkMode == 'light' ?? false
-    );
-    const [isGoogleAnalytics, setIsGoogleAnalytics] =
-        React.useState<boolean>(false);
+    const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>(StorageService.local.get(AllAppConfig.DARK_MODE) ?? 'light');
+    const [defaultChecked, setDefaultChecked] = React.useState<boolean>(darkMode == 'light' ?? false);
+    const [isGoogleAnalytics, setIsGoogleAnalytics] = React.useState<boolean>(false);
     const { token } = useSelector(allLoginSelector);
 
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {
-        isAuthenticated,
-        nbeMessagesNotRead,
-        nbeNotificationsNotRead,
-        nbeCarts,
-        oneSignalId,
-    } = useSelector(allSessionSelector);
+    const { isAuthenticated, nbeMessagesNotRead, nbeNotificationsNotRead, nbeCarts, oneSignalId } = useSelector(allSessionSelector);
     const currentUser = useSelector(currentUserSession);
     const { currentLocale } = useSelector(allLocaleSelector);
 
@@ -230,10 +193,7 @@ export const App = () => {
         }
     }, [darkMode]);
     const toggleDarkMode = (event: any, checked: boolean) => {
-        StorageService.local.set(
-            AllAppConfig.DARK_MODE,
-            checked ? 'light' : 'dark'
-        );
+        StorageService.local.set(AllAppConfig.DARK_MODE, checked ? 'light' : 'dark');
         setDarkMode(checked ? 'light' : 'dark');
     };
 
@@ -304,12 +264,8 @@ export const App = () => {
         );
 
         // Set Default configs local
-        i18n.changeLanguage(
-            StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr'
-        );
-        dispatch(
-            changeLocale(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr')
-        );
+        i18n.changeLanguage(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr');
+        dispatch(changeLocale(StorageService.local.get(AllAppConfig.LOCALE) ?? 'fr'));
 
         dispatch(
             fetchCategories({
@@ -405,55 +361,28 @@ export const App = () => {
     const listMenuMobile = () => (
         <Box sx={{ width: 250 }} role="presentation">
             <List>
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.HOME}
-                    onClick={() => handleDrawerToggle(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.HOME} onClick={() => handleDrawerToggle(false)}>
                     <ListItemIcon>
-                        <Avatar
-                            alt="Logo"
-                            src={getBaseImageUrl('/assets/images/logo-svg.svg')}
-                            sx={{ width: 150, height: 100 }}
-                        />
+                        <Avatar alt="Logo" src={getBaseImageUrl('/assets/images/logo-svg.svg')} sx={{ width: 150, height: 100 }} />
                     </ListItemIcon>
                     <ListItemText primary="" />
                 </ListItem>
 
                 <ListItem button onClick={handleLAnguagesMenuOpen}>
-                    <Button
-                        variant="outlined"
-                        color="neutral"
-                        startIcon={<LanguageIcon />}
-                        endIcon={<ExpandMore />}
-                        size="small"
-                    >
-                        {currentLocale
-                            ? languages[currentLocale].name
-                            : undefined}
+                    <Button variant="outlined" color="neutral" startIcon={<LanguageIcon />} endIcon={<ExpandMore />} size="small">
+                        {currentLocale ? languages[currentLocale].name : undefined}
                     </Button>
                 </ListItem>
                 <Divider />
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.HOME}
-                    onClick={() => handleDrawerToggle(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.HOME} onClick={() => handleDrawerToggle(false)}>
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
                     <ListItemText primary={t<string>('header.link_home')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.OFFER.LIST}
-                    onClick={() => handleDrawerToggle(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.OFFER.LIST} onClick={() => handleDrawerToggle(false)}>
                     <ListItemIcon>
                         <SearchIcon />
                     </ListItemIcon>
@@ -464,61 +393,30 @@ export const App = () => {
                     <ListItemIcon>
                         <InboxIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={t<string>(
-                            'header.link_support.link_label_support'
-                        )}
-                    />
+                    <ListItemText primary={t<string>('header.link_support.link_label_support')} />
                     {openSubMenuSupport ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={openSubMenuSupport} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        <ListItemButton
-                            sx={{ pl: 4 }}
-                            component={Link}
-                            to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}
-                            onClick={() => handleDrawerToggle(false)}
-                        >
+                        <ListItemButton sx={{ pl: 4 }} component={Link} to={ALL_APP_ROUTES.SUPPORT.CONTACT_US} onClick={() => handleDrawerToggle(false)}>
                             <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon>
-                            <ListItemText
-                                primary={t<string>(
-                                    'header.link_support.link_contact_us'
-                                )}
-                            />
+                            <ListItemText primary={t<string>('header.link_support.link_contact_us')} />
                         </ListItemButton>
 
-                        <ListItemButton
-                            sx={{ pl: 4 }}
-                            component={Link}
-                            to={ALL_APP_ROUTES.SUPPORT.ABOUT_US}
-                            onClick={() => handleDrawerToggle(false)}
-                        >
+                        <ListItemButton sx={{ pl: 4 }} component={Link} to={ALL_APP_ROUTES.SUPPORT.ABOUT_US} onClick={() => handleDrawerToggle(false)}>
                             <ListItemIcon>
                                 <InfoIcon />
                             </ListItemIcon>
-                            <ListItemText
-                                primary={t<string>(
-                                    'header.link_support.link_about'
-                                )}
-                            />
+                            <ListItemText primary={t<string>('header.link_support.link_about')} />
                         </ListItemButton>
 
-                        <ListItemButton
-                            sx={{ pl: 4 }}
-                            component={Link}
-                            to={ALL_APP_ROUTES.SUPPORT.FAQ}
-                            onClick={() => handleDrawerToggle(false)}
-                        >
+                        <ListItemButton sx={{ pl: 4 }} component={Link} to={ALL_APP_ROUTES.SUPPORT.FAQ} onClick={() => handleDrawerToggle(false)}>
                             <ListItemIcon>
                                 <InfoIcon />
                             </ListItemIcon>
-                            <ListItemText
-                                primary={t<string>(
-                                    'header.link_support.link_faq'
-                                )}
-                            />
+                            <ListItemText primary={t<string>('header.link_support.link_faq')} />
                         </ListItemButton>
                     </List>
                 </Collapse>
@@ -534,16 +432,7 @@ export const App = () => {
 
                 <ListItem>
                     <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <MaterialUISwitch
-                                    sx={{ m: 1 }}
-                                    defaultChecked={defaultChecked}
-                                />
-                            }
-                            onChange={toggleDarkMode}
-                            label=""
-                        />
+                        <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked={defaultChecked} />} onChange={toggleDarkMode} label="" />
                     </FormGroup>
                 </ListItem>
             </List>
@@ -553,22 +442,9 @@ export const App = () => {
     const rightMenuMobile = () => (
         <Box sx={{ width: 250 }} role="presentation">
             <List>
-                <ListItem
-                    alignItems="flex-start"
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.ACCOUNT}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem alignItems="flex-start" button component={Link} to={ALL_APP_ROUTES.ACCOUNT} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemAvatar>
-                        <Avatar
-                            alt="Avatar"
-                            src={getUserAvatar(
-                                currentUser?.id,
-                                currentUser?.imageUrl,
-                                currentUser?.sourceConnectedDevice
-                            )}
-                        >
+                        <Avatar alt="Avatar" src={getUserAvatar(currentUser?.id, currentUser?.imageUrl, currentUser?.sourceConnectedDevice)}>
                             {getFullnameUser(currentUser)?.charAt(0)}
                         </Avatar>
                     </ListItemAvatar>
@@ -577,28 +453,17 @@ export const App = () => {
                         primary={getFullnameUser(currentUser)}
                         secondary={
                             <React.Fragment>
-                                <Typography
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
-                                >
+                                <Typography component="span" variant="body2" color="text.primary">
                                     {currentUser.email}
                                 </Typography>
-                                {currentUser?.address?.city
-                                    ? '— ' + currentUser?.address?.city
-                                    : null}
+                                {currentUser?.address?.city ? '— ' + currentUser?.address?.city : null}
                             </React.Fragment>
                         }
                     />
                 </ListItem>
                 <Divider />
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.CART.LIST}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.CART.LIST} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
                         <Badge color="error" badgeContent={nbeCarts}>
                             <ShoppingCartIcon />
@@ -607,90 +472,46 @@ export const App = () => {
                     <ListItemText primary={t<string>('header.label_cart')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.ORDER.LIST}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.ORDER.LIST} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
                         <FilterFramesIcon />
                     </ListItemIcon>
                     <ListItemText primary={t<string>('header.label_order')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.CHAT.LIST}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.CHAT.LIST} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
-                        <Badge
-                            badgeContent={
-                                nbeMessagesNotRead > 0
-                                    ? nbeMessagesNotRead
-                                    : null
-                            }
-                            color="error"
-                        >
+                        <Badge badgeContent={nbeMessagesNotRead > 0 ? nbeMessagesNotRead : null} color="error">
                             <MailIcon />
                         </Badge>
                     </ListItemIcon>
                     <ListItemText primary={t<string>('header.chat')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.RENT_REQUEST.LIST}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.RENT_REQUEST.LIST} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
                         <AddBusinessIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={t<string>('header.label_location')}
-                    />
+                    <ListItemText primary={t<string>('header.label_location')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.OFFER.MY_OFFERS}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.OFFER.MY_OFFERS} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
                         <PostAddIcon />
                     </ListItemIcon>
                     <ListItemText primary={t<string>('header.my_offers')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.FAVORITE.USER}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.FAVORITE.USER} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
                         <FavoriteIcon />
                     </ListItemIcon>
-                    <ListItemText
-                        primary={t<string>('header.my_favorite_users')}
-                    />
+                    <ListItemText primary={t<string>('header.my_favorite_users')} />
                 </ListItem>
 
-                <ListItem
-                    button
-                    component={Link}
-                    to={ALL_APP_ROUTES.NOTIFICATION.LIST}
-                    onClick={() => handleDrawerToggleRight(false)}
-                >
+                <ListItem button component={Link} to={ALL_APP_ROUTES.NOTIFICATION.LIST} onClick={() => handleDrawerToggleRight(false)}>
                     <ListItemIcon>
-                        <Badge
-                            badgeContent={nbeNotificationsNotRead}
-                            color="error"
-                        >
+                        <Badge badgeContent={nbeNotificationsNotRead} color="error">
                             <NotificationsIcon />
                         </Badge>
                     </ListItemIcon>
@@ -743,10 +564,7 @@ export const App = () => {
         >
             {Object.keys(languages).length > 1
                 ? locales.map((locale) => (
-                      <MenuItem
-                          key={locale}
-                          onClick={() => handleLocaleChange(locale)}
-                      >
+                      <MenuItem key={locale} onClick={() => handleLocaleChange(locale)}>
                           {languages[locale].name}
                       </MenuItem>
                   ))
@@ -780,50 +598,28 @@ export const App = () => {
             <ScrollToTopRouters data-testid="scroll-to-top-routers" />
             <ThemeProvider theme={ThemeApp}>
                 <CssBaseline />
-                <ToastContainer
-                    position={toast.POSITION.TOP_LEFT}
-                    className="toastify-container"
-                    toastClassName="toastify-toast"
-                    autoClose={5000}
-                />
+                <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" autoClose={5000} />
                 <React.Fragment>
-                    <Drawer
-                        anchor="left"
-                        open={openAnchorDrawer}
-                        onClose={() => handleDrawerToggle(false)}
-                    >
+                    <Drawer anchor="left" open={openAnchorDrawer} onClose={() => handleDrawerToggle(false)}>
                         {listMenuMobile()}
                     </Drawer>
                 </React.Fragment>
                 <React.Fragment>
-                    <Drawer
-                        anchor="right"
-                        open={openAnchorDrawerRight}
-                        onClose={() => handleDrawerToggleRight(false)}
-                    >
+                    <Drawer anchor="right" open={openAnchorDrawerRight} onClose={() => handleDrawerToggleRight(false)}>
                         {rightMenuMobile()}
                     </Drawer>
                 </React.Fragment>
-                <div
-                    id="back-to-top-anchor"
-                    data-testid="back-to-top-anchor"
-                ></div>
+                <div id="back-to-top-anchor" data-testid="back-to-top-anchor"></div>
                 <Header
                     isAuthenticated={isAuthenticated}
                     currentUser={currentUser}
                     parentCallbackLogout={(event: any) => handleLogout()}
-                    parentCallbackRightMenuMobile={(event: any) =>
-                        handleDrawerToggleRight(event)
-                    }
-                    parentCallbackMenuMobile={(event: any) =>
-                        handleDrawerToggle(event)
-                    }
+                    parentCallbackRightMenuMobile={(event: any) => handleDrawerToggleRight(event)}
+                    parentCallbackMenuMobile={(event: any) => handleDrawerToggle(event)}
                     currentLocale={currentLocale}
                     onLocaleChange={handleLocaleChange}
                     nbeNotificationsNotSee={nbeNotificationsNotRead}
-                    parentCallbackDarkMode={(event: any, checked: boolean) =>
-                        toggleDarkMode(event, checked)
-                    }
+                    parentCallbackDarkMode={(event: any, checked: boolean) => toggleDarkMode(event, checked)}
                     nbeMessagesNotRead={nbeMessagesNotRead}
                     nbeCarts={nbeCarts}
                 />
@@ -836,11 +632,7 @@ export const App = () => {
                     <AllRoutes />
 
                     <ScrollTop>
-                        <Fab
-                            sx={{ backgroundColor: '#3f3f40', color: '#fff' }}
-                            size="small"
-                            aria-label="scroll back to top"
-                        >
+                        <Fab sx={{ backgroundColor: '#3f3f40', color: '#fff' }} size="small" aria-label="scroll back to top">
                             <KeyboardArrowUpIcon />
                         </Fab>
                     </ScrollTop>
@@ -849,12 +641,7 @@ export const App = () => {
                 </main>
                 <Footer />
 
-                {!isAuthenticated ? (
-                    <GoogleSignin
-                        isOneTap={true}
-                        handleCredentialResponse={responseGoogle}
-                    />
-                ) : null}
+                {!isAuthenticated ? <GoogleSignin isOneTap={true} handleCredentialResponse={responseGoogle} /> : null}
 
                 {renderMenuLanguages}
 
@@ -866,10 +653,7 @@ export const App = () => {
                     buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
                     expires={150}
                 >
-                    {t<string>('cookie.first_description')}{' '}
-                    <span style={{ fontSize: '10px' }}>
-                        {t<string>('cookie.second_description')}
-                    </span>
+                    {t<string>('cookie.first_description')} <span style={{ fontSize: '10px' }}>{t<string>('cookie.second_description')}</span>
                 </CookieConsent>
 
                 {/*<GoogleAdsense />*/}

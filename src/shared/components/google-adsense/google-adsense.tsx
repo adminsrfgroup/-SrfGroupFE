@@ -4,8 +4,7 @@ export default class GoogleAdsense extends React.Component {
     componentDidMount() {
         const installGoogleAds = () => {
             const elem = document.createElement('script');
-            elem.src =
-                'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2886306660016720';
+            elem.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2886306660016720';
             elem.async = true;
             elem.defer = true;
             document.body.insertBefore(elem, document.body.firstChild);

@@ -1,9 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    addContactUsSuccess,
-    addContactUsFailure,
-} from '../../../contact-us/store/slice';
+import { addContactUsSuccess, addContactUsFailure } from '../../../contact-us/store/slice';
 
 const apiUrl = 'api/contactus';
 

@@ -10,21 +10,8 @@ import React from 'react';
  * @returns {any}
  * @constructor
  */
-export function PrivateRoute({
-    children,
-    isAuthenticated,
-    path,
-    ...rest
-}: {
-    children: any;
-    isAuthenticated: boolean;
-    path: string;
-}) {
-    return !isAuthenticated ? (
-        <Navigate to={ALL_APP_ROUTES.HOME} replace />
-    ) : (
-        children
-    );
+export function PrivateRoute({ children, isAuthenticated, path, ...rest }: { children: any; isAuthenticated: boolean; path: string }) {
+    return !isAuthenticated ? <Navigate to={ALL_APP_ROUTES.HOME} replace /> : children;
     // <Route
     //     path={path}
     //     render={({ location }) => {

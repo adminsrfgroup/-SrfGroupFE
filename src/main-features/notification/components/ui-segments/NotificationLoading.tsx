@@ -18,16 +18,9 @@ export default function LoadingNotification() {
                 <div key={key}>
                     <ListItem button>
                         <ListItemAvatar>
-                            <Skeleton
-                                variant="circular"
-                                width={40}
-                                height={40}
-                            />
+                            <Skeleton variant="circular" width={40} height={40} />
                         </ListItemAvatar>
-                        <ListItemText
-                            primary={<Skeleton variant="text" height={40} />}
-                            secondary={<Skeleton variant="text" height={20} />}
-                        />
+                        <ListItemText primary={<Skeleton variant="text" height={40} />} secondary={<Skeleton variant="text" height={20} />} />
                     </ListItem>
                     <Divider variant="inset" component="li" />
                 </div>
@@ -37,10 +30,7 @@ export default function LoadingNotification() {
                 <ListItemAvatar>
                     <Skeleton variant="circular" width={40} height={40} />
                 </ListItemAvatar>
-                <ListItemText
-                    primary={<Skeleton variant="text" height={40} />}
-                    secondary={<Skeleton variant="text" height={20} />}
-                />
+                <ListItemText primary={<Skeleton variant="text" height={40} />} secondary={<Skeleton variant="text" height={20} />} />
             </ListItem>
         </List>
     );

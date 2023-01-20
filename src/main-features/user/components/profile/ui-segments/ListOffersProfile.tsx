@@ -14,20 +14,11 @@ import CardActionArea from '@mui/material/CardActionArea/CardActionArea';
 import { useNavigate } from 'react-router-dom';
 import { ALL_APP_ROUTES } from '../../../../../core/config/all-app-routes';
 import { IOffer } from '../../../../../shared/model/offer.model';
-import {
-    getBaseImageUrl,
-    getImageForOffer,
-} from '../../../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getImageForOffer } from '../../../../../shared/utils/utils-functions';
 import { AllAppConfig } from '../../../../../core/config/all-config';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-export function ListOffersProfile({
-    listOffers,
-    loading,
-}: {
-    listOffers: any;
-    loading: boolean;
-}) {
+export function ListOffersProfile({ listOffers, loading }: { listOffers: any; loading: boolean }) {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -49,10 +40,7 @@ export function ListOffersProfile({
                     <Grid container spacing={4}>
                         {listOffers.map((offer: IOffer) => (
                             <Grid item key={offer.id} xs={12} sm={6} md={4}>
-                                <CardActionArea
-                                    component="a"
-                                    onClick={() => rediretTo(offer?.id || -1)}
-                                >
+                                <CardActionArea component="a" onClick={() => rediretTo(offer?.id || -1)}>
                                     <Card
                                         sx={{
                                             height: '100%',
@@ -65,33 +53,15 @@ export function ListOffersProfile({
                                                 height: { xs: '100%', sm: 200 },
                                             }}
                                         >
-                                            {offer.offerImages &&
-                                            offer.offerImages.length ? (
+                                            {offer.offerImages && offer.offerImages.length ? (
                                                 <LazyLoadImage
                                                     alt="Image offer"
-                                                    src={getImageForOffer(
-                                                        offer.id,
-                                                        offer.offerImages[0]
-                                                            .path
-                                                    )}
-                                                    placeholder={
-                                                        <img
-                                                            src={getBaseImageUrl(
-                                                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                            )}
-                                                            className="img-lazy-loading"
-                                                            alt="image srfgroup"
-                                                        />
-                                                    }
-                                                    placeholderSrc={getBaseImageUrl(
-                                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                                    )}
+                                                    src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                                                    placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                                    placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                                     onError={(e: any) => {
                                                         e.target.onerror = null;
-                                                        e.target.src =
-                                                            getBaseImageUrl(
-                                                                AllAppConfig.DEFAULT_LAZY_IMAGE
-                                                            );
+                                                        e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                                     }}
                                                     className="img-lazy-loading"
                                                 />
@@ -105,31 +75,18 @@ export function ListOffersProfile({
                                                         },
                                                     }}
                                                 >
-                                                    <img
-                                                        src={getBaseImageUrl(
-                                                            AllAppConfig.DEFAULT_LAZY_IMAGE
-                                                        )}
-                                                        className="img-lazy-loading"
-                                                        alt="image srfgroup"
-                                                    />
+                                                    <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image srfgroup" />
                                                 </Box>
                                             )}
                                         </CardMedia>
                                         <CardContent sx={{ flexGrow: 1 }}>
-                                            <Typography
-                                                gutterBottom
-                                                variant="h5"
-                                                component="h2"
-                                                className="truncate-text"
-                                            >
+                                            <Typography gutterBottom variant="h5" component="h2" className="truncate-text">
                                                 {offer?.title}
                                             </Typography>
                                             <div
                                                 className="truncate-string-two-lines"
                                                 dangerouslySetInnerHTML={{
-                                                    __html:
-                                                        offer?.description ||
-                                                        '',
+                                                    __html: offer?.description || '',
                                                 }}
                                             ></div>
                                         </CardContent>

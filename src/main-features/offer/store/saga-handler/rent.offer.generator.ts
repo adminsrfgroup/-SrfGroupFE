@@ -1,13 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchRentOfferSuccess,
-    fetchRentOfferFailure,
-    addRentOfferSuccess,
-    addRentOfferFailure,
-    updateRentOfferSuccess,
-    updateRentOfferFailure,
-} from '../slice';
+import { fetchRentOfferSuccess, fetchRentOfferFailure, addRentOfferSuccess, addRentOfferFailure, updateRentOfferSuccess, updateRentOfferFailure } from '../slice';
 
 const apiUrl = 'api/rent-offer';
 

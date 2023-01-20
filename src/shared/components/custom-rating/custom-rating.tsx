@@ -45,14 +45,7 @@ class CustomRating extends React.Component<any, any> {
         super(props);
     }
     render() {
-        return (
-            <Rating
-                name="highlight-selected-only"
-                defaultValue={4}
-                IconContainerComponent={IconContainer}
-                highlightSelectedOnly
-            />
-        );
+        return <Rating name="highlight-selected-only" defaultValue={4} IconContainerComponent={IconContainer} highlightSelectedOnly />;
     }
 }
 export default CustomRating;

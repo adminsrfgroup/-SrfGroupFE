@@ -28,10 +28,7 @@ export const initialValuesPasswordAccount = {
 
 export const validationSchemaPasswordAccount = Yup.object({
     currentPassword: Yup.string().required('currentPassword is required'),
-    newPassword: Yup.string()
-        .required('Password is required')
-        .min(5, 'Min 5 digits')
-        .max(200, 'Max 200 digits'),
+    newPassword: Yup.string().required('Password is required').min(5, 'Min 5 digits').max(200, 'Max 200 digits'),
     confirmNewPassword: Yup.string()
         .required('Password is required')
         .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')

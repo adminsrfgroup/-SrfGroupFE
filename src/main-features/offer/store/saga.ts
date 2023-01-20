@@ -44,32 +44,11 @@ import {
     fetchSellDetailsOffersHandler,
     uploadFilesOfferHandler,
 } from './saga-handler/offer.generator';
-import {
-    addSellerOfferHandler,
-    fetchSellerOfferHandler,
-    updateSellerOfferHandler,
-} from './saga-handler/seller.offer.generator';
-import {
-    addRentOfferHandler,
-    fetchRentOfferHandler,
-    updateRentOfferHandler,
-} from './saga-handler/rent.offer.generator';
-import {
-    addFindOfferHandler,
-    fetchFindOfferHandler,
-    updateFindOfferHandler,
-} from './saga-handler/find.offer.generator';
-import {
-    deleteMyOfferHandler,
-    fetchOfferHandler,
-    fetchMyOffersHandler,
-} from './saga-handler/my-offer.generator';
-import {
-    addCommentOfferHandler,
-    deleteCommentOfferHandler,
-    fetchCommentsOfferHandler,
-    updateCommentOfferHandler,
-} from './saga-handler/comment-offer.generator';
+import { addSellerOfferHandler, fetchSellerOfferHandler, updateSellerOfferHandler } from './saga-handler/seller.offer.generator';
+import { addRentOfferHandler, fetchRentOfferHandler, updateRentOfferHandler } from './saga-handler/rent.offer.generator';
+import { addFindOfferHandler, fetchFindOfferHandler, updateFindOfferHandler } from './saga-handler/find.offer.generator';
+import { deleteMyOfferHandler, fetchOfferHandler, fetchMyOffersHandler } from './saga-handler/my-offer.generator';
+import { addCommentOfferHandler, deleteCommentOfferHandler, fetchCommentsOfferHandler, updateCommentOfferHandler } from './saga-handler/comment-offer.generator';
 import { fetchImagesOfferHandler } from './saga-handler/images-offer.generator';
 import { reportCommentOfferHandler } from './saga-handler/report-comment-offer.generator';
 import { reportOffersHandler } from './saga-handler/report-offer.generator';

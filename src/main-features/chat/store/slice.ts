@@ -46,35 +46,20 @@ export const {
 } = chatSlice.actions;
 
 //? ********************| CONVERSATION SELECTORS |*******************/
-export const loadingConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.loading;
-export const entityConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.entity;
-export const loadingEntitiesConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.loadingEntities;
-export const entitiesConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.entities;
-export const totalItemsConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.totalItems;
-export const totalPagesConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.totalPages;
-export const deleteSuccessConversation = (state: any) =>
-    state[CHAT_KEY_IN_STORE].conversation.deleteSuccess;
+export const loadingConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.loading;
+export const entityConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.entity;
+export const loadingEntitiesConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.loadingEntities;
+export const entitiesConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.entities;
+export const totalItemsConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.totalItems;
+export const totalPagesConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.totalPages;
+export const deleteSuccessConversation = (state: any) => state[CHAT_KEY_IN_STORE].conversation.deleteSuccess;
 
 //? ********************| MESSAGES SELECTORS |*******************/
-export const loadingMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.loading;
-export const entityMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.entity;
-export const addSuccessMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.addSuccess;
-export const loadingEntitiesMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.loadingEntities;
-export const entitiesMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.entities;
-export const totalItemsMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.totalItems;
-export const totalPagesMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.totalPages;
-export const deleteSuccessMessage = (state: any) =>
-    state[CHAT_KEY_IN_STORE].message.deleteSuccess;
+export const loadingMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.loading;
+export const entityMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.entity;
+export const addSuccessMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.addSuccess;
+export const loadingEntitiesMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.loadingEntities;
+export const entitiesMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.entities;
+export const totalItemsMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.totalItems;
+export const totalPagesMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.totalPages;
+export const deleteSuccessMessage = (state: any) => state[CHAT_KEY_IN_STORE].message.deleteSuccess;

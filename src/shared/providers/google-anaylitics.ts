@@ -52,11 +52,7 @@ export function trackPagesGA(title: string, path: string): Promise<boolean> {
     });
 }
 
-export function addEventGA(
-    eventName: string,
-    eventCategory: string,
-    eventLabel: string
-): Promise<boolean> {
+export function addEventGA(eventName: string, eventCategory: string, eventLabel: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
         try {
             // Add new event Google Analytics

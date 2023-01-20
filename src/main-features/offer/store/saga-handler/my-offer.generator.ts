@@ -1,13 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchMyOffersSuccess,
-    fetchMyOffersFailure,
-    deleteMyOfferSuccess,
-    deleteMyOfferFailure,
-    fetchOfferSuccess,
-    fetchOfferFailure,
-} from '../../../offer/store/slice';
+import { fetchMyOffersSuccess, fetchMyOffersFailure, deleteMyOfferSuccess, deleteMyOfferFailure, fetchOfferSuccess, fetchOfferFailure } from '../../../offer/store/slice';
 
 const apiUrl = 'api/offer';
 

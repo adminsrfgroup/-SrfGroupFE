@@ -9,11 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ALL_APP_ROUTES } from '../../../../core/config/all-app-routes';
 import Typography from '@mui/material/Typography/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    activationAccount,
-    activationActivationAccount,
-    loadingActivationAccount,
-} from '../../store/slice';
+import { activationAccount, activationActivationAccount, loadingActivationAccount } from '../../store/slice';
 import Alert from '@mui/material/Alert';
 
 export default function ActivationAccount() {
@@ -21,10 +17,8 @@ export default function ActivationAccount() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const loadingActivationAccountSelector =
-        useSelector(loadingActivationAccount) ?? false;
-    const activationActivationAccountSelector =
-        useSelector(activationActivationAccount) ?? false;
+    const loadingActivationAccountSelector = useSelector(loadingActivationAccount) ?? false;
+    const activationActivationAccountSelector = useSelector(activationActivationAccount) ?? false;
 
     React.useEffect(() => {
         const key = query.get('key');
@@ -60,11 +54,7 @@ export default function ActivationAccount() {
             <Grid container spacing={4} sx={{ mt: 3 }}>
                 <Grid item xs={12}>
                     <Box sx={{ paddingTop: 10, textAlign: 'center' }}>
-                        {loadingActivationAccountSelector ? (
-                            <CircularProgress color="inherit" />
-                        ) : !activationActivationAccountSelector ? (
-                            <Alert severity="error">User Not found</Alert>
-                        ) : null}
+                        {loadingActivationAccountSelector ? <CircularProgress color="inherit" /> : !activationActivationAccountSelector ? <Alert severity="error">User Not found</Alert> : null}
                     </Box>
                 </Grid>
             </Grid>

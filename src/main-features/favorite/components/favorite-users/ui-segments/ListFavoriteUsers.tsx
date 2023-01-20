@@ -5,10 +5,7 @@ import List from '@mui/material/List/List';
 import ListItem from '@mui/material/ListItem/ListItem';
 import IconButton from '@mui/material/IconButton/IconButton';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
-import {
-    getFullnameUser,
-    getUserAvatar,
-} from '../../../../../shared/utils/utils-functions';
+import { getFullnameUser, getUserAvatar } from '../../../../../shared/utils/utils-functions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from '@mui/material/Dialog/Dialog';
 import DialogTitle from '@mui/material/DialogTitle/DialogTitle';
@@ -26,13 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton/Skeleton';
 
-export default function ListFavoriteUsers({
-    favorite,
-    parentCallback,
-}: {
-    favorite: IFavoriteUser;
-    parentCallback: (id: number | undefined) => void;
-}) {
+export default function ListFavoriteUsers({ favorite, parentCallback }: { favorite: IFavoriteUser; parentCallback: (id: number | undefined) => void }) {
     const [openFavoriteModal, setOpenFavoriteModal] = React.useState(false);
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -61,27 +52,13 @@ export default function ListFavoriteUsers({
 
     const renderDialogDisFavoriteUser = () => {
         return (
-            <Dialog
-                open={openFavoriteModal}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                onClose={handleCloseFavoriteModal}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>
-                    {t<string>('favorite.user.title_remove_favrite_user')}
-                </DialogTitle>
+            <Dialog open={openFavoriteModal} TransitionComponent={TransitionModal} keepMounted onClose={handleCloseFavoriteModal} aria-describedby="alert-dialog-slide-description">
+                <DialogTitle>{t<string>('favorite.user.title_remove_favrite_user')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>(
-                            'favorite.user.description_remove_favrite_user'
-                        )}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('favorite.user.description_remove_favrite_user')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseFavoriteModal}>
-                        {t<string>('common.label_cancel')}
-                    </Button>
+                    <Button onClick={handleCloseFavoriteModal}>{t<string>('common.label_cancel')}</Button>
                     <Button onClick={disFavoriteHandleClick} color="error">
                         {t<string>('common.label_disfavorite')}
                     </Button>
@@ -98,26 +75,13 @@ export default function ListFavoriteUsers({
                     button
                     onClick={() => redirectToPorfile(favoriteUser?.id)}
                     secondaryAction={
-                        <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            onClick={(event) =>
-                                handleClickOpenFavoriteModal(event)
-                            }
-                        >
+                        <IconButton edge="end" aria-label="delete" onClick={(event) => handleClickOpenFavoriteModal(event)}>
                             <DeleteIcon color="error" />
                         </IconButton>
                     }
                 >
                     <ListItemAvatar>
-                        <Avatar
-                            alt="Remy Sharp"
-                            src={getUserAvatar(
-                                favoriteUser?.id,
-                                favoriteUser?.imageUrl,
-                                favoriteUser?.sourceConnectedDevice
-                            )}
-                        >
+                        <Avatar alt="Remy Sharp" src={getUserAvatar(favoriteUser?.id, favoriteUser?.imageUrl, favoriteUser?.sourceConnectedDevice)}>
                             {getFullnameUser(favoriteUser)?.charAt(0)}
                         </Avatar>
                     </ListItemAvatar>
@@ -125,16 +89,10 @@ export default function ListFavoriteUsers({
                         primary={getFullnameUser(favoriteUser)}
                         secondary={
                             <React.Fragment>
-                                <Typography
-                                    sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
-                                >
+                                <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
                                     {favoriteUser?.email}
                                 </Typography>
-                                {favoriteUser?.address?.city}{' '}
-                                {favoriteUser?.address?.country}
+                                {favoriteUser?.address?.city} {favoriteUser?.address?.country}
                             </React.Fragment>
                         }
                     />

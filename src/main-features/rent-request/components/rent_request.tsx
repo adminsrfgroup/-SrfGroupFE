@@ -37,14 +37,7 @@ import { AllAppConfig } from '../../../core/config/all-config';
 import { IRentRequest } from '../../../shared/model/rent_request.model';
 import CardMedia from '@mui/material/CardMedia/CardMedia';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import {
-    convertDateTimeFromServer,
-    convertDateTimeToServer,
-    getBaseImageUrl,
-    getFullnameUser,
-    getImageForOffer,
-    getUserAvatar,
-} from '../../../shared/utils/utils-functions';
+import { convertDateTimeFromServer, convertDateTimeToServer, getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar } from '../../../shared/utils/utils-functions';
 import CardContent from '@mui/material/CardContent/CardContent';
 import CardHeader from '@mui/material/CardHeader/CardHeader';
 import Avatar from '@mui/material/Avatar/Avatar';
@@ -76,10 +69,7 @@ import DatePicker from '@mui/lab/DatePicker/DatePicker';
 import TextField from '@mui/material/TextField/TextField';
 import LocalizationProvider from '@mui/lab/LocalizationProvider/LocalizationProvider';
 import { useFormik } from 'formik';
-import {
-    initialValuesRentRequestReceived,
-    validationSchemaRentRequestReceived,
-} from '../validation/init-value-rent-request';
+import { initialValuesRentRequestReceived, validationSchemaRentRequestReceived } from '../validation/init-value-rent-request';
 
 import './rent_request.scss';
 // import IconButton from "@mui/material/IconButton";
@@ -99,13 +89,7 @@ function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
     return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
+        <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
             {value === index && (
                 <Box sx={{ pt: 3 }}>
                     <Box>{children}</Box>
@@ -144,22 +128,14 @@ export default function ListLocation() {
                         <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                             SRF
                         </Link>
-                        <Typography color="text.primary">
-                            {t<string>('header.label_rent_request')}
-                        </Typography>
+                        <Typography color="text.primary">{t<string>('header.label_rent_request')}</Typography>
                     </Breadcrumbs>
                 </Grid>
             </Grid>
 
             <Box sx={{ mt: 5 }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs
-                        value={value}
-                        onChange={handleChange}
-                        aria-label="basic tabs example"
-                        textColor="secondary"
-                        indicatorColor="secondary"
-                    >
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary" indicatorColor="secondary">
                         <Tab label="Demande reçu" {...a11yProps(0)} />
                         <Tab label="Demande envoyée" {...a11yProps(1)} />
                     </Tabs>
@@ -177,26 +153,18 @@ export default function ListLocation() {
 
 function ListRentRequestSent() {
     const [isFirstTime, setIsFirstTime] = React.useState(true);
-    const [openDeleteRentRequestModal, setOpenDeleteRentRequestModal] =
-        React.useState(false);
-    const [rentRequestTmp, setRentRequestTmp] = React.useState<IRentRequest>(
-        {}
-    );
+    const [openDeleteRentRequestModal, setOpenDeleteRentRequestModal] = React.useState(false);
+    const [rentRequestTmp, setRentRequestTmp] = React.useState<IRentRequest>({});
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
-    const loadingEntitiesSentRentRequestSelector =
-        useSelector(loadingEntitiesSentRentRequest) ?? false;
-    const entitiesSentRentRequestSelector =
-        useSelector(entitiesSentRentRequest) ?? [];
+    const loadingEntitiesSentRentRequestSelector = useSelector(loadingEntitiesSentRentRequest) ?? false;
+    const entitiesSentRentRequestSelector = useSelector(entitiesSentRentRequest) ?? [];
     // const totalItemsSentRentRequestSelector = useSelector(totalItemsSentRentRequest) ?? 0;
-    const activePageSentRentRequestSelector =
-        useSelector(activePageSentRentRequest) ?? -1;
-    const totalPagesSentRentRequestSelector =
-        useSelector(totalPagesSentRentRequest) ?? -1;
-    const deleteSuccessSentRequestSelector =
-        useSelector(deleteSuccessSentRequest) ?? false;
+    const activePageSentRentRequestSelector = useSelector(activePageSentRentRequest) ?? -1;
+    const totalPagesSentRentRequestSelector = useSelector(totalPagesSentRentRequest) ?? -1;
+    const deleteSuccessSentRequestSelector = useSelector(deleteSuccessSentRequest) ?? false;
 
     const resetAll = () => {
         dispatch(resetRentRequestsSent({}));
@@ -224,9 +192,7 @@ function ListRentRequestSent() {
 
     const loadMore = () => {
         setIsFirstTime(false);
-        dispatch(
-            setActivePageSentRentRequest(activePageSentRentRequestSelector + 1)
-        );
+        dispatch(setActivePageSentRentRequest(activePageSentRentRequestSelector + 1));
     };
 
     const removeRentRequest = (event: any, rentRequest: IRentRequest) => {
@@ -267,27 +233,15 @@ function ListRentRequestSent() {
                 onClose={handleClickCancelDeleteRentRequestModal}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>
-                    {t<string>('rentrequest.title_dialog_delete_rentrequest')}
-                </DialogTitle>
+                <DialogTitle>{t<string>('rentrequest.title_dialog_delete_rentrequest')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>(
-                            'rentrequest.description_dialog_delete_rentrequest'
-                        )}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('rentrequest.description_dialog_delete_rentrequest')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        onClick={handleClickCancelDeleteRentRequestModal}
-                        color="neutral"
-                    >
+                    <Button onClick={handleClickCancelDeleteRentRequestModal} color="neutral">
                         {t<string>('common.label_back')}
                     </Button>
-                    <Button
-                        onClick={handleClickDeleteDeleteRentRequestModal}
-                        color="error"
-                    >
+                    <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
                         {t<string>('common.label_cancel')}
                     </Button>
                 </DialogActions>
@@ -300,37 +254,23 @@ function ListRentRequestSent() {
             <InfiniteScroll
                 pageStart={activePageSentRentRequestSelector}
                 loadMore={loadMore}
-                hasMore={
-                    totalPagesSentRentRequestSelector - 1 >
-                    activePageSentRentRequestSelector
-                }
+                hasMore={totalPagesSentRentRequestSelector - 1 > activePageSentRentRequestSelector}
                 loader={<div className="loader" key={0}></div>}
                 threshold={0}
                 initialLoad={false}
             >
                 <Grid container spacing={4} sx={{ mt: 3 }}>
-                    {entitiesSentRentRequestSelector.map(
-                        (item: IRentRequest, index: number) => (
-                            <DisplayItemSent
-                                item={item}
-                                key={index}
-                                removeRentRequest={removeRentRequest}
-                            />
-                        )
-                    )}
+                    {entitiesSentRentRequestSelector.map((item: IRentRequest, index: number) => (
+                        <DisplayItemSent item={item} key={index} removeRentRequest={removeRentRequest} />
+                    ))}
 
-                    {loadingEntitiesSentRentRequestSelector ? (
-                        <LoadingRentRequest />
-                    ) : null}
+                    {loadingEntitiesSentRentRequestSelector ? <LoadingRentRequest /> : null}
                 </Grid>
             </InfiniteScroll>
 
-            {!loadingEntitiesSentRentRequestSelector &&
-            entitiesSentRentRequestSelector?.length == 0 ? (
+            {!loadingEntitiesSentRentRequestSelector && entitiesSentRentRequestSelector?.length == 0 ? (
                 <Grid item xs={12} md={6}>
-                    <Alert severity="warning">
-                        {t<string>('rentrequest.no_rentrequest_founds')}
-                    </Alert>
+                    <Alert severity="warning">{t<string>('rentrequest.no_rentrequest_founds')}</Alert>
                 </Grid>
             ) : null}
 
@@ -345,19 +285,13 @@ function ListRentRequestReceiver() {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
-    const loadingEntitiesReceivedRentRequestSelector =
-        useSelector(loadingEntitiesReceivedRentRequest) ?? false;
-    const entitiesReceivedRentRequestSelector =
-        useSelector(entitiesReceivedRentRequest) ?? [];
+    const loadingEntitiesReceivedRentRequestSelector = useSelector(loadingEntitiesReceivedRentRequest) ?? false;
+    const entitiesReceivedRentRequestSelector = useSelector(entitiesReceivedRentRequest) ?? [];
     // const totalItemsReceivedRentRequestSelector = useSelector(totalItemsReceivedRentRequest) ?? 0;
-    const activePageReceivedRentRequestSelector =
-        useSelector(activePageReceivedRentRequest) ?? -1;
-    const totalPagesReceivedRentRequestSelector =
-        useSelector(totalPagesReceivedRentRequest) ?? -1;
-    const refusedSuccessReceivedRentRequestSelector =
-        useSelector(refusedSuccessReceivedRentRequest) ?? false;
-    const acceptedSuccessReceivedRentRequestSelector =
-        useSelector(acceptedSuccessReceivedRentRequest) ?? false;
+    const activePageReceivedRentRequestSelector = useSelector(activePageReceivedRentRequest) ?? -1;
+    const totalPagesReceivedRentRequestSelector = useSelector(totalPagesReceivedRentRequest) ?? -1;
+    const refusedSuccessReceivedRentRequestSelector = useSelector(refusedSuccessReceivedRentRequest) ?? false;
+    const acceptedSuccessReceivedRentRequestSelector = useSelector(acceptedSuccessReceivedRentRequest) ?? false;
 
     const resetAll = () => {
         dispatch(resetRentRequestsReceived({}));
@@ -385,21 +319,14 @@ function ListRentRequestReceiver() {
 
     const loadMore = () => {
         setIsFirstTime(false);
-        dispatch(
-            setActivePageReceivedRentRequest(
-                activePageReceivedRentRequestSelector + 1
-            )
-        );
+        dispatch(setActivePageReceivedRentRequest(activePageReceivedRentRequestSelector + 1));
     };
 
     const refusedRentRequest = (item: IRentRequest) => {
         dispatch(refusedRentRequestsReceived({ id: item.id }));
     };
 
-    const acceptRentRequest = (
-        item: IRentRequest,
-        selectedItem: IRentRequest
-    ) => {
+    const acceptRentRequest = (item: IRentRequest, selectedItem: IRentRequest) => {
         const rentRequest: IRentRequest = {
             ...item,
             rentOffer: {
@@ -412,10 +339,7 @@ function ListRentRequestReceiver() {
     };
 
     React.useEffect(() => {
-        if (
-            refusedSuccessReceivedRentRequestSelector ||
-            acceptedSuccessReceivedRentRequestSelector
-        ) {
+        if (refusedSuccessReceivedRentRequestSelector || acceptedSuccessReceivedRentRequestSelector) {
             resetAll();
             dispatch(setActivePageReceivedRentRequest(0));
             dispatch(
@@ -426,65 +350,43 @@ function ListRentRequestReceiver() {
                 })
             );
         }
-    }, [
-        refusedSuccessReceivedRentRequestSelector,
-        acceptedSuccessReceivedRentRequestSelector,
-    ]);
+    }, [refusedSuccessReceivedRentRequestSelector, acceptedSuccessReceivedRentRequestSelector]);
 
     return (
         <Box>
             <InfiniteScroll
                 pageStart={activePageReceivedRentRequestSelector}
                 loadMore={loadMore}
-                hasMore={
-                    totalPagesReceivedRentRequestSelector - 1 >
-                    activePageReceivedRentRequestSelector
-                }
+                hasMore={totalPagesReceivedRentRequestSelector - 1 > activePageReceivedRentRequestSelector}
                 loader={<div className="loader" key={0}></div>}
                 threshold={0}
                 initialLoad={false}
             >
                 <Grid container spacing={4} sx={{ mt: 3 }}>
-                    {entitiesReceivedRentRequestSelector.map(
-                        (item: IRentRequest, index: number) => (
-                            <DisplayItemReceived
-                                item={item}
-                                key={index}
-                                callbackRefusedRentRequest={refusedRentRequest}
-                                callbackAcceptRentRequest={(
-                                    currentItem: IRentOffer
-                                ) => acceptRentRequest(item, currentItem)}
-                            />
-                        )
-                    )}
+                    {entitiesReceivedRentRequestSelector.map((item: IRentRequest, index: number) => (
+                        <DisplayItemReceived
+                            item={item}
+                            key={index}
+                            callbackRefusedRentRequest={refusedRentRequest}
+                            callbackAcceptRentRequest={(currentItem: IRentOffer) => acceptRentRequest(item, currentItem)}
+                        />
+                    ))}
 
-                    {loadingEntitiesReceivedRentRequestSelector ? (
-                        <LoadingRentRequest />
-                    ) : null}
+                    {loadingEntitiesReceivedRentRequestSelector ? <LoadingRentRequest /> : null}
                 </Grid>
             </InfiniteScroll>
 
-            {!loadingEntitiesReceivedRentRequestSelector &&
-            entitiesReceivedRentRequestSelector?.length == 0 ? (
+            {!loadingEntitiesReceivedRentRequestSelector && entitiesReceivedRentRequestSelector?.length == 0 ? (
                 <Grid item xs={12} md={6}>
-                    <Alert severity="warning">
-                        {t<string>('rentrequest.no_rentrequest_founds')}
-                    </Alert>
+                    <Alert severity="warning">{t<string>('rentrequest.no_rentrequest_founds')}</Alert>
                 </Grid>
             ) : null}
         </Box>
     );
 }
 
-function DisplayItemSent({
-    item,
-    removeRentRequest,
-}: {
-    item: IRentRequest;
-    removeRentRequest: any;
-}) {
-    const [indexShowMoreDetails, setIndexShowMoreDetails] =
-        React.useState<number>(-1);
+function DisplayItemSent({ item, removeRentRequest }: { item: IRentRequest; removeRentRequest: any }) {
+    const [indexShowMoreDetails, setIndexShowMoreDetails] = React.useState<number>(-1);
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -513,10 +415,7 @@ function DisplayItemSent({
     return (
         <Grid item xs={12} md={6}>
             <CardActionArea component="a">
-                <Card
-                    sx={{ display: { xs: 'block', sm: 'flex' } }}
-                    onClick={() => rediretTo(item?.rentOffer)}
-                >
+                <Card sx={{ display: { xs: 'block', sm: 'flex' } }} onClick={() => rediretTo(item?.rentOffer)}>
                     <CardMedia
                         sx={{
                             width: { xs: '100%', sm: 250 },
@@ -526,27 +425,12 @@ function DisplayItemSent({
                         {item?.rentOffer?.offerImages?.length ? (
                             <LazyLoadImage
                                 alt="Image offer"
-                                src={getImageForOffer(
-                                    item?.rentOffer?.id,
-                                    item?.rentOffer?.offerImages[0].path
-                                )}
-                                placeholder={
-                                    <img
-                                        src={getBaseImageUrl(
-                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                        )}
-                                        className="img-lazy-loading"
-                                        alt="image srfgroup"
-                                    />
-                                }
-                                placeholderSrc={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                )}
+                                src={getImageForOffer(item?.rentOffer?.id, item?.rentOffer?.offerImages[0].path)}
+                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                 onError={(e: any) => {
                                     e.target.onerror = null;
-                                    e.target.src = getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    );
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                 }}
                                 className="img-lazy-loading"
                             />
@@ -557,13 +441,7 @@ function DisplayItemSent({
                                     height: '100%',
                                 }}
                             >
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image not found"
-                                />
+                                <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                             </Box>
                         )}
                     </CardMedia>
@@ -575,24 +453,12 @@ function DisplayItemSent({
                                     avatar={
                                         <Avatar
                                             aria-label="Image avatar"
-                                            src={getUserAvatar(
-                                                item?.receiverUser?.id,
-                                                item.receiverUser?.imageUrl,
-                                                item.receiverUser
-                                                    ?.sourceConnectedDevice
-                                            )}
+                                            src={getUserAvatar(item?.receiverUser?.id, item.receiverUser?.imageUrl, item.receiverUser?.sourceConnectedDevice)}
                                             alt="image not found"
-                                            onClick={(event: any) =>
-                                                redirectToPorfile(
-                                                    event,
-                                                    item?.receiverUser?.id
-                                                )
-                                            }
+                                            onClick={(event: any) => redirectToPorfile(event, item?.receiverUser?.id)}
                                             role="img"
                                         >
-                                            {getFullnameUser(
-                                                item?.receiverUser
-                                            )?.charAt(0)}
+                                            {getFullnameUser(item?.receiverUser)?.charAt(0)}
                                         </Avatar>
                                     }
                                     title={getFullnameUser(item?.receiverUser)}
@@ -600,35 +466,18 @@ function DisplayItemSent({
                                 />
 
                                 {item.status === StatusRentRequest.STANDBY ? (
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        onClick={(event) =>
-                                            removeRentRequest(event, item)
-                                        }
-                                    >
+                                    <Button variant="outlined" color="error" onClick={(event) => removeRentRequest(event, item)}>
                                         {t<string>('common.label_cancel')}
                                     </Button>
                                 ) : null}
                             </Grid>
 
                             <Grid item xs={4} sx={{ textAlign: 'right' }}>
-                                <Typography
-                                    variant="caption"
-                                    color="secondary"
-                                    display="flex"
-                                    sx={{ justifyContent: 'end' }}
-                                >
+                                <Typography variant="caption" color="secondary" display="flex" sx={{ justifyContent: 'end' }}>
                                     {t<string>('rentrequest.' + item.status)}
                                 </Typography>
-                                <Typography
-                                    variant="caption"
-                                    display="flex"
-                                    sx={{ justifyContent: 'end' }}
-                                >
-                                    <ConvertReactTimeAgo
-                                        convertDate={item?.sendDate}
-                                    />
+                                <Typography variant="caption" display="flex" sx={{ justifyContent: 'end' }}>
+                                    <ConvertReactTimeAgo convertDate={item?.sendDate} />
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -640,58 +489,27 @@ function DisplayItemSent({
                                     <ListItem alignItems="flex-start">
                                         <div
                                             dangerouslySetInnerHTML={{
-                                                __html:
-                                                    item?.rentOffer
-                                                        ?.description || '',
+                                                __html: item?.rentOffer?.description || '',
                                             }}
                                         ></div>
                                     </ListItem>
 
                                     {item?.rentOffer?.amount ? (
                                         <>
-                                            <Divider
-                                                variant="inset"
-                                                component="li"
-                                            />
+                                            <Divider variant="inset" component="li" />
                                             <ListItem alignItems="flex-start">
-                                                <ListItemText
-                                                    primary={t<string>(
-                                                        'common.label_amount'
-                                                    )}
-                                                    secondary={
-                                                        <React.Fragment>
-                                                            {
-                                                                item?.rentOffer
-                                                                    ?.amount
-                                                            }{' '}
-                                                            TND
-                                                        </React.Fragment>
-                                                    }
-                                                />
+                                                <ListItemText primary={t<string>('common.label_amount')} secondary={<React.Fragment>{item?.rentOffer?.amount} TND</React.Fragment>} />
                                             </ListItem>
                                         </>
                                     ) : null}
 
                                     {item?.rentOffer?.startDate ? (
                                         <>
-                                            <Divider
-                                                variant="inset"
-                                                component="li"
-                                            />
+                                            <Divider variant="inset" component="li" />
                                             <ListItem alignItems="flex-start">
                                                 <ListItemText
-                                                    primary={t<string>(
-                                                        'common.label_start_date'
-                                                    )}
-                                                    secondary={
-                                                        <React.Fragment>
-                                                            {convertDateTimeFromServer(
-                                                                new Date(
-                                                                    item?.rentOffer?.startDate
-                                                                )
-                                                            )}
-                                                        </React.Fragment>
-                                                    }
+                                                    primary={t<string>('common.label_start_date')}
+                                                    secondary={<React.Fragment>{convertDateTimeFromServer(new Date(item?.rentOffer?.startDate))}</React.Fragment>}
                                                 />
                                             </ListItem>
                                         </>
@@ -699,24 +517,11 @@ function DisplayItemSent({
 
                                     {item?.rentOffer?.endDate ? (
                                         <>
-                                            <Divider
-                                                variant="inset"
-                                                component="li"
-                                            />
+                                            <Divider variant="inset" component="li" />
                                             <ListItem alignItems="flex-start">
                                                 <ListItemText
-                                                    primary={t<string>(
-                                                        'common.label_end_date'
-                                                    )}
-                                                    secondary={
-                                                        <React.Fragment>
-                                                            {convertDateTimeFromServer(
-                                                                new Date(
-                                                                    item?.rentOffer?.endDate
-                                                                )
-                                                            )}
-                                                        </React.Fragment>
-                                                    }
+                                                    primary={t<string>('common.label_end_date')}
+                                                    secondary={<React.Fragment>{convertDateTimeFromServer(new Date(item?.rentOffer?.endDate))}</React.Fragment>}
                                                 />
                                             </ListItem>
                                         </>
@@ -724,22 +529,13 @@ function DisplayItemSent({
 
                                     {item.imageSignatureReceived ? (
                                         <>
-                                            <Divider
-                                                variant="inset"
-                                                component="li"
-                                            />
+                                            <Divider variant="inset" component="li" />
                                             <ListItem alignItems="flex-start">
                                                 <ListItemText
                                                     primary="Signature"
                                                     secondary={
                                                         <React.Fragment>
-                                                            <img
-                                                                src={
-                                                                    item.imageSignatureReceived
-                                                                }
-                                                                alt="signature"
-                                                                className="full-img-responsive"
-                                                            />
+                                                            <img src={item.imageSignatureReceived} alt="signature" className="full-img-responsive" />
                                                         </React.Fragment>
                                                     }
                                                 />
@@ -750,17 +546,8 @@ function DisplayItemSent({
                             </Box>
                         ) : null}
                         {item.status === StatusRentRequest.ACCEPTED ? (
-                            <Button
-                                variant="outlined"
-                                color="success"
-                                type="button"
-                                onClick={(event) =>
-                                    toggleShowDetails(event, item)
-                                }
-                            >
-                                {indexShowMoreDetails === item.id
-                                    ? t<string>('common.hide_details')
-                                    : t<string>('common.show_details')}
+                            <Button variant="outlined" color="success" type="button" onClick={(event) => toggleShowDetails(event, item)}>
+                                {indexShowMoreDetails === item.id ? t<string>('common.hide_details') : t<string>('common.show_details')}
                             </Button>
                         ) : null}
                     </CardContent>
@@ -771,24 +558,11 @@ function DisplayItemSent({
 }
 
 const initialValues = initialValuesRentRequestReceived;
-function DisplayItemReceived({
-    item,
-    callbackRefusedRentRequest,
-    callbackAcceptRentRequest,
-}: {
-    item: IRentRequest;
-    callbackRefusedRentRequest: any;
-    callbackAcceptRentRequest: any;
-}) {
-    const [openCancelRentRequestModal, setOpenCancelRentRequestModal] =
-        React.useState<boolean>(false);
-    const [
-        openAddSignatureRentRequestModal,
-        setOpenAddSignatureRentRequestModal,
-    ] = React.useState<boolean>(false);
+function DisplayItemReceived({ item, callbackRefusedRentRequest, callbackAcceptRentRequest }: { item: IRentRequest; callbackRefusedRentRequest: any; callbackAcceptRentRequest: any }) {
+    const [openCancelRentRequestModal, setOpenCancelRentRequestModal] = React.useState<boolean>(false);
+    const [openAddSignatureRentRequestModal, setOpenAddSignatureRentRequestModal] = React.useState<boolean>(false);
     const [indexSelected, setIndexSelected] = React.useState<number>(-1);
-    const [indexShowMoreDetails, setIndexShowMoreDetails] =
-        React.useState<number>(-1);
+    const [indexShowMoreDetails, setIndexShowMoreDetails] = React.useState<number>(-1);
     const [imageSignature, setImageSignature] = React.useState('');
 
     const { t } = useTranslation();
@@ -845,10 +619,7 @@ function DisplayItemReceived({
         formik.setFieldValue('amount', item?.rentOffer?.amount || '');
         formik.setFieldValue('startDate', item?.rentOffer?.startDate || '');
         formik.setFieldValue('endDate', item?.rentOffer?.endDate || '');
-        formik.setFieldValue(
-            'typePeriodRent',
-            item?.rentOffer?.typePeriodRent || ''
-        );
+        formik.setFieldValue('typePeriodRent', item?.rentOffer?.typePeriodRent || '');
     };
 
     const cancelAction = (event: any, rentRequest: IRentRequest) => {
@@ -891,27 +662,15 @@ function DisplayItemReceived({
                 onClose={handleClickCancelCancelRentRequestModal}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>
-                    {t<string>('rentrequest.title_dialog_cancel_rentrequest')}
-                </DialogTitle>
+                <DialogTitle>{t<string>('rentrequest.title_dialog_cancel_rentrequest')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>(
-                            'rentrequest.description_dialog_cancel_rentrequest'
-                        )}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('rentrequest.description_dialog_cancel_rentrequest')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        onClick={handleClickCancelCancelRentRequestModal}
-                        color="neutral"
-                    >
+                    <Button onClick={handleClickCancelCancelRentRequestModal} color="neutral">
                         {t<string>('common.label_cancel')}
                     </Button>
-                    <Button
-                        onClick={handleClickDeleteDeleteRentRequestModal}
-                        color="error"
-                    >
+                    <Button onClick={handleClickDeleteDeleteRentRequestModal} color="error">
                         {t<string>('rentrequest.label_btn_refused')}
                     </Button>
                 </DialogActions>
@@ -935,27 +694,15 @@ function DisplayItemReceived({
                     },
                 }}
             >
-                <DialogTitle>
-                    {t<string>('rentrequest.title_dialog_add_signature')}
-                </DialogTitle>
+                <DialogTitle>{t<string>('rentrequest.title_dialog_add_signature')}</DialogTitle>
                 <DialogContent>
                     <SignatureRentRequest callbackImageURL={setDataSignature} />
                 </DialogContent>
                 <DialogActions style={{ justifyContent: 'start' }}>
-                    <Button
-                        onClick={() =>
-                            setOpenAddSignatureRentRequestModal(false)
-                        }
-                        color="neutral"
-                    >
+                    <Button onClick={() => setOpenAddSignatureRentRequestModal(false)} color="neutral">
                         {t<string>('common.label_cancel')}
                     </Button>
-                    <Button
-                        variant="contained"
-                        onClick={handleClickSaveAddSignatureRentRequestModal}
-                        color="success"
-                        disabled={!imageSignature.length}
-                    >
+                    <Button variant="contained" onClick={handleClickSaveAddSignatureRentRequestModal} color="success" disabled={!imageSignature.length}>
                         {t<string>('common.label_add')}
                     </Button>
                 </DialogActions>
@@ -965,10 +712,7 @@ function DisplayItemReceived({
 
     return (
         <Grid item xs={12} md={6}>
-            <Card
-                sx={{ display: { xs: 'block', sm: 'flex' } }}
-                onClick={() => rediretTo(item?.rentOffer)}
-            >
+            <Card sx={{ display: { xs: 'block', sm: 'flex' } }} onClick={() => rediretTo(item?.rentOffer)}>
                 <CardMedia
                     sx={{
                         width: { xs: '100%', sm: 250 },
@@ -978,27 +722,12 @@ function DisplayItemReceived({
                     {item?.rentOffer?.offerImages?.length ? (
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                item?.rentOffer?.id,
-                                item?.rentOffer?.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(item?.rentOffer?.id, item?.rentOffer?.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
@@ -1009,13 +738,7 @@ function DisplayItemReceived({
                                 height: '100%',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </Box>
                     )}
                 </CardMedia>
@@ -1027,183 +750,73 @@ function DisplayItemReceived({
                                 avatar={
                                     <Avatar
                                         aria-label="Image avatar"
-                                        src={getUserAvatar(
-                                            item?.senderUser?.id,
-                                            item.senderUser?.imageUrl,
-                                            item.senderUser
-                                                ?.sourceConnectedDevice
-                                        )}
+                                        src={getUserAvatar(item?.senderUser?.id, item.senderUser?.imageUrl, item.senderUser?.sourceConnectedDevice)}
                                         alt="image not found"
-                                        onClick={(event: any) =>
-                                            redirectToPorfile(
-                                                event,
-                                                item?.receiverUser?.id
-                                            )
-                                        }
+                                        onClick={(event: any) => redirectToPorfile(event, item?.receiverUser?.id)}
                                         role="button"
                                     >
-                                        {getFullnameUser(
-                                            item?.senderUser
-                                        )?.charAt(0)}
+                                        {getFullnameUser(item?.senderUser)?.charAt(0)}
                                     </Avatar>
                                 }
                                 title={getFullnameUser(item?.senderUser)}
                                 subheader={item?.rentOffer?.title}
                             />
 
-                            {item.status === StatusRentRequest.STANDBY &&
-                            indexSelected !== item.id ? (
-                                <ButtonGroup
-                                    sx={{ my: 1 }}
-                                    variant="contained"
-                                    aria-label="outlined primary button group"
-                                >
-                                    <Button
-                                        variant="outlined"
-                                        color="neutral"
-                                        onClick={(event) =>
-                                            cancelAction(event, item)
-                                        }
-                                    >
-                                        {t<string>(
-                                            'rentrequest.label_btn_refused'
-                                        )}
+                            {item.status === StatusRentRequest.STANDBY && indexSelected !== item.id ? (
+                                <ButtonGroup sx={{ my: 1 }} variant="contained" aria-label="outlined primary button group">
+                                    <Button variant="outlined" color="neutral" onClick={(event) => cancelAction(event, item)}>
+                                        {t<string>('rentrequest.label_btn_refused')}
                                     </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="success"
-                                        onClick={(event) =>
-                                            acceptAction(event, item)
-                                        }
-                                    >
-                                        {t<string>(
-                                            'rentrequest.label_btn_accept'
-                                        )}
+                                    <Button variant="outlined" color="success" onClick={(event) => acceptAction(event, item)}>
+                                        {t<string>('rentrequest.label_btn_accept')}
                                     </Button>
                                 </ButtonGroup>
                             ) : null}
                         </Grid>
 
                         <Grid item xs={4} sx={{ textAlign: 'right' }}>
-                            <Typography
-                                variant="caption"
-                                color="secondary"
-                                display="flex"
-                                sx={{ justifyContent: 'end' }}
-                            >
+                            <Typography variant="caption" color="secondary" display="flex" sx={{ justifyContent: 'end' }}>
                                 {t<string>('rentrequest.' + item.status)}
                             </Typography>
-                            <Typography
-                                variant="caption"
-                                display="flex"
-                                sx={{ justifyContent: 'end' }}
-                            >
-                                <ConvertReactTimeAgo
-                                    convertDate={item?.sendDate}
-                                />
+                            <Typography variant="caption" display="flex" sx={{ justifyContent: 'end' }}>
+                                <ConvertReactTimeAgo convertDate={item?.sendDate} />
                             </Typography>
                         </Grid>
                     </Grid>
 
-                    <form
-                        onClick={(event) => event.stopPropagation()}
-                        onSubmit={formik.handleSubmit}
-                    >
+                    <form onClick={(event) => event.stopPropagation()} onSubmit={formik.handleSubmit}>
                         {indexSelected === item.id ? (
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <Grid container spacing={2} sx={{ my: 2 }}>
                                     <Grid item xs={12} md={6}>
-                                        <FormControl
-                                            fullWidth
-                                            error={
-                                                formik.touched.amount &&
-                                                Boolean(formik.errors.amount)
-                                            }
-                                            size="small"
-                                        >
-                                            <InputLabel
-                                                htmlFor="outlined-adornment-amount"
-                                                color="secondary"
-                                            >
+                                        <FormControl fullWidth error={formik.touched.amount && Boolean(formik.errors.amount)} size="small">
+                                            <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
                                                 Amount
                                             </InputLabel>
-                                            <OutlinedInput
-                                                id="amount"
-                                                type="number"
-                                                color="secondary"
-                                                value={formik.values.amount}
-                                                onChange={formik.handleChange}
-                                                label="Amount"
-                                            />
-                                            <FormHelperText id="component-helper-text">
-                                                {formik.touched.amount &&
-                                                    formik.errors.amount}
-                                            </FormHelperText>
+                                            <OutlinedInput id="amount" type="number" color="secondary" value={formik.values.amount} onChange={formik.handleChange} label="Amount" />
+                                            <FormHelperText id="component-helper-text">{formik.touched.amount && formik.errors.amount}</FormHelperText>
                                         </FormControl>
                                     </Grid>
 
                                     <Grid item xs={12} md={6}>
-                                        <FormControl
-                                            fullWidth
-                                            error={
-                                                formik.touched.typePeriodRent &&
-                                                Boolean(
-                                                    formik.errors.typePeriodRent
-                                                )
-                                            }
-                                            className="form-control-type-offer"
-                                            size="small"
-                                        >
-                                            <InputLabel
-                                                id="demo-simple-select-label"
-                                                className="type-offer-select"
-                                                color="secondary"
-                                            >
-                                                {t<string>(
-                                                    'add_offer.per_periode'
-                                                )}
+                                        <FormControl fullWidth error={formik.touched.typePeriodRent && Boolean(formik.errors.typePeriodRent)} className="form-control-type-offer" size="small">
+                                            <InputLabel id="demo-simple-select-label" className="type-offer-select" color="secondary">
+                                                {t<string>('add_offer.per_periode')}
                                             </InputLabel>
                                             <Select
                                                 id="typePeriodRent"
                                                 name="typePeriodRent"
                                                 color="secondary"
-                                                label={t<string>(
-                                                    'add_offer.per_periode'
-                                                )}
+                                                label={t<string>('add_offer.per_periode')}
                                                 labelId="demo-simple-select-label"
-                                                value={
-                                                    formik.values.typePeriodRent
-                                                }
+                                                value={formik.values.typePeriodRent}
                                                 onChange={formik.handleChange}
                                             >
-                                                <MenuItem
-                                                    value={PeriodeRent.PerMonth}
-                                                >
-                                                    {t<string>(
-                                                        'add_offer.per_month'
-                                                    )}
-                                                </MenuItem>
-                                                <MenuItem
-                                                    value={PeriodeRent.PerDay}
-                                                >
-                                                    {t<string>(
-                                                        'add_offer.per_day'
-                                                    )}
-                                                </MenuItem>
-                                                <MenuItem
-                                                    value={PeriodeRent.PerYear}
-                                                >
-                                                    {t<string>(
-                                                        'add_offer.per_year'
-                                                    )}
-                                                </MenuItem>
+                                                <MenuItem value={PeriodeRent.PerMonth}>{t<string>('add_offer.per_month')}</MenuItem>
+                                                <MenuItem value={PeriodeRent.PerDay}>{t<string>('add_offer.per_day')}</MenuItem>
+                                                <MenuItem value={PeriodeRent.PerYear}>{t<string>('add_offer.per_year')}</MenuItem>
                                             </Select>
-                                            <FormHelperText id="component-helper-text">
-                                                {formik.touched
-                                                    .typePeriodRent &&
-                                                    formik.errors
-                                                        .typePeriodRent}
-                                            </FormHelperText>
+                                            <FormHelperText id="component-helper-text">{formik.touched.typePeriodRent && formik.errors.typePeriodRent}</FormHelperText>
                                         </FormControl>
                                     </Grid>
                                 </Grid>
@@ -1211,64 +824,27 @@ function DisplayItemReceived({
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} md={6}>
                                         <DatePicker
-                                            label={t<string>(
-                                                'common.label_start_date'
-                                            )}
+                                            label={t<string>('common.label_start_date')}
                                             value={formik.values.startDate}
-                                            onChange={(newValue) =>
-                                                formik.setFieldValue(
-                                                    'startDate',
-                                                    newValue
-                                                )
-                                            }
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    size="small"
-                                                    fullWidth
-                                                    error={false}
-                                                    color="secondary"
-                                                />
-                                            )}
+                                            onChange={(newValue) => formik.setFieldValue('startDate', newValue)}
+                                            renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                                         />
                                     </Grid>
 
                                     <Grid item xs={12} md={6}>
                                         <DatePicker
-                                            label={t<string>(
-                                                'common.label_end_date'
-                                            )}
+                                            label={t<string>('common.label_end_date')}
                                             value={formik.values.endDate}
-                                            onChange={(newValue) =>
-                                                formik.setFieldValue(
-                                                    'endDate',
-                                                    newValue
-                                                )
-                                            }
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    size="small"
-                                                    fullWidth
-                                                    error={false}
-                                                    color="secondary"
-                                                />
-                                            )}
+                                            onChange={(newValue) => formik.setFieldValue('endDate', newValue)}
+                                            renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                                         />
                                     </Grid>
                                 </Grid>
 
                                 <Grid container spacing={2} sx={{ mt: 1 }}>
                                     <Grid item xs={12} md={12}>
-                                        <Button
-                                            variant="outlined"
-                                            color="neutral"
-                                            onClick={openModalSignature}
-                                            fullWidth
-                                        >
-                                            {t<string>(
-                                                'rentrequest.label_add_signature'
-                                            )}
+                                        <Button variant="outlined" color="neutral" onClick={openModalSignature} fullWidth>
+                                            {t<string>('rentrequest.label_add_signature')}
                                         </Button>
                                     </Grid>
                                 </Grid>
@@ -1277,48 +853,23 @@ function DisplayItemReceived({
                                     <Grid container spacing={2} sx={{ mt: 1 }}>
                                         <Grid item xs={12}>
                                             <Box sx={{ textAlign: 'right' }}>
-                                                <Button
-                                                    variant="outlined"
-                                                    color={'error'}
-                                                    onClick={() =>
-                                                        setImageSignature('')
-                                                    }
-                                                >
+                                                <Button variant="outlined" color={'error'} onClick={() => setImageSignature('')}>
                                                     <DeleteIcon />
                                                 </Button>
                                             </Box>
-                                            <img
-                                                src={imageSignature}
-                                                alt="signature"
-                                                className="full-img-responsive"
-                                            />
+                                            <img src={imageSignature} alt="signature" className="full-img-responsive" />
                                         </Grid>
                                     </Grid>
                                 ) : null}
                             </LocalizationProvider>
                         ) : null}
 
-                        {item.status === StatusRentRequest.STANDBY &&
-                        indexSelected === item.id ? (
-                            <ButtonGroup
-                                sx={{ my: 2 }}
-                                variant="contained"
-                                aria-label="outlined primary button group"
-                            >
-                                <Button
-                                    variant="outlined"
-                                    color="neutral"
-                                    onClick={(event) =>
-                                        cancelIndexAction(event)
-                                    }
-                                >
+                        {item.status === StatusRentRequest.STANDBY && indexSelected === item.id ? (
+                            <ButtonGroup sx={{ my: 2 }} variant="contained" aria-label="outlined primary button group">
+                                <Button variant="outlined" color="neutral" onClick={(event) => cancelIndexAction(event)}>
                                     {t<string>('common.label_cancel')}
                                 </Button>
-                                <Button
-                                    variant="outlined"
-                                    color="success"
-                                    type="submit"
-                                >
+                                <Button variant="outlined" color="success" type="submit">
                                     {t<string>('common.label_confirm')}
                                 </Button>
                             </ButtonGroup>
@@ -1338,58 +889,27 @@ function DisplayItemReceived({
                                 <ListItem alignItems="flex-start">
                                     <div
                                         dangerouslySetInnerHTML={{
-                                            __html:
-                                                item?.rentOffer?.description ||
-                                                '',
+                                            __html: item?.rentOffer?.description || '',
                                         }}
                                     ></div>
                                 </ListItem>
 
                                 {item?.rentOffer?.amount ? (
                                     <>
-                                        <Divider
-                                            variant="inset"
-                                            component="li"
-                                        />
+                                        <Divider variant="inset" component="li" />
                                         <ListItem alignItems="flex-start">
-                                            <ListItemText
-                                                primary={t<string>(
-                                                    'common.label_amount'
-                                                )}
-                                                secondary={
-                                                    <React.Fragment>
-                                                        {
-                                                            item?.rentOffer
-                                                                ?.amount
-                                                        }{' '}
-                                                        TND
-                                                    </React.Fragment>
-                                                }
-                                            />
+                                            <ListItemText primary={t<string>('common.label_amount')} secondary={<React.Fragment>{item?.rentOffer?.amount} TND</React.Fragment>} />
                                         </ListItem>
                                     </>
                                 ) : null}
 
                                 {item?.rentOffer?.startDate ? (
                                     <>
-                                        <Divider
-                                            variant="inset"
-                                            component="li"
-                                        />
+                                        <Divider variant="inset" component="li" />
                                         <ListItem alignItems="flex-start">
                                             <ListItemText
-                                                primary={t<string>(
-                                                    'common.label_start_date'
-                                                )}
-                                                secondary={
-                                                    <React.Fragment>
-                                                        {convertDateTimeFromServer(
-                                                            new Date(
-                                                                item?.rentOffer?.startDate
-                                                            )
-                                                        )}
-                                                    </React.Fragment>
-                                                }
+                                                primary={t<string>('common.label_start_date')}
+                                                secondary={<React.Fragment>{convertDateTimeFromServer(new Date(item?.rentOffer?.startDate))}</React.Fragment>}
                                             />
                                         </ListItem>
                                     </>
@@ -1397,24 +917,11 @@ function DisplayItemReceived({
 
                                 {item?.rentOffer?.endDate ? (
                                     <>
-                                        <Divider
-                                            variant="inset"
-                                            component="li"
-                                        />
+                                        <Divider variant="inset" component="li" />
                                         <ListItem alignItems="flex-start">
                                             <ListItemText
-                                                primary={t<string>(
-                                                    'common.label_end_date'
-                                                )}
-                                                secondary={
-                                                    <React.Fragment>
-                                                        {convertDateTimeFromServer(
-                                                            new Date(
-                                                                item?.rentOffer?.endDate
-                                                            )
-                                                        )}
-                                                    </React.Fragment>
-                                                }
+                                                primary={t<string>('common.label_end_date')}
+                                                secondary={<React.Fragment>{convertDateTimeFromServer(new Date(item?.rentOffer?.endDate))}</React.Fragment>}
                                             />
                                         </ListItem>
                                     </>
@@ -1422,22 +929,13 @@ function DisplayItemReceived({
 
                                 {item.imageSignatureReceived ? (
                                     <>
-                                        <Divider
-                                            variant="inset"
-                                            component="li"
-                                        />
+                                        <Divider variant="inset" component="li" />
                                         <ListItem alignItems="flex-start">
                                             <ListItemText
                                                 primary="Signature"
                                                 secondary={
                                                     <React.Fragment>
-                                                        <img
-                                                            src={
-                                                                item.imageSignatureReceived
-                                                            }
-                                                            alt="signature"
-                                                            className="full-img-responsive"
-                                                        />
+                                                        <img src={item.imageSignatureReceived} alt="signature" className="full-img-responsive" />
                                                     </React.Fragment>
                                                 }
                                             />
@@ -1448,15 +946,8 @@ function DisplayItemReceived({
                         </Box>
                     ) : null}
                     {item.status === StatusRentRequest.ACCEPTED ? (
-                        <Button
-                            variant="outlined"
-                            color="success"
-                            type="button"
-                            onClick={(event) => toggleShowDetails(event, item)}
-                        >
-                            {indexShowMoreDetails === item.id
-                                ? t<string>('common.hide_details')
-                                : t<string>('common.show_details')}
+                        <Button variant="outlined" color="success" type="button" onClick={(event) => toggleShowDetails(event, item)}>
+                            {indexShowMoreDetails === item.id ? t<string>('common.hide_details') : t<string>('common.show_details')}
                         </Button>
                     ) : null}
                 </CardContent>
@@ -1472,10 +963,7 @@ function LoadingRentRequest() {
         <>
             {[0, 1, 2, 3].map((key) => (
                 <Grid item xs={12} md={6} key={key}>
-                    <Card
-                        sx={{ display: { xs: 'block', sm: 'flex' }, my: 2 }}
-                        key={key}
-                    >
+                    <Card sx={{ display: { xs: 'block', sm: 'flex' }, my: 2 }} key={key}>
                         <CardMedia
                             sx={{
                                 width: { xs: '100%', sm: 250 },
@@ -1488,13 +976,7 @@ function LoadingRentRequest() {
                                     height: '100%',
                                 }}
                             >
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image not found"
-                                />
+                                <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                             </Box>
                         </CardMedia>
                         <CardContent sx={{ flex: 1 }}>
@@ -1504,12 +986,7 @@ function LoadingRentRequest() {
 
                                     <Skeleton animation="wave" height={24} />
 
-                                    <Skeleton
-                                        variant="rectangular"
-                                        width={'100%'}
-                                        height={100}
-                                        sx={{ my: 3 }}
-                                    />
+                                    <Skeleton variant="rectangular" width={'100%'} height={100} sx={{ my: 3 }} />
                                 </Grid>
                             </Grid>
                         </CardContent>

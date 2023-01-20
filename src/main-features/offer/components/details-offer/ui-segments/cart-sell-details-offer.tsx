@@ -15,15 +15,7 @@ import { InputQuantity } from '../../../../../shared/components/input-quantity/I
 import { getBaseImageUrl } from '../../../../../shared/utils/utils-functions';
 import { IOffer } from '../../../../../shared/model/offer.model';
 
-export default function CartSellDetailsOffer({
-    parentCallbackAddCart,
-    loadingAddCart,
-    offer,
-}: {
-    parentCallbackAddCart: (quantity: any) => void;
-    loadingAddCart: boolean;
-    offer: IOffer;
-}) {
+export default function CartSellDetailsOffer({ parentCallbackAddCart, loadingAddCart, offer }: { parentCallbackAddCart: (quantity: any) => void; loadingAddCart: boolean; offer: IOffer }) {
     const [valueQuantity, setValueQuantity] = React.useState<number>(1);
 
     const { t } = useTranslation();
@@ -42,78 +34,42 @@ export default function CartSellDetailsOffer({
         <Box sx={{ width: '100%', typography: 'body1', my: 3 }}>
             <Grid container>
                 <Grid item xs={12} md={6}>
-                    <Typography
-                        variant="subtitle2"
-                        color="text.secondary"
-                        display="flex"
-                    >
+                    <Typography variant="subtitle2" color="text.secondary" display="flex">
                         <InfoOutlinedIcon fontSize="small" sx={{ mr: 0.9 }} />
                         En Stock
                     </Typography>
                     <Box sx={{ my: 2 }}>
-                        <InputQuantity
-                            parentCallChangeQuantity={changeQuantity}
-                        />
+                        <InputQuantity parentCallChangeQuantity={changeQuantity} />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <List sx={{}}>
                         <ListItem alignItems="flex-start">
                             <ListItemAvatar>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/offer/details-offer/creditcard.svg'
-                                    )}
-                                />
+                                <Avatar alt="Remy Sharp" src={getBaseImageUrl('/assets/images/offer/details-offer/creditcard.svg')} />
                             </ListItemAvatar>
-                            <ListItemText
-                                primary="Paiement facile"
-                                secondary="Payer vos articles commandés au comptant lors de la livraison"
-                            />
+                            <ListItemText primary="Paiement facile" secondary="Payer vos articles commandés au comptant lors de la livraison" />
                         </ListItem>
                         <Divider variant="inset" component="li" />
                         <ListItem alignItems="flex-start">
                             <ListItemAvatar>
-                                <Avatar
-                                    alt="Travis Howard"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/offer/details-offer/local-shipping.svg'
-                                    )}
-                                />
+                                <Avatar alt="Travis Howard" src={getBaseImageUrl('/assets/images/offer/details-offer/local-shipping.svg')} />
                             </ListItemAvatar>
-                            <ListItemText
-                                primary="Politique de livraison"
-                                secondary="Remise de 5% à partir de 50dt d'achats sur les produits mazroub exclusive"
-                            />
+                            <ListItemText primary="Politique de livraison" secondary="Remise de 5% à partir de 50dt d'achats sur les produits mazroub exclusive" />
                         </ListItem>
                         <Divider variant="inset" component="li" />
                         <ListItem alignItems="flex-start">
                             <ListItemAvatar>
-                                <Avatar
-                                    alt="Cindy Baker"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/offer/details-offer/loop.svg'
-                                    )}
-                                />
+                                <Avatar alt="Cindy Baker" src={getBaseImageUrl('/assets/images/offer/details-offer/loop.svg')} />
                             </ListItemAvatar>
-                            <ListItemText
-                                primary="Politique de retours"
-                                secondary="Remboursement entre 3 et 12 jours à partir la date de réception de votre retour"
-                            />
+                            <ListItemText primary="Politique de retours" secondary="Remboursement entre 3 et 12 jours à partir la date de réception de votre retour" />
                         </ListItem>
                     </List>
                 </Grid>
             </Grid>
             {offer?.available ? (
                 <Box sx={{ my: 2 }} display="flex" justifyContent="center">
-                    <LoadingButton
-                        loading={loadingAddCart}
-                        fullWidth
-                        variant="contained"
-                        color="secondary"
-                        onClick={addNewCart}
-                    >
+                    <LoadingButton loading={loadingAddCart} fullWidth variant="contained" color="secondary" onClick={addNewCart}>
                         {t<string>('cart.label_add_cart')}
                     </LoadingButton>
                 </Box>

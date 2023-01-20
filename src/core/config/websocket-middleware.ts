@@ -6,11 +6,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import { AllAppConfig } from './all-config';
 import { ACTION_TYPES as WS_ACTIONS } from '../../main-features/user/store/reducers/websocket.reducer';
 import { IUser } from '../../shared/model/user.model';
-import {
-    addNewConnectedUser,
-    fetchListConnectedUsersWS,
-    removeDisconnectedUser,
-} from '../../main-features/user/store/slice';
+import { addNewConnectedUser, fetchListConnectedUsersWS, removeDisconnectedUser } from '../../main-features/user/store/slice';
 
 let stompClient: any = null;
 
@@ -21,8 +17,7 @@ let listener: Observable<any>;
 let listenerObserver: any;
 let alreadyConnectedOnce = false;
 
-const createConnection = (): Promise<any> =>
-    new Promise((resolve, reject) => (connectedPromise = resolve));
+const createConnection = (): Promise<any> => new Promise((resolve, reject) => (connectedPromise = resolve));
 
 const createListener = (): Observable<any> =>
     new Observable((observer) => {
@@ -56,12 +51,9 @@ export const sendConnectedNewUser = (currentUser: IUser) => {
  */
 const subscribeConnectedUsers = () => {
     connection.then(() => {
-        subscriber = stompClient.subscribe(
-            '/topic/connected-user',
-            (data: any) => {
-                listenerObserver.next(JSON.parse(data.body));
-            }
-        );
+        subscriber = stompClient.subscribe('/topic/connected-user', (data: any) => {
+            listenerObserver.next(JSON.parse(data.body));
+        });
     });
 };
 
@@ -70,12 +62,9 @@ const subscribeConnectedUsers = () => {
  */
 const subscribeDisConnectedUsers = () => {
     connection.then(() => {
-        subscriber = stompClient.subscribe(
-            '/topic/disconnected-user',
-            (data: any) => {
-                listenerObserver.next(JSON.parse(data.body));
-            }
-        );
+        subscriber = stompClient.subscribe('/topic/disconnected-user', (data: any) => {
+            listenerObserver.next(JSON.parse(data.body));
+        });
     });
 };
 
@@ -99,14 +88,9 @@ const connect = (currentUser: IUser) => {
 
     // building absolute path so that websocket doesn't fail when deploying with a context path
     const loc = window.location;
-    const baseHref = document
-        .querySelector('base')
-        ?.getAttribute('href')
-        ?.replace(/\/$/, '');
+    const baseHref = document.querySelector('base')?.getAttribute('href')?.replace(/\/$/, '');
 
-    const authToken =
-        StorageService.local.get(AllAppConfig.NAME_TOKEN_CURRENT_USER) ||
-        StorageService.session.get(AllAppConfig.NAME_TOKEN_CURRENT_USER);
+    const authToken = StorageService.local.get(AllAppConfig.NAME_TOKEN_CURRENT_USER) || StorageService.session.get(AllAppConfig.NAME_TOKEN_CURRENT_USER);
     const headers = {};
     // let url = '//' + loc.host + baseHref + '/websocket/tracker';
     let url = AllAppConfig.BASE_URL_BE + 'websocket/tracker';

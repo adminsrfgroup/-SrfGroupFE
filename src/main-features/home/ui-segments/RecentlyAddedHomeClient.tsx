@@ -16,12 +16,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import styled from '@mui/material/styles/styled';
 import CardActionArea from '@mui/material/CardActionArea/CardActionArea';
 import { useSelector } from 'react-redux';
-import {
-    getBaseImageUrl,
-    getFullnameUser,
-    getImageForOffer,
-    getUserAvatar,
-} from '../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getFullnameUser, getImageForOffer, getUserAvatar } from '../../../shared/utils/utils-functions';
 import { ALL_APP_ROUTES } from '../../../core/config/all-app-routes';
 import { useNavigate } from 'react-router-dom';
 import { IOffer } from '../../../shared/model/offer.model';
@@ -34,34 +29,13 @@ import { entitiesRecentlyOffers } from '../../offer/store/slice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTranslation } from 'react-i18next';
 
-function RecentlyAddedHome({
-    offer,
-    index,
-    rediretTo,
-}: {
-    offer: IOffer;
-    index: number;
-    rediretTo: any;
-}) {
+function RecentlyAddedHome({ offer, index, rediretTo }: { offer: IOffer; index: number; rediretTo: any }) {
     return (
-        <CardActionArea
-            component="a"
-            onClick={() => rediretTo(offer.id)}
-            key={`entity-${index}`}
-        >
+        <CardActionArea component="a" onClick={() => rediretTo(offer.id)} key={`entity-${index}`}>
             <Card sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardHeader
                     avatar={
-                        <Avatar
-                            role="img"
-                            aria-label="Image avatar"
-                            src={getUserAvatar(
-                                offer.user?.id,
-                                offer.user?.imageUrl,
-                                offer.user?.sourceConnectedDevice
-                            )}
-                            alt="image not found"
-                        >
+                        <Avatar role="img" aria-label="Image avatar" src={getUserAvatar(offer.user?.id, offer.user?.imageUrl, offer.user?.sourceConnectedDevice)} alt="image not found">
                             {getFullnameUser(offer.user)?.charAt(0)}
                         </Avatar>
                     }
@@ -71,55 +45,29 @@ function RecentlyAddedHome({
                         </IconButton>
                     }
                     title={getFullnameUser(offer?.user)}
-                    subheader={
-                        <ConvertReactTimeAgo convertDate={offer.dateCreated} />
-                    }
+                    subheader={<ConvertReactTimeAgo convertDate={offer.dateCreated} />}
                 />
 
                 {offer.offerImages && offer.offerImages.length ? (
                     <CardMedia sx={{ height: 200 }}>
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                offer.id,
-                                offer.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
                     </CardMedia>
                 ) : (
-                    <CardMedia
-                        component="img"
-                        height="200"
-                        image={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)}
-                        alt="image not found"
-                    />
+                    <CardMedia component="img" height="200" image={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} alt="image not found" />
                 )}
 
                 <CardContent className="card-content-offer">
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        className="truncate-string-two-lines"
-                    >
+                    <Typography variant="body2" color="text.secondary" className="truncate-string-two-lines">
                         <span
                             dangerouslySetInnerHTML={{
                                 __html: offer.description || '',
@@ -160,8 +108,7 @@ const RecentlyAddedHomeClient: FunctionComponent = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const entitiesRecentlyOffersSelector =
-        useSelector(entitiesRecentlyOffers) ?? [];
+    const entitiesRecentlyOffersSelector = useSelector(entitiesRecentlyOffers) ?? [];
 
     const rediretTo = (offerId: string) => {
         setTimeout(() => {
@@ -170,48 +117,24 @@ const RecentlyAddedHomeClient: FunctionComponent = () => {
     };
 
     return (
-        <Container
-            maxWidth="xl"
-            sx={{ mt: 5 }}
-            className="container-recently-added-home"
-        >
+        <Container maxWidth="xl" sx={{ mt: 5 }} className="container-recently-added-home">
             <h3>
                 <u>{t<string>('home.label_recently_added')}</u>
             </h3>
-            <Grid
-                container
-                spacing={4}
-                sx={{ display: { xs: 'none', md: 'flex' } }}
-            >
-                {entitiesRecentlyOffersSelector.map(
-                    (offer: any, index: number) => (
-                        <Grid item key={`offer-${index}`} xs={12} sm={6} md={4}>
-                            <RecentlyAddedHome
-                                offer={offer}
-                                index={index}
-                                rediretTo={rediretTo}
-                            />
-                        </Grid>
-                    )
-                )}
+            <Grid container spacing={4} sx={{ display: { xs: 'none', md: 'flex' } }}>
+                {entitiesRecentlyOffersSelector.map((offer: any, index: number) => (
+                    <Grid item key={`offer-${index}`} xs={12} sm={6} md={4}>
+                        <RecentlyAddedHome offer={offer} index={index} rediretTo={rediretTo} />
+                    </Grid>
+                ))}
             </Grid>
             <Box sx={{ display: { md: 'none' } }} className="box-swiper">
-                <Swiper
-                    pagination={true}
-                    modules={[Pagination]}
-                    className="mySwiper"
-                >
-                    {entitiesRecentlyOffersSelector.map(
-                        (offer: any, index: number) => (
-                            <SwiperSlide key={`offer-${index}`}>
-                                <RecentlyAddedHome
-                                    offer={offer}
-                                    index={index}
-                                    rediretTo={rediretTo}
-                                />
-                            </SwiperSlide>
-                        )
-                    )}
+                <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+                    {entitiesRecentlyOffersSelector.map((offer: any, index: number) => (
+                        <SwiperSlide key={`offer-${index}`}>
+                            <RecentlyAddedHome offer={offer} index={index} rediretTo={rediretTo} />
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </Box>
         </Container>

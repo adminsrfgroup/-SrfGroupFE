@@ -11,10 +11,7 @@ import { entityHomeFeatures } from '../store/slice';
 import { getBaseImageUrl } from '../../../shared/utils/utils-functions';
 
 const PostHomeFeature: FunctionComponent = () => {
-    const [entityPostHomeFeature, setEntityPostHomeFeature] =
-        React.useState<IPostHomeFeature>(
-            StorageService.local.get(AllAppConfig.POST_HOME_FEATURE)
-        );
+    const [entityPostHomeFeature, setEntityPostHomeFeature] = React.useState<IPostHomeFeature>(StorageService.local.get(AllAppConfig.POST_HOME_FEATURE));
     const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
 
     const entityHomeFeaturesSelector = useSelector(entityHomeFeatures) ?? {};
@@ -27,10 +24,7 @@ const PostHomeFeature: FunctionComponent = () => {
 
     React.useEffect(() => {
         if (!isEmpty(entityHomeFeaturesSelector)) {
-            StorageService.local.set(
-                AllAppConfig.POST_HOME_FEATURE,
-                entityHomeFeaturesSelector
-            );
+            StorageService.local.set(AllAppConfig.POST_HOME_FEATURE, entityHomeFeaturesSelector);
         }
     }, [entityHomeFeaturesSelector]);
 
@@ -54,9 +48,7 @@ const PostHomeFeature: FunctionComponent = () => {
                             alt="bg"
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             width="1000"
                             height="500"

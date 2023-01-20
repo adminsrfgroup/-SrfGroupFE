@@ -10,10 +10,4 @@ export enum EAuthority {
 }
 
 // List of all authorities
-export const LIST_ALL_AUTHORITIES = [
-    EAuthority.ROLE_MODERATOR,
-    EAuthority.ROLE_ADMIN,
-    EAuthority.ROLE_USER,
-    EAuthority.RESPONSABLE_QUALITE,
-    EAuthority.RESPONSABLE_PUBLICITE,
-];
+export const LIST_ALL_AUTHORITIES = [EAuthority.ROLE_MODERATOR, EAuthority.ROLE_ADMIN, EAuthority.ROLE_USER, EAuthority.RESPONSABLE_QUALITE, EAuthority.RESPONSABLE_PUBLICITE];

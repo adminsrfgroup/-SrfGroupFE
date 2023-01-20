@@ -1,9 +1,6 @@
 import { invokeWS } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchListConnectedUsersWSFailure,
-    fetchListConnectedUsersWSSuccess,
-} from '../slice';
+import { fetchListConnectedUsersWSFailure, fetchListConnectedUsersWSSuccess } from '../slice';
 
 const apiUrl = 'api/websocket/';
 

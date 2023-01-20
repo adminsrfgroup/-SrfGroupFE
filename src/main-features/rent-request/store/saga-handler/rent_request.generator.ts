@@ -34,9 +34,7 @@ export function* addRentRequestsHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* fetchRentRequestsSentHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchRentRequestsSentHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/current-user/sent?page=${data.payload?.page}&size=${data.payload?.size}${data.payload?.queryParams}`;
         const result = yield invokeWS({
@@ -49,9 +47,7 @@ export function* fetchRentRequestsSentHandler(
     }
 }
 
-export function* fetchRentRequestsReceivedHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchRentRequestsReceivedHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/current-user/received?page=${data.payload?.page}&size=${data.payload?.size}${data.payload?.queryParams}`;
         const result = yield invokeWS({
@@ -64,9 +60,7 @@ export function* fetchRentRequestsReceivedHandler(
     }
 }
 
-export function* deleteRentRequestsSentHandler(
-    data: any
-): Generator<any, any, any> {
+export function* deleteRentRequestsSentHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/${data.payload?.id}`;
         const result = yield invokeWS({
@@ -79,9 +73,7 @@ export function* deleteRentRequestsSentHandler(
     }
 }
 
-export function* refusedRentRequestsReceivedHandler(
-    data: any
-): Generator<any, any, any> {
+export function* refusedRentRequestsReceivedHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/refused-received/${data.payload?.id}`;
         const result = yield invokeWS({
@@ -94,9 +86,7 @@ export function* refusedRentRequestsReceivedHandler(
     }
 }
 
-export function* acceptRentRequestsReceivedHandler(
-    data: any
-): Generator<any, any, any> {
+export function* acceptRentRequestsReceivedHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/accept-received/${data.payload?.id}`;
         const result = yield invokeWS(

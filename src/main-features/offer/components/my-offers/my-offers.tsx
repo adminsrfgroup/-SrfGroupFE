@@ -41,14 +41,11 @@ import ItemsOffer from '../../../../shared/components/item-offer/ItemsOffer';
 import { AllAppConfig } from '../../../../core/config/all-config';
 
 export default function MyOffers() {
-    const [openDeleteOfferModal, setOpenDeleteOfferModal] =
-        React.useState(false);
+    const [openDeleteOfferModal, setOpenDeleteOfferModal] = React.useState(false);
     const [deleteOfferId, setDeleteOfferId] = React.useState(-1);
     const [isFirstTime, setIsFirstTime] = React.useState(true);
-    const [isSearchCalback, setIsSearchCalback] =
-        React.useState<boolean>(false);
-    const [typeDisplayOffers, setTypeDisplayOffers] =
-        React.useState<TypeDisplaySearchOffers>(TypeDisplaySearchOffers.Grid);
+    const [isSearchCalback, setIsSearchCalback] = React.useState<boolean>(false);
+    const [typeDisplayOffers, setTypeDisplayOffers] = React.useState<TypeDisplaySearchOffers>(TypeDisplaySearchOffers.Grid);
 
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -56,14 +53,12 @@ export default function MyOffers() {
 
     const { search } = useLocation();
 
-    const loadingEntitiesMyOffersSelector =
-        useSelector(loadingEntitiesMyOffers) ?? false;
+    const loadingEntitiesMyOffersSelector = useSelector(loadingEntitiesMyOffers) ?? false;
     const entitiesMyOffersSelector = useSelector(entitiesMyOffers) ?? [];
     const totalItemsMyOffersSelector = useSelector(totalItemsMyOffers) ?? -1;
     const totalPagesMyOffersSelector = useSelector(totalPagesMyOffers) ?? 0;
     const activePageMyOffersSelector = useSelector(activePageMyOffers) ?? 0;
-    const deleteSuccessMyOffersSelector =
-        useSelector(deleteSuccessMyOffers) ?? false;
+    const deleteSuccessMyOffersSelector = useSelector(deleteSuccessMyOffers) ?? false;
 
     const entitiesCategories = useSelector(allCategorySelector).entities ?? [];
     const entitiesAddress = useSelector(allAddressSelector).entities ?? [];
@@ -138,32 +133,16 @@ export default function MyOffers() {
 
     const renderDialogDeleteOffer = () => {
         return (
-            <Dialog
-                open={openDeleteOfferModal}
-                TransitionComponent={TransitionModal}
-                keepMounted
-                onClose={handleClickCancelDeleteOfferModal}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>
-                    {t<string>('my_offers.title_dialog_delete_offer')}
-                </DialogTitle>
+            <Dialog open={openDeleteOfferModal} TransitionComponent={TransitionModal} keepMounted onClose={handleClickCancelDeleteOfferModal} aria-describedby="alert-dialog-slide-description">
+                <DialogTitle>{t<string>('my_offers.title_dialog_delete_offer')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {t<string>('my_offers.description_dialog_delete_offer')}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-slide-description">{t<string>('my_offers.description_dialog_delete_offer')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        onClick={handleClickCancelDeleteOfferModal}
-                        color="neutral"
-                    >
+                    <Button onClick={handleClickCancelDeleteOfferModal} color="neutral">
                         {t<string>('common.label_cancel')}
                     </Button>
-                    <Button
-                        onClick={handleClickDeleteDeleteOfferModal}
-                        color="error"
-                    >
+                    <Button onClick={handleClickDeleteDeleteOfferModal} color="error">
                         {t<string>('common.label_delete')}
                     </Button>
                 </DialogActions>
@@ -174,9 +153,7 @@ export default function MyOffers() {
     const searchCalback = (values: any) => {
         navigate({
             pathname: ALL_APP_ROUTES.OFFER.MY_OFFERS,
-            search:
-                '?' +
-                new URLSearchParams(getFullUrlWithParams(values)).toString(),
+            search: '?' + new URLSearchParams(getFullUrlWithParams(values)).toString(),
         });
         // setActivePage(-1);
         setIsSearchCalback(true);
@@ -207,9 +184,7 @@ export default function MyOffers() {
                             <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                                 SRF
                             </Link>
-                            <Typography color="text.primary">
-                                {t<string>('my_offers.title_page')}
-                            </Typography>
+                            <Typography color="text.primary">{t<string>('my_offers.title_page')}</Typography>
                         </Breadcrumbs>
                     </Grid>
 
@@ -227,19 +202,11 @@ export default function MyOffers() {
                                     marginBottom: 100,
                                 }}
                             >
-                                <SearchAppBar
-                                    entitiesCategories={entitiesCategories.slice()}
-                                    searchCalback={searchCalback}
-                                    typeDisplayCallback={typeDisplay}
-                                    listAddress={entitiesAddress.slice()}
-                                />
+                                <SearchAppBar entitiesCategories={entitiesCategories.slice()} searchCalback={searchCalback} typeDisplayCallback={typeDisplay} listAddress={entitiesAddress.slice()} />
                             </div>
 
                             {totalItemsMyOffersSelector > 0 ? (
-                                <Typography
-                                    variant="subtitle2"
-                                    color="text.secondary"
-                                >
+                                <Typography variant="subtitle2" color="text.secondary">
                                     Total = {totalItemsMyOffersSelector}
                                 </Typography>
                             ) : null}
@@ -247,10 +214,7 @@ export default function MyOffers() {
                             <InfiniteScroll
                                 pageStart={activePageMyOffersSelector}
                                 loadMore={loadMore}
-                                hasMore={
-                                    totalPagesMyOffersSelector - 1 >
-                                    activePageMyOffersSelector
-                                }
+                                hasMore={totalPagesMyOffersSelector - 1 > activePageMyOffersSelector}
                                 loader={<div className="loader" key={0}></div>}
                                 threshold={0}
                                 initialLoad={false}
@@ -258,31 +222,16 @@ export default function MyOffers() {
                                 <ItemsOffer
                                     listOffers={entitiesMyOffersSelector.slice()}
                                     typeDisplay={typeDisplayOffers}
-                                    isOnLine={(email: string) =>
-                                        isUserOnline(email)
-                                    }
+                                    isOnLine={(email: string) => isUserOnline(email)}
                                     forMe={true}
-                                    callbackEditOffer={
-                                        handleClickOpenUpdateOffert
-                                    }
-                                    callbackDeleteOffer={
-                                        handleClickOpenDeleteOffertModal
-                                    }
+                                    callbackEditOffer={handleClickOpenUpdateOffert}
+                                    callbackDeleteOffer={handleClickOpenDeleteOffertModal}
                                 />
 
-                                {loadingEntitiesMyOffersSelector ? (
-                                    <LoadingSearchOffers
-                                        typeDisplay={typeDisplayOffers}
-                                    />
-                                ) : null}
+                                {loadingEntitiesMyOffersSelector ? <LoadingSearchOffers typeDisplay={typeDisplayOffers} /> : null}
                             </InfiniteScroll>
 
-                            {totalItemsMyOffersSelector === 0 &&
-                            !loadingEntitiesMyOffersSelector ? (
-                                <Alert severity="warning">
-                                    No Offers found
-                                </Alert>
-                            ) : null}
+                            {totalItemsMyOffersSelector === 0 && !loadingEntitiesMyOffersSelector ? <Alert severity="warning">No Offers found</Alert> : null}
                         </Grid>
                     </Grid>
                 </Grid>

@@ -15,10 +15,7 @@ import { IAddress } from '../../../../shared/model/address.model';
 import { useSelector } from 'react-redux';
 import { allAddressSelector } from '../../../address/store/slice';
 import Button from '@mui/material/Button';
-import {
-    initialValuesFormCart,
-    validationSchemaFormCart,
-} from '../../validation/cart-form-validation';
+import { initialValuesFormCart, validationSchemaFormCart } from '../../validation/cart-form-validation';
 import { ALL_APP_ROUTES } from '../../../../core/config/all-app-routes';
 import { Link } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -30,8 +27,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
     const { t } = useTranslation();
     const currentUser = useSelector(currentUserSession);
 
-    const entitiesAddress: IAddress[] =
-        useSelector(allAddressSelector).entities ?? [];
+    const entitiesAddress: IAddress[] = useSelector(allAddressSelector).entities ?? [];
 
     const formik = useFormik({
         initialValues: initialValues,
@@ -60,95 +56,33 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
             <form onSubmit={formik.handleSubmit}>
                 <Grid container spacing={2} sx={{ mt: 1 }}>
                     <Grid item xs={12} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={
-                                formik.touched.firstName &&
-                                Boolean(formik.errors.firstName)
-                            }
-                            size="small"
-                        >
-                            <InputLabel htmlFor="outlined-adornment-title">
-                                {t<string>('account.label_firstname')} *
-                            </InputLabel>
-                            <OutlinedInput
-                                id="firstName"
-                                name="firstName"
-                                label={t<string>('account.label_firstname')}
-                                value={formik.values.firstName}
-                                onChange={formik.handleChange}
-                                disabled
-                            />
-                            <FormHelperText id="component-helper-text">
-                                {formik.touched.firstName &&
-                                    formik.errors.firstName}
-                            </FormHelperText>
+                        <FormControl fullWidth error={formik.touched.firstName && Boolean(formik.errors.firstName)} size="small">
+                            <InputLabel htmlFor="outlined-adornment-title">{t<string>('account.label_firstname')} *</InputLabel>
+                            <OutlinedInput id="firstName" name="firstName" label={t<string>('account.label_firstname')} value={formik.values.firstName} onChange={formik.handleChange} disabled />
+                            <FormHelperText id="component-helper-text">{formik.touched.firstName && formik.errors.firstName}</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={
-                                formik.touched.lastName &&
-                                Boolean(formik.errors.lastName)
-                            }
-                            size="small"
-                        >
-                            <InputLabel htmlFor="outlined-adornment-title">
-                                {t<string>('account.label_lastname')} *
-                            </InputLabel>
-                            <OutlinedInput
-                                id="lastName"
-                                name="lastName"
-                                label={t<string>('account.label_lastname')}
-                                value={formik.values.lastName}
-                                onChange={formik.handleChange}
-                                disabled
-                            />
-                            <FormHelperText id="component-helper-text">
-                                {formik.touched.lastName &&
-                                    formik.errors.lastName}
-                            </FormHelperText>
+                        <FormControl fullWidth error={formik.touched.lastName && Boolean(formik.errors.lastName)} size="small">
+                            <InputLabel htmlFor="outlined-adornment-title">{t<string>('account.label_lastname')} *</InputLabel>
+                            <OutlinedInput id="lastName" name="lastName" label={t<string>('account.label_lastname')} value={formik.values.lastName} onChange={formik.handleChange} disabled />
+                            <FormHelperText id="component-helper-text">{formik.touched.lastName && formik.errors.lastName}</FormHelperText>
                         </FormControl>
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={2} sx={{ mt: 1 }}>
                     <Grid item xs={12} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={
-                                formik.touched.email &&
-                                Boolean(formik.errors.email)
-                            }
-                            size="small"
-                        >
-                            <InputLabel htmlFor="outlined-adornment-title">
-                                {t<string>('account.label_email')}
-                            </InputLabel>
-                            <OutlinedInput
-                                id="email"
-                                name="email"
-                                label={t<string>('account.label_email')}
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                                disabled
-                            />
-                            <FormHelperText id="component-helper-text">
-                                {formik.touched.email && formik.errors.email}
-                            </FormHelperText>
+                        <FormControl fullWidth error={formik.touched.email && Boolean(formik.errors.email)} size="small">
+                            <InputLabel htmlFor="outlined-adornment-title">{t<string>('account.label_email')}</InputLabel>
+                            <OutlinedInput id="email" name="email" label={t<string>('account.label_email')} value={formik.values.email} onChange={formik.handleChange} disabled />
+                            <FormHelperText id="component-helper-text">{formik.touched.email && formik.errors.email}</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={
-                                formik.touched.address &&
-                                Boolean(formik.errors.address)
-                            }
-                        >
+                        <FormControl fullWidth error={formik.touched.address && Boolean(formik.errors.address)}>
                             <Autocomplete
                                 id="address"
                                 fullWidth
@@ -156,9 +90,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                                 disabled
                                 options={entitiesAddress}
                                 value={formik.values.address}
-                                onChange={(e, value) =>
-                                    formik.setFieldValue('address', value || '')
-                                }
+                                onChange={(e, value) => formik.setFieldValue('address', value || '')}
                                 autoHighlight
                                 getOptionLabel={(option) => option?.city || ''}
                                 // disabled={!showEditInfos}
@@ -181,46 +113,23 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                                     />
                                 )}
                             />
-                            <FormHelperText id="component-helper-text">
-                                {formik.touched.address &&
-                                    formik.errors.address}
-                            </FormHelperText>
+                            <FormHelperText id="component-helper-text">{formik.touched.address && formik.errors.address}</FormHelperText>
                         </FormControl>
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={2} sx={{ mt: 1 }}>
                     <Grid item xs={12} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={
-                                formik.touched.phone &&
-                                Boolean(formik.errors.phone)
-                            }
-                            size="small"
-                        >
-                            <InputLabel htmlFor="outlined-adornment-title">
-                                {t<string>('account.label_phone')} *
-                            </InputLabel>
-                            <OutlinedInput
-                                id="phone"
-                                name="phone"
-                                label={t<string>('account.label_phone')}
-                                type="tel"
-                                value={formik.values.phone || ''}
-                                onChange={formik.handleChange}
-                                disabled
-                            />
-                            <FormHelperText id="component-helper-text">
-                                {formik.touched.phone && formik.errors.phone}
-                            </FormHelperText>
+                        <FormControl fullWidth error={formik.touched.phone && Boolean(formik.errors.phone)} size="small">
+                            <InputLabel htmlFor="outlined-adornment-title">{t<string>('account.label_phone')} *</InputLabel>
+                            <OutlinedInput id="phone" name="phone" label={t<string>('account.label_phone')} type="tel" value={formik.values.phone || ''} onChange={formik.handleChange} disabled />
+                            <FormHelperText id="component-helper-text">{formik.touched.phone && formik.errors.phone}</FormHelperText>
                         </FormControl>
                     </Grid>
 
                     <Grid item xs={12} md={6}></Grid>
                 </Grid>
-                {(formik.touched.firstName &&
-                    Boolean(formik.errors.firstName)) ||
+                {(formik.touched.firstName && Boolean(formik.errors.firstName)) ||
                 (formik.touched.lastName && Boolean(formik.errors.lastName)) ||
                 (formik.touched.phone && Boolean(formik.errors.phone)) ||
                 (formik.touched.address && Boolean(formik.errors.address)) ? (
@@ -234,13 +143,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                         </Link>
                     </Box>
                 ) : null}
-                <Button
-                    sx={{ mt: 1 }}
-                    variant="contained"
-                    color="secondary"
-                    fullWidth
-                    type="submit"
-                >
+                <Button sx={{ mt: 1 }} variant="contained" color="secondary" fullWidth type="submit">
                     {t<string>('cart.label_confirm_order')}
                 </Button>
             </form>

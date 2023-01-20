@@ -53,19 +53,11 @@ export const GetCardList = (props: any) => {
     return (
         <Card>
             <CardActions disableSpacing>
-                <IconButton
-                    sx={{ p: '10px', flex: 1 }}
-                    aria-label="menu"
-                    onClick={handleExpandClick}
-                >
+                <IconButton sx={{ p: '10px', flex: 1 }} aria-label="menu" onClick={handleExpandClick}>
                     {getQuestion()}
                 </IconButton>
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                <IconButton
-                    sx={{ p: '10px' }}
-                    aria-label="directions"
-                    onClick={handleExpandClick}
-                >
+                <IconButton sx={{ p: '10px' }} aria-label="directions" onClick={handleExpandClick}>
                     <ExpandMoreIcon />
                 </IconButton>
             </CardActions>
@@ -123,10 +115,7 @@ export default function Faq() {
                 {entities && entities.length > 0
                     ? entities.map((faq: IFaq, i: number) => (
                           <Grid item xs={12} md={6} key={`entity-${i}`}>
-                              <GetCardList
-                                  faq={faq}
-                                  currentLocale={defaultLanguage}
-                              />
+                              <GetCardList faq={faq} currentLocale={defaultLanguage} />
                           </Grid>
                       ))
                     : !loadingEntities && (

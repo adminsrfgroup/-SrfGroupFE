@@ -22,15 +22,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom';
 import { IConversation } from '../../../../shared/model/conversation.model';
 import { IMessage } from '../../../../shared/model/message.model';
-import {
-    initialValuesMessage,
-    validationSchemaMessage,
-} from '../../validation/initial-values-message';
-import {
-    convertDateTimeToServer,
-    getFullnameUser,
-    getUserAvatar,
-} from '../../../../shared/utils/utils-functions';
+import { initialValuesMessage, validationSchemaMessage } from '../../validation/initial-values-message';
+import { convertDateTimeToServer, getFullnameUser, getUserAvatar } from '../../../../shared/utils/utils-functions';
 import { getStompClient } from '../../../../core/config/websocket-middleware';
 import { IUser } from '../../../../shared/model/user.model';
 import { ALL_APP_ROUTES } from '../../../../core/config/all-app-routes';
@@ -63,9 +56,7 @@ export function MessageConversation({
     callbackLoadMoreMessages: any;
     calbackBackToConversations: any;
 }) {
-    const [listCurrentMessages, setListCurrentMessages] = React.useState<
-        IMessage[]
-    >([]);
+    const [listCurrentMessages, setListCurrentMessages] = React.useState<IMessage[]>([]);
     const [newMessage, setNewMessage] = React.useState<any>(null);
     const messagesEndRef = React.useRef<any>();
     const navigate = useNavigate();
@@ -89,8 +80,7 @@ export function MessageConversation({
                     id: getReceiverUser()?.id,
                     email: getReceiverUser()?.email,
                     imageUrl: getReceiverUser()?.imageUrl,
-                    sourceConnectedDevice:
-                        getReceiverUser()?.sourceConnectedDevice,
+                    sourceConnectedDevice: getReceiverUser()?.sourceConnectedDevice,
                 },
                 conversation: {
                     id: conversation.id,
@@ -127,17 +117,9 @@ export function MessageConversation({
 
     const getAvatarReceiverUser = (): string | undefined => {
         if (conversation?.senderUser?.id === account.id) {
-            return getUserAvatar(
-                conversation?.receiverUser?.id,
-                conversation?.receiverUser?.imageUrl,
-                conversation?.receiverUser?.sourceConnectedDevice
-            );
+            return getUserAvatar(conversation?.receiverUser?.id, conversation?.receiverUser?.imageUrl, conversation?.receiverUser?.sourceConnectedDevice);
         }
-        return getUserAvatar(
-            conversation?.senderUser?.id,
-            conversation?.senderUser?.imageUrl,
-            conversation?.senderUser?.sourceConnectedDevice
-        );
+        return getUserAvatar(conversation?.senderUser?.id, conversation?.senderUser?.imageUrl, conversation?.senderUser?.sourceConnectedDevice);
     };
 
     React.useEffect(() => {
@@ -164,17 +146,9 @@ export function MessageConversation({
 
     const getAvatar = (message: IMessage): string => {
         if (message?.senderUser?.id === account?.id) {
-            return getUserAvatar(
-                message?.receiverUser?.id,
-                message?.receiverUser?.imageUrl,
-                message?.receiverUser?.sourceConnectedDevice
-            );
+            return getUserAvatar(message?.receiverUser?.id, message?.receiverUser?.imageUrl, message?.receiverUser?.sourceConnectedDevice);
         }
-        return getUserAvatar(
-            message?.senderUser?.id,
-            message?.senderUser?.imageUrl,
-            message?.senderUser?.sourceConnectedDevice
-        );
+        return getUserAvatar(message?.senderUser?.id, message?.senderUser?.imageUrl, message?.senderUser?.sourceConnectedDevice);
     };
 
     const loadMoreMessages = () => {
@@ -189,28 +163,19 @@ export function MessageConversation({
      *
      */
     const subscribeChatMessages = () => {
-        getStompClient()?.subscribe(
-            `/topic/chat-message/${account.id}/${getReceiverUser()?.id}`,
-            (data: any) => {
-                setNewMessage(JSON.parse(data.body));
-            }
-        );
+        getStompClient()?.subscribe(`/topic/chat-message/${account.id}/${getReceiverUser()?.id}`, (data: any) => {
+            setNewMessage(JSON.parse(data.body));
+        });
     };
 
     const redirectProfile = () => {
         if (conversation?.senderUser?.id === account.id) {
             setTimeout(() => {
-                navigate(
-                    ALL_APP_ROUTES.PROFILE +
-                        '/' +
-                        conversation?.receiverUser?.id
-                );
+                navigate(ALL_APP_ROUTES.PROFILE + '/' + conversation?.receiverUser?.id);
             }, 300);
         } else {
             setTimeout(() => {
-                navigate(
-                    ALL_APP_ROUTES.PROFILE + '/' + conversation?.senderUser?.id
-                );
+                navigate(ALL_APP_ROUTES.PROFILE + '/' + conversation?.senderUser?.id);
             }, 300);
         }
     };
@@ -243,31 +208,17 @@ export function MessageConversation({
                                         >
                                             <ArrowBackIosIcon />
                                         </IconButton>
-                                        <ListItemAvatar
-                                            onClick={() => redirectProfile()}
-                                        >
-                                            <Avatar
-                                                alt="Remy Sharp"
-                                                src={getAvatarReceiverUser()}
-                                            >
-                                                {getFullnameUser(
-                                                    getReceiverUser()
-                                                )?.charAt(0)}
+                                        <ListItemAvatar onClick={() => redirectProfile()}>
+                                            <Avatar alt="Remy Sharp" src={getAvatarReceiverUser()}>
+                                                {getFullnameUser(getReceiverUser())?.charAt(0)}
                                             </Avatar>
                                         </ListItemAvatar>
                                         <ListItemText
-                                            primary={getFullnameUser(
-                                                getReceiverUser()
-                                            )}
+                                            primary={getFullnameUser(getReceiverUser())}
                                             onClick={() => redirectProfile()}
                                             secondary={
                                                 <React.Fragment>
-                                                    <Typography variant="caption">
-                                                        {
-                                                            getReceiverUser()!
-                                                                .email
-                                                        }
-                                                    </Typography>
+                                                    <Typography variant="caption">{getReceiverUser()!.email}</Typography>
                                                 </React.Fragment>
                                             }
                                         />
@@ -282,14 +233,8 @@ export function MessageConversation({
                                             textAlign: 'center',
                                         }}
                                     >
-                                        <Button
-                                            color="neutral"
-                                            variant="outlined"
-                                            onClick={loadMoreMessages}
-                                        >
-                                            {t<string>(
-                                                'common.label_load_more'
-                                            )}
+                                        <Button color="neutral" variant="outlined" onClick={loadMoreMessages}>
+                                            {t<string>('common.label_load_more')}
                                         </Button>
                                     </Box>
                                 ) : null}
@@ -301,121 +246,57 @@ export function MessageConversation({
                                 ) : null}
 
                                 <ul className="m-b-0">
-                                    {listCurrentMessages.map(
-                                        (message: IMessage, index: number) => (
-                                            <li
-                                                className="clearfix"
-                                                key={`message-${index}-${message.id}`}
-                                            >
-                                                <div
-                                                    className={
-                                                        isMe(message)
-                                                            ? 'message-data text-right'
-                                                            : 'message-data message-data-other'
-                                                    }
-                                                >
-                                                    {!isMe(message) ? (
-                                                        <Avatar
-                                                            alt="Photo"
-                                                            src={getAvatar(
-                                                                message
-                                                            )}
-                                                            sx={{
-                                                                width: 40,
-                                                                height: 40,
-                                                                border: '1px solid #b9b9b9',
-                                                            }}
-                                                        >
-                                                            A
-                                                        </Avatar>
-                                                    ) : null}
-                                                    <div className="message-data-time">
-                                                        <ConvertReactTimeAgo
-                                                            convertDate={
-                                                                message?.dateCreated
-                                                            }
-                                                        />
-                                                    </div>
+                                    {listCurrentMessages.map((message: IMessage, index: number) => (
+                                        <li className="clearfix" key={`message-${index}-${message.id}`}>
+                                            <div className={isMe(message) ? 'message-data text-right' : 'message-data message-data-other'}>
+                                                {!isMe(message) ? (
+                                                    <Avatar
+                                                        alt="Photo"
+                                                        src={getAvatar(message)}
+                                                        sx={{
+                                                            width: 40,
+                                                            height: 40,
+                                                            border: '1px solid #b9b9b9',
+                                                        }}
+                                                    >
+                                                        A
+                                                    </Avatar>
+                                                ) : null}
+                                                <div className="message-data-time">
+                                                    <ConvertReactTimeAgo convertDate={message?.dateCreated} />
                                                 </div>
-                                                <div
-                                                    className={
-                                                        isMe(message)
-                                                            ? 'message my-message float-right'
-                                                            : 'message other-message'
-                                                    }
-                                                >
-                                                    {message?.content}
-                                                </div>
-                                            </li>
-                                        )
-                                    )}
+                                            </div>
+                                            <div className={isMe(message) ? 'message my-message float-right' : 'message other-message'}>{message?.content}</div>
+                                        </li>
+                                    ))}
                                 </ul>
                                 <div ref={messagesEndRef}></div>
                             </div>
                             <div className="chat-message clearfix">
                                 <Box sx={{ flexGrow: 1 }}>
                                     <form onSubmit={formik.handleSubmit}>
-                                        <AppBar
-                                            position="static"
-                                            color="transparent"
-                                        >
+                                        <AppBar position="static" color="transparent">
                                             <Toolbar>
-                                                <IconButton
-                                                    size="large"
-                                                    edge="start"
-                                                    color="inherit"
-                                                    aria-label="open drawer"
-                                                    sx={{ mr: 2 }}
-                                                >
+                                                <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
                                                     <EmojiEmotionsIcon />
                                                 </IconButton>
 
-                                                <FormControl
-                                                    variant="standard"
-                                                    fullWidth
-                                                    error={
-                                                        formik.touched
-                                                            .content &&
-                                                        Boolean(
-                                                            formik.errors
-                                                                .content
-                                                        )
-                                                    }
-                                                >
+                                                <FormControl variant="standard" fullWidth error={formik.touched.content && Boolean(formik.errors.content)}>
                                                     <TextField
                                                         id="content"
                                                         name="content"
-                                                        label={t<string>(
-                                                            'chat.write_your_message'
-                                                        )}
+                                                        label={t<string>('chat.write_your_message')}
                                                         variant="standard"
                                                         autoComplete="off"
-                                                        value={
-                                                            formik.values
-                                                                .content
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        value={formik.values.content}
+                                                        onChange={formik.handleChange}
                                                     />
-                                                    <FormHelperText id="component-helper-text-message">
-                                                        {formik.touched
-                                                            .content &&
-                                                            formik.errors
-                                                                .content}
-                                                    </FormHelperText>
+                                                    <FormHelperText id="component-helper-text-message">{formik.touched.content && formik.errors.content}</FormHelperText>
                                                 </FormControl>
 
                                                 <Box sx={{ flexGrow: 1 }} />
                                                 <Box>
-                                                    <LoadingButton
-                                                        loading={
-                                                            loadingAddMessage
-                                                        }
-                                                        variant="text"
-                                                        color="inherit"
-                                                        type="submit"
-                                                    >
+                                                    <LoadingButton loading={loadingAddMessage} variant="text" color="inherit" type="submit">
                                                         <SendIcon />
                                                     </LoadingButton>
                                                 </Box>

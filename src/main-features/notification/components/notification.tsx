@@ -44,16 +44,11 @@ export default function Notification() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const loadingEntitiesMyNotificationsSelector =
-        useSelector(loadingEntitiesMyNotifications) ?? false;
-    const entitiesMyNotificationsSelector =
-        useSelector(entitiesMyNotifications) ?? [];
-    const totalPagesMyNotificationsSelector =
-        useSelector(totalPagesMyNotifications) ?? 0;
-    const activePageMyNotificationsSelector =
-        useSelector(activePageMyNotifications) ?? 0;
-    const addIsReadSuccessMyNotificationsSelector =
-        useSelector(addIsReadSuccessMyNotifications) ?? false;
+    const loadingEntitiesMyNotificationsSelector = useSelector(loadingEntitiesMyNotifications) ?? false;
+    const entitiesMyNotificationsSelector = useSelector(entitiesMyNotifications) ?? [];
+    const totalPagesMyNotificationsSelector = useSelector(totalPagesMyNotifications) ?? 0;
+    const activePageMyNotificationsSelector = useSelector(activePageMyNotifications) ?? 0;
+    const addIsReadSuccessMyNotificationsSelector = useSelector(addIsReadSuccessMyNotifications) ?? false;
 
     const resetAll = () => {
         dispatch(resetMyNotifications({}));
@@ -102,30 +97,19 @@ export default function Notification() {
 
     const loadMore = () => {
         setIsFirstTime(false);
-        dispatch(
-            setActivePageNotifications(activePageMyNotificationsSelector + 1)
-        );
+        dispatch(setActivePageNotifications(activePageMyNotificationsSelector + 1));
     };
 
     const redirect = (notification: INotification) => {
-        if (
-            notification.module ===
-            ModuleNotification.COMMENT_OFFER_NOTIFICATION
-        ) {
+        if (notification.module === ModuleNotification.COMMENT_OFFER_NOTIFICATION) {
             setTimeout(() => {
-                navigate(
-                    ALL_APP_ROUTES.DETAILS_OFFER + '/' + notification?.offer?.id
-                );
+                navigate(ALL_APP_ROUTES.DETAILS_OFFER + '/' + notification?.offer?.id);
             }, 300);
-        } else if (
-            notification.module === ModuleNotification.RENT_REQUEST_NOTIFICATION
-        ) {
+        } else if (notification.module === ModuleNotification.RENT_REQUEST_NOTIFICATION) {
             setTimeout(() => {
                 navigate(ALL_APP_ROUTES.RENT_REQUEST.LIST);
             }, 300);
-        } else if (
-            notification.module === ModuleNotification.SELL_REQUEST_NOTIFICATION
-        ) {
+        } else if (notification.module === ModuleNotification.SELL_REQUEST_NOTIFICATION) {
             setTimeout(() => {
                 navigate(ALL_APP_ROUTES.ORDER.LIST);
             }, 300);
@@ -145,9 +129,7 @@ export default function Notification() {
                         <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                             SRF
                         </Link>
-                        <Typography color="text.primary">
-                            {t<string>('notification.title_page')}
-                        </Typography>
+                        <Typography color="text.primary">{t<string>('notification.title_page')}</Typography>
                     </Breadcrumbs>
                 </Grid>
             </Grid>
@@ -165,62 +147,33 @@ export default function Notification() {
                     <InfiniteScroll
                         pageStart={activePageMyNotificationsSelector}
                         loadMore={loadMore}
-                        hasMore={
-                            totalPagesMyNotificationsSelector - 1 >
-                                activePageMyNotificationsSelector &&
-                            !loadingEntitiesMyNotificationsSelector
-                        }
+                        hasMore={totalPagesMyNotificationsSelector - 1 > activePageMyNotificationsSelector && !loadingEntitiesMyNotificationsSelector}
                         loader={<div className="loader" key={0}></div>}
                         threshold={0}
                         initialLoad={false}
                     >
                         <List>
-                            {entitiesMyNotificationsSelector.map(
-                                (
-                                    notification: INotification,
-                                    index: number
-                                ) => (
-                                    <React.Fragment
-                                        key={`notification-${notification.id}-${index}`}
+                            {entitiesMyNotificationsSelector.map((notification: INotification, index: number) => (
+                                <React.Fragment key={`notification-${notification.id}-${index}`}>
+                                    <ListItem
+                                        button
+                                        sx={{
+                                            bgcolor: notification.isRead ? '' : 'background.paper',
+                                        }}
+                                        onClick={() => redirect(notification)}
                                     >
-                                        <ListItem
-                                            button
-                                            sx={{
-                                                bgcolor: notification.isRead
-                                                    ? ''
-                                                    : 'background.paper',
-                                            }}
-                                            onClick={() =>
-                                                redirect(notification)
-                                            }
-                                        >
-                                            <ListItemAvatar>
-                                                <Avatar>
-                                                    <CircleNotificationsIcon />
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    <ConvertReactTimeAgo
-                                                        convertDate={
-                                                            notification.dateCreated
-                                                        }
-                                                    />
-                                                }
-                                                secondary={notification.content}
-                                            />
-                                        </ListItem>
-                                        <Divider
-                                            variant="inset"
-                                            component="li"
-                                        />
-                                    </React.Fragment>
-                                )
-                            )}
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <CircleNotificationsIcon />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary={<ConvertReactTimeAgo convertDate={notification.dateCreated} />} secondary={notification.content} />
+                                    </ListItem>
+                                    <Divider variant="inset" component="li" />
+                                </React.Fragment>
+                            ))}
 
-                            {loadingEntitiesMyNotificationsSelector ? (
-                                <LoadingNotification />
-                            ) : null}
+                            {loadingEntitiesMyNotificationsSelector ? <LoadingNotification /> : null}
                         </List>
                     </InfiniteScroll>
                 </Grid>

@@ -13,25 +13,20 @@ export function oneSignalProviders() {
 
                 OneSignal.isPushNotificationsEnabled((result: boolean) => {
                     if (result) {
-                        OneSignal.getUserId(
-                            (userId: string | null | undefined) => {
-                                OneSignal.on('notificationDisplay', () => {
-                                    // console.log('notificationDisplay');
-                                });
+                        OneSignal.getUserId((userId: string | null | undefined) => {
+                            OneSignal.on('notificationDisplay', () => {
+                                // console.log('notificationDisplay');
+                            });
 
-                                OneSignal.on('notificationDismiss', () => {
-                                    // console.log('notificationDismiss');
-                                });
+                            OneSignal.on('notificationDismiss', () => {
+                                // console.log('notificationDismiss');
+                            });
 
-                                OneSignal.on(
-                                    'notificationPermissionChange',
-                                    () => {
-                                        // console.log('notificationPermissionChange');
-                                    }
-                                );
-                                resolve(userId);
-                            }
-                        );
+                            OneSignal.on('notificationPermissionChange', () => {
+                                // console.log('notificationPermissionChange');
+                            });
+                            resolve(userId);
+                        });
                     } else {
                         // alert('Please check your setting browser and accept notif');
                         reject(result);

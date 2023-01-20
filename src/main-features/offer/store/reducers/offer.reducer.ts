@@ -7,10 +7,7 @@ const reducer = {
     },
     fetchPublicOffersSuccess: (state: any, action: any) => {
         state.publicOffer.loadingEntities = false;
-        state.publicOffer.entities = [
-            ...state.publicOffer.entities,
-            ...action.payload.content,
-        ];
+        state.publicOffer.entities = [...state.publicOffer.entities, ...action.payload.content];
         state.publicOffer.totalItems = action.payload?.totalElements;
         state.publicOffer.totalPages = action.payload?.totalPages;
     },

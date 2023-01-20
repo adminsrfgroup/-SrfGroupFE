@@ -7,10 +7,7 @@ const reducer = {
     },
     fetchCartSuccess: (state: any, action: any) => {
         state.cart.loadingEntities = false;
-        state.cart.entities = [
-            ...state.cart.entities,
-            ...action.payload.content,
-        ];
+        state.cart.entities = [...state.cart.entities, ...action.payload.content];
         state.cart.totalItems = action.payload?.totalElements;
         state.cart.totalPages = action.payload?.totalPages;
     },

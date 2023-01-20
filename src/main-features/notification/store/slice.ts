@@ -28,21 +28,12 @@ export const {
 } = notificationSlice.actions;
 
 //? ********************| COMMENTS OFFER SELECTORS |*******************/
-export const loadingMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.loading;
-export const entityMynotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.entity;
-export const loadingEntitiesMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.loadingEntities;
-export const entitiesMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.entities;
-export const totalItemsMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.totalItems;
-export const activePageMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.activePage;
-export const totalPagesMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.totalPages;
-export const deleteSuccessMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.deleteSuccess;
-export const addIsReadSuccessMyNotifications = (state: any) =>
-    state[NOTIFICATION_KEY_IN_STORE].mynotifications.addIsReadSuccess;
+export const loadingMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.loading;
+export const entityMynotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.entity;
+export const loadingEntitiesMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.loadingEntities;
+export const entitiesMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.entities;
+export const totalItemsMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.totalItems;
+export const activePageMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.activePage;
+export const totalPagesMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.totalPages;
+export const deleteSuccessMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.deleteSuccess;
+export const addIsReadSuccessMyNotifications = (state: any) => state[NOTIFICATION_KEY_IN_STORE].mynotifications.addIsReadSuccess;

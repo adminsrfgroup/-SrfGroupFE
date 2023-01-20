@@ -1,22 +1,13 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchConversationSuccess,
-    fetchConversationFailure,
-    addConversationSuccess,
-    addConversationFailure,
-    deleteConversationSuccess,
-    deleteConversationFailure,
-} from '../slice';
+import { fetchConversationSuccess, fetchConversationFailure, addConversationSuccess, addConversationFailure, deleteConversationSuccess, deleteConversationFailure } from '../slice';
 
 const apiUrl = 'api/conversation';
 
 export function* fetchConversationHandler(data: any): Generator<any, any, any> {
     try {
         let requestUrl = `${apiUrl}/current-user?page=${data.payload?.page}&size=${data.payload?.size}`;
-        requestUrl = data.payload?.queryParams
-            ? requestUrl + data.payload?.queryParams
-            : requestUrl;
+        requestUrl = data.payload?.queryParams ? requestUrl + data.payload?.queryParams : requestUrl;
         const result = yield invokeWS({
             url: `${requestUrl}`,
             method: MethodHttp.get,
@@ -45,9 +36,7 @@ export function* addConversationHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* deleteConversationHandler(
-    data: any
-): Generator<any, any, any> {
+export function* deleteConversationHandler(data: any): Generator<any, any, any> {
     try {
         const result = yield invokeWS({
             url: `${apiUrl}/delete/${data.payload.id}`,

@@ -27,11 +27,8 @@ export const {
 } = homeSlice.actions;
 
 //? ********************| TOP_HOME_SLIDES SELECTORS |*******************/
-export const entitiesTopHomeSlidesImages = (state: any) =>
-    state[HOME_KEY_IN_STORE].topHomeSlidesImages.entities;
+export const entitiesTopHomeSlidesImages = (state: any) => state[HOME_KEY_IN_STORE].topHomeSlidesImages.entities;
 
 //? ********************| FEATURE HOME SELECTORS |*******************/
-export const loadingHomeFeatures = (state: any) =>
-    state[HOME_KEY_IN_STORE].homeFeatures.loading;
-export const entityHomeFeatures = (state: any) =>
-    state[HOME_KEY_IN_STORE].homeFeatures.entity;
+export const loadingHomeFeatures = (state: any) => state[HOME_KEY_IN_STORE].homeFeatures.loading;
+export const entityHomeFeatures = (state: any) => state[HOME_KEY_IN_STORE].homeFeatures.entity;

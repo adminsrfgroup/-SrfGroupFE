@@ -1,15 +1,10 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    addProblemeDecalrationSuccess,
-    addProblemeDecalrationFailure,
-} from '../slice';
+import { addProblemeDecalrationSuccess, addProblemeDecalrationFailure } from '../slice';
 
 const apiUrl = 'api/report-probleme';
 
-export function* addProblemeDecalrationHandler(
-    data: any
-): Generator<any, any, any> {
+export function* addProblemeDecalrationHandler(data: any): Generator<any, any, any> {
     try {
         const result = yield invokeWS(
             {

@@ -8,10 +8,7 @@ const reducer = {
     fetchMyOffersSuccess: (state: any, action: any) => {
         state.myOffers.loadingEntities = false;
         // state.myOffers.entities = action.payload?.content;
-        state.myOffers.entities = [
-            ...state.myOffers.entities,
-            ...action.payload.content,
-        ];
+        state.myOffers.entities = [...state.myOffers.entities, ...action.payload.content];
         state.myOffers.totalItems = action.payload?.totalElements;
         state.myOffers.totalPages = action.payload?.totalPages;
     },

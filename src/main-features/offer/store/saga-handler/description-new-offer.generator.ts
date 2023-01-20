@@ -1,8 +1,5 @@
 import { put } from 'redux-saga/effects';
-import {
-    fetchDescriptionNewOfferFailure,
-    fetchDescriptionNewOfferSuccess,
-} from '../slice';
+import { fetchDescriptionNewOfferFailure, fetchDescriptionNewOfferSuccess } from '../slice';
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 
 const apiUrl = 'api/description-add-offers';

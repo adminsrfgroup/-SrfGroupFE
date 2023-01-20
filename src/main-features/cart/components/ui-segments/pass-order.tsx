@@ -16,20 +16,11 @@ import Typography from '@mui/material/Typography/Typography';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
-import {
-    initialValuesFormPassCart,
-    validationSchemaFormPassCart,
-} from '../../validation/cart-form-validation';
+import { initialValuesFormPassCart, validationSchemaFormPassCart } from '../../validation/cart-form-validation';
 
 const initialValues = initialValuesFormPassCart;
 
-export function PassOrder({
-    callbackAddOrder,
-    loadingOrder,
-}: {
-    callbackAddOrder: any;
-    loadingOrder: boolean;
-}) {
+export function PassOrder({ callbackAddOrder, loadingOrder }: { callbackAddOrder: any; loadingOrder: boolean }) {
     const { t } = useTranslation();
 
     const [value, setValue] = React.useState('');
@@ -58,34 +49,15 @@ export function PassOrder({
             </Typography>
             <form onSubmit={formik.handleSubmit}>
                 <Typography variant="subtitle2" color="text.secondary">
-                    Si vous possédez un code promo, veuillez l’appliquer
-                    ci-dessous.
+                    Si vous possédez un code promo, veuillez l’appliquer ci-dessous.
                 </Typography>
 
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <FormControl
-                            fullWidth
-                            error={
-                                formik.touched.code &&
-                                Boolean(formik.errors.code)
-                            }
-                        >
-                            <InputLabel htmlFor="outlined-adornment-title">
-                                {t<string>('cart.label_code')}
-                            </InputLabel>
-                            <OutlinedInput
-                                id="code"
-                                name="code"
-                                color="secondary"
-                                size="small"
-                                label={t<string>('cart.label_code')}
-                                value={formik.values.code}
-                                onChange={formik.handleChange}
-                            />
-                            <FormHelperText id="component-helper-text">
-                                {formik.touched.code && formik.errors.code}
-                            </FormHelperText>
+                        <FormControl fullWidth error={formik.touched.code && Boolean(formik.errors.code)}>
+                            <InputLabel htmlFor="outlined-adornment-title">{t<string>('cart.label_code')}</InputLabel>
+                            <OutlinedInput id="code" name="code" color="secondary" size="small" label={t<string>('cart.label_code')} value={formik.values.code} onChange={formik.handleChange} />
+                            <FormHelperText id="component-helper-text">{formik.touched.code && formik.errors.code}</FormHelperText>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6} sx={{ pt: 0 }}>
@@ -103,57 +75,20 @@ export function PassOrder({
                     </Grid>
                 </Grid>
 
-                <FormControl
-                    sx={{ m: 3 }}
-                    error={
-                        formik.touched.paymentMode &&
-                        Boolean(formik.errors.paymentMode)
-                    }
-                    variant="standard"
-                >
-                    <FormLabel id="demo-error-radios">
-                        MODE DE PAIEMENT
-                    </FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-error-radios"
-                        name="quiz"
-                        value={value}
-                        onChange={handleRadioChange}
-                    >
-                        <FormControlLabel
-                            value="best"
-                            control={
-                                <Radio disabled={true} color="secondary" />
-                            }
-                            label="Paiement par carte Bancaire"
-                        />
-                        <FormControlLabel
-                            value="cash"
-                            control={<Radio color="secondary" />}
-                            label="Espèces à la livraison"
-                        />
+                <FormControl sx={{ m: 3 }} error={formik.touched.paymentMode && Boolean(formik.errors.paymentMode)} variant="standard">
+                    <FormLabel id="demo-error-radios">MODE DE PAIEMENT</FormLabel>
+                    <RadioGroup aria-labelledby="demo-error-radios" name="quiz" value={value} onChange={handleRadioChange}>
+                        <FormControlLabel value="best" control={<Radio disabled={true} color="secondary" />} label="Paiement par carte Bancaire" />
+                        <FormControlLabel value="cash" control={<Radio color="secondary" />} label="Espèces à la livraison" />
                     </RadioGroup>
-                    <FormHelperText color="error">
-                        {formik.touched.paymentMode && formik.errors.paymentMode
-                            ? t<string>('cart.select_your_mode_payment')
-                            : ''}
-                    </FormHelperText>
+                    <FormHelperText color="error">{formik.touched.paymentMode && formik.errors.paymentMode ? t<string>('cart.select_your_mode_payment') : ''}</FormHelperText>
                 </FormControl>
 
                 <FormGroup>
-                    <FormControlLabel
-                        control={<Checkbox defaultChecked color="secondary" />}
-                        label="J’ai lu et j’accepte les conditions générales *"
-                    />
+                    <FormControlLabel control={<Checkbox defaultChecked color="secondary" />} label="J’ai lu et j’accepte les conditions générales *" />
                 </FormGroup>
 
-                <LoadingButton
-                    loading={loadingOrder}
-                    variant="contained"
-                    color="secondary"
-                    fullWidth
-                    type="submit"
-                >
+                <LoadingButton loading={loadingOrder} variant="contained" color="secondary" fullWidth type="submit">
                     {t<string>('cart.label_pass_order')}
                 </LoadingButton>
             </form>

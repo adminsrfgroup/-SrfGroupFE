@@ -1,13 +1,6 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    addOrderSuccess,
-    addOrderFailure,
-    fetchPassedOrderSuccess,
-    fetchPassedOrderFailure,
-    fetchReceivedOrderSuccess,
-    fetchReceivedOrderFailure,
-} from '../slice';
+import { addOrderSuccess, addOrderFailure, fetchPassedOrderSuccess, fetchPassedOrderFailure, fetchReceivedOrderSuccess, fetchReceivedOrderFailure } from '../slice';
 
 const apiUrl = 'api/order';
 
@@ -42,9 +35,7 @@ export function* fetchPassedOrderHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* fetchReceivedOrderHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchReceivedOrderHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/current-user/received?page=${data.payload?.page}&size=${data.payload?.size}${data.payload?.queryParams}`;
         const result = yield invokeWS({

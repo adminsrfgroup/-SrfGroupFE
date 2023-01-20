@@ -6,9 +6,7 @@
  * Optionally resize to a smaller maximum width - to improve performance for larger image thumbnails.
  */
 export async function getImageUrl(file: File, maxWidth?: number | undefined) {
-    return readOrientation(file).then((orientation) =>
-        applyRotation(file, orientation || 1, maxWidth || 999999)
-    );
+    return readOrientation(file).then((orientation) => applyRotation(file, orientation || 1, maxWidth || 999999));
 }
 
 /**
@@ -45,8 +43,7 @@ const readOrientation = (file: File) =>
 
                             offset += 6;
 
-                            const little =
-                                view.getUint16(offset, false) === 0x4949;
+                            const little = view.getUint16(offset, false) === 0x4949;
 
                             offset += view.getUint32(offset + 4, little);
 
@@ -55,14 +52,8 @@ const readOrientation = (file: File) =>
                             offset += 2;
 
                             for (let i = 0; i < tags; i++) {
-                                if (
-                                    view.getUint16(offset + i * 12, little) ===
-                                    0x0112
-                                ) {
-                                    return view.getUint16(
-                                        offset + i * 12 + 8,
-                                        little
-                                    );
+                                if (view.getUint16(offset + i * 12, little) === 0x0112) {
+                                    return view.getUint16(offset + i * 12 + 8, little);
                                 }
                             }
                         } else if ((marker & 0xff00) !== 0xff00) {
@@ -95,13 +86,9 @@ const applyRotation = (file: File, orientation: number, maxWidth: number) =>
 
                 let { width, height } = image;
 
-                const [outputWidth, outputHeight] =
-                    orientation >= 5 && orientation <= 8
-                        ? [height, width]
-                        : [width, height];
+                const [outputWidth, outputHeight] = orientation >= 5 && orientation <= 8 ? [height, width] : [width, height];
 
-                const scale =
-                    outputWidth > maxWidth ? maxWidth / outputWidth : 1;
+                const scale = outputWidth > maxWidth ? maxWidth / outputWidth : 1;
 
                 width = width * scale;
                 height = height * scale;

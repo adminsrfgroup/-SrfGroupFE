@@ -11,10 +11,7 @@ import Dialog from '@mui/material/Dialog/Dialog';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    hideUnauthorizedModal,
-    showUnauthorized,
-} from '../../../core/config/store/common/slice';
+import { hideUnauthorizedModal, showUnauthorized } from '../../../core/config/store/common/slice';
 
 const UnauthorizeContentModal = () => {
     const { t } = useTranslation();
@@ -35,20 +32,10 @@ const UnauthorizeContentModal = () => {
     const DisplayPopup = () => {
         return ReactDOM.createPortal(
             <React.Fragment>
-                <Dialog
-                    open={showUnauthorizedSelector}
-                    TransitionComponent={TransitionModal}
-                    keepMounted
-                    onClose={onDimiss}
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogTitle>
-                        {t<string>('common.label_unauthorized_action')}
-                    </DialogTitle>
+                <Dialog open={showUnauthorizedSelector} TransitionComponent={TransitionModal} keepMounted onClose={onDimiss} aria-describedby="alert-dialog-slide-description">
+                    <DialogTitle>{t<string>('common.label_unauthorized_action')}</DialogTitle>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
-                            {t<string>('common.message_unauthorized_action')}
-                        </DialogContentText>
+                        <DialogContentText id="alert-dialog-slide-description">{t<string>('common.message_unauthorized_action')}</DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={onDimiss} color="neutral">

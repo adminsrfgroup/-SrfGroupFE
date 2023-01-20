@@ -20,9 +20,6 @@ export const {
 } = newsLetterSlice.actions;
 
 //? ********************| NEWS LETTER SELECTORS |*******************/
-export const loadingNewsLetter = (state: any) =>
-    state[NEWS_LETTER_KEY_IN_STORE].newsLetter.loading;
-export const entityNewsLetter = (state: any) =>
-    state[NEWS_LETTER_KEY_IN_STORE].newsLetter.entity;
-export const addSuccessNewsLetter = (state: any) =>
-    state[NEWS_LETTER_KEY_IN_STORE].newsLetter.addSuccess;
+export const loadingNewsLetter = (state: any) => state[NEWS_LETTER_KEY_IN_STORE].newsLetter.loading;
+export const entityNewsLetter = (state: any) => state[NEWS_LETTER_KEY_IN_STORE].newsLetter.entity;
+export const addSuccessNewsLetter = (state: any) => state[NEWS_LETTER_KEY_IN_STORE].newsLetter.addSuccess;

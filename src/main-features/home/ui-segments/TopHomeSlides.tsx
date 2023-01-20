@@ -12,10 +12,7 @@ import './TopHomeSlides.scss';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ITopHomeSlidesImages } from '../../../shared/model/top-home-slides-images.model';
 import i18n from 'i18next';
-import {
-    checkMobileDesktopBrowser,
-    getFullUrlWithParams,
-} from '../../../shared/utils/utils-functions';
+import { checkMobileDesktopBrowser, getFullUrlWithParams } from '../../../shared/utils/utils-functions';
 import { allCategorySelector } from '../../category/store/slice';
 import { allAddressSelector } from '../../address/store/slice';
 import { entitiesTopHomeSlidesImages } from '../store/slice';
@@ -23,17 +20,14 @@ import { SourceProvider } from '../../../shared/enums/source-provider';
 
 const TopHomeSlides: FunctionComponent = () => {
     // console.log("TopHomeSlides ");
-    const [listTopSlidesImage] = React.useState<ITopHomeSlidesImages[]>(
-        StorageService.local.get(AllAppConfig.HOME_TOP_SLIDES_IMAGE)
-    );
+    const [listTopSlidesImage] = React.useState<ITopHomeSlidesImages[]>(StorageService.local.get(AllAppConfig.HOME_TOP_SLIDES_IMAGE));
     const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
 
     const navigate = useNavigate();
 
     const entitiesCategories = useSelector(allCategorySelector).entities ?? [];
     const entitiesAddress = useSelector(allAddressSelector).entities ?? [];
-    const entitiesTopHomeSlidesImagesSelector =
-        useSelector(entitiesTopHomeSlidesImages) ?? [];
+    const entitiesTopHomeSlidesImagesSelector = useSelector(entitiesTopHomeSlidesImages) ?? [];
 
     React.useEffect(() => {
         i18n.on('languageChanged', (lang: any) => {
@@ -44,25 +38,18 @@ const TopHomeSlides: FunctionComponent = () => {
     const searchCalback = (values: any) => {
         navigate({
             pathname: ALL_APP_ROUTES.SEARCH,
-            search:
-                '?' +
-                new URLSearchParams(getFullUrlWithParams(values)).toString(),
+            search: '?' + new URLSearchParams(getFullUrlWithParams(values)).toString(),
         });
     };
 
     React.useEffect(() => {
         if (entitiesTopHomeSlidesImagesSelector?.length) {
-            StorageService.local.set(
-                AllAppConfig.HOME_TOP_SLIDES_IMAGE,
-                entitiesTopHomeSlidesImagesSelector.slice()
-            );
+            StorageService.local.set(AllAppConfig.HOME_TOP_SLIDES_IMAGE, entitiesTopHomeSlidesImagesSelector.slice());
         }
     }, [entitiesTopHomeSlidesImagesSelector]);
 
     const getBackgroundImage = (item: any) => {
-        return checkMobileDesktopBrowser() === SourceProvider.WEB_BROWSER
-            ? item?.imageDesktop
-            : item?.imageMobile;
+        return checkMobileDesktopBrowser() === SourceProvider.WEB_BROWSER ? item?.imageDesktop : item?.imageMobile;
     };
 
     const getDescription = (item: ITopHomeSlidesImages): string => {
@@ -93,32 +80,25 @@ const TopHomeSlides: FunctionComponent = () => {
                         disableOnInteraction: false,
                     }}
                 >
-                    {listTopSlidesImage.map(
-                        (item: ITopHomeSlidesImages, index: number) => (
-                            <SwiperSlide key={`index-${index}`}>
+                    {listTopSlidesImage.map((item: ITopHomeSlidesImages, index: number) => (
+                        <SwiperSlide key={`index-${index}`}>
+                            <div
+                                slot="container-start"
+                                className="parallax-bg"
+                                style={{
+                                    backgroundImage: `url(${getBackgroundImage(item)})`,
+                                }}
+                                data-swiper-parallax="-23%"
+                            ></div>
+                            <div className="text" data-swiper-parallax="-300">
                                 <div
-                                    slot="container-start"
-                                    className="parallax-bg"
-                                    style={{
-                                        backgroundImage: `url(${getBackgroundImage(
-                                            item
-                                        )})`,
+                                    dangerouslySetInnerHTML={{
+                                        __html: getDescription(item),
                                     }}
-                                    data-swiper-parallax="-23%"
                                 ></div>
-                                <div
-                                    className="text"
-                                    data-swiper-parallax="-300"
-                                >
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: getDescription(item),
-                                        }}
-                                    ></div>
-                                </div>
-                            </SwiperSlide>
-                        )
-                    )}
+                            </div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             ) : null}
 
@@ -136,12 +116,7 @@ const TopHomeSlides: FunctionComponent = () => {
                     zIndex: 9,
                 }}
             >
-                <SearchAppBar
-                    entitiesCategories={entitiesCategories?.slice()}
-                    searchCalback={searchCalback}
-                    listAddress={entitiesAddress?.slice()}
-                    hideFilter={true}
-                />
+                <SearchAppBar entitiesCategories={entitiesCategories?.slice()} searchCalback={searchCalback} listAddress={entitiesAddress?.slice()} hideFilter={true} />
             </Box>
         </div>
     );

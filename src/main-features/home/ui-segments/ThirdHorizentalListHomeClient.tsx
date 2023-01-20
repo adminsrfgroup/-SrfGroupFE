@@ -25,17 +25,8 @@ const ThirdHorizentalListHomeClient = () => {
             }}
         >
             <Container maxWidth="xl" className="container-full-slide">
-                <Grid
-                    container
-                    className="grid-full-slide"
-                    sx={{ display: { xs: 'none', md: 'flex' } }}
-                >
-                    <Grid
-                        item
-                        xs={12}
-                        md={3}
-                        className="text-center item-full-slide"
-                    >
+                <Grid container className="grid-full-slide" sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Grid item xs={12} md={3} className="text-center item-full-slide">
                         <Avatar
                             sx={{
                                 width: 56,
@@ -50,19 +41,10 @@ const ThirdHorizentalListHomeClient = () => {
                         >
                             01
                         </Avatar>
-                        <h2 className="mt-2">
-                            {t<string>('home.steps.title_create_account')}
-                        </h2>
-                        <p>
-                            {t<string>('home.steps.sub_title_create_account')}
-                        </p>
+                        <h2 className="mt-2">{t<string>('home.steps.title_create_account')}</h2>
+                        <p>{t<string>('home.steps.sub_title_create_account')}</p>
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        md={3}
-                        className="text-center item-full-slide"
-                    >
+                    <Grid item xs={12} md={3} className="text-center item-full-slide">
                         <Avatar
                             sx={{
                                 width: 56,
@@ -77,17 +59,10 @@ const ThirdHorizentalListHomeClient = () => {
                         >
                             02
                         </Avatar>
-                        <h2 className="mt-2">
-                            {t<string>('home.steps.title_login')}
-                        </h2>
+                        <h2 className="mt-2">{t<string>('home.steps.title_login')}</h2>
                         <p>{t<string>('home.steps.sub_title_login')}</p>
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        md={3}
-                        className="text-center item-full-slide"
-                    >
+                    <Grid item xs={12} md={3} className="text-center item-full-slide">
                         <Avatar
                             sx={{
                                 width: 56,
@@ -102,17 +77,10 @@ const ThirdHorizentalListHomeClient = () => {
                         >
                             03
                         </Avatar>
-                        <h2 className="mt-2">
-                            {t<string>('home.steps.title_participate')}
-                        </h2>
+                        <h2 className="mt-2">{t<string>('home.steps.title_participate')}</h2>
                         <p>{t<string>('home.steps.sub_title_participate')}</p>
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        md={3}
-                        className="text-center item-full-slide"
-                    >
+                    <Grid item xs={12} md={3} className="text-center item-full-slide">
                         <Avatar
                             sx={{
                                 width: 56,
@@ -127,9 +95,7 @@ const ThirdHorizentalListHomeClient = () => {
                         >
                             04
                         </Avatar>
-                        <h2 className="mt-2">
-                            {t<string>('home.steps.title_win_auction')}
-                        </h2>
+                        <h2 className="mt-2">{t<string>('home.steps.title_win_auction')}</h2>
                         <p>{t<string>('home.steps.sub_title_win_auction')}</p>
                     </Grid>
                 </Grid>
@@ -146,12 +112,7 @@ const ThirdHorizentalListHomeClient = () => {
                         className="mySwiper"
                     >
                         <SwiperSlide>
-                            <Grid
-                                item
-                                xs={12}
-                                md={3}
-                                className="text-center item-full-slide"
-                            >
+                            <Grid item xs={12} md={3} className="text-center item-full-slide">
                                 <Avatar
                                     sx={{
                                         width: 56,
@@ -166,25 +127,12 @@ const ThirdHorizentalListHomeClient = () => {
                                 >
                                     01
                                 </Avatar>
-                                <h2 className="mt-2">
-                                    {t<string>(
-                                        'home.steps.title_create_account'
-                                    )}
-                                </h2>
-                                <p>
-                                    {t<string>(
-                                        'home.steps.sub_title_create_account'
-                                    )}
-                                </p>
+                                <h2 className="mt-2">{t<string>('home.steps.title_create_account')}</h2>
+                                <p>{t<string>('home.steps.sub_title_create_account')}</p>
                             </Grid>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Grid
-                                item
-                                xs={12}
-                                md={3}
-                                className="text-center item-full-slide"
-                            >
+                            <Grid item xs={12} md={3} className="text-center item-full-slide">
                                 <Avatar
                                     sx={{
                                         width: 56,
@@ -199,19 +147,12 @@ const ThirdHorizentalListHomeClient = () => {
                                 >
                                     02
                                 </Avatar>
-                                <h2 className="mt-2">
-                                    {t<string>('home.steps.title_login')}
-                                </h2>
+                                <h2 className="mt-2">{t<string>('home.steps.title_login')}</h2>
                                 <p>{t<string>('home.steps.sub_title_login')}</p>
                             </Grid>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Grid
-                                item
-                                xs={12}
-                                md={3}
-                                className="text-center item-full-slide"
-                            >
+                            <Grid item xs={12} md={3} className="text-center item-full-slide">
                                 <Avatar
                                     sx={{
                                         width: 56,
@@ -226,23 +167,12 @@ const ThirdHorizentalListHomeClient = () => {
                                 >
                                     03
                                 </Avatar>
-                                <h2 className="mt-2">
-                                    {t<string>('home.steps.title_participate')}
-                                </h2>
-                                <p>
-                                    {t<string>(
-                                        'home.steps.sub_title_participate'
-                                    )}
-                                </p>
+                                <h2 className="mt-2">{t<string>('home.steps.title_participate')}</h2>
+                                <p>{t<string>('home.steps.sub_title_participate')}</p>
                             </Grid>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Grid
-                                item
-                                xs={12}
-                                md={3}
-                                className="text-center item-full-slide"
-                            >
+                            <Grid item xs={12} md={3} className="text-center item-full-slide">
                                 <Avatar
                                     sx={{
                                         width: 56,
@@ -257,14 +187,8 @@ const ThirdHorizentalListHomeClient = () => {
                                 >
                                     04
                                 </Avatar>
-                                <h2 className="mt-2">
-                                    {t<string>('home.steps.title_win_auction')}
-                                </h2>
-                                <p>
-                                    {t<string>(
-                                        'home.steps.sub_title_win_auction'
-                                    )}
-                                </p>
+                                <h2 className="mt-2">{t<string>('home.steps.title_win_auction')}</h2>
+                                <p>{t<string>('home.steps.sub_title_win_auction')}</p>
                             </Grid>
                         </SwiperSlide>
                     </Swiper>

@@ -78,9 +78,7 @@ export function* fetchFindDetailsOffersHandler(): Generator<any, any, any> {
     }
 }
 
-export function* fetchDetailsPublicOfferHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchDetailsPublicOfferHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/public/${data.payload?.id}`;
         const result = yield invokeWS({
@@ -93,9 +91,7 @@ export function* fetchDetailsPublicOfferHandler(
     }
 }
 
-export function* fetchCountAllOffersByUserHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchCountAllOffersByUserHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/public/count-offers-by-user/${data.payload?.userId}`;
         const result = yield invokeWS({
@@ -145,9 +141,7 @@ export function* fetchOffersByUserHandler(data: any): Generator<any, any, any> {
     }
 }
 
-export function* fetchRecentlyOfferHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchRecentlyOfferHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/public?page=${data.payload?.page}&size=${data.payload?.size}`;
         const result = yield invokeWS({

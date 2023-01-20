@@ -43,39 +43,21 @@ function SignatureRentRequest({ callbackImageURL }: { callbackImageURL: any }) {
                         key={color}
                         style={{
                             backgroundColor: color,
-                            border: `${
-                                color === penColor ? `2px solid ${color}` : ''
-                            }`,
+                            border: `${color === penColor ? `2px solid ${color}` : ''}`,
                         }}
                         onClick={() => setPenColor(color)}
                     ></span>
                 ))}
             </div>
             <div className="sigPadContainer">
-                <SignatureCanvas
-                    penColor={penColor}
-                    canvasProps={{ className: 'sigCanvas' }}
-                    ref={sigCanvas}
-                    onEnd={onEndSignature}
-                />
+                <SignatureCanvas penColor={penColor} canvasProps={{ className: 'sigCanvas' }} ref={sigCanvas} onEnd={onEndSignature} />
             </div>
             <div className="modal__bottom">
-                <ButtonGroup
-                    aria-label="outlined primary button group"
-                    sx={{ mt: 2 }}
-                >
-                    <Button
-                        onClick={() => clearSignature()}
-                        color="neutral"
-                        disabled={writeSignature ? false : true}
-                    >
+                <ButtonGroup aria-label="outlined primary button group" sx={{ mt: 2 }}>
+                    <Button onClick={() => clearSignature()} color="neutral" disabled={writeSignature ? false : true}>
                         Clear
                     </Button>
-                    <Button
-                        onClick={createSignature}
-                        color="success"
-                        disabled={writeSignature ? false : true}
-                    >
+                    <Button onClick={createSignature} color="success" disabled={writeSignature ? false : true}>
                         Confirmer
                     </Button>
                 </ButtonGroup>

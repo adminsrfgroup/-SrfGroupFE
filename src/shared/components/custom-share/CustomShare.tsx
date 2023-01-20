@@ -23,9 +23,7 @@ class CustomShare extends React.Component<any, any> {
 
     render() {
         return checkMobileDesktopBrowser() === SourceProvider.MOBILE_BROWSER ? (
-            <IconButton onClick={this.handleShare}>
-                {this.props.children}
-            </IconButton>
+            <IconButton onClick={this.handleShare}>{this.props.children}</IconButton>
         ) : (
             <FacebookShareButton url={window.location.href} quote="quote">
                 {this.props.children}

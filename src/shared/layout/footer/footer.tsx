@@ -12,49 +12,27 @@ import Stack from '@mui/material/Stack/Stack';
 import { getBaseImageUrl } from '../../utils/utils-functions';
 import packageJson from '../../../../package.json';
 import { useFormik } from 'formik';
-import {
-    initialValuesSubscribeNewsLetter,
-    validationSchemaSubscribeNewsLetter,
-} from './validation/initial-values-subscribe-news-letter';
+import { initialValuesSubscribeNewsLetter, validationSchemaSubscribeNewsLetter } from './validation/initial-values-subscribe-news-letter';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { useTranslation } from 'react-i18next';
 import { ALL_APP_ROUTES } from '../../../core/config/all-app-routes';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    addNewsLetter,
-    addSuccessNewsLetter,
-    loadingNewsLetter,
-} from './store/slice';
+import { addNewsLetter, addSuccessNewsLetter, loadingNewsLetter } from './store/slice';
 import './components/footer.scss';
 
 function Copyright() {
     return (
         <Box>
-            <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                sx={{ pt: 3 }}
-            >
+            <Typography variant="body2" color="text.secondary" align="center" sx={{ pt: 3 }}>
                 {'Copyright © '}
-                <a
-                    color="inherit"
-                    href="https://www.linkedin.com/in/rahal-taki-eddine-51952ba4/"
-                    target="_blank"
-                    rel="noreferrer"
-                >
+                <a color="inherit" href="https://www.linkedin.com/in/rahal-taki-eddine-51952ba4/" target="_blank" rel="noreferrer">
                     Taki Eddine Rahal
                 </a>{' '}
                 {new Date().getFullYear()}
                 {'.'}
             </Typography>
-            <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                sx={{ py: 1 }}
-            >
+            <Typography variant="body2" color="text.secondary" align="center" sx={{ py: 1 }}>
                 V {packageJson.version}
             </Typography>
         </Box>
@@ -68,8 +46,7 @@ export default function Footer() {
     const dispatch = useDispatch();
 
     const loadingNewsLetterSelector = useSelector(loadingNewsLetter) ?? false;
-    const addSuccessNewsLetterSelector =
-        useSelector(addSuccessNewsLetter) ?? false;
+    const addSuccessNewsLetterSelector = useSelector(addSuccessNewsLetter) ?? false;
 
     const formik = useFormik({
         initialValues,
@@ -99,11 +76,7 @@ export default function Footer() {
                         display: { xs: 'block', sm: 'flex;' },
                     }}
                 >
-                    <Typography
-                        sx={{ fontSize: 20, mr: 1 }}
-                        color="text.secondary"
-                        display="flex"
-                    >
+                    <Typography sx={{ fontSize: 20, mr: 1 }} color="text.secondary" display="flex">
                         <SendIcon sx={{ mr: 0.9 }} />
                         {t<string>('footer.label_subscribe_newsletter')}
                     </Typography>
@@ -129,16 +102,8 @@ export default function Footer() {
                             onChange={formik.handleChange}
                             error
                         />
-                        <Divider
-                            sx={{ height: 28, m: 0.5 }}
-                            orientation="vertical"
-                        />
-                        <LoadingButton
-                            loading={loadingNewsLetterSelector}
-                            variant="text"
-                            color="secondary"
-                            type="submit"
-                        >
+                        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                        <LoadingButton loading={loadingNewsLetterSelector} variant="text" color="secondary" type="submit">
                             {t<string>('common.label_subscribe')}
                         </LoadingButton>
                     </Paper>
@@ -150,17 +115,8 @@ export default function Footer() {
                 </Toolbar>
             </form>
             <div>
-                <Typography
-                    variant="h6"
-                    align="center"
-                    gutterBottom
-                    sx={{ pt: 3 }}
-                >
-                    <img
-                        src={getBaseImageUrl('/assets/images/logo-svg.svg')}
-                        className="img-footer-logo"
-                        alt="Logo SrfGroup"
-                    />
+                <Typography variant="h6" align="center" gutterBottom sx={{ pt: 3 }}>
+                    <img src={getBaseImageUrl('/assets/images/logo-svg.svg')} className="img-footer-logo" alt="Logo SrfGroup" />
                 </Typography>
 
                 <Grid container spacing={4}>
@@ -168,41 +124,14 @@ export default function Footer() {
                         <Typography variant="h6" align="center" gutterBottom>
                             {t<string>('footer.label_follow_us')}
                         </Typography>
-                        <Stack
-                            direction="row"
-                            spacing={2}
-                            sx={{ justifyContent: 'center', mb: 3 }}
-                        >
-                            <a
-                                href="https://www.facebook.com/profile.php?id=100054409273167"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <Avatar
-                                    alt="facebook"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/footer/facebook.png'
-                                    )}
-                                />
+                        <Stack direction="row" spacing={2} sx={{ justifyContent: 'center', mb: 3 }}>
+                            <a href="https://www.facebook.com/profile.php?id=100054409273167" target="_blank" rel="noreferrer">
+                                <Avatar alt="facebook" src={getBaseImageUrl('/assets/images/footer/facebook.png')} />
                             </a>
-                            <a
-                                href="https://www.instagram.com/srfgroup/"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <Avatar
-                                    alt="instagram"
-                                    src={getBaseImageUrl(
-                                        '/assets/images/footer/instagram.png'
-                                    )}
-                                />
+                            <a href="https://www.instagram.com/srfgroup/" target="_blank" rel="noreferrer">
+                                <Avatar alt="instagram" src={getBaseImageUrl('/assets/images/footer/instagram.png')} />
                             </a>
-                            <Avatar
-                                alt="youtube"
-                                src={getBaseImageUrl(
-                                    '/assets/images/footer/youtube.png'
-                                )}
-                            />
+                            <Avatar alt="youtube" src={getBaseImageUrl('/assets/images/footer/youtube.png')} />
                         </Stack>
                     </Grid>
 
@@ -210,46 +139,19 @@ export default function Footer() {
                         <Typography variant="h6" align="center" gutterBottom>
                             {t<string>('footer.label_our_services')}
                         </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                             {t<string>('footer.label_quick_delivery')}
                         </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                             {t<string>('footer.label_means_payment')}
                         </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                             {t<string>('footer.label_easy_return')}
                         </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
-                            {t<string>(
-                                'footer.label_customer_service_technical_support'
-                            )}
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
+                            {t<string>('footer.label_customer_service_technical_support')}
                         </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                             {t<string>('footer.label_official_brands')}
                         </Typography>
                     </Grid>
@@ -260,51 +162,24 @@ export default function Footer() {
                         </Typography>
 
                         <Link to={ALL_APP_ROUTES.SUPPORT.ABOUT_US}>
-                            <Typography
-                                variant="subtitle1"
-                                align="center"
-                                color="text.secondary"
-                                component="p"
-                            >
+                            <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                                 {t<string>('footer.label_Who_are_we')}
                             </Typography>
                         </Link>
 
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                             {t<string>('footer.label_privacy_policy')}
                         </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            align="center"
-                            color="text.secondary"
-                            component="p"
-                        >
+                        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                             {t<string>('footer.label_cookies_policy')}
                         </Typography>
                         <Link to={ALL_APP_ROUTES.SUPPORT.CONTACT_US}>
-                            <Typography
-                                variant="subtitle1"
-                                align="center"
-                                color="text.secondary"
-                                component="p"
-                            >
-                                {t<string>(
-                                    'header.link_support.link_contact_us'
-                                )}
+                            <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
+                                {t<string>('header.link_support.link_contact_us')}
                             </Typography>
                         </Link>
                         <Link to={ALL_APP_ROUTES.SUPPORT.FAQ}>
-                            <Typography
-                                variant="subtitle1"
-                                align="center"
-                                color="text.secondary"
-                                component="p"
-                            >
+                            <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
                                 {t<string>('header.link_support.link_faq')}
                             </Typography>
                         </Link>
@@ -314,24 +189,8 @@ export default function Footer() {
                             {t<string>('footer.label_apps_mobile')}
                         </Typography>
                         <Typography component="p" align="center">
-                            <img
-                                src={getBaseImageUrl(
-                                    '/assets/images/footer/android.svg'
-                                )}
-                                style={{ marginRight: '2px' }}
-                                width="100"
-                                height="30"
-                                alt="Logo Android"
-                            />
-                            <img
-                                src={getBaseImageUrl(
-                                    '/assets/images/footer/ios.svg'
-                                )}
-                                style={{ marginLeft: '2px' }}
-                                width="100"
-                                height="30"
-                                alt="Logo iOS"
-                            />
+                            <img src={getBaseImageUrl('/assets/images/footer/android.svg')} style={{ marginRight: '2px' }} width="100" height="30" alt="Logo Android" />
+                            <img src={getBaseImageUrl('/assets/images/footer/ios.svg')} style={{ marginLeft: '2px' }} width="100" height="30" alt="Logo iOS" />
                         </Typography>
                     </Grid>
                 </Grid>

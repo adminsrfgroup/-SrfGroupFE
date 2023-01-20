@@ -3,13 +3,7 @@ import Box from '@mui/material/Box/Box';
 import { FilterOffer } from './FilterOffer';
 import { IAddress } from '../../../../../shared/model/address.model';
 
-export default function LeftSearchClient({
-    listAddress,
-    filterCallback,
-}: {
-    listAddress: IAddress[];
-    filterCallback: (formik: any) => void;
-}) {
+export default function LeftSearchClient({ listAddress, filterCallback }: { listAddress: IAddress[]; filterCallback: (formik: any) => void }) {
     React.useEffect(() => {
         try {
             if (FB) {

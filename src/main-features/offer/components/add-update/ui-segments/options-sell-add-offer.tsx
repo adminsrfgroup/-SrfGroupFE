@@ -21,18 +21,8 @@ export default function OptionsSellAddOffer(props: any) {
         <Box>
             <Grid container spacing={2} sx={{ my: 2 }}>
                 <Grid item xs={12} md={6}>
-                    <FormControl
-                        fullWidth
-                        size="small"
-                        error={
-                            formik.touched.amount &&
-                            Boolean(formik.errors.amount)
-                        }
-                    >
-                        <InputLabel
-                            htmlFor="outlined-adornment-amount"
-                            color="secondary"
-                        >
+                    <FormControl fullWidth size="small" error={formik.touched.amount && Boolean(formik.errors.amount)}>
+                        <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
                             {t<string>('common.label_amount')}
                         </InputLabel>
                         <OutlinedInput
@@ -46,26 +36,12 @@ export default function OptionsSellAddOffer(props: any) {
                             autoComplete="off"
                             inputProps={{ min: 1, max: 999999999999 }}
                         />
-                        {formik.touched.amount && formik.errors.amount ? (
-                            <FormHelperText id="component-helper-text">
-                                {t<string>(formik.errors.amount)}
-                            </FormHelperText>
-                        ) : null}
+                        {formik.touched.amount && formik.errors.amount ? <FormHelperText id="component-helper-text">{t<string>(formik.errors.amount)}</FormHelperText> : null}
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <FormControl
-                        fullWidth
-                        size="small"
-                        error={
-                            formik.touched.shippingCost &&
-                            Boolean(formik.errors.shippingCost)
-                        }
-                    >
-                        <InputLabel
-                            htmlFor="outlined-adornment-amount"
-                            color="secondary"
-                        >
+                    <FormControl fullWidth size="small" error={formik.touched.shippingCost && Boolean(formik.errors.shippingCost)}>
+                        <InputLabel htmlFor="outlined-adornment-amount" color="secondary">
                             {t<string>('common.label_shipping_cost')}
                         </InputLabel>
                         <OutlinedInput
@@ -79,12 +55,7 @@ export default function OptionsSellAddOffer(props: any) {
                             autoComplete="off"
                             inputProps={{ min: 0, max: 999999999999 }}
                         />
-                        {formik.touched.shippingCost &&
-                        formik.errors.shippingCost ? (
-                            <FormHelperText id="component-helper-text">
-                                {t<string>(formik.errors.shippingCost)}
-                            </FormHelperText>
-                        ) : null}
+                        {formik.touched.shippingCost && formik.errors.shippingCost ? <FormHelperText id="component-helper-text">{t<string>(formik.errors.shippingCost)}</FormHelperText> : null}
                     </FormControl>
                 </Grid>
             </Grid>
@@ -92,33 +63,12 @@ export default function OptionsSellAddOffer(props: any) {
             <Grid container spacing={2} sx={{ my: 2 }}>
                 <Grid item xs={12}>
                     <FormControl>
-                        <FormLabel
-                            id="demo-radio-buttons-group-label"
-                            color="secondary"
-                        >
+                        <FormLabel id="demo-radio-buttons-group-label" color="secondary">
                             {t<string>('add_offer.label_type_contact_client')}
                         </FormLabel>
-                        <RadioGroup
-                            aria-labelledby="typeContactClient-label"
-                            id="typeContactClient"
-                            name="typeContactClient"
-                            value={formik.values.typeContactClient}
-                            onChange={formik.handleChange}
-                        >
-                            <FormControlLabel
-                                value={OfferTypeContact.direct}
-                                control={<Radio color="secondary" />}
-                                label={t(
-                                    'add_offer.direct_type_contact_client'
-                                ).toString()}
-                            />
-                            <FormControlLabel
-                                value={OfferTypeContact.perCommmande}
-                                control={<Radio color="secondary" />}
-                                label={t(
-                                    'add_offer.per_commande_type_contact_client'
-                                ).toString()}
-                            />
+                        <RadioGroup aria-labelledby="typeContactClient-label" id="typeContactClient" name="typeContactClient" value={formik.values.typeContactClient} onChange={formik.handleChange}>
+                            <FormControlLabel value={OfferTypeContact.direct} control={<Radio color="secondary" />} label={t('add_offer.direct_type_contact_client').toString()} />
+                            <FormControlLabel value={OfferTypeContact.perCommmande} control={<Radio color="secondary" />} label={t('add_offer.per_commande_type_contact_client').toString()} />
                         </RadioGroup>
                     </FormControl>
                 </Grid>

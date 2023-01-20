@@ -19,12 +19,7 @@ import 'react-image-lightbox/style.css';
 // const images = [image1, image2, image3, image4];
 // const thumbs = [image1Thumb, image2Thumb, image3Thumb, image4Thumb];
 
-const images = [
-    '//placekitten.com/1500/500',
-    '//placekitten.com/4000/3000',
-    '//placekitten.com/800/1200',
-    '//placekitten.com/1500/1500',
-];
+const images = ['//placekitten.com/1500/500', '//placekitten.com/4000/3000', '//placekitten.com/800/1200', '//placekitten.com/1500/1500'];
 // const thumbs = ['//placekitten.com/4000/3000', 'https://source.unsplash.com/random', 'https://source.unsplash.com/random', 'https://source.unsplash.com/random'];
 
 // const titles = [
@@ -166,44 +161,18 @@ class ImageLightbox extends Component<any, any> {
         if (this.props.openLightBox) {
             lightbox = (
                 <Lightbox
-                    mainSrc={
-                        this.state.listImagesLightBox.images[this.state.index]
-                    }
-                    nextSrc={
-                        this.state.listImagesLightBox.images[
-                            (this.state.index + 1) % images.length
-                        ]
-                    }
-                    prevSrc={
-                        this.state.listImagesLightBox.images[
-                            (this.state.index + images.length - 1) %
-                                images.length
-                        ]
-                    }
-                    mainSrcThumbnail={
-                        this.state.listImagesLightBox.thumbs[this.state.index]
-                    }
-                    nextSrcThumbnail={
-                        this.state.listImagesLightBox.thumbs[
-                            (this.state.index + 1) % images.length
-                        ]
-                    }
-                    prevSrcThumbnail={
-                        this.state.listImagesLightBox.thumbs[
-                            (this.state.index + images.length - 1) %
-                                images.length
-                        ]
-                    }
+                    mainSrc={this.state.listImagesLightBox.images[this.state.index]}
+                    nextSrc={this.state.listImagesLightBox.images[(this.state.index + 1) % images.length]}
+                    prevSrc={this.state.listImagesLightBox.images[(this.state.index + images.length - 1) % images.length]}
+                    mainSrcThumbnail={this.state.listImagesLightBox.thumbs[this.state.index]}
+                    nextSrcThumbnail={this.state.listImagesLightBox.thumbs[(this.state.index + 1) % images.length]}
+                    prevSrcThumbnail={this.state.listImagesLightBox.thumbs[(this.state.index + images.length - 1) % images.length]}
                     onCloseRequest={this.closeLightbox}
                     onMovePrevRequest={this.movePrev}
                     onMoveNextRequest={this.moveNext}
                     onImageLoadError={ImageLightbox.onImageLoadError}
-                    imageTitle={
-                        this.state.listImagesLightBox.titles[this.state.index]
-                    }
-                    imageCaption={
-                        this.state.listImagesLightBox.captions[this.state.index]
-                    }
+                    imageTitle={this.state.listImagesLightBox.titles[this.state.index]}
+                    imageCaption={this.state.listImagesLightBox.captions[this.state.index]}
                 />
             );
         }

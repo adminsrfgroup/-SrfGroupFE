@@ -23,15 +23,8 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import Slide from '@mui/material/Slide';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import {
-    initialValuesForgotPasswordFinish,
-    validationSchemaForgotPasswordFinish,
-} from '../../validation/validation-signin';
-import {
-    loadingResetFinishPassword,
-    resetFinishSuccessPassword,
-    resetPasswordFinish,
-} from '../../store/slice';
+import { initialValuesForgotPasswordFinish, validationSchemaForgotPasswordFinish } from '../../validation/validation-signin';
+import { loadingResetFinishPassword, resetFinishSuccessPassword, resetPasswordFinish } from '../../store/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from '../../../../shared/utils/utils-functions';
 
@@ -52,10 +45,8 @@ export default function ForgotPasswordInit() {
     const query = useQuery();
     const navigate = useNavigate();
 
-    const loadingResetFinishPasswordSelector =
-        useSelector(loadingResetFinishPassword) ?? false;
-    const resetFinishSuccessPasswordSelector =
-        useSelector(resetFinishSuccessPassword) ?? false;
+    const loadingResetFinishPasswordSelector = useSelector(loadingResetFinishPassword) ?? false;
+    const resetFinishSuccessPasswordSelector = useSelector(resetFinishSuccessPassword) ?? false;
 
     React.useEffect(() => {
         setTimeout(() => {
@@ -120,25 +111,14 @@ export default function ForgotPasswordInit() {
                             <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                                 SRF
                             </Link>
-                            <Typography color="text.primary">
-                                {t<string>('signin.title_page_signin')}
-                            </Typography>
+                            <Typography color="text.primary">{t<string>('signin.title_page_signin')}</Typography>
                         </Breadcrumbs>
                     </Grid>
                 </Grid>
                 <Grid container sx={{ pt: 5, pb: 5 }}>
                     <Grid item xs={4}></Grid>
 
-                    <Grid
-                        item
-                        xs={12}
-                        sm={8}
-                        md={4}
-                        component={Paper}
-                        md-offset={3}
-                        elevation={6}
-                        square
-                    >
+                    <Grid item xs={12} sm={8} md={4} component={Paper} md-offset={3} elevation={6} square>
                         <Box
                             sx={{
                                 my: 4,
@@ -152,162 +132,64 @@ export default function ForgotPasswordInit() {
                                 <LockOutlinedIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                {t<string>(
-                                    'forgot_password_finish.title_forgot_password_finish'
-                                )}
+                                {t<string>('forgot_password_finish.title_forgot_password_finish')}
                             </Typography>
 
                             <Box sx={{ mt: 1, pb: 2 }}>
-                                <form
-                                    onSubmit={formik.handleSubmit}
-                                    data-testid="login-form"
-                                >
+                                <form onSubmit={formik.handleSubmit} data-testid="login-form">
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
-                                            <FormControl
-                                                fullWidth
-                                                error={
-                                                    formik.touched.password &&
-                                                    Boolean(
-                                                        formik.errors.password
-                                                    )
-                                                }
-                                            >
-                                                <InputLabel htmlFor="outlined-adornment-title">
-                                                    {t<string>(
-                                                        'common.label_password'
-                                                    )}
-                                                </InputLabel>
+                                            <FormControl fullWidth error={formik.touched.password && Boolean(formik.errors.password)}>
+                                                <InputLabel htmlFor="outlined-adornment-title">{t<string>('common.label_password')}</InputLabel>
                                                 <OutlinedInput
                                                     id="password"
                                                     name="password"
-                                                    type={
-                                                        showPassword.showPassword
-                                                            ? 'text'
-                                                            : 'password'
-                                                    }
-                                                    label={t<string>(
-                                                        'common.label_password'
-                                                    )}
-                                                    value={
-                                                        formik.values.password
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type={showPassword.showPassword ? 'text' : 'password'}
+                                                    label={t<string>('common.label_password')}
+                                                    value={formik.values.password}
+                                                    onChange={formik.handleChange}
                                                     inputProps={{
-                                                        'data-testid':
-                                                            'password',
+                                                        'data-testid': 'password',
                                                     }}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={
-                                                                    handleClickShowPassword
-                                                                }
-                                                                onMouseDown={
-                                                                    handleMouseDownPassword
-                                                                }
-                                                                edge="end"
-                                                            >
-                                                                {showPassword.showPassword ? (
-                                                                    <VisibilityOff />
-                                                                ) : (
-                                                                    <Visibility />
-                                                                )}
+                                                            <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">
+                                                                {showPassword.showPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
                                                 />
-                                                <FormHelperText id="component-helper-text">
-                                                    {formik.touched.password &&
-                                                        formik.errors.password}
-                                                </FormHelperText>
+                                                <FormHelperText id="component-helper-text">{formik.touched.password && formik.errors.password}</FormHelperText>
                                             </FormControl>
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                            <FormControl
-                                                fullWidth
-                                                error={
-                                                    formik.touched
-                                                        .confPassword &&
-                                                    Boolean(
-                                                        formik.errors
-                                                            .confPassword
-                                                    )
-                                                }
-                                            >
-                                                <InputLabel htmlFor="outlined-adornment-title">
-                                                    {t<string>(
-                                                        'common.label_confirm_password'
-                                                    )}
-                                                </InputLabel>
+                                            <FormControl fullWidth error={formik.touched.confPassword && Boolean(formik.errors.confPassword)}>
+                                                <InputLabel htmlFor="outlined-adornment-title">{t<string>('common.label_confirm_password')}</InputLabel>
                                                 <OutlinedInput
                                                     id="confPassword"
                                                     name="confPassword"
-                                                    type={
-                                                        showConfPassword.showPassword
-                                                            ? 'text'
-                                                            : 'password'
-                                                    }
-                                                    label={t<string>(
-                                                        'common.label_confirm_password'
-                                                    )}
-                                                    value={
-                                                        formik.values
-                                                            .confPassword
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type={showConfPassword.showPassword ? 'text' : 'password'}
+                                                    label={t<string>('common.label_confirm_password')}
+                                                    value={formik.values.confPassword}
+                                                    onChange={formik.handleChange}
                                                     inputProps={{
-                                                        'data-testid':
-                                                            'password',
+                                                        'data-testid': 'password',
                                                     }}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={
-                                                                    handleClickShowConfPassword
-                                                                }
-                                                                onMouseDown={
-                                                                    handleMouseDownPassword
-                                                                }
-                                                                edge="end"
-                                                            >
-                                                                {showConfPassword.showPassword ? (
-                                                                    <VisibilityOff />
-                                                                ) : (
-                                                                    <Visibility />
-                                                                )}
+                                                            <IconButton aria-label="toggle password visibility" onClick={handleClickShowConfPassword} onMouseDown={handleMouseDownPassword} edge="end">
+                                                                {showConfPassword.showPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
                                                 />
-                                                <FormHelperText id="component-helper-text">
-                                                    {formik.touched
-                                                        .confPassword &&
-                                                        formik.errors
-                                                            .confPassword}
-                                                </FormHelperText>
+                                                <FormHelperText id="component-helper-text">{formik.touched.confPassword && formik.errors.confPassword}</FormHelperText>
                                             </FormControl>
                                         </Grid>
                                     </Grid>
 
-                                    <LoadingButton
-                                        loading={
-                                            loadingResetFinishPasswordSelector
-                                        }
-                                        fullWidth
-                                        variant="contained"
-                                        color="neutral"
-                                        type="submit"
-                                        data-testid="submit"
-                                        sx={{ mt: 3, mb: 2 }}
-                                    >
+                                    <LoadingButton loading={loadingResetFinishPasswordSelector} fullWidth variant="contained" color="neutral" type="submit" data-testid="submit" sx={{ mt: 3, mb: 2 }}>
                                         {t<string>('common.label_update')}
                                     </LoadingButton>
                                 </form>

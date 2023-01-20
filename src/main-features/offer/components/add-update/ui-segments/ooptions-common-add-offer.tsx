@@ -33,26 +33,16 @@ export default function OptionsCommonAddOffer(props: any) {
         <Box>
             <Grid container spacing={2} sx={{ my: 2 }}>
                 <Grid item xs={12} md={6}>
-                    <FormControl
-                        fullWidth
-                        error={
-                            formik.touched.category &&
-                            Boolean(formik.errors.category)
-                        }
-                    >
+                    <FormControl fullWidth error={formik.touched.category && Boolean(formik.errors.category)}>
                         <Autocomplete
                             id="country-select"
                             fullWidth
                             size="small"
                             options={listCategories}
                             value={formik.values.category}
-                            onChange={(e, value) =>
-                                formik.setFieldValue('category', value || null)
-                            }
+                            onChange={(e, value) => formik.setFieldValue('category', value || null)}
                             autoHighlight
-                            getOptionLabel={(option) =>
-                                getValueTitle(option) || ''
-                            }
+                            getOptionLabel={(option) => getValueTitle(option) || ''}
                             renderOption={(propsRender, option) => (
                                 <Box component="li" {...propsRender}>
                                     {getValueTitle(option)}
@@ -73,28 +63,18 @@ export default function OptionsCommonAddOffer(props: any) {
                                 />
                             )}
                         />
-                        <FormHelperText id="component-helper-text">
-                            {formik.errors.category}
-                        </FormHelperText>
+                        <FormHelperText id="component-helper-text">{formik.errors.category}</FormHelperText>
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <FormControl
-                        fullWidth
-                        error={
-                            formik.touched.address &&
-                            Boolean(formik.errors.address)
-                        }
-                    >
+                    <FormControl fullWidth error={formik.touched.address && Boolean(formik.errors.address)}>
                         <Autocomplete
                             id="country-select"
                             fullWidth
                             size="small"
                             options={cities}
                             value={formik.values.address}
-                            onChange={(e, value) =>
-                                formik.setFieldValue('address', value || '')
-                            }
+                            onChange={(e, value) => formik.setFieldValue('address', value || '')}
                             autoHighlight
                             getOptionLabel={(option) => option?.city || ''}
                             renderOption={(propsRender, option) => (
@@ -117,9 +97,7 @@ export default function OptionsCommonAddOffer(props: any) {
                                 />
                             )}
                         />
-                        <FormHelperText id="component-helper-text">
-                            {formik.touched.address && formik.errors.address}
-                        </FormHelperText>
+                        <FormHelperText id="component-helper-text">{formik.touched.address && formik.errors.address}</FormHelperText>
                     </FormControl>
                 </Grid>
             </Grid>

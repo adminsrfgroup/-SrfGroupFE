@@ -7,10 +7,7 @@ import CardMedia from '@mui/material/CardMedia/CardMedia';
 import CardContent from '@mui/material/CardContent/CardContent';
 import Typography from '@mui/material/Typography/Typography';
 import Box from '@mui/material/Box/Box';
-import {
-    getBaseImageUrl,
-    getImageForOffer,
-} from '../../../shared/utils/utils-functions';
+import { getBaseImageUrl, getImageForOffer } from '../../../shared/utils/utils-functions';
 import { AllAppConfig } from '../../../core/config/all-config';
 import { ALL_APP_ROUTES } from '../../../core/config/all-app-routes';
 import { useSelector } from 'react-redux';
@@ -26,15 +23,7 @@ import { ConvertReactTimeAgo } from '../../../shared/pages/react-time-ago';
 import { entitiesFindOffer } from '../../offer/store/slice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-function ItemForFindHome({
-    offer,
-    index,
-    rediretTo,
-}: {
-    offer: IOffer;
-    index: number;
-    rediretTo: any;
-}) {
+function ItemForFindHome({ offer, index, rediretTo }: { offer: IOffer; index: number; rediretTo: any }) {
     return (
         <CardActionArea component="a" onClick={() => rediretTo(offer.id)}>
             {/*For Desktop*/}
@@ -50,27 +39,12 @@ function ItemForFindHome({
                         >
                             <LazyLoadImage
                                 alt="Image offer"
-                                src={getImageForOffer(
-                                    offer.id,
-                                    offer.offerImages[0].path
-                                )}
-                                placeholder={
-                                    <img
-                                        src={getBaseImageUrl(
-                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                        )}
-                                        className="img-lazy-loading"
-                                        alt="image srfgroup"
-                                    />
-                                }
-                                placeholderSrc={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                )}
+                                src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                 onError={(e: any) => {
                                     e.target.onerror = null;
-                                    e.target.src = getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    );
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                 }}
                                 className="full-img-responsive"
                             />
@@ -83,13 +57,7 @@ function ItemForFindHome({
                                 backgroundColor: '#0000004f',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </CardMedia>
                     )
                 ) : null}
@@ -100,10 +68,7 @@ function ItemForFindHome({
                     <Typography variant="subtitle1" color="text.secondary">
                         <ConvertReactTimeAgo convertDate={offer.dateCreated} />
                     </Typography>
-                    <Box
-                        className="truncate-string-two-lines"
-                        style={{ maxWidth: 400 }}
-                    >
+                    <Box className="truncate-string-two-lines" style={{ maxWidth: 400 }}>
                         <div
                             dangerouslySetInnerHTML={{
                                 __html: offer.description || '',
@@ -122,27 +87,12 @@ function ItemForFindHome({
                         >
                             <LazyLoadImage
                                 alt="Image offer"
-                                src={getImageForOffer(
-                                    offer.id,
-                                    offer.offerImages[0].path
-                                )}
-                                placeholder={
-                                    <img
-                                        src={getBaseImageUrl(
-                                            AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                        )}
-                                        className="img-lazy-loading"
-                                        alt="image srfgroup"
-                                    />
-                                }
-                                placeholderSrc={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                )}
+                                src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                                placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                                placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                                 onError={(e: any) => {
                                     e.target.onerror = null;
-                                    e.target.src = getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE
-                                    );
+                                    e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                                 }}
                                 className="full-img-responsive"
                             />
@@ -155,13 +105,7 @@ function ItemForFindHome({
                                 backgroundColor: '#0000004f',
                             }}
                         >
-                            <img
-                                src={getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                )}
-                                className="img-lazy-loading"
-                                alt="image not found"
-                            />
+                            <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                         </CardMedia>
                     )
                 ) : null}
@@ -179,27 +123,12 @@ function ItemForFindHome({
                     >
                         <LazyLoadImage
                             alt="Image offer"
-                            src={getImageForOffer(
-                                offer.id,
-                                offer.offerImages[0].path
-                            )}
-                            placeholder={
-                                <img
-                                    src={getBaseImageUrl(
-                                        AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                                    )}
-                                    className="img-lazy-loading"
-                                    alt="image srfgroup"
-                                />
-                            }
-                            placeholderSrc={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING
-                            )}
+                            src={getImageForOffer(offer.id, offer.offerImages[0].path)}
+                            placeholder={<img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)} className="img-lazy-loading" alt="image srfgroup" />}
+                            placeholderSrc={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE_LOADING)}
                             onError={(e: any) => {
                                 e.target.onerror = null;
-                                e.target.src = getBaseImageUrl(
-                                    AllAppConfig.DEFAULT_LAZY_IMAGE
-                                );
+                                e.target.src = getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE);
                             }}
                             className="img-lazy-loading"
                         />
@@ -227,13 +156,7 @@ function ItemForFindHome({
                             backgroundColor: '#0000004f',
                         }}
                     >
-                        <img
-                            src={getBaseImageUrl(
-                                AllAppConfig.DEFAULT_LAZY_IMAGE
-                            )}
-                            className="img-lazy-loading"
-                            alt="image not found"
-                        />
+                        <img src={getBaseImageUrl(AllAppConfig.DEFAULT_LAZY_IMAGE)} className="img-lazy-loading" alt="image not found" />
                     </CardMedia>
                 )}
                 <CardContent sx={{ flex: 1 }}>
@@ -243,10 +166,7 @@ function ItemForFindHome({
                     <Typography variant="subtitle1" color="text.secondary">
                         <ConvertReactTimeAgo convertDate={offer.dateCreated} />
                     </Typography>
-                    <Box
-                        className="truncate-string-two-lines"
-                        style={{ maxWidth: 400 }}
-                    >
+                    <Box className="truncate-string-two-lines" style={{ maxWidth: 400 }}>
                         <div
                             dangerouslySetInnerHTML={{
                                 __html: offer.description || '',
@@ -285,25 +205,12 @@ const ForFindHomeClient = () => {
     return (
         <Container maxWidth="xl" className="container-for-find-home">
             <h3>
-                <Link
-                    to={`${ALL_APP_ROUTES.OFFER.LIST}?typeOffer=${TypeOfferEnum.Find}`}
-                >
-                    {t<string>('common.for_find')}
-                </Link>
+                <Link to={`${ALL_APP_ROUTES.OFFER.LIST}?typeOffer=${TypeOfferEnum.Find}`}>{t<string>('common.for_find')}</Link>
             </h3>
-            <Grid
-                container
-                rowSpacing={2}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                sx={{ display: { xs: 'none', md: 'flex' } }}
-            >
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ display: { xs: 'none', md: 'flex' } }}>
                 {entitiesFindOfferSelector.map((offer: any, index: number) => (
                     <Grid item xs={12} md={6} key={`offer-${index}`}>
-                        <ItemForFindHome
-                            offer={offer}
-                            index={index}
-                            rediretTo={rediretTo}
-                        />
+                        <ItemForFindHome offer={offer} index={index} rediretTo={rediretTo} />
                     </Grid>
                 ))}
             </Grid>
@@ -318,17 +225,11 @@ const ForFindHomeClient = () => {
                     modules={[Pagination]}
                     className="mySwiper"
                 >
-                    {entitiesFindOfferSelector.map(
-                        (offer: any, index: number) => (
-                            <SwiperSlide key={`offer-${index}`}>
-                                <ItemForFindHome
-                                    offer={offer}
-                                    index={index}
-                                    rediretTo={rediretTo}
-                                />
-                            </SwiperSlide>
-                        )
-                    )}
+                    {entitiesFindOfferSelector.map((offer: any, index: number) => (
+                        <SwiperSlide key={`offer-${index}`}>
+                            <ItemForFindHome offer={offer} index={index} rediretTo={rediretTo} />
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </Box>
         </Container>

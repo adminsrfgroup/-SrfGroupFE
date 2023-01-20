@@ -1,17 +1,10 @@
 import { invokeWS, MethodHttp } from '../../../../core/config/api-service';
 import { put } from 'redux-saga/effects';
-import {
-    fetchMyNotificationsSuccess,
-    fetchMyNotificationsFailure,
-    addReadNotificationsSuccess,
-    addReadNotificationsFailure,
-} from '../slice';
+import { fetchMyNotificationsSuccess, fetchMyNotificationsFailure, addReadNotificationsSuccess, addReadNotificationsFailure } from '../slice';
 
 const apiUrl = 'api/notification';
 
-export function* fetchMyNotificationsHandler(
-    data: any
-): Generator<any, any, any> {
+export function* fetchMyNotificationsHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/current-user?page=${data.payload?.page}&size=${data.payload?.size}`;
         const result = yield invokeWS({
@@ -24,9 +17,7 @@ export function* fetchMyNotificationsHandler(
     }
 }
 
-export function* addReadNotificationsHandler(
-    data: any
-): Generator<any, any, any> {
+export function* addReadNotificationsHandler(data: any): Generator<any, any, any> {
     try {
         const requestUrl = `${apiUrl}/set-is-read`;
         const result = yield invokeWS(

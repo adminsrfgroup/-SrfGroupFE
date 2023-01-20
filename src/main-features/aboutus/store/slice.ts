@@ -22,5 +22,4 @@ export const {
 } = aboutUsSlice.actions;
 
 //? ********************| ABOUT US SELECTORS |*******************/
-export const allAboutUsSelector = (state: any) =>
-    state[ABOUT_US_KEY_IN_STORE].aboutus;
+export const allAboutUsSelector = (state: any) => state[ABOUT_US_KEY_IN_STORE].aboutus;

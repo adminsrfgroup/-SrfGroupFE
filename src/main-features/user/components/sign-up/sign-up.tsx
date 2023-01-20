@@ -19,10 +19,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import FormHelperText from '@mui/material/FormHelperText/FormHelperText';
 import Breadcrumbs from '@mui/material/Breadcrumbs/Breadcrumbs';
 import Slide from '@mui/material/Slide';
-import {
-    initialValuesSignUp,
-    validationSchemaSignUp,
-} from './validation/validation-signup';
+import { initialValuesSignUp, validationSchemaSignUp } from './validation/validation-signup';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import Dialog, { DialogProps } from '@mui/material/Dialog/Dialog';
 import DialogTitle from '@mui/material/DialogTitle/DialogTitle';
@@ -83,8 +80,7 @@ export default function SignUp() {
     const [openDialogRegister, setOpenDialogRegister] = React.useState(false);
 
     const [openCGU, setOpenCGU] = React.useState(false);
-    const [scrollCGU, setScrollCGU] =
-        React.useState<DialogProps['scroll']>('paper');
+    const [scrollCGU, setScrollCGU] = React.useState<DialogProps['scroll']>('paper');
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -171,16 +167,8 @@ export default function SignUp() {
     const showDialogCGU = () => {
         return (
             <Box>
-                <Dialog
-                    open={openCGU}
-                    onClose={handleCloseCGU}
-                    scroll={scrollCGU}
-                    aria-labelledby="scroll-dialog-title"
-                    aria-describedby="scroll-dialog-description"
-                >
-                    <DialogTitle id="scroll-dialog-title">
-                        {t<string>('signup.title_dialog_cgu')}
-                    </DialogTitle>
+                <Dialog open={openCGU} onClose={handleCloseCGU} scroll={scrollCGU} aria-labelledby="scroll-dialog-title" aria-describedby="scroll-dialog-description">
+                    <DialogTitle id="scroll-dialog-title">{t<string>('signup.title_dialog_cgu')}</DialogTitle>
                     <DialogContent dividers={scrollCGU === 'paper'}>
                         {loadingCguSelector ? (
                             <Box sx={{ pt: 5, textAlign: 'center' }}>
@@ -195,16 +183,10 @@ export default function SignUp() {
                         ></div>
                     </DialogContent>
                     <DialogActions>
-                        <Button
-                            color="neutral"
-                            onClick={() => handleCloseCGU(false)}
-                        >
+                        <Button color="neutral" onClick={() => handleCloseCGU(false)}>
                             {t<string>('common.label_cancel')}
                         </Button>
-                        <Button
-                            color="secondary"
-                            onClick={() => handleCloseCGU(true)}
-                        >
+                        <Button color="secondary" onClick={() => handleCloseCGU(true)}>
                             {t<string>('signup.label_accept_cgu')}
                         </Button>
                     </DialogActions>
@@ -215,20 +197,10 @@ export default function SignUp() {
 
     const shwDialogRegister = () => {
         return (
-            <Dialog
-                open={openDialogRegister}
-                TransitionComponent={TransitionModal}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">
-                    {t<string>('signup.title-dialog-register')}
-                </DialogTitle>
+            <Dialog open={openDialogRegister} TransitionComponent={TransitionModal} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">{t<string>('signup.title-dialog-register')}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {t<string>('signup.inbox-dialog-register')}
-                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-description">{t<string>('signup.inbox-dialog-register')}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus color="success">
@@ -243,29 +215,22 @@ export default function SignUp() {
         FB.login(
             (response: any) => {
                 if (response.status === 'connected') {
-                    FB.api(
-                        '/me',
-                        { fields: 'id,name,email,picture' },
-                        (responseMe: any) => {
-                            const requestData: IFacebook = {
-                                accessToken: response.authResponse.accessToken,
-                                data_access_expiration_time:
-                                    response.authResponse
-                                        .data_access_expiration_time,
-                                graphDomain: response.authResponse.graphDomain,
-                                signedRequest:
-                                    response.authResponse.signedRequest,
-                                email: responseMe.email,
-                                id: responseMe.id,
-                                name: responseMe.name,
-                                picture: responseMe.picture,
-                                userID: response.authResponse.userID,
-                                sourceConnectedDevice: SourceProvider.FACEBOOK,
-                                idOneSignal: oneSignalId,
-                            };
-                            dispatch(loginWithFacebook({ ...requestData }));
-                        }
-                    );
+                    FB.api('/me', { fields: 'id,name,email,picture' }, (responseMe: any) => {
+                        const requestData: IFacebook = {
+                            accessToken: response.authResponse.accessToken,
+                            data_access_expiration_time: response.authResponse.data_access_expiration_time,
+                            graphDomain: response.authResponse.graphDomain,
+                            signedRequest: response.authResponse.signedRequest,
+                            email: responseMe.email,
+                            id: responseMe.id,
+                            name: responseMe.name,
+                            picture: responseMe.picture,
+                            userID: response.authResponse.userID,
+                            sourceConnectedDevice: SourceProvider.FACEBOOK,
+                            idOneSignal: oneSignalId,
+                        };
+                        dispatch(loginWithFacebook({ ...requestData }));
+                    });
                 }
             },
             { scope: 'public_profile, email' }
@@ -315,24 +280,14 @@ export default function SignUp() {
                             <Link color="inherit" to={ALL_APP_ROUTES.HOME}>
                                 SRF
                             </Link>
-                            <Typography color="text.primary">
-                                {t<string>('signup.title-page-register')}
-                            </Typography>
+                            <Typography color="text.primary">{t<string>('signup.title-page-register')}</Typography>
                         </Breadcrumbs>
                     </Grid>
                 </Grid>
                 <Grid container sx={{ pt: 5, pb: 5 }}>
                     <Grid item xs={3}></Grid>
 
-                    <Grid
-                        item
-                        xs={12}
-                        sm={8}
-                        md={6}
-                        component={Paper}
-                        elevation={6}
-                        square
-                    >
+                    <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
                         <Box
                             sx={{
                                 my: 8,
@@ -352,250 +307,95 @@ export default function SignUp() {
                                 <form onSubmit={formik.handleSubmit}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
-                                            <FormControl
-                                                fullWidth
-                                                error={
-                                                    formik.touched.email &&
-                                                    Boolean(formik.errors.email)
-                                                }
-                                            >
-                                                <InputLabel htmlFor="outlined-adornment-title">
-                                                    {t<string>(
-                                                        'common.label_email'
-                                                    )}
-                                                </InputLabel>
+                                            <FormControl fullWidth error={formik.touched.email && Boolean(formik.errors.email)}>
+                                                <InputLabel htmlFor="outlined-adornment-title">{t<string>('common.label_email')}</InputLabel>
                                                 <OutlinedInput
                                                     id="email"
                                                     name="email"
                                                     color="secondary"
                                                     type="email"
-                                                    label={t<string>(
-                                                        'common.label_email'
-                                                    )}
+                                                    label={t<string>('common.label_email')}
                                                     value={formik.values.email}
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    onChange={formik.handleChange}
                                                 />
-                                                {formik.touched.email &&
-                                                formik.errors.email ? (
-                                                    <FormHelperText id="component-helper-text">
-                                                        {t<string>(
-                                                            'signup.label_email_required'
-                                                        )}
-                                                    </FormHelperText>
+                                                {formik.touched.email && formik.errors.email ? (
+                                                    <FormHelperText id="component-helper-text">{t<string>('signup.label_email_required')}</FormHelperText>
                                                 ) : null}
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={12} md={6}>
-                                            <FormControl
-                                                fullWidth
-                                                error={
-                                                    formik.touched
-                                                        .firstPassword &&
-                                                    Boolean(
-                                                        formik.errors
-                                                            .firstPassword
-                                                    )
-                                                }
-                                            >
-                                                <InputLabel htmlFor="outlined-adornment-title">
-                                                    {t<string>(
-                                                        'common.label_new_password'
-                                                    )}
-                                                </InputLabel>
+                                            <FormControl fullWidth error={formik.touched.firstPassword && Boolean(formik.errors.firstPassword)}>
+                                                <InputLabel htmlFor="outlined-adornment-title">{t<string>('common.label_new_password')}</InputLabel>
                                                 <OutlinedInput
                                                     id="firstPassword"
                                                     name="firstPassword"
                                                     color="secondary"
-                                                    type={
-                                                        showPassword.showPassword
-                                                            ? 'text'
-                                                            : 'password'
-                                                    }
-                                                    label={t<string>(
-                                                        'common.label_new_password'
-                                                    )}
-                                                    value={
-                                                        formik.values
-                                                            .firstPassword
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type={showPassword.showPassword ? 'text' : 'password'}
+                                                    label={t<string>('common.label_new_password')}
+                                                    value={formik.values.firstPassword}
+                                                    onChange={formik.handleChange}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={
-                                                                    handleClickShowPassword
-                                                                }
-                                                                onMouseDown={
-                                                                    handleMouseDownPassword
-                                                                }
-                                                                edge="end"
-                                                            >
-                                                                {showPassword.showPassword ? (
-                                                                    <VisibilityOff />
-                                                                ) : (
-                                                                    <Visibility />
-                                                                )}
+                                                            <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end">
+                                                                {showPassword.showPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
                                                 />
-                                                {formik.touched.firstPassword &&
-                                                formik.errors.firstPassword ? (
-                                                    <FormHelperText id="component-helper-text">
-                                                        {t<string>(
-                                                            'signup.label_new_password'
-                                                        )}
-                                                    </FormHelperText>
+                                                {formik.touched.firstPassword && formik.errors.firstPassword ? (
+                                                    <FormHelperText id="component-helper-text">{t<string>('signup.label_new_password')}</FormHelperText>
                                                 ) : null}
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={12} md={6}>
-                                            <FormControl
-                                                fullWidth
-                                                error={
-                                                    formik.touched
-                                                        .secondPassword &&
-                                                    Boolean(
-                                                        formik.errors
-                                                            .secondPassword
-                                                    )
-                                                }
-                                            >
-                                                <InputLabel htmlFor="outlined-adornment-title">
-                                                    {t<string>(
-                                                        'common.label_confirm_password'
-                                                    )}
-                                                </InputLabel>
+                                            <FormControl fullWidth error={formik.touched.secondPassword && Boolean(formik.errors.secondPassword)}>
+                                                <InputLabel htmlFor="outlined-adornment-title">{t<string>('common.label_confirm_password')}</InputLabel>
                                                 <OutlinedInput
                                                     id="secondPassword"
                                                     name="secondPassword"
                                                     color="secondary"
-                                                    type={
-                                                        showConfPassword.showPassword
-                                                            ? 'text'
-                                                            : 'password'
-                                                    }
-                                                    label={t<string>(
-                                                        'common.label_confirm_password'
-                                                    )}
-                                                    value={
-                                                        formik.values
-                                                            .secondPassword
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type={showConfPassword.showPassword ? 'text' : 'password'}
+                                                    label={t<string>('common.label_confirm_password')}
+                                                    value={formik.values.secondPassword}
+                                                    onChange={formik.handleChange}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={
-                                                                    handleClickShowConfPassword
-                                                                }
-                                                                onMouseDown={
-                                                                    handleMouseDownPassword
-                                                                }
-                                                                edge="end"
-                                                            >
-                                                                {showConfPassword.showPassword ? (
-                                                                    <VisibilityOff />
-                                                                ) : (
-                                                                    <Visibility />
-                                                                )}
+                                                            <IconButton aria-label="toggle password visibility" onClick={handleClickShowConfPassword} onMouseDown={handleMouseDownPassword} edge="end">
+                                                                {showConfPassword.showPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
                                                 />
-                                                {formik.touched
-                                                    .secondPassword &&
-                                                formik.errors.secondPassword ? (
-                                                    <FormHelperText id="component-helper-text">
-                                                        {t<string>(
-                                                            'signup.label_second_password'
-                                                        )}
-                                                    </FormHelperText>
+                                                {formik.touched.secondPassword && formik.errors.secondPassword ? (
+                                                    <FormHelperText id="component-helper-text">{t<string>('signup.label_second_password')}</FormHelperText>
                                                 ) : null}
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <FormControl
-                                                fullWidth
-                                                error={Boolean(
-                                                    formik.errors.accept
-                                                )}
-                                            >
+                                            <FormControl fullWidth error={Boolean(formik.errors.accept)}>
                                                 <FormControlLabel
-                                                    control={
-                                                        <Checkbox
-                                                            id="accept"
-                                                            name="accept"
-                                                            color="secondary"
-                                                            checked={
-                                                                formik.values
-                                                                    .accept
-                                                            }
-                                                            onChange={
-                                                                handleChangeCGU
-                                                            }
-                                                        />
-                                                    }
-                                                    label={
-                                                        <React.Fragment>
-                                                            {t<string>(
-                                                                'signup.accept-cgu'
-                                                            )}
-                                                        </React.Fragment>
-                                                    }
+                                                    control={<Checkbox id="accept" name="accept" color="secondary" checked={formik.values.accept} onChange={handleChangeCGU} />}
+                                                    label={<React.Fragment>{t<string>('signup.accept-cgu')}</React.Fragment>}
                                                 />
-                                                {formik.touched.accept &&
-                                                formik.errors.accept ? (
-                                                    <FormHelperText id="component-helper-text">
-                                                        {t<string>(
-                                                            'signup.label_required_accept_cgu'
-                                                        )}
-                                                    </FormHelperText>
+                                                {formik.touched.accept && formik.errors.accept ? (
+                                                    <FormHelperText id="component-helper-text">{t<string>('signup.label_required_accept_cgu')}</FormHelperText>
                                                 ) : null}
                                             </FormControl>
                                         </Grid>
                                     </Grid>
 
-                                    <LoadingButton
-                                        loading={loadingRegisterSelector}
-                                        fullWidth
-                                        variant="contained"
-                                        color="secondary"
-                                        type="submit"
-                                        data-testid="submit"
-                                        sx={{ mt: 3, mb: 2 }}
-                                    >
+                                    <LoadingButton loading={loadingRegisterSelector} fullWidth variant="contained" color="secondary" type="submit" data-testid="submit" sx={{ mt: 3, mb: 2 }}>
                                         {t<string>('common.label_register')}
                                     </LoadingButton>
 
                                     <Grid container justifyContent="flex-end">
                                         <Grid item>
-                                            <Link to={ALL_APP_ROUTES.LOGIN}>
-                                                {t<string>(
-                                                    'signup.label-already-have-account'
-                                                )}
-                                            </Link>
+                                            <Link to={ALL_APP_ROUTES.LOGIN}>{t<string>('signup.label-already-have-account')}</Link>
                                         </Grid>
                                     </Grid>
 
-                                    <Stack
-                                        spacing={2}
-                                        direction="row"
-                                        sx={{ justifyContent: 'center', my: 4 }}
-                                    >
-                                        <Fab
-                                            color="primary"
-                                            aria-label="add"
-                                            onClick={loginFB}
-                                        >
+                                    <Stack spacing={2} direction="row" sx={{ justifyContent: 'center', my: 4 }}>
+                                        <Fab color="primary" aria-label="add" onClick={loginFB}>
                                             <FacebookIcon />
                                         </Fab>
                                         <Fab
@@ -606,12 +406,7 @@ export default function SignUp() {
                                                 backgroundColor: '#E93F2E',
                                             }}
                                         >
-                                            <GoogleSignin
-                                                isOneTap={false}
-                                                handleCredentialResponse={
-                                                    responseGoogle
-                                                }
-                                            />
+                                            <GoogleSignin isOneTap={false} handleCredentialResponse={responseGoogle} />
                                             <GoogleIcon />
                                         </Fab>
                                     </Stack>

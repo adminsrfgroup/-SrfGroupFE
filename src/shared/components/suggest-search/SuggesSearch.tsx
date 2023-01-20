@@ -25,23 +25,18 @@ export default function SuggesSearch() {
 
     const sendQuery = (value: string) => {
         axios
-            .post(
-                AllAppConfig.BASE_URL_ELASTIC_SEARCH + 'suggest_search/_search',
-                {
-                    query: {
-                        multi_match: {
-                            query: value,
-                            fields: ['name', 'description'],
-                            fuzziness: 2,
-                        },
+            .post(AllAppConfig.BASE_URL_ELASTIC_SEARCH + 'suggest_search/_search', {
+                query: {
+                    multi_match: {
+                        query: value,
+                        fields: ['name', 'description'],
+                        fuzziness: 2,
                     },
-                }
-            )
+                },
+            })
             .then((result) => {
                 // console.log('suggestions ', result);
-                const results = result.data.hits.hits.map(
-                    (h: any) => h._source
-                );
+                const results = result.data.hits.hits.map((h: any) => h._source);
                 // console.log('suggestions results', results);
                 if (results?.length) {
                     setSuggestions(results);

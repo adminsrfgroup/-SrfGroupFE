@@ -76,12 +76,7 @@ registerRoute(
 // Fetch from network and save response to cache
 const RUNTIME_CACHE = 'api-cache';
 self.addEventListener('fetch', async (event: any) => {
-    if (
-        event.request.url.startsWith(
-            `${process.env.REACT_APP_API_END_POINT}api/`
-        ) &&
-        event.request.method === 'GET'
-    ) {
+    if (event.request.url.startsWith(`${process.env.REACT_APP_API_END_POINT}api/`) && event.request.method === 'GET') {
         event.respondWith(
             caches.open(RUNTIME_CACHE).then((cache) => {
                 // Otherwise, hit the network
@@ -94,14 +89,12 @@ self.addEventListener('fetch', async (event: any) => {
                     },
                     (error) => {
                         // Go to the cache
-                        return cache
-                            .match(event.request.url)
-                            .then((cachedResponse) => {
-                                // Return a cached response if we have one
-                                if (cachedResponse) {
-                                    return cachedResponse;
-                                }
-                            });
+                        return cache.match(event.request.url).then((cachedResponse) => {
+                            // Return a cached response if we have one
+                            if (cachedResponse) {
+                                return cachedResponse;
+                            }
+                        });
                     }
                 );
             })

@@ -52,10 +52,7 @@ export function* userSaga() {
         takeEvery(loginWithGoogleOneTap, loginWithGoogleOneTapHandler),
         takeEvery(sessionUser, sessionUserHandler),
         takeEvery(updateAvatarAccount, updateAvatarAccountHandler),
-        takeEvery(
-            getNumberOfNotificationsNotSee,
-            getNumberOfNotificationsNotSeeHandler
-        ),
+        takeEvery(getNumberOfNotificationsNotSee, getNumberOfNotificationsNotSeeHandler),
         takeEvery(getNumberOfMessagesNotSee, getNumberOfMessagesNotSeeHandler),
         takeEvery(getNumberOfCarts, getNumberOfCartsHandler),
         takeEvery(registerUser, registerHandler),

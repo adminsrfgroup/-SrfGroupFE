@@ -37,11 +37,7 @@ axios.create({
     },
 });
 
-export const invokeWS = (
-    endpoint: IEndPoint,
-    requestData?: any,
-    options?: InvokeOptions
-) => {
+export const invokeWS = (endpoint: IEndPoint, requestData?: any, options?: InvokeOptions) => {
     const invokeOptions = formatOptions(options || {});
 
     // for mock
@@ -50,21 +46,13 @@ export const invokeWS = (
     return callWS(endpoint, requestData, invokeOptions);
 };
 
-const callWS = (
-    endpoint: IEndPoint,
-    requestData: any,
-    invokeOptions?: InvokeOptions
-) => {
+const callWS = (endpoint: IEndPoint, requestData: any, invokeOptions?: InvokeOptions) => {
     return new Promise((resolve, reject) => {
         if (endpoint?.loading) {
             document.body.classList.add('loading-indicator');
         }
 
-        const invokeParams = buildRequest(
-            endpoint,
-            requestData,
-            invokeOptions || {}
-        );
+        const invokeParams = buildRequest(endpoint, requestData, invokeOptions || {});
 
         if (invokeOptions?.textPlain) {
             axios.defaults.headers.post = { 'Content-Type': 'text/plain' };
@@ -87,19 +75,12 @@ const callWS = (
     });
 };
 
-const buildRequest = (
-    endpoint: any,
-    requestData: any,
-    options: InvokeOptions
-) => {
+const buildRequest = (endpoint: any, requestData: any, options: InvokeOptions) => {
     return {
         method: endpoint.method,
         baseUrl: endpoint.baseUrl,
         url: endpoint.url + formatPathParams(options),
-        data:
-            !endpoint.method || endpoint.method !== 'GET'
-                ? requestData
-                : undefined,
+        data: !endpoint.method || endpoint.method !== 'GET' ? requestData : undefined,
         headers: getHeaders(),
     };
 };

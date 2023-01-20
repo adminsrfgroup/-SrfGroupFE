@@ -20,16 +20,10 @@ const reducer = {
     getNumberOfNotificationsNotSee: (state: any) => {
         state.session.nbeNotificationsNotRead = 0;
     },
-    getNumberOfNotificationsNotSeeSuccess: (
-        state: any,
-        action: PayloadAction
-    ) => {
+    getNumberOfNotificationsNotSeeSuccess: (state: any, action: PayloadAction) => {
         state.session.nbeNotificationsNotRead = action.payload;
     },
-    getNumberOfNotificationsNotSeeFailure: (
-        state: any,
-        action: PayloadAction
-    ) => {
+    getNumberOfNotificationsNotSeeFailure: (state: any, action: PayloadAction) => {
         state.session.nbeNotificationsNotRead = 0;
     },
     resetNumberOfNotificationsNotSee: (state: any) => {

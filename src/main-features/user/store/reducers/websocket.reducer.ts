@@ -22,16 +22,10 @@ const reducer = {
         state.websocket.listConnectedUsers = [];
     },
     addNewConnectedUser: (state: any, action: any) => {
-        state.websocket.listConnectedUsers = pushListConnectedUser(
-            state.websocket.listConnectedUsers.slice(),
-            action.payload.email
-        );
+        state.websocket.listConnectedUsers = pushListConnectedUser(state.websocket.listConnectedUsers.slice(), action.payload.email);
     },
     removeDisconnectedUser: (state: any, action: any) => {
-        state.websocket.listConnectedUsers = popListConnectedUser(
-            state.websocket.listConnectedUsers.slice(),
-            action.payload.email
-        );
+        state.websocket.listConnectedUsers = popListConnectedUser(state.websocket.listConnectedUsers.slice(), action.payload.email);
     },
 };
 
