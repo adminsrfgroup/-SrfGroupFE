@@ -44,7 +44,7 @@ export function Conversation({
     list: IConversationMessage[];
     account: IUser;
     listMessages: any;
-    isOnLine: (email: string) => void;
+    isOnLine: (email: string) => boolean;
     deleteConversation: any;
     searchCallback: any;
 }) {
@@ -73,10 +73,8 @@ export function Conversation({
     const isUserOnLine = (conversatioinMessage: IConversationMessage) => {
         if (conversatioinMessage?.conversation?.senderUser?.id === account.id) {
             return isOnLine(conversatioinMessage?.conversation?.receiverUser?.email || '');
-        } else {
-            return isOnLine(conversatioinMessage?.conversation?.senderUser?.email || '');
         }
-        return false;
+        return isOnLine(conversatioinMessage?.conversation?.senderUser?.email || '');
     };
 
     const getFullname = (conversatioinMessage: IConversationMessage) => {

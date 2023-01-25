@@ -35,8 +35,6 @@ import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup/FormGroup';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { ListItemText } from '@mui/material';
-import { changeLocale } from '../../../main-features/user/store/slice';
-import { useDispatch } from 'react-redux';
 import QuizIcon from '@mui/icons-material/Quiz';
 import FilterFramesIcon from '@mui/icons-material/FilterFrames';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';

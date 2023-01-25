@@ -64,7 +64,7 @@ export default function Footer() {
 
     return (
         <Box component="footer" sx={{ bgcolor: 'background.paper' }}>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit} data-testid="form-news-letter">
                 <Toolbar
                     component="nav"
                     variant="dense"
@@ -116,7 +116,7 @@ export default function Footer() {
             </form>
             <div>
                 <Typography variant="h6" align="center" gutterBottom sx={{ pt: 3 }}>
-                    <img src={getBaseImageUrl('/assets/images/logo-svg.svg')} className="img-footer-logo" alt="Logo SrfGroup" />
+                    <img src={getBaseImageUrl('/assets/images/logo-svg.svg')} className="img-footer-logo" alt="Logo SrfGroup" data-testid="logo-srf-group" />
                 </Typography>
 
                 <Grid container spacing={4}>

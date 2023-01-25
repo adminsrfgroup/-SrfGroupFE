@@ -323,7 +323,7 @@ export function SearchAppBar({
                                     id="category-select"
                                     options={entitiesCategories}
                                     value={formik.values.category}
-                                    onChange={(e, value) => formik.setFieldValue('category', value || '')}
+                                    onChange={(e, value) => formik.setFieldValue('category', value || null)}
                                     autoHighlight
                                     getOptionLabel={(option) => getOptionLabelCat(option)}
                                     renderOption={(propsRender, option) => (

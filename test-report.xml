@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
+  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\main-features\user\components\sign-in\signin-form.test.tsx">
+    <testCase name="check all components/function on TopHomeSlides rendering and submitting a form" duration="2306"/>
+    <testCase name="check all components/function on TopHomeSlides check required fields of form" duration="857"/>
+  </file>
   <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\App.test.tsx">
-    <testCase name="renders App" duration="733"/>
+    <testCase name="check all components/function on App check exit of button ScrollTop" duration="2382"/>
+    <testCase name="check all components/function on App check exist of back-to-top-anchor" duration="2158"/>
+  </file>
+  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\shared\layout\footer\components\Footer.test.tsx">
+    <testCase name="check all components/function on App check exit of button ScrollTop" duration="2376"/>
+    <testCase name="check all components/function on App check exist of back-to-top-anchor" duration="2143"/>
+    <testCase name="check all components/function on Footer check exist of title SrfGroup" duration="138"/>
+    <testCase name="check all components/function on Footer check exist of form NewsLetter" duration="34"/>
+  </file>
+  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\main-features\home\ui-segments\TopHomeSlides.test.tsx">
+    <testCase name="check all components/function on App check exit of button ScrollTop" duration="2379"/>
+    <testCase name="check all components/function on App check exist of back-to-top-anchor" duration="2137"/>
+    <testCase name="check all components/function on TopHomeSlides check exist of top-home-slides" duration="353"/>
+  </file>
+  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\main-features\user\components\sign-in\sign-in.test.tsx">
+    <testCase name="check all components/function on App check exit of button ScrollTop" duration="2325"/>
+    <testCase name="check all components/function on App check exist of back-to-top-anchor" duration="2177"/>
+    <testCase name="check all components/function on TopHomeSlides check Social Media Part" duration="317"/>
+  </file>
+  <file path="C:\Disque_dur\DocTR\Projects\SrfGroup\CodeSources\SrfGroupFE\src\shared\layout\header\Header.test.tsx">
+    <testCase name="check all components/function on App check exit of button ScrollTop" duration="2385"/>
+    <testCase name="check all components/function on App check exist of back-to-top-anchor" duration="2124"/>
+    <testCase name="check all components/function on Header check exist of title SrfGroup" duration="400"/>
   </file>
 </testExecutions>

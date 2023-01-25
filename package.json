@@ -12,7 +12,7 @@
     "@mui/material": "5.8.4",
     "@mui/styled-engine-sc": "5.4.2",
     "@reduxjs/toolkit": "1.8.2",
-    "@testing-library/user-event": "12.8.3",
+    "@testing-library/user-event": "14.4.3",
     "@types/draft-js": "0.11.9",
     "@types/draftjs-to-html": "0.8.1",
     "@types/jest": "^29.0.0",
@@ -111,7 +111,7 @@
     "build:prod:windows-without-source-map": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "build:prod:windows": "react-scripts build",
     "build:prod": "env-cmd -f ./environments/.prod.env npm run build:prod:windows",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll",
     "coverage": "react-scripts test --coverage",
     "test-sonar": "react-scripts test --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter",
     "eject": "react-scripts eject",
@@ -129,7 +129,7 @@
     "docker:logstash:down": "docker-compose -f docker/logstash.yml down -v --remove-orphans",
     "docker:react:up": "docker-compose -f react.yml up ",
     "docker:react:down": "docker-compose -f react.yml down -v --remove-orphans",
-    "clear-jest": "jest --clearCache",
+    "clear-cache-jest": "jest --clearCache",
     "format-line-prettier": "prettier  --write src/**/*.{js,jsx,ts,tsx}",
     "lint:prettier:project": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
     "prepare": "husky install"
@@ -153,8 +153,8 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
+    "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/react": "13.4.0",
     "@types/blueimp-load-image": "5.16.0",
     "@types/faker": "6.6.9",
     "@types/react-infinite-scroller": "1.2.2",
@@ -189,12 +189,15 @@
     }
   },
   "jest": {
+    "moduleNameMapper": {
+      "swiper/react": "swiper/react/swiper-react.js",
+      "swiper/css": "swiper/swiper.min.css"
+    },
     "transform": {
       ".+\\.(ts|tsx|js|jsx)$": "ts-jest"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!@mui)/",
-      "node_modules/(?!swiper)/",
       "node_modules/(?!react-facebook-login)/"
     ],
     "coveragePathIgnorePatterns": [

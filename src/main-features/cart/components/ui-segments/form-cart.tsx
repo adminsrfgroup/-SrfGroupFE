@@ -90,7 +90,7 @@ export function FormCart({ submitHandler }: { submitHandler: any }) {
                                 disabled
                                 options={entitiesAddress}
                                 value={formik.values.address}
-                                onChange={(e, value) => formik.setFieldValue('address', value || '')}
+                                onChange={(e, value) => formik.setFieldValue('address', value || null)}
                                 autoHighlight
                                 getOptionLabel={(option) => option?.city || ''}
                                 // disabled={!showEditInfos}

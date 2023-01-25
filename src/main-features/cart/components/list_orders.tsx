@@ -250,7 +250,7 @@ function ItemPassedOrder({ t, item }: { t: any; item: any }) {
     );
 }
 
-function ItemReceivedOrder({ item }: { item: any }) {
+function ItemReceivedOrder({ t, item }: { t: any; item: any }) {
     const navigate = useNavigate();
 
     const redirectToPorfile = (event: any, userId: number) => {
@@ -304,7 +304,7 @@ function ItemReceivedOrder({ item }: { item: any }) {
 
                         <Grid item xs={4}>
                             <Typography variant="subtitle1" color="secondary" display="flex" sx={{ justifyContent: 'end' }}>
-                                {item.status === StatusOrder.PASSED ? item.status : item.status}
+                                {item.status === StatusOrder.PASSED ? t('order.label_passed') : item.status}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -493,7 +493,7 @@ function ListReceivedORders() {
         >
             <Grid container spacing={4} sx={{ mt: 3 }}>
                 {entitiesOrderReceivedSelector?.map((item: any, index: number) => (
-                    <ItemReceivedOrder item={item} key={index} />
+                    <ItemReceivedOrder t={t} item={item} key={index} />
                 ))}
 
                 {loadingEntitiesOrderReceivedSelector ? <LoadingOrders /> : null}

@@ -96,7 +96,7 @@ import './App.css';
 // For Apm Server
 // import { init as initApm } from '@elastic/apm-rum';
 //
-// if (AllAppConfig.ENABLE_APM_SERVER !== 'true') {
+// if (AllAppConfig.ENABLE_APM_SERVER === 'true') {
 //   initApm({
 //     // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
 //     serviceName: 'ServerApmSrfGroup',
@@ -141,7 +141,7 @@ function ScrollTop(props: any) {
     };
 
     return (
-        <Zoom in={trigger}>
+        <Zoom in={trigger} data-testid="scroll-top-element">
             <Box onClick={handleClick} role="presentation" sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 9 }}>
                 {children}
             </Box>

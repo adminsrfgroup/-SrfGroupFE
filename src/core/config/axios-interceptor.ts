@@ -66,8 +66,11 @@ const setupAxiosInterceptors = (onUnauthenticated: () => void) => {
         }
 
         if (status === 403) {
+            onUnauthenticated();
             return Promise.reject(err);
         }
+
+        return Promise.reject(err);
     };
     axios.interceptors.request.use(onRequestSuccess, onRequestError);
     axios.interceptors.response.use(onResponseSuccess, onResponseError);

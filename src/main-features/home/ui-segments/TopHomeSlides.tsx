@@ -7,7 +7,7 @@ import { ALL_APP_ROUTES } from '../../../core/config/all-app-routes';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Lazy, Parallax, Pagination, Navigation } from 'swiper';
-import 'swiper/css/lazy';
+// import 'swiper/css/lazy';
 import './TopHomeSlides.scss';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ITopHomeSlidesImages } from '../../../shared/model/top-home-slides-images.model';
@@ -62,7 +62,7 @@ const TopHomeSlides: FunctionComponent = () => {
     };
 
     return (
-        <div className="top-home-slides">
+        <div className="top-home-slides" data-testid="top-home-slides">
             {listTopSlidesImage && listTopSlidesImage.length ? (
                 <Swiper
                     speed={600}

@@ -422,7 +422,7 @@ export default function Account() {
                                                     size="small"
                                                     options={entitiesAddress}
                                                     value={formik.values.address}
-                                                    onChange={(e, value) => formik.setFieldValue('address', value || '')}
+                                                    onChange={(e, value) => formik.setFieldValue('address', value || null)}
                                                     autoHighlight
                                                     getOptionLabel={(option) => option?.city || ''}
                                                     disabled={!showEditInfos}
