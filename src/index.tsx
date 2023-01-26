@@ -19,13 +19,12 @@ import { logout } from './main-features/user/store/slice';
 // const store = initStore;
 // const actions = bindActionCreators({ clearAuthentication}, store.dispatch);
 
-const storeApp = store;
-setupAxiosInterceptors(() => storeApp.dispatch(logout({})));
+setupAxiosInterceptors(() => store.dispatch(logout({})));
 
 const container = document.getElementById('root') as HTMLElement;
 const root = ReactDOM.createRoot(container);
 root.render(
-    <Provider store={storeApp}>
+    <Provider store={store}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
