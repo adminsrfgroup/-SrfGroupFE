@@ -238,9 +238,7 @@ export function SearchAppBar({
                                     freeSolo
                                     id="title"
                                     options={suggestions}
-                                    // value={formik.values.title}
                                     onChange={(e, value: any) => {
-                                        // handleChangeTitle(value);
                                         formik.setFieldValue('title', value?.name || null);
                                     }}
                                     autoHighlight

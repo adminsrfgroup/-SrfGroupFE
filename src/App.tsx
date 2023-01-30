@@ -172,6 +172,7 @@ export const App = () => {
         typography: {
             allVariants: {
                 fontFamily: 'NotoSansArabic',
+                fontWeight: 300,
             },
         },
         palette: {

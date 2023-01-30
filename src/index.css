@@ -3,7 +3,7 @@
     src: local('NotoSansArabic'),
         url('./font/NotoSansArabic/NotoSansArabic-Regular.ttf')
             format('truetype');
-    font-weight: bold;
+    font-weight: 300;
 }
 
 .loading-indicator:before {

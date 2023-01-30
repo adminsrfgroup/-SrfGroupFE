@@ -19,7 +19,6 @@ import { entitiesTopHomeSlidesImages } from '../store/slice';
 import { SourceProvider } from '../../../shared/enums/source-provider';
 
 const TopHomeSlides: FunctionComponent = () => {
-    // console.log("TopHomeSlides ");
     const [listTopSlidesImage] = React.useState<ITopHomeSlidesImages[]>(StorageService.local.get(AllAppConfig.HOME_TOP_SLIDES_IMAGE));
     const [defaultLanguage, setDefaultLanguage] = React.useState('fr');
 
