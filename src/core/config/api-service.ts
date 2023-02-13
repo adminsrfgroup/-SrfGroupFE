@@ -30,12 +30,12 @@ interface IEndPoint {
 }
 
 // Global axios instance
-axios.create({
-    proxy: {
-        host: 'http://localhost',
-        port: 3000,
-    },
-});
+// axios.create({
+//     proxy: {
+//         host: 'http://localhost',
+//         port: 3000,
+//     },
+// });
 
 export const invokeWS = (endpoint: IEndPoint, requestData?: any, options?: InvokeOptions) => {
     const invokeOptions = formatOptions(options || {});
