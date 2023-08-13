@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@mui/material/Container/Container';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box/Box';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import Grid from '@mui/material/Grid/Grid';
@@ -36,9 +36,7 @@ import {
     entityUpdateInfosAccount,
     loadingPasswordAccount,
     loadingSession,
-    loadingUpdateAvatar,
     loadingUpdateInfosAccount,
-    sessionUser,
     updateAvatarAccount,
     updateInfosAccount,
     updatePasswordAccount,
@@ -50,15 +48,12 @@ import { initialValuesAccount, initialValuesPasswordAccount, validationSchemaAcc
 import { ALL_APP_ROUTES } from '../../../../core/config/all-app-routes';
 import { StorageService } from '../../../../shared/services/storage.service';
 import { AllAppConfig } from '../../../../core/config/all-config';
-import { getImageUrl } from '../../../../shared/utils/image-url';
 import { SourceProvider } from '../../../../shared/enums/source-provider';
 import { allAddressSelector } from '../../../address/store/slice';
 import { IAddress } from '../../../../shared/model/address.model';
 import { languages, locales } from '../../store/initial.state';
 import { entityCountOffersByUser, fetchCountAllOffersByUser, loadingEntityCountOffersByUser } from '../../../offer/store/slice';
 import StatisticOffers from '../../../../shared/components/statistic-offers/statistic-offers';
-import { Image } from 'load-image-react';
-// import { AccountChatBot } from './ui-segments/account-chatbot';
 
 const initialValues = initialValuesAccount;
 const initialValuesPassword = initialValuesPasswordAccount;

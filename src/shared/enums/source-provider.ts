@@ -1,7 +1,7 @@
 export enum SourceProvider {
-    WEB_BROWSER = 'WebBrowser',
-    MOBILE_BROWSER = 'MobileBrowser',
-    GOOGLE_PLUS = 'GooglePlus',
-    GOOGLE_ONE_TAP_LOGIN = 'GoogleOneTapLogin',
-    FACEBOOK = 'Facebook',
+    WEB_BROWSER = 'WEB_BROWSER',
+    MOBILE_BROWSER = 'MOBILE_BROWSER',
+    GOOGLE_PLUS = 'GOOGLE_PLUS',
+    GOOGLE_ONE_TAP_LOGIN = 'GOOGLE_ONE_TAP_LOGIN',
+    FACEBOOK = 'FACEBOOK',
 }

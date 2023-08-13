@@ -60,8 +60,8 @@ export default function OptionsRentAddOffer(props: any) {
                     <DatePicker
                         label={t<string>('common.label_start_date')}
                         value={formik.values.startDate}
-                        onChange={(newValue) => formik.setFieldValue('startDate', newValue)}
-                        renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
+                        onChange={(newValue: any) => formik.setFieldValue('startDate', newValue)}
+                        renderInput={(params: any) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                     />
                 </Grid>
 
@@ -69,8 +69,8 @@ export default function OptionsRentAddOffer(props: any) {
                     <DatePicker
                         label={t<string>('common.label_end_date')}
                         value={formik.values.endDate}
-                        onChange={(newValue) => formik.setFieldValue('endDate', newValue)}
-                        renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
+                        onChange={(newValue: any) => formik.setFieldValue('endDate', newValue)}
+                        renderInput={(params: any) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                     />
                 </Grid>
             </Grid>

@@ -1,8 +1,6 @@
 @font-face {
     font-family: 'NotoSansArabic';
-    src: local('NotoSansArabic'),
-        url('./font/NotoSansArabic/NotoSansArabic-Regular.ttf')
-            format('truetype');
+    src: local('NotoSansArabic'), url('./font/NotoSansArabic/NotoSansArabic-Regular.ttf') format('truetype');
     font-weight: 300;
 }
 

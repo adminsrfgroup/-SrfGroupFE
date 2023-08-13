@@ -13,8 +13,8 @@ import React, { Component } from 'react';
 // import image2Thumb from './images/2_thumb.jpg';
 // import image3Thumb from './images/3_thumb.jpg';
 // import image4Thumb from './images/4_thumb.jpg';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+import Lightbox from 'react-18-image-lightbox';
+import 'react-18-image-lightbox/style.css';
 //
 // const images = [image1, image2, image3, image4];
 // const thumbs = [image1Thumb, image2Thumb, image3Thumb, image4Thumb];

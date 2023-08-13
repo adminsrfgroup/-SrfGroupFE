@@ -826,8 +826,8 @@ function DisplayItemReceived({ item, callbackRefusedRentRequest, callbackAcceptR
                                         <DatePicker
                                             label={t<string>('common.label_start_date')}
                                             value={formik.values.startDate}
-                                            onChange={(newValue) => formik.setFieldValue('startDate', newValue)}
-                                            renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
+                                            onChange={(newValue: any) => formik.setFieldValue('startDate', newValue)}
+                                            renderInput={(params: any) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                                         />
                                     </Grid>
 
@@ -835,8 +835,8 @@ function DisplayItemReceived({ item, callbackRefusedRentRequest, callbackAcceptR
                                         <DatePicker
                                             label={t<string>('common.label_end_date')}
                                             value={formik.values.endDate}
-                                            onChange={(newValue) => formik.setFieldValue('endDate', newValue)}
-                                            renderInput={(params) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
+                                            onChange={(newValue: Date) => formik.setFieldValue('endDate', newValue)}
+                                            renderInput={(params: any) => <TextField {...params} size="small" fullWidth error={false} color="secondary" />}
                                         />
                                     </Grid>
                                 </Grid>
