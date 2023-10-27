@@ -104,7 +104,7 @@
     "docker:react:up": "docker-compose -f react.yml up ",
     "docker:react:down": "docker-compose -f react.yml down -v --remove-orphans",
     "clear-cache-jest": "jest --clearCache",
-    "format-line-prettier": "prettier  --write src/**/*.{js,jsx,ts,tsx}",
+    "format-line-prettier": "prettier --write src/**/*.{js,jsx,ts,tsx}",
     "lint:prettier:project": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
     "prepare": "husky install"
   },
