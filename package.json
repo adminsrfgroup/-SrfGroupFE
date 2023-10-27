@@ -96,7 +96,7 @@
     "coverage": "react-scripts test --coverage",
     "test-sonar": "react-scripts test --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter",
     "eject": "react-scripts eject",
-    "e2e": "npx cypress open",
+    "e2e-cypress": "npx cypress open",
     "serve:build:prod": "npm run build:prod && serve -s build",
     "generate-sonar-rapport": "node sonar-project.js",
     "docker:sonar:up": "docker-compose -f docker/sonar.yml up -d",
