@@ -8,7 +8,8 @@ module.exports = {
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "react-app",
-        "react-app/jest"
+        "react-app/jest",
+        "plugin:storybook/recommended"
     ],
     "overrides": [
     ],

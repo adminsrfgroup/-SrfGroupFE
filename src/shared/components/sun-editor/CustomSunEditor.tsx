@@ -1,5 +1,5 @@
 import React from 'react';
-import SunEditor from 'suneditor-react';
+// import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 export function CustomSunEditor({ defaultValue, callbcakHandleChange, placeholder }: { defaultValue: string; callbcakHandleChange: any; placeholder: string }) {
@@ -8,15 +8,16 @@ export function CustomSunEditor({ defaultValue, callbcakHandleChange, placeholde
     };
 
     return (
-        <SunEditor
-            lang="en"
-            setContents={defaultValue}
-            placeholder={placeholder}
-            setOptions={{
-                height: '200',
-                buttonList: [['undo', 'redo', 'font', 'fontSize', 'formatBlock']],
-            }}
-            onChange={handleChange}
-        />
+        <p>Deprecated Version</p>
+        // <SunEditor
+        //     lang="en"
+        //     setContents={defaultValue}
+        //     placeholder={placeholder}
+        //     setOptions={{
+        //         height: '200',
+        //         buttonList: [['undo', 'redo', 'font', 'fontSize', 'formatBlock']],
+        //     }}
+        //     onChange={handleChange}
+        // />
     );
 }
