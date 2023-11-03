@@ -1,4 +1,4 @@
-import SockJS from 'sockjs-client';
+// import SockJS from 'sockjs-client';
 
 import Stomp, { Client } from 'webstomp-client';
 import { Observable } from 'rxjs';
@@ -8,6 +8,8 @@ import { ACTION_TYPES as WS_ACTIONS } from '../../main-features/user/store/reduc
 import { IUser } from '../../shared/model/user.model';
 import { addNewConnectedUser, fetchListConnectedUsersWS, removeDisconnectedUser } from '../../main-features/user/store/slice';
 
+// @Todo : to be removed
+let SockJS: any;
 let stompClient: any = null;
 
 let subscriber: any = null;
@@ -97,23 +99,23 @@ const connect = (currentUser: IUser) => {
     if (authToken) {
         url += '?access_token=' + authToken;
     }
-    const socket = new SockJS(url);
-    stompClient = Stomp.over(socket, { protocols: ['v12.stomp'] });
-
-    if (process.env.NODE_ENV === 'production') {
-        stompClient.debug = () => {
-            return;
-        };
-    }
-
-    stompClient.connect(headers, () => {
-        connectedPromise('success');
-        connectedPromise = null;
-        // sendActivity(window.location.pathname);
-        alreadyConnectedOnce = true;
-
-        sendConnectedNewUser(currentUser);
-    });
+    // const socket = new SockJS(url);
+    // stompClient = Stomp.over(socket, { protocols: ['v12.stomp'] });
+    //
+    // if (process.env.NODE_ENV === 'production') {
+    //     stompClient.debug = () => {
+    //         return;
+    //     };
+    // }
+    //
+    // stompClient.connect(headers, () => {
+    //     connectedPromise('success');
+    //     connectedPromise = null;
+    //     // sendActivity(window.location.pathname);
+    //     alreadyConnectedOnce = true;
+    //
+    //     sendConnectedNewUser(currentUser);
+    // });
 };
 
 const disconnect = () => {
